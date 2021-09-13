@@ -9,6 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserActivityDao implements IUserActivityDao {
 
     // Singleton
@@ -49,7 +50,7 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    // @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public List<UserActivity> findAllPosts() {
         List<UserActivity> userActList = new ArrayList<>();
@@ -88,13 +89,11 @@ public class UserActivityDao implements IUserActivityDao {
     @Override
     public void deleteAll() { }
 
-
     // e.g. [UserActivityDao.getInstance()].createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
-    public static UserActivityDao getInstance() {
+    public static UserActivityDao getInstance(){
         if (instance == null) { instance = new UserActivityDao(); }
         return instance;
     }
 
 }
-
 
