@@ -32,8 +32,8 @@ public class TimelineActivity extends AppCompatActivity {
         // Adapter
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);
         rvTimeline.setAdapter(timelineAdapter);
-        // rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));        // Grid Layout
-        rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
+        rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));        // Grid Layout
+            // rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
 
     }
 

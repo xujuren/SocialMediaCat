@@ -29,7 +29,6 @@ public class AppActivity extends AppCompatActivity {
         }
 
         setUpLogOutButton();
-
         setUpTimelineButton();
 
     }
