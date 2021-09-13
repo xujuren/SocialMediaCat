@@ -1,5 +1,6 @@
 package anu.softwaredev.socialmediacat;
 
+import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
-// import com.github.bumptech.glide.Glide;
-//import com.bumptech.glide.load.engine.DiskCacheStrategy;
-//import com.bumptech.glide.request.RequestOptions;
 
 // create own's Adapter for the Timeline (Recycler): Imple Methods
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>{
@@ -45,11 +45,11 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         // M (image): load rand image from external source using Glide (code from ref) (*install Glide?)
         int id = (int) Math.random() *((100-0)+1) + 0; 	// gen rand id (use for URL below), max=100 min=0
 
-        // TODO - Glide
-//        Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
-//                .skipMemoryCache(true)
-//              .into(holder.getPostImage());
+        // Glide ** [Image]
+        Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
+                .skipMemoryCache(true)
+              .into(holder.getPostImage());
 
     }
 
