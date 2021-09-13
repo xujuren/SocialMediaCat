@@ -24,8 +24,7 @@
             android:parentActivityName=".AppActivity" />
         <activity
             android:name=".AppActivity"
-            android:exported="true"
-            android:parentActivityName=".AppActivity" />
+            android:exported="true" />
         <activity
             android:name=".CreateAccActivity"
             android:exported="true"
