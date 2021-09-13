@@ -12,7 +12,7 @@ import java.util.List;
 
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
-//import com.bumptech.glide.Glide;
+// import com.github.bumptech.glide.Glide;
 //import com.bumptech.glide.load.engine.DiskCacheStrategy;
 //import com.bumptech.glide.request.RequestOptions;
 
@@ -45,6 +45,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         // M (image): load rand image from external source using Glide (code from ref) (*install Glide?)
         int id = (int) Math.random() *((100-0)+1) + 0; 	// gen rand id (use for URL below), max=100 min=0
 
+        // TODO - Glide
 //        Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
 //                .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
 //                .skipMemoryCache(true)
