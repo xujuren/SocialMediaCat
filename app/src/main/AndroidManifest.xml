@@ -16,15 +16,19 @@
             android:exported="true" />
         <activity
             android:name=".TimelineActivity"
+            android:parentActivityName=".AppActivity"
             android:exported="true" />
         <activity
             android:name=".CreateAccActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".ForgetPwActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity implements ChildEventListener {
+public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     ArrayAdapter<String> fileDBAdapter;
@@ -36,10 +36,11 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        mAuth = FirebaseAuth.getInstance();         // ?
-//        FirebaseUser user = mAuth.getCurrentUser();
-//
-//        // AuthStateListener: listen for Change in AuthState
+
+        mAuth = FirebaseAuth.getInstance();         // ?
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        /* [?] AuthStateListener: listen for Change in AuthState */
 //        authStateListener = new FirebaseAuth.AuthStateListener() {
 //            @Override
 //            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
 //                    Log.e("Nick", "Login Success");
 //                    FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
 //                    DatabaseReference myRef = fireDB.getReference("聯絡人");   // ?
-//                    myRef.addChildEventListener(MainActivity.this);
+//                    // myRef.addChildEventListener(MainActivity.this);
 //                }
 //            }
 //        };
@@ -68,58 +69,8 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
 //        // if <aldy logged in>: go APP's Interface (Ref: MainAct)
 //            Intent i = new Intent();
 //            i.setClass(MainActivity.this, AppActivity.class);
-//
 //        }
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // fileAuth.addAuthStateListener(authStateListener);
-    }
-
-    @Override
-    protected void onStop() {
-        if (authStateListener != null){
-            fileAuth.removeAuthStateListener(authStateListener);
-        }
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        fileAuth.signOut();
-        super.onDestroy();
-    }
-
-
-
-    @Override
-    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-        fileDBAdapter.add(
-                String.valueOf(snapshot.child("name").getValue()));
-    }
-
-    @Override
-    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
-
-    @Override
-    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-        fileDBAdapter.remove(
-                String.valueOf(snapshot.child("name").getValue()));
-    }
-
-    @Override
-    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
-
-    @Override
-    public void onCancelled(@NonNull DatabaseError error) { }
-
-
-
-
-
-
 
     // onClick M for button (login_button)
     public void logIn(View v){
