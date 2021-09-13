@@ -38,7 +38,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
     @Override      // associates the View with Data we hv (this.dataset): using getter methods above*
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
-
         holder.getPostUsername().setText(dataset.get(position).getUsername());
         holder.getPostContent().setText(dataset.get(position).getContent());
 
@@ -69,7 +68,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         public TimelineViewHolder(@NonNull View itemView) {
             super(itemView);
             this.ivPostImage = (ImageView) itemView.findViewById(R.id.iv_post_image);
-            this.tvPostUsername = (TextView) itemView.findViewById(R.id.tv_post_username);
+            this.tvPostUsername = (TextView) itemView.findViewById(R.id.tv_post_user);
             this.tvPostContent = (TextView) itemView.findViewById(R.id.tv_post_content);
         }
 

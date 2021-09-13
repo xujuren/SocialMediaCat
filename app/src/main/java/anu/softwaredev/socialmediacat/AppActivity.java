@@ -22,8 +22,7 @@ public class AppActivity extends AppCompatActivity {
         /** Extract user's email (from Login) */
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String user = extras.getString("userEmail");       //The key argument here must match that used in the other activity
-
+            String user = extras.getString("userEmail");       // key arg: match that used in the other activity
             TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
             welcomeText.setText("Welcome, " + user);
         }
@@ -38,8 +37,8 @@ public class AppActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();                   // FirebaseAuth
-                Intent intent = new Intent();
+                FirebaseAuth.getInstance().signOut();                   // FirebaseAuth: signOut
+                Intent intent = new Intent();                           // return to Main Page
                 intent.setClass(AppActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -47,23 +46,10 @@ public class AppActivity extends AppCompatActivity {
         });
     }
 
-    // [Button: toTimeLine_bt]
-    protected void toTimelineAct(View v){
+    // [Button: toTimeLine_bt]  [c] need public
+    public void toTimelineAct(View v){
         Intent i = new Intent(AppActivity.this, TimelineActivity.class);
         startActivity(i);
     }
 
-    // to Complete Data Transfer btn Act
-    @Override
-    protected void onActivityResult(int reqCode, int resultCode, Intent data){
-        super.onActivityResult(reqCode, resultCode, data);        // run ori thgs
-        // [x] After Log In [successful login > results] ? (username, pw)
-//        TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
-//        if (reqCode ==1 && resultCode==RESULT_OK) {             // for subj
-//            welcomeText.setText("Welcome, " + data.getStringExtra("userEmail"));
-//        } else {
-//            welcomeText.setText("???");
-//        }
-
-    }
 }

@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     // onClick M for button (login_button)
     public void logIn(View v){
         Intent i = new Intent(MainActivity.this, LoginActivity.class);
-        startActivityForResult(i, 1);       // request code: 1
+        startActivity(i);       // for Data: startActivityForResult(i, 1) - request code: 1
     }
 
     // for logIn: to Complete the Transfer (username, pw)
@@ -85,10 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Log In [successful login > results]
         if (reqCode ==1 && resultCode==RESULT_OK) {             // for subj
-            // boolean logInSucceed = data.getBooleanExtra("login_succeed", false);
             TextView welcomeText = (TextView) findViewById(R.id.tv_welcome);
             welcomeText.setText("Welcome, " + data.getStringExtra("username"));
-
         }
     }
 
