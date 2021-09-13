@@ -30,9 +30,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
     /** imple Methods (Recycler Adapter) */
     @NonNull
-    @Override       // Uses "layoutInflator": send xxx to XML we’re to create now
+    @Override       // Uses "layoutInflater" [c***] inflate the [post XML]!!: send xxx to XML we’re to create now
     public TimelineAdapter.TimelineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(ctx).inflate(R.layout.activity_timeline, parent, false);
+        View view = LayoutInflater.from(ctx).inflate(R.layout.activity_timeline_post, parent, false);
         return new TimelineViewHolder(view);
     }
 
@@ -42,7 +42,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.getPostContent().setText(dataset.get(position).getContent());
 
         // M (image): load rand image from external source using Glide (code from ref) (*install Glide?)
-        int id = (int) Math.random() *((100-0)+1) + 0; 	// gen rand id (use for URL below), max=100 min=0
+        int id = (int) Math.random() *((100-20)+1) + 20; 	// gen rand id (use for URL below), max=100 min=(20)
         // Glide ** [Image]
         Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached

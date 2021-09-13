@@ -81,10 +81,9 @@ public class MainActivity extends AppCompatActivity {
         timelineBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent();                           // to [TimelineActivity] Page
-                intent2.setClass(getApplicationContext(), TimelineActivity.class);
-                startActivity(intent2);
-                finish();
+                Intent i = new Intent(getApplicationContext(), TimelineActivity.class);   // to [TimelineActivity] Page
+                startActivity(i);
+                // finish();
             }
         });
     }
@@ -119,22 +118,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, CreateAccActivity.class);
         startActivity(i);
     }
-
-
-    // Create Acc - Set Up (https://givemepass.blogspot.com/2017/04/firebase-authentication.html)
-    private void initView() {
-        mAuth = FirebaseAuth.getInstance();
-//        accountEdit = (EditText) findViewById(R.id.input_email_createacc);
-//        passwordEdit = (EditText) findViewById(R.id.input_pw1_createacc);
-//        accoutLayout = (TextInputLayout) findViewById(R.id.account_layout);
-//        passwordLayout = (TextInputLayout) findViewById(R.id.password_layout);
-//        passwordLayout.setErrorEnabled(true);
-//        accoutLayout.setErrorEnabled(true);
-//        signUpBtn = (Button) findViewById(R.id.signup_button);
-    }
-
-    /* 檢查結束後 將提示訊息記得設回空字串，否則遇到第一次失敗，第二次要輸入的時候失敗字串還會顯示在上面，在上面程式碼中我們有跟 Firebase 取得 auth 的物件。 */
-
 
 
 }

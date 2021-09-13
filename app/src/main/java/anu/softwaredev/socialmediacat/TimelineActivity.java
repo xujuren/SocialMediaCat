@@ -14,6 +14,7 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
