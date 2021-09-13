@@ -43,10 +43,10 @@ public class LoginActivity extends AppCompatActivity {
     /** M: Ref (https://github.com/givemepassxd999/filebase_auth_register_demo/blob/master/app/src/main/java/com/example/givemepass/firebase_auth/LoginActivity.java) */
     private void initView() {
         mAuth = FirebaseAuth.getInstance();
-        accEdit = (EditText) findViewById(R.id.tv_user_email);
-        pwEdit = (EditText) findViewById(R.id.tv_user_pw);
-        accLayout = (TextInputLayout) findViewById(R.id.login_msg_acc);
-        pwLayout = (TextInputLayout) findViewById(R.id.login_msg_pw);
+        accEdit = (EditText) findViewById(R.id.login_msg_acc_text);                      // prev: [tv_user_email]
+        pwEdit = (EditText) findViewById(R.id.login_msg_pw_text);                          // tv_user_pw
+        accLayout = (TextInputLayout) findViewById(R.id.login_msg_acc);         // above: [login_msg_acc]
+        pwLayout = (TextInputLayout) findViewById(R.id.login_msg_pw);               // login_msg_pw
         accLayout.setErrorEnabled(true);
         pwLayout.setErrorEnabled(true);
 
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 accLayout.setError("");
-                pwLayout.setError("");
+                pwLayout.setError("");          // Reset error msg - else remains visible for new input
 
                 // sign in method
                 mAuth.signInWithEmailAndPassword(acc, pw)
