@@ -21,7 +21,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         // Timeline (the Recycler View)
-        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_Timeline);
+        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
 
         // Data (create sth as posts here > set up a list w/ all posts)
         UserActivityDao.getInstance().createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
@@ -33,7 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);
         rvTimeline.setAdapter(timelineAdapter);
         // rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));        // Grid Layout
-        // rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
+        rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
 
     }
 

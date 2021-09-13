@@ -10,14 +10,14 @@
         android:id="@+id/iv_post_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/tv_post_user"
+        app:layout_constraintBottom_toTopOf="@+id/tv_post_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars[3]" />
 
     <TextView
-        android:id="@+id/tv_post_user"
+        android:id="@+id/tv_post_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -45,5 +45,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_user" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_post_username" />
 </androidx.constraintlayout.widget.ConstraintLayout>
