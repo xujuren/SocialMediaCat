@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 
 // create own's Adapter for the Timeline (Recycler): Imple Methods
-public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>{
+public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
 
     /* add fields & a Constructor (Context, the dataset: List<UserActivity>) */
     private final Context ctx;
@@ -43,13 +43,11 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
         // M (image): load rand image from external source using Glide (code from ref) (*install Glide?)
         int id = (int) Math.random() *((100-0)+1) + 0; 	// gen rand id (use for URL below), max=100 min=0
-
         // Glide ** [Image]
         Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
                 .skipMemoryCache(true)
               .into(holder.getPostImage());
-
     }
 
     @Override             // no. of items we hv
@@ -57,7 +55,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         return dataset.size();
     }
 
-    /** Create [TimelineViewHolder] class (extends RecyclerView.ViewHolder) */
+    /** Create [TimelineViewHolder] class (extends RecyclerView.ViewHolder)
+     * TimelineViewHolder: add Fields (objs in a post) and findViews (from XML file) */
     public class TimelineViewHolder extends RecyclerView.ViewHolder {
 
         /* Fields (within each "Post") */
