@@ -1,8 +1,14 @@
 package anu.softwaredev.socialmediacat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import java.util.List;
+
+import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
+import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -11,4 +17,22 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
     }
+
+    // Timeline
+    RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rvTimeLine);
+
+    // Data (create sth as posts here > set up a list w/ all posts)
+    UserActivityDao.getInstance().createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
+    UserActivityDao.getInstance().createPost("@pengu", "arrRRARARKRKRKRKKK!");
+
+    List<UserActivity> allPosts = UserActivityDao.getInstance().findAllPosts();
+
+    // Adapter
+    TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);
+    rvTimeline.setAdapter(timelineAdapter);
+    rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
+        // alt: setLayoutManager(new GridLayoutManage(this, spanCount: 2)
+
+
+
 }

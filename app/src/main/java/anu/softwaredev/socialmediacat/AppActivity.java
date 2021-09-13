@@ -47,6 +47,11 @@ public class AppActivity extends AppCompatActivity {
         });
     }
 
+    // [Button: toTimeLine_bt]
+    protected void toTimelineAct(View v){
+        Intent i = new Intent(AppActivity.this, TimelineActivity.class);
+        startActivity(i);
+    }
 
     // to Complete Data Transfer btn Act
     @Override
