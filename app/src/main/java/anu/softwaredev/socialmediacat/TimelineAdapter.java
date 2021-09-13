@@ -6,16 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
-// create own's Adapter for the Timeline (Recycler): Imple Methods
+//import com.bumptech.glide.Glide;
+//import com.bumptech.glide.load.engine.DiskCacheStrategy;
+//import com.bumptech.glide.request.RequestOptions;
 
+// create own's Adapter for the Timeline (Recycler): Imple Methods
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>{
 
     /* add fields & a Constructor (Context, the dataset: List<UserActivity>) */
@@ -44,10 +45,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         // M (image): load rand image from external source using Glide (code from ref) (*install Glide?)
         int id = (int) Math.random() *((100-0)+1) + 0; 	// gen rand id (use for URL below), max=100 min=0
 
-        Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
-                .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
-                .skipMemoryCache(true))
-              .into(holder.getPostImage());
+//        Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
+//                .skipMemoryCache(true)
+//              .into(holder.getPostImage());
 
     }
 
@@ -61,8 +62,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
         /* Fields (within each "Post") */
         private final ImageView ivPostImage;
-        private final ImageView tvPostUsername;
-        private final ImageView tvPostContent;
+        private final TextView tvPostUsername;
+        private final TextView tvPostContent;
 
         public TimelineViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -2,9 +2,9 @@ package anu.softwaredev.socialmediacat.dao.decorator;
 
 import java.util.List;
 
-public interface iUserActivityDao {
+public interface IUserActivityDao {
 
-    /* 5 Types */
+    /** 5 Methods */
 
     public UserActivity createPost(String username, String postContent);
 

@@ -1,7 +1,7 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
 
+// from Design Pattern Lec
 public class UserActivity {
-    // from Design Pattern Lec
 
     private String username;
     private String action;
@@ -22,6 +22,5 @@ public class UserActivity {
     public String getContent() {return contest;}
 
     public Integer getidPost() {return idPost;}
-
 
 }

@@ -1,9 +1,7 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
 
 import android.os.Build;
-
 import androidx.annotation.RequiresApi;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,12 +9,12 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserActivityDao implements iUserActivityDao {
+public class UserActivityDao implements IUserActivityDao {
 
     // Singleton
     private static UserActivityDao instance;
     private static Integer idCount=0;
-    private static File file;                       //*csv file to store
+    private static File file;                       // *csv file to store
     static {
         try {
             file = File.createTempFile("user-action", ".csv");
@@ -27,9 +25,7 @@ public class UserActivityDao implements iUserActivityDao {
 
     private UserActivityDao() {};
 
-
-    // method called: createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
-    @Override
+    @Override           // called: [UserActivityDao.getInstance()].createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
     public UserActivity createPost(String username, String content) {           // alt: only content (username: below)
         try {
             idCount++;
@@ -45,7 +41,6 @@ public class UserActivityDao implements iUserActivityDao {
         } catch (IOException e) { e.printStackTrace(); }
 
         return null;
-
     }
 
     @Override
@@ -53,13 +48,11 @@ public class UserActivityDao implements iUserActivityDao {
         return null;
     }
 
-    // [*?] lec NOT static, but imple req (called in Timeline: UserActivityDao.findAllPosts())
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public List<UserActivity> findAllPosts() {
-
         List<UserActivity> userActList = new ArrayList<>();
-
         try {
             byte[] bytes = Files.readAllBytes(file.toPath());
             String fileContent = new String(bytes);
@@ -93,14 +86,15 @@ public class UserActivityDao implements iUserActivityDao {
     }
 
     @Override
-    public void deleteAll() {
+    public void deleteAll() { }
 
-    }
 
-    // e.g. UserActivityDao.getInstance().createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
-    public static UserActivityDao getInstance(){
+    // e.g. [UserActivityDao.getInstance()].createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
+    public static UserActivityDao getInstance() {
         if (instance == null) { instance = new UserActivityDao(); }
         return instance;
     }
 
 }
+
+
