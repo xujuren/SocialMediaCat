@@ -1,9 +1,12 @@
 package anu.softwaredev.socialmediacat;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.os.Bundle;
 import java.util.List;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
@@ -11,6 +14,7 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);
         rvTimeline.setAdapter(timelineAdapter);
         // rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));        // Grid Layout
-        rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
+        // rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
 
     }
 
