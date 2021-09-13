@@ -41,24 +41,27 @@ public class CreateAccActivity extends AppCompatActivity {
 
     private void initView() {
         mAuth = FirebaseAuth.getInstance();
-        accEdit = (EditText) findViewById(R.id.input_email_createacc);
-        pwEdit = (EditText) findViewById(R.id.input_pw1_createacc);
-        pwEdit2 = (EditText) findViewById(R.id.input_pw2_createacc);
+        accEdit = (EditText) findViewById(R.id.createAcc_input_text);
+        pwEdit = (EditText) findViewById(R.id.createAcc_input_pw_text);
+        // pwEdit2 = (EditText) findViewById(R.id.input_pw2_createacc);
+
         // why need?? got toast
         // msgLayout = (TextInputLayout) findViewById(R.id.createacc_msg_text);
         // msgLayout.setErrorEnabled(true);
-        signUpBt = (Button) findViewById(R.id.Create_Acc_button);
+
+        /* Click button [Create Acc] */
+        signUpBt = (Button) findViewById(R.id.Create_Acc_Bt);
         signUpBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 acc = accEdit.getText().toString();
                 pw = pwEdit.getText().toString();
                 if(TextUtils.isEmpty(acc) || TextUtils.isEmpty(pw)){
-                    msgLayout.setError(getString(R.string.createAcc_msg_emptyInput));
+                    // msgLayout.setError(getString(R.string.createAcc_msg_emptyInput));
                     // msgLayout.setError("");      - repeated?
                     return;
                 }
-                msgLayout.setError("");
+                // msgLayout.setError("");
 
                 /* Create Account (with pw) */
                 mAuth.createUserWithEmailAndPassword(acc, pw)
@@ -78,25 +81,6 @@ public class CreateAccActivity extends AppCompatActivity {
                         });
             }
         });
-    }
-
-
-    // Ori
-    {
-        // Input Items
-        EditText inputEmail = (EditText) findViewById(R.id.input_email_createacc);
-        EditText inputPw1 = (EditText) findViewById(R.id.input_pw1_createacc);
-        EditText inputPw2 = (EditText) findViewById(R.id.input_pw2_createacc);
-
-        // ?
-        // accoutLayout = (TextInputLayout) findViewById(R.id.account_layout);
-        // passwordLayout = (TextInputLayout) findViewById(R.id.password_layout);
-
-
-
-        // String userEmail =
-
-
     }
 
 }
