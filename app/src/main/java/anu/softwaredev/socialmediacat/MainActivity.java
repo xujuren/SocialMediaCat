@@ -12,8 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -27,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     ArrayAdapter<String> fileDBAdapter;
 
-    private Button timelineBt;
-
     /** M (https://nickcarter9.github.io/2017/04/20/2017/2017_04_20-android-firebase-database-auth/)*/
 
     @Override
@@ -38,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();         // ?
         FirebaseUser user = mAuth.getCurrentUser();
-
-        setUpTimelineButton();
 
         /* [?] AuthStateListener: listen for Change in AuthState */
 //        authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -74,19 +74,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /** Testing Only [@AppActivity] */
-    // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)
-    private void setUpTimelineButton() {
-        timelineBt = (Button) findViewById(R.id.to_timeline_bt2);
-        timelineBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), TimelineActivity.class);   // to [TimelineActivity] Page
-                startActivity(i);
-                // finish();
-            }
-        });
+    /** Testing Only [@AppActivity] */      // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)
+    public void timelineTest(View v) {
+        Intent i = new Intent(getApplicationContext(), TimelineActivity.class);   // to [TimelineActivity] Page
+        startActivity(i);
+        // finish();
     }
+
+    /** Testing Only [@quick Log in] */     // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)
+    public void logInTest(View v) {
+        // sign in method
+        mAuth.signInWithEmailAndPassword("testing@anu.edu.au", "Testing123")
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent i = new Intent(MainActivity.this, AppActivity.class);
+                            startActivity(i);
+                        }
+                    }
+                });
+        // finish();
+    }
+
+
 
     // onClick M for button (login_button)
     public void logIn(View v){

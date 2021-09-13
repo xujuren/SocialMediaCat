@@ -90,45 +90,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    /** [C] read inputs > return */
-    // login Confirm button - Process log in
-    public void loginConfirm(View v){
-//
-//        // TODO: check info
-//        String username = "";
-//        boolean logInSucceed = false;
-//        while (!logInSucceed) {
-//            // TODO: RELOAD - else INFINITE
-//            EditText inputUsername = (EditText) findViewById(R.id.tv_user_email);
-//            EditText inputPw = (EditText) findViewById(R.id.tv_user_pw);
-//
-//            // input Info
-//            username = inputUsername.getText().toString();
-//            String password = inputPw.getText().toString();
-//
-//            if (!password.contains("x")) {               // TD
-//                logInSucceed = true;
-//            } else {    //TODO Try - reload
-//                onRestart();
-//            }
-//        }
-//
-//        /* return to MAIN - if login succeed */
-//        TextView logInTv = (TextView) findViewById(R.id.tv_login_intro);
-//
-//        // use an Intent to store
-//        Intent intent = new Intent();
-//        intent.putExtra("username", username);
-////        intent.putExtra("password", inputPw.getText().toString());
-////        intent.putExtra("login_succeed", logInSucceed);
-//
-//        // Set result as intent above
-//        setResult(RESULT_OK, intent);           // * 1) result codes: hardcoded into Android Activity class as consts
-//
-//        // finish Act
-//        finish();
-    }
-
     // Refresh the Activity (login page)
     public void refresh(){          //refresh is onClick name given to the button
         onRestart();
