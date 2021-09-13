@@ -16,7 +16,8 @@
         android:theme="@style/Theme.SocialMediaCat">
         <activity
             android:name=".ManageProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".AppActivity" />
         <activity
             android:name=".TimelineActivity"
             android:exported="true"

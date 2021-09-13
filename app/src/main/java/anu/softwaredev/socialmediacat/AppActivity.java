@@ -14,9 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AppActivity extends AppCompatActivity {
 
-    private Button logoutBt;
-    private Button timelineBt;
     FirebaseUser user;
+    String userName;                // user's displayName (if available) or e-mail address
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,36 +24,28 @@ public class AppActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (!TextUtils.isEmpty(user.getDisplayName())) {
-            String userName = user.getDisplayName();
+            userName = user.getDisplayName();
         } else {
             /** Extract user's email (from Login) */
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                String userName = extras.getString("userEmail");       // key arg: match that used in the other activity
+               userName = extras.getString("userEmail");       // key arg: match that used in the other activity
             }
         }
         // Display Welcome Message
         TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
-        welcomeText.setText("Welcome, " + user);
+        welcomeText.setText("Welcome, " + userName);
 
-
-        setUpLogOutButton();
 
     }
 
     // Set Up the [Log Out Button] > return to Main Page
-    private void setUpLogOutButton() {
-        logoutBt = (Button) findViewById(R.id.logOut_bt);
-        logoutBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();                   // FirebaseAuth: signOut
-                Intent intent = new Intent();                           // return to Main Page
-                intent.setClass(AppActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+    public void logOutClick(View v) {
+        FirebaseAuth.getInstance().signOut();                   // FirebaseAuth: signOut
+        Intent intent = new Intent();                           // return to Main Page
+        intent.setClass(AppActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 
