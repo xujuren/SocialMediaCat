@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     ArrayAdapter<String> fileDBAdapter;
 
-    private FirebaseAuth fileAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
+    private Button timelineBt;
 
     /** M (https://nickcarter9.github.io/2017/04/20/2017/2017_04_20-android-firebase-database-auth/)*/
 
@@ -39,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();         // ?
         FirebaseUser user = mAuth.getCurrentUser();
+
+        setUpTimelineButton();
 
         /* [?] AuthStateListener: listen for Change in AuthState */
 //        authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -70,6 +71,22 @@ public class MainActivity extends AppCompatActivity {
 //            Intent i = new Intent();
 //            i.setClass(MainActivity.this, AppActivity.class);
 //        }
+    }
+
+
+    /** Testing Only [@AppActivity] */
+    // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)
+    private void setUpTimelineButton() {
+        timelineBt = (Button) findViewById(R.id.to_timeline_bt2);
+        timelineBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent();                           // to [TimelineActivity] Page
+                intent2.setClass(getApplicationContext(), TimelineActivity.class);
+                startActivity(intent2);
+                finish();
+            }
+        });
     }
 
     // onClick M for button (login_button)

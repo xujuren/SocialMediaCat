@@ -16,11 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialMediaCat">
         <activity
-            android:name=".AppActivity"
-            android:exported="true" />
-        <activity
             android:name=".TimelineActivity"
-            android:parentActivityName=".AppActivity"
+            android:exported="true"
+            android:parentActivityName=".AppActivity" />
+        <activity
+            android:name=".AppActivity"
             android:exported="true" />
         <activity
             android:name=".CreateAccActivity"
