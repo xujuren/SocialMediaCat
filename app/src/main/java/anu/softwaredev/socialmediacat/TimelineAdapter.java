@@ -42,7 +42,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.getPostContent().setText(dataset.get(position).getContent());
 
         // M (image): load rand image from external source using Glide (code from ref) (*install Glide?)
-        int id = (int) Math.random() *((100-20)+1) + 20; 	// gen rand id (use for URL below), max=100 min=(20)
+        int id = (int) (Math.random() *((100-20)+1) + 20); 	// gen rand id (use for URL below), max=100 min=(20)
         // Glide ** [Image]
         Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
