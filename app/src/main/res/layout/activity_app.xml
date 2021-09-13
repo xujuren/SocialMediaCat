@@ -55,10 +55,26 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="#07808F"
+        android:onClick="toTimelineAct"
         android:text="Timeline"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_welcome_appAct" />
+
+    <Button
+        android:id="@+id/to_Manage_Profile_bt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#07808F"
+        android:onClick="toManageProfile"
+        android:text="Manage Profile"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_timeline_bt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

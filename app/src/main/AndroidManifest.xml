@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="anu.softwaredev.socialmediacat">
-
     <!-- added permissions (Internet, Local Storage) -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,24 +15,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialMediaCat">
         <activity
-            android:name=".TimelineActivity"
-            android:parentActivityName=".AppActivity"
+            android:name=".ManageProfileActivity"
             android:exported="true" />
+        <activity
+            android:name=".TimelineActivity"
+            android:exported="true"
+            android:parentActivityName=".AppActivity" />
         <activity
             android:name=".AppActivity"
             android:exported="true" />
         <activity
             android:name=".CreateAccActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ForgetPwActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".LoginActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -29,7 +29,6 @@ public class AppActivity extends AppCompatActivity {
         }
 
         setUpLogOutButton();
-        setUpTimelineButton();
 
     }
 
@@ -49,26 +48,20 @@ public class AppActivity extends AppCompatActivity {
     }
 
 
-    // Set Up the [Log Out Button] > return to Main Page
-    private void setUpTimelineButton() {
-        timelineBt = (Button) findViewById(R.id.to_timeline_bt);
-        timelineBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent();                           // to [TimelineActivity] Page
-                intent2.setClass(AppActivity.this, TimelineActivity.class);
-                startActivity(intent2);
-                finish();
-            }
-        });
+    // Set Up the [to Timeline] Button
+    public void toTimelineAct(View v){          // [c] need public
+        Intent i = new Intent(getApplicationContext(), TimelineActivity.class);        // ori: AppActivity.this
+        startActivity(i);
+        // finish();
+    }
+
+    // Set Up the [Manage Profile] Button
+    public void toManageProfile(View v){          // [c] need public
+        Intent i = new Intent(getApplicationContext(), ManageProfileActivity.class);
+        startActivity(i);
+        // finish();
     }
 
 
-    // M1 (try above) [Button: toTimeLine_bt]  [c] need public
-//    public void toTimelineAct(View v){
-//        Intent i = new Intent(getApplicationContext(), TimelineActivity.class);        // ori: AppActivity.this
-//        startActivity(i);
-//        // finish();
-//    }
 
 }
