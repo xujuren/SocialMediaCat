@@ -57,20 +57,23 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     HashMap<String, Object> fieldPairs = new HashMap<>();
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        String key = ds.getKey();
-                        String value = (String) ds.getValue();
-                        fieldPairs.put(key, value);
-                        // Toast.makeText(getApplicationContext(), "got: " + anElemFromSnapShot, Toast.LENGTH_SHORT);
-                    }
-
-                    /** Test: got name etc. ? format? */
-                    for (String k : fieldPairs.keySet()) {
-                        if (k.equals("name")) {
-                            userDbRef.child("proPci").setValue(fieldPairs.get(k));
-                            return;
+                        String k = ds.getKey();
+                        switch (k) {
+                            case "name":
+                                currentName = (String) ds.getValue();
+                                TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+                                userNameLayout.setHint("(from DB - current: " + currentName + ")");
+                                continue;
+                            case "emailAddress":
+                                currentEmail = (String) ds.getValue();
+                                continue;
+                            case "proPic":
+                                // currentProPic = (Uri) ds.getValue();
+                                continue;
                         }
 
                     }
+
 
                     // [ERROR] Get [User] object and use the values to update the UI        (??)
                     // User userFromDb = snapshot.getValue(User.class);          // .getValue(User.class)
@@ -85,19 +88,19 @@ public class ProfileActivity extends AppCompatActivity {
             userDbRef.addValueEventListener(userListener);
 
             /* M2 (get) */
-            userDbRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
-                    }
-                    else {
-                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                        /** where's the data ???*/
-
-                    }
-                }
-            });
+//            userDbRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                    if (!task.isSuccessful()) {
+//                        Log.e("firebase", "Error getting data", task.getException());
+//                    }
+//                    else {
+//                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                        /** where's the data ???*/
+//
+//                    }
+//                }
+//            });
 
 
             /** M1 - user.getFields() @Authn*/
@@ -105,8 +108,12 @@ public class ProfileActivity extends AppCompatActivity {
 //            currentProPic = user.getPhotoUrl();
 
             // dummies
-            currentName = "-";
-            currentProPic = Uri.parse("-");
+            if (currentName==null || currentName == "") {
+                currentName = "-";
+            }
+            if (currentProPic==null || currentProPic == Uri.parse("")) {
+                currentProPic = Uri.parse("-");;
+            }
 
             TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
             TextInputLayout proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);

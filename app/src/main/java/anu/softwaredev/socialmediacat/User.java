@@ -11,7 +11,8 @@ public class User {
     String password = "";
     String displayName = "";
     // Character gender = "";
-    String profilePicLink = "";  // or [Uri] type?
+    String proPicLink = "";  // or [Uri] type?
+    int birthYear = -1;
     // DoB
 
     // Constructor (@Sign Up)
@@ -25,12 +26,12 @@ public class User {
     public String getUId() {return uId;}
     public String getEmailAddress() {return emailAddress;}
     public String getName() {return displayName;}
-    public String getProPic() {return this.profilePicLink;}
+    public String getProPic() {return this.proPicLink;}
 
     // Setter methods
     public void setEmailAddress(String emailAddress) {this.emailAddress = emailAddress;}
     public void setName(String name) {this.displayName = name;}
-    public void setProPic(String profilePicLink) {this.profilePicLink = profilePicLink;}
+    public void setProPic(String profilePicLink) {this.proPicLink = profilePicLink;}
 
 
 }
