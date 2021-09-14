@@ -20,7 +20,7 @@ public class ForgetPwActivity extends AppCompatActivity {
         /** Test DB [dummy info > upload] */
         /* Store User Info in Firebase Realtime DB too [HashMap->]  (Ref: Vid2)*/
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("email", "Link using dummy info (forgetpw Activity)");
+        hashMap.put("email", "Link DB: using dummy info (forgetpw Activity)");
         hashMap.put("password", "123456");
         hashMap.put("displayName", "after Storage Linked to DB.com, authen only");         // can be added/updated later (Manage Profile)
         hashMap.put("phone", "12345678");
