@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     private String currentEmail;
     private String currentName;
-    private Uri currentProPic;
+    private String currentProPic;
     private DatabaseReference userDbRef;        // database Reference to the [User] node
 
     @Override
@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
                             case "name":
                                 currentName = (String) ds.getValue();
                                 TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
-                                userNameLayout.setHint("(from DB - current: " + currentName + ")");
+                                userNameLayout.setHint("Edit your display name (current: " + currentName + ")");
                                 continue;
                             case "emailAddress":
                                 currentEmail = (String) ds.getValue();
@@ -108,22 +108,18 @@ public class ProfileActivity extends AppCompatActivity {
 //            currentProPic = user.getPhotoUrl();
 
             // dummies
-            if (currentName==null || currentName == "") {
+            if (currentName==null || currentName.equals("")) {
                 currentName = "-";
             }
-            if (currentProPic==null || currentProPic == Uri.parse("")) {
-                currentProPic = Uri.parse("-");;
+            if (currentProPic==null || currentProPic.equals("")) {
+                currentProPic = "-";;
             }
 
             TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
             TextInputLayout proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
             TextInputLayout birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
             //TODO:
-            if (currentName==null) {
-                userNameLayout.setHint("Set your display name");
-            } else {
-                userNameLayout.setHint("Edit your display name (current: " + currentName + ")");
-            }
+            userNameLayout.setHint("Set your display name");    // default, before replaced by sentence w/ DB loaded [displayName]
 
             if (currentProPic==null) {
                 proPicLayout.setHint("Set your profile picture: Enter a link");

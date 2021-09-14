@@ -11,7 +11,7 @@ public class User {
     String password = "";
     String displayName = "";
     // Character gender = "";
-    String proPicLink = "";  // or [Uri] type?
+    String proPicLink = "";  // or [Uri] type?      Uri.parse("-")
     int birthYear = -1;
     // DoB
 
