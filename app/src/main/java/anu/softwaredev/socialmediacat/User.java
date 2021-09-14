@@ -8,34 +8,29 @@ public class User {
 
     String uId;
     String emailAddress;
-    String password;
-    String displayName;
-    Character gender;
+    String password = "";
+    String displayName = "";
+    // Character gender = "";
+    String profilePicLink = "";  // or [Uri] type?
     // DoB
 
+    // Constructor (@Sign Up)
     public User(String uId, String emailAddress, String password) {
         this.uId = uId;
         this.emailAddress = emailAddress;
         this.password = password;
     }
 
-    public User(String uId, String emailAddress, String displayName, Character gender) {
-        this.displayName = displayName;
-        this.emailAddress = emailAddress;
-        this.gender = gender;
-    }
-
     // Getter methods
     public String getUId() {return uId;}
     public String getEmailAddress() {return emailAddress;}
     public String getName() {return displayName;}
-    public Character getGender() {return gender;}
-
+    public String getProPic() {return this.profilePicLink;}
 
     // Setter methods
     public void setEmailAddress(String emailAddress) {this.emailAddress = emailAddress;}
     public void setName(String name) {this.displayName = name;}
-    public void setGender(Character gender) {this.gender = gender;}
+    public void setProPic(String profilePicLink) {this.profilePicLink = profilePicLink;}
 
 
 }

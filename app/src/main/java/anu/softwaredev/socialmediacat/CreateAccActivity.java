@@ -80,21 +80,13 @@ public class CreateAccActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
                             // Notification [CreateAcc]
                             Toast.makeText(CreateAccActivity.this, R.string.createAcc_msg_Success, Toast.LENGTH_SHORT).show();
 
                             /** Reg > Store User Info in Firebase Realtime DB (Ref: Vid2) >> * Database location: United States (us-central1) */
                             user = mAuth.getCurrentUser();
-                            String userUID = user.getUid();                      // [Uid] as KEY of user info
-
-                            User newUser = new User(userUID, acc, pw);          // Set Up [User] obj for new user
-//                            HashMap<String, Object> hashMap = new HashMap<>();       // HashMap for attri name & values (under Uid)
-//                            hashMap.put("email", acc);
-//                            hashMap.put("password", pw);
-//                            hashMap.put("displayName", "[DB testing]: acc, pw as inputted");         // can be added/updated later (Manage Profile)
-//                            hashMap.put("phone", "");                                                   // "
-//                            hashMap.put("profilePic", "");                                               // "
+                            String userUID = user.getUid();
+                            User newUser = new User(userUID, acc, pw);          // Set Up [User] obj for new user ([Uid] as KEY of user info)
 
                             // db's ref >> / put data (in Hashmap) into db [tested OK with dummy data]
                             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
@@ -103,7 +95,6 @@ public class CreateAccActivity extends AppCompatActivity {
                             }).addOnFailureListener((e) -> {
                                 Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                             });
-                            // [?] both Listener NOT triggered...
 
                             // finish: return to Main   /or: log in and to [AppActivity]?
                             finish();
