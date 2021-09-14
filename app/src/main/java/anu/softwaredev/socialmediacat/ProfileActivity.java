@@ -19,13 +19,19 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 // Manage User Profile
 public class ProfileActivity extends AppCompatActivity {
-    FirebaseUser user;
-    String currentEmail;
-    String currentName;
-    Uri currentProPic;
+    private FirebaseUser user;
+    private String currentEmail;
+    private String currentName;
+    private Uri currentProPic;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +42,32 @@ public class ProfileActivity extends AppCompatActivity {
         // (reconfirm User signed in) > try get INFO (https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseUser)
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            currentEmail = user.getEmail();
-            currentName = user.getDisplayName();
-            currentProPic = user.getPhotoUrl();
+
+            /** M2 - get DATA from database */
+            String userId = user.getUid();
+            // mDatabase = FirebaseDatabase.getInstance().getReference();
+            ValueEventListener userListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Get [User] object and use the values to update the UI        (??)
+                    User userFromDb = snapshot.getValue(User.class);
+                    currentEmail = userFromDb.getEmailAddress();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Getting Post failed, log a message
+                    Log.w(TAG, "loadPost:onCancelled", error.toException());
+                }
+            };
+            mDatabase.addValueEventListener(userListener);
+
+
+
+            /** M1 - user.getFields() @Authn*/
+//            currentEmail = user.getEmail();
+//            currentName = user.getDisplayName();
+//            currentProPic = user.getPhotoUrl();
 
             TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
             TextInputLayout proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
