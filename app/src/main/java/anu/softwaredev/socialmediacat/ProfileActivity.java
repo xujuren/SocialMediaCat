@@ -146,19 +146,18 @@ public class ProfileActivity extends AppCompatActivity {
         // Read Input
         String newName = displayNameEdit.getText().toString();
         String newProPic = proPicEdit.getText().toString();
-        // int newBirthYear = captionEdit.getText().toString(); ...
+        String newCaption = captionEdit.getText().toString();
+
+        // TODO: add Checkings [if new=empty / invalid]
+        if (TextUtils.isEmpty(newName)) {newName = currentDisplayName;}
+        if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic;}
+        if (TextUtils.isEmpty(newCaption)) {newCaption = currentCaption;}
 
         // if all input fields are either empty or same as current
-        if ((TextUtils.isEmpty(newName) || newName.equals(currentDisplayName)) && (TextUtils.isEmpty(newProPic) || newProPic.equals(currentProPic.toString()))){
-            Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
-        } else {
+        if (!(newName.equals(currentDisplayName) && newProPic.equals(currentProPic) && newCaption.equals(currentCaption))){
             Toast.makeText(ProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
 
-            // TODO: add Checkings
-            if (TextUtils.isEmpty(newName)) {newName = currentDisplayName;}
-            if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic;}
-
-            /** Update [M1: user @authn]*/
+            /** Update [M1: user @authen]*/
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .setPhotoUri(Uri.parse(newProPic))
@@ -175,11 +174,14 @@ public class ProfileActivity extends AppCompatActivity {
                     });
 
             /** [M2*] update fields in Realtime DB */
-            // TODO align field name (name / userName / displayName)
             userDbRef.child("name").setValue(newName);
-            // userDbRef.child("proPic").setValue(newProPic);
+            userDbRef.child("displayName").setValue(newName);
+            userDbRef.child("proPic").setValue(newProPic);
 
             return;
+
+        } else {
+            Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
         }
 
     }
