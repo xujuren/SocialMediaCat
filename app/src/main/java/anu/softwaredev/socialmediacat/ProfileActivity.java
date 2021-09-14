@@ -37,14 +37,31 @@ public class ProfileActivity extends AppCompatActivity {
     private String currentProPic;
     private int currentbirthYear;
 
-    TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
-    TextInputLayout proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
-    TextInputLayout birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
+    TextInputLayout userNameLayout ;           // [C] can't set (type) findViewById() here: not yet link?
+    TextInputLayout proPicLayout ;
+    TextInputLayout birthYearLayout ;
+    EditText nameEdit ;
+    EditText proPicEdit ;
+    EditText birthYearEdit ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+        proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
+        birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
+        nameEdit = (EditText) findViewById(R.id.profile_input_userName_text);
+        proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
+        birthYearEdit = (EditText) findViewById(R.id.profile_input_birthYear_text);
+
+        // Default Hint (w/o fields' current value)
+        userNameLayout.setHint("Set your display name");    // default, before replaced by sentence w/ DB loaded [displayName]
+        proPicLayout.setHint("Set your profile picture: Enter a link");
+        birthYearLayout.setHint("Set your year of birth");
+
 
         /** Get the current Info of a User */
         // (reconfirm User signed in) > try get INFO (https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseUser)
@@ -81,6 +98,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
                                 birthYearLayout.setHint("Edit your profile picture (current link: " + currentbirthYear + ")");
                                 continue;
+                            default:
+                                continue;
                         }
                     }
 
@@ -94,9 +113,11 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.w(TAG, "read failed (onCancelled)", error.toException());
                 }
             };
+
             userDbRef.addValueEventListener(userListener);
 
-            /* M2 (get) */
+
+            /* M1 (get) */
 //            userDbRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 //                @Override
 //                public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -111,16 +132,10 @@ public class ProfileActivity extends AppCompatActivity {
 //                }
 //            });
 
-
-            /** M0 - user.getFields() @Authn*/
+            /* M0 - user.getFields() @Authn*/
 //            currentName = user.getDisplayName();
 //            currentProPic = user.getPhotoUrl();
 
-
-            //TODO:
-            userNameLayout.setHint("Set your display name");    // default, before replaced by sentence w/ DB loaded [displayName]
-            proPicLayout.setHint("Set your profile picture: Enter a link");
-            birthYearLayout.setHint("Set your year of birth");
 
         } else {    // No user is signed in
             finish();
@@ -130,28 +145,27 @@ public class ProfileActivity extends AppCompatActivity {
 
     // button [Confirm: edit profile]
     public void profileInput(View v) {
-        EditText nameEdit = (EditText) findViewById(R.id.profile_input_userName_text);
-        EditText proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
-        // EditText birthYearEdit = (EditText) findViewById(R.id.profile_input_birthYear_text);
 
         // Read Input
         String newName = nameEdit.getText().toString();
         String newProPic = proPicEdit.getText().toString();
+        // int newBirthYear = birthYearEdit.getText().toString(); ...
 
         // if all input fields are either empty or same as current
         if ((TextUtils.isEmpty(newName) || newName.equals(currentDisplayName)) && (TextUtils.isEmpty(newProPic) || newProPic.equals(currentProPic.toString()))){
             Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(ProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
+
             // TODO: add Checkings
             if (TextUtils.isEmpty(newName)) {newName = currentDisplayName;}
-            if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic.toString();}
+            if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic;}
 
+            /** Update [M1: user @authn]*/
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .setPhotoUri(Uri.parse(newProPic))
                     .build();
-
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -163,11 +177,10 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     });
 
-            /** Add (to replace): UPDATE DB */
+            /** [M2*] update fields in Realtime DB */
             // TODO align field name (name / userName / displayName)
             userDbRef.child("name").setValue(newName);
-
-
+            // userDbRef.child("proPic").setValue(newProPic);
 
             return;
         }
