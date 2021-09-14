@@ -31,10 +31,15 @@ import java.util.HashMap;
 // Manage User Profile
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
-    private String currentEmail;
-    private String currentName;
-    private String currentProPic;
     private DatabaseReference userDbRef;        // database Reference to the [User] node
+    private String currentEmail;
+    private String currentDisplayName;
+    private String currentProPic;
+    private int currentbirthYear;
+
+    TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+    TextInputLayout proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
+    TextInputLayout birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,29 +56,33 @@ public class ProfileActivity extends AppCompatActivity {
             userDbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
             /* M1 (ValueEventListener): Syn */
-            ArrayList<String> list = new ArrayList<String>();
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    HashMap<String, Object> fieldPairs = new HashMap<>();
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         String k = ds.getKey();
                         switch (k) {
                             case "name":
-                                currentName = (String) ds.getValue();
-                                TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
-                                userNameLayout.setHint("Edit your display name (current: " + currentName + ")");
+                                currentDisplayName = (String) ds.getValue();
+                                userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+                                userNameLayout.setHint("Edit your display name (current: " + currentDisplayName + ")");
                                 continue;
                             case "emailAddress":
                                 currentEmail = (String) ds.getValue();
                                 continue;
                             case "proPic":
-                                // currentProPic = (Uri) ds.getValue();
+                                currentProPic = (String) (ds.getValue());
+                                proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
+                                proPicLayout.setHint("Edit your profile picture (current link: " + currentProPic + ")");
+                                // TD: show the PICTURE
+                                continue;
+                            case "birthYear":
+                                currentbirthYear = (int) (ds.getValue());
+                                birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
+                                birthYearLayout.setHint("Edit your profile picture (current link: " + currentbirthYear + ")");
                                 continue;
                         }
-
                     }
-
 
                     // [ERROR] Get [User] object and use the values to update the UI        (??)
                     // User userFromDb = snapshot.getValue(User.class);          // .getValue(User.class)
@@ -103,34 +112,17 @@ public class ProfileActivity extends AppCompatActivity {
 //            });
 
 
-            /** M1 - user.getFields() @Authn*/
+            /** M0 - user.getFields() @Authn*/
 //            currentName = user.getDisplayName();
 //            currentProPic = user.getPhotoUrl();
 
-            // dummies
-            if (currentName==null || currentName.equals("")) {
-                currentName = "-";
-            }
-            if (currentProPic==null || currentProPic.equals("")) {
-                currentProPic = "-";;
-            }
 
-            TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
-            TextInputLayout proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
-            TextInputLayout birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
             //TODO:
             userNameLayout.setHint("Set your display name");    // default, before replaced by sentence w/ DB loaded [displayName]
+            proPicLayout.setHint("Set your profile picture: Enter a link");
+            birthYearLayout.setHint("Set your year of birth");
 
-            if (currentProPic==null) {
-                proPicLayout.setHint("Set your profile picture: Enter a link");
-            } else {    // TD: show picture
-                proPicLayout.setHint("Edit your profile picture (current: " + currentProPic + ")");
-            }
-
-            // yearOfBirthLayout.setHint("Input your year of birth " + "(Uri: " + currentProPic);
-
-        } else {
-            // No user is signed in
+        } else {    // No user is signed in
             finish();
         }
 
@@ -147,12 +139,12 @@ public class ProfileActivity extends AppCompatActivity {
         String newProPic = proPicEdit.getText().toString();
 
         // if all input fields are either empty or same as current
-        if ((TextUtils.isEmpty(newName) || newName.equals(currentName)) && (TextUtils.isEmpty(newProPic) || newProPic.equals(currentProPic.toString()))){
+        if ((TextUtils.isEmpty(newName) || newName.equals(currentDisplayName)) && (TextUtils.isEmpty(newProPic) || newProPic.equals(currentProPic.toString()))){
             Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(ProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
             // TODO: add Checkings
-            if (TextUtils.isEmpty(newName)) {newName = currentName;}
+            if (TextUtils.isEmpty(newName)) {newName = currentDisplayName;}
             if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic.toString();}
 
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
