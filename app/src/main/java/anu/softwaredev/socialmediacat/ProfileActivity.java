@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (user != null) {
 
             /** M2 - get DATA from database */
-            String userId = user.getUid();      // Tester: "17J7kImXC9XudMSe35KteHzj7aa2"
+            String userId = user.getUid();      // testing@doggo.com: "sibHOgo1a2Qzx3Jxui91ugzhqB63"
             mDatabase = FirebaseDatabase.getInstance().getReference("Users/" + userId);
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
@@ -61,14 +61,17 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.w(TAG, "read failed (onCancelled)", error.toException());
                 }
             };
-            mDatabase.addValueEventListener(userListener);
+            //mDatabase.addValueEventListener(userListener);
 
 
 
             /** M1 - user.getFields() @Authn*/
-//            currentEmail = user.getEmail();
 //            currentName = user.getDisplayName();
 //            currentProPic = user.getPhotoUrl();
+
+            // dummies
+            currentName = "-";
+            currentProPic = Uri.parse("-");
 
             TextInputLayout userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
             TextInputLayout proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
@@ -131,7 +134,7 @@ public class ProfileActivity extends AppCompatActivity {
                     });
 
             /** Add (to replace): UPDATE DB */
-            //TODO align field name (name / userName / displayName)
+            // TODO align field name (name / userName / displayName)
             mDatabase.child("name").setValue(newName);
 
 
