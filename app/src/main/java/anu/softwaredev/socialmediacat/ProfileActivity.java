@@ -130,6 +130,11 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     });
 
+            /** Add (to replace): UPDATE DB */
+            //TODO align field name (name / userName / displayName)
+            mDatabase.child("name").setValue(newName);
+
+
 
             return;
         }
