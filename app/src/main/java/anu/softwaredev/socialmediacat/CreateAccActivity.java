@@ -2,7 +2,6 @@ package anu.softwaredev.socialmediacat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,9 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class CreateAccActivity extends AppCompatActivity {
 
@@ -81,7 +78,7 @@ public class CreateAccActivity extends AppCompatActivity {
                                     /** Reg > Store User Info in Firebase Realtime DB (Ref: Vid2) >> * Database location: United States (us-central1) */
                                     user = mAuth.getCurrentUser();
                                     String userUID = user.getUid();                      // [Uid] as KEY of user info
-                                    Map<String, Object> hashMap = new HashMap<>();       // HashMap for attri name & values (under Uid)
+                                    HashMap<String, Object> hashMap = new HashMap<>();       // HashMap for attri name & values (under Uid)
                                     hashMap.put("email", acc);
                                     hashMap.put("password", pw);
                                     hashMap.put("displayName", "[DB testing]: acc, pw as inputted");         // can be added/updated later (Manage Profile)
