@@ -75,32 +75,30 @@ public class CreateAccActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
 
-                                    // Notification [CreateAcc] > return to Main
+                                    // Notification [CreateAcc]
                                     Toast.makeText(CreateAccActivity.this, R.string.createAcc_msg_Success, Toast.LENGTH_SHORT).show();
 
-                                    /** Reg > Store User Info in Firebase Realtime DB too [HashMap->]  (Ref: Vid2)*/
+                                    /** Reg > Store User Info in Firebase Realtime DB (Ref: Vid2) >> * Database location: United States (us-central1) */
                                     user = mAuth.getCurrentUser();
-                                    String userUID = user.getUid();
-
-                                    Map<String, Object> hashMap = new HashMap<>();
-                                    // hashMap.put("uid", user.getUid());       // used as [Key]
+                                    String userUID = user.getUid();                      // [Uid] as KEY of user info
+                                    Map<String, Object> hashMap = new HashMap<>();       // HashMap for attri name & values (under Uid)
                                     hashMap.put("email", acc);
                                     hashMap.put("password", pw);
-                                    hashMap.put("displayName", "");         // can be added/updated later (Manage Profile)
-                                    hashMap.put("phone", "");
-                                    hashMap.put("profilePic", "");
+                                    hashMap.put("displayName", "[DB testing]: acc, pw as inputted");         // can be added/updated later (Manage Profile)
+                                    hashMap.put("phone", "");                                                   // "
+                                    hashMap.put("profilePic", "");                                               // "
 
-                                    // Firebase db instance's ref >> / put data (in Hashmap) into db
+                                    // db's ref >> / put data (in Hashmap) into db [tested OK with dummy data]
                                     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
                                     dbRef.child("Users").child(userUID).setValue(hashMap).addOnSuccessListener((OnSuccessListener) (aVoid) -> {
-                                        Toast.makeText(CreateAccActivity.this, "Data Successfully added", Toast.LENGTH_SHORT);
+                                        Toast.makeText(CreateAccActivity.this, "Data Successfully added", Toast.LENGTH_SHORT).show();
                                     }).addOnFailureListener((e) -> {
-                                        Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT);
+                                        Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                                     });
-                                    //TODO both Listener NOT triggered...
+                                    // [?] both Listener NOT triggered...
 
-
-                                    // finish();
+                                    // finish: return to Main   /or: log in and to [AppActivity]?
+                                    finish();
 
                                 } else {
                                     Toast.makeText(CreateAccActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
