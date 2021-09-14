@@ -87,16 +87,18 @@ public class CreateAccActivity extends AppCompatActivity {
                             /** Reg > Store User Info in Firebase Realtime DB (Ref: Vid2) >> * Database location: United States (us-central1) */
                             user = mAuth.getCurrentUser();
                             String userUID = user.getUid();                      // [Uid] as KEY of user info
-                            HashMap<String, Object> hashMap = new HashMap<>();       // HashMap for attri name & values (under Uid)
-                            hashMap.put("email", acc);
-                            hashMap.put("password", pw);
-                            hashMap.put("displayName", "[DB testing]: acc, pw as inputted");         // can be added/updated later (Manage Profile)
-                            hashMap.put("phone", "");                                                   // "
-                            hashMap.put("profilePic", "");                                               // "
+
+                            User newUser = new User(userUID, acc, pw);          // Set Up [User] obj for new user
+//                            HashMap<String, Object> hashMap = new HashMap<>();       // HashMap for attri name & values (under Uid)
+//                            hashMap.put("email", acc);
+//                            hashMap.put("password", pw);
+//                            hashMap.put("displayName", "[DB testing]: acc, pw as inputted");         // can be added/updated later (Manage Profile)
+//                            hashMap.put("phone", "");                                                   // "
+//                            hashMap.put("profilePic", "");                                               // "
 
                             // db's ref >> / put data (in Hashmap) into db [tested OK with dummy data]
                             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
-                            dbRef.child("Users").child(userUID).setValue(hashMap).addOnSuccessListener((OnSuccessListener) (aVoid) -> {
+                            dbRef.child("Users").child(userUID).setValue(newUser).addOnSuccessListener((OnSuccessListener) (aVoid) -> {
                                 Toast.makeText(CreateAccActivity.this, "Data Successfully added", Toast.LENGTH_SHORT).show();
                             }).addOnFailureListener((e) -> {
                                 Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
