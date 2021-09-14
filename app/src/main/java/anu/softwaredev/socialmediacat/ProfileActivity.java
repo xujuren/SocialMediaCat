@@ -25,13 +25,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 // Manage User Profile
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     private String currentEmail;
     private String currentName;
     private Uri currentProPic;
-    private DatabaseReference mDatabase;
+    private DatabaseReference userDbRef;        // database Reference to the [User] node
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +48,56 @@ public class ProfileActivity extends AppCompatActivity {
 
             /** M2 - get DATA from database */
             String userId = user.getUid();      // testing@doggo.com: "sibHOgo1a2Qzx3Jxui91ugzhqB63"
-            mDatabase = FirebaseDatabase.getInstance().getReference("Users/" + userId);
+            userDbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+            /* M1 (ValueEventListener): Syn */
+            ArrayList<String> list = new ArrayList<String>();
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    // Get [User] object and use the values to update the UI        (??)
-                    User userFromDb = snapshot.getValue(User.class);
-                    // System.out.println(userFromDb);     // test this instead
-                    // currentEmail = userFromDb.getEmailAddress();
+                    HashMap<String, Object> fieldPairs = new HashMap<>();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String key = ds.getKey();
+                        String value = (String) ds.getValue();
+                        fieldPairs.put(key, value);
+                        // Toast.makeText(getApplicationContext(), "got: " + anElemFromSnapShot, Toast.LENGTH_SHORT);
+                    }
+
+                    /** Test: got name etc. ? format? */
+                    for (String k : fieldPairs.keySet()) {
+                        if (k.equals("name")) {
+                            userDbRef.child("proPci").setValue(fieldPairs.get(k));
+                            return;
+                        }
+
+                    }
+
+                    // [ERROR] Get [User] object and use the values to update the UI        (??)
+                    // User userFromDb = snapshot.getValue(User.class);          // .getValue(User.class)
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Getting Post failed, log a message
+                    // Getting anu.softwaredev.socialmediacat.Post failed, log a message
                     Log.w(TAG, "read failed (onCancelled)", error.toException());
                 }
             };
-            //mDatabase.addValueEventListener(userListener);
+            userDbRef.addValueEventListener(userListener);
 
+            /* M2 (get) */
+            userDbRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    }
+                    else {
+                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                        /** where's the data ???*/
+
+                    }
+                }
+            });
 
 
             /** M1 - user.getFields() @Authn*/
@@ -135,7 +170,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             /** Add (to replace): UPDATE DB */
             // TODO align field name (name / userName / displayName)
-            mDatabase.child("name").setValue(newName);
+            userDbRef.child("name").setValue(newName);
 
 
 

@@ -59,7 +59,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
      * TimelineViewHolder: add Fields (objs in a post) and findViews (from XML file) */
     public class TimelineViewHolder extends RecyclerView.ViewHolder {
 
-        /* Fields (within each "Post") */
+        /* Fields (within each "anu.softwaredev.socialmediacat.Post") */
         private final ImageView ivPostImage;
         private final TextView tvPostUsername;
         private final TextView tvPostContent;

@@ -35,7 +35,7 @@ public class UserActivityDao implements IUserActivityDao {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }
-            System.out.println("Post saved in " + file.getAbsolutePath());
+            System.out.println("anu.softwaredev.socialmediacat.Post saved in " + file.getAbsolutePath());
             UserActivity userAct = new UserActivity(username, action, content, idCount);
             return userAct;
 
