@@ -20,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profile_input_userName"
+        android:id="@+id/profile_input_displayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:hint="Display Name"
+        android:hint="Set your display name"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_manage_profile_intro">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profile_input_userName_text"
+            android:id="@+id/profile_input_displayName_text"
             android:layout_width="380dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -51,12 +51,12 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="Enter a link to your profile picture"
+        android:hint="Set your profile picture: Enter a link"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_input_userName">
+        app:layout_constraintTop_toBottomOf="@+id/profile_input_displayName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/profile_input_proPic_text"
@@ -71,13 +71,13 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profile_input_birthYear"
+        android:id="@+id/profile_input_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:hint="Enter your year of birth"
+        android:hint="Set your caption"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_input_proPic">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profile_input_birthYear_text"
+            android:id="@+id/profile_input_caption_text"
             android:layout_width="380dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_input_birthYear" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_input_caption" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,24 +25,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 // Manage User Profile
 public class ProfileActivity extends AppCompatActivity {
+
     private FirebaseUser user;
     private DatabaseReference userDbRef;        // database Reference to the [User] node
-    private String currentEmail;
+
     private String currentDisplayName;
     private String currentProPic;
-    private int currentbirthYear;
+    private String currentCaption;
+    private String currentEmail;
 
     TextInputLayout userNameLayout ;           // [C] can't set (type) findViewById() here: not yet link?
     TextInputLayout proPicLayout ;
-    TextInputLayout birthYearLayout ;
-    EditText nameEdit ;
+    TextInputLayout captionLayout;
+    EditText displayNameEdit ;
     EditText proPicEdit ;
-    EditText birthYearEdit ;
+    EditText captionEdit;
 
 
     @Override
@@ -50,18 +49,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+        /* Set Up Views (findViewsById) */
+        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
         proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
-        birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
-        nameEdit = (EditText) findViewById(R.id.profile_input_userName_text);
+        captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
+        displayNameEdit = (EditText) findViewById(R.id.profile_input_displayName_text);
         proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
-        birthYearEdit = (EditText) findViewById(R.id.profile_input_birthYear_text);
-
-        // Default Hint (w/o fields' current value)
-        userNameLayout.setHint("Set your display name");    // default, before replaced by sentence w/ DB loaded [displayName]
-        proPicLayout.setHint("Set your profile picture: Enter a link");
-        birthYearLayout.setHint("Set your year of birth");
-
+        captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
 
         /** Get the current Info of a User */
         // (reconfirm User signed in) > try get INFO (https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseUser)
@@ -76,27 +70,30 @@ public class ProfileActivity extends AppCompatActivity {
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot ds : snapshot.getChildren()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {    // loop thru each [field (k,v)] of the [uesr(UID)]
                         String k = ds.getKey();
                         switch (k) {
                             case "name":
                                 currentDisplayName = (String) ds.getValue();
-                                userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+                                userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
                                 userNameLayout.setHint("Edit your display name (current: " + currentDisplayName + ")");
-                                continue;
-                            case "emailAddress":
-                                currentEmail = (String) ds.getValue();
                                 continue;
                             case "proPic":
                                 currentProPic = (String) (ds.getValue());
+                                if (currentProPic.length()==0) continue;
                                 proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
                                 proPicLayout.setHint("Edit your profile picture (current link: " + currentProPic + ")");
                                 // TD: show the PICTURE
                                 continue;
-                            case "birthYear":
-                                currentbirthYear = (int) (ds.getValue());
-                                birthYearLayout = (TextInputLayout) findViewById(R.id.profile_input_birthYear);
-                                birthYearLayout.setHint("Edit your profile picture (current link: " + currentbirthYear + ")");
+                            case "caption":
+                                currentCaption = (String) (ds.getValue());
+                                if (currentCaption.length()==0) continue;
+                                captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
+                                captionLayout.setHint("Edit your caption [" + currentCaption + "]");
+                                // TD: show the PICTURE
+                                continue;
+                            case "emailAddress":    // n/a now
+                                currentEmail = (String) ds.getValue();
                                 continue;
                             default:
                                 continue;
@@ -147,9 +144,9 @@ public class ProfileActivity extends AppCompatActivity {
     public void profileInput(View v) {
 
         // Read Input
-        String newName = nameEdit.getText().toString();
+        String newName = displayNameEdit.getText().toString();
         String newProPic = proPicEdit.getText().toString();
-        // int newBirthYear = birthYearEdit.getText().toString(); ...
+        // int newBirthYear = captionEdit.getText().toString(); ...
 
         // if all input fields are either empty or same as current
         if ((TextUtils.isEmpty(newName) || newName.equals(currentDisplayName)) && (TextUtils.isEmpty(newProPic) || newProPic.equals(currentProPic.toString()))){
