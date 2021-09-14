@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     /** Testing Only [@quick Log in] */     // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)
     public void logInTest(View v) {
         // sign in method
-        mAuth.signInWithEmailAndPassword("testing@anu.edu.au", "Testing123")
+        mAuth.signInWithEmailAndPassword("testing@doggo.com", "Testing")
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

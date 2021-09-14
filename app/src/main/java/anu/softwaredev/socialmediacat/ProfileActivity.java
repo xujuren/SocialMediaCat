@@ -21,8 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 // Manage User Profile
-public class ManageProfileActivity extends AppCompatActivity {
-
+public class ProfileActivity extends AppCompatActivity {
     FirebaseUser user;
     String currentEmail;
     String currentName;
@@ -31,12 +30,12 @@ public class ManageProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_profile);
+        setContentView(R.layout.activity_profile);
 
         /** Get the current Info of a User */
+        // (reconfirm User signed in) > try get INFO (https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseUser)
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            // User is signed in > try get INFO (https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseUser)
             currentEmail = user.getEmail();
             currentName = user.getDisplayName();
             currentProPic = user.getPhotoUrl();
@@ -78,9 +77,9 @@ public class ManageProfileActivity extends AppCompatActivity {
 
         // if all input fields are either empty or same as current
         if ((TextUtils.isEmpty(newName) || newName.equals(currentName)) && (TextUtils.isEmpty(newProPic) || newProPic.equals(currentProPic.toString()))){
-            Toast.makeText(ManageProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(ManageProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
             // TODO: add Checkings
             if (TextUtils.isEmpty(newName)) {newName = currentName;}
             if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic.toString();}
@@ -96,7 +95,7 @@ public class ManageProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "User profile updated.");
-                                Toast.makeText(ManageProfileActivity.this, "User profile updated.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "User profile updated.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

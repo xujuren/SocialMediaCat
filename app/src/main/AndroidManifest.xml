@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialMediaCat">
         <activity
-            android:name=".ManageProfileActivity"
+            android:name=".ProfileActivity"
             android:exported="true"
             android:parentActivityName=".AppActivity" />
         <activity

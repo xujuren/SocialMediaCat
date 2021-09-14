@@ -64,15 +64,14 @@ public class CreateAccActivity extends AppCompatActivity {
         String pw2 = pwEdit2.getText().toString();
         if (TextUtils.isEmpty(acc) || TextUtils.isEmpty(pw)){
             accLayout.setError(getString(R.string.createAcc_msg_emptyInput));
-            //accLayout.setError("");             // reset upon new Click (?)
             return;
         }
         if (!pw.equals(pw2)){
-            accLayout.setError("check password");
-            //accLayout.setError("");
+            pwLayout.setError("check password");
             return;
         }
         accLayout.setError("");             // reset upon new Click (?)
+        pwLayout.setError("");              //
 
         /** Create Account [Firebase]*/
         mAuth = FirebaseAuth.getInstance();

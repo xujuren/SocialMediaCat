@@ -7,5 +7,7 @@
 
     <string name="createAcc_msg_emptyInput">Please enter an account name (email address) and a valid password </string>
     <string name="createAcc_msg_Success">Account created! </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
