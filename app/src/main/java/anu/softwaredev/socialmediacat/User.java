@@ -16,6 +16,12 @@ public class User {
     // DoB
 
     // Constructor (@Sign Up)
+    public User(String uId, String emailAddress) {
+        this.uId = uId;
+        this.emailAddress = emailAddress;
+    }
+
+    // Constructor (@Sign Up)2
     public User(String uId, String emailAddress, String password) {
         this.uId = uId;
         this.emailAddress = emailAddress;

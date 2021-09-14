@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,6 +71,21 @@ public class ProfileActivity extends AppCompatActivity {
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    /** Test [C]: can add checkpoint here ?? */
+                    // if (snapshot.getChildren().size()==0: i.e. record NOT in database?
+                    // or even record NOT found?
+
+                    if (!snapshot.exists() || !snapshot.hasChildren()) {
+                        Toast.makeText(ProfileActivity.this, "(Setting up profile on Database ...)", Toast.LENGTH_LONG).show();
+
+                        /* create record on realtime db */
+                        user = FirebaseAuth.getInstance().getCurrentUser();
+                        User newUser = new User(user.getUid(), user.getEmail());          // Set Up [User] obj for new user ([Uid] as KEY of user info)
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
+                        dbRef.child("Users").child(user.getUid()).setValue(newUser);
+                    }
+
                     for (DataSnapshot ds : snapshot.getChildren()) {    // loop thru each [field (k,v)] of the [uesr(UID)]
                         String k = ds.getKey();
                         switch (k) {
