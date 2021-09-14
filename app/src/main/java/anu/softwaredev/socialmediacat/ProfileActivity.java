@@ -175,8 +175,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             /** [M2*] update fields in Realtime DB */
             userDbRef.child("name").setValue(newName);
-            userDbRef.child("displayName").setValue(newName);
+            userDbRef.child("displayName").setValue(newName);        // .push(): ??? became field [displayName] (correct) > ((a weird ID)) : "Teslala"
             userDbRef.child("proPic").setValue(newProPic);
+            userDbRef.child("caption").setValue(newCaption);
 
             return;
 
