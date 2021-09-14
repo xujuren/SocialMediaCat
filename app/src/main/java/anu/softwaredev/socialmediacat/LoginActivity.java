@@ -18,6 +18,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -74,9 +78,32 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+
+                                    user = mAuth.getCurrentUser();
+
+
+                                    /** follow Vid [db] - Create Acc add to DB Start */
+                                    HashMap<Object, String> hashMap = new HashMap<>();
+                                    hashMap.put("email", acc);
+                                    hashMap.put("uid", user.getUid());
+                                    hashMap.put("password", pw);
+                                    hashMap.put("displayName", "");         // can be added/updated later (Manage Profile)
+                                    hashMap.put("phone", "");
+                                    hashMap.put("profilePic", "");
+
+                                    // Firebase database instance
+                                    FirebaseDatabase db = FirebaseDatabase.getInstance();
+                                    DatabaseReference ref = db.getReference("Users");           // path to store user data (named "Users")
+                                    ref.child(user.getUid()).setValue(hashMap);                      // put data (in Hashmap) into db
+
+                                    // TODO: Testing only - run till here?
+                                    Toast.makeText(LoginActivity.this, "[login] next is finish()" + user.getUid(), Toast.LENGTH_SHORT).show();
+
+                                    /** follow Vid [db] - end*/
+
                                     Toast.makeText(LoginActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent();
-                                    intent.putExtra("userEmail", acc);
+                                    intent.putExtra("userEmail", acc);          // excessive
                                     intent.setClass(LoginActivity.this, AppActivity.class);    // or [Main] (?)
                                     startActivity(intent);
                                     finish();

@@ -3,7 +3,6 @@ package anu.softwaredev.socialmediacat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAccActivity extends AppCompatActivity {
 
@@ -44,7 +45,6 @@ public class CreateAccActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mAuth = FirebaseAuth.getInstance();
         accEdit = (EditText) findViewById(R.id.createAcc_input_text);
         pwEdit = (EditText) findViewById(R.id.createAcc_input_pw_text);
         // pwEdit2 = (EditText) findViewById(R.id.input_pw2_createacc);
@@ -68,32 +68,39 @@ public class CreateAccActivity extends AppCompatActivity {
                 // msgLayout.setError("");
 
                 /* Create Account (with pw) */
+                mAuth = FirebaseAuth.getInstance();
                 mAuth.createUserWithEmailAndPassword(acc, pw)
                         .addOnCompleteListener(CreateAccActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
 
+                                    // Notification [CreateAcc] > return to Main
+                                    Toast.makeText(CreateAccActivity.this, R.string.createAcc_msg_Success, Toast.LENGTH_SHORT).show();
+
                                     /** Reg > Store User Info in Firebase Realtime DB too [HashMap->]  (Ref: Vid2)*/
-                                    HashMap<Object, String> hashMap = new HashMap<>();
+                                    user = mAuth.getCurrentUser();
+                                    String userUID = user.getUid();
+
+                                    Map<String, Object> hashMap = new HashMap<>();
+                                    // hashMap.put("uid", user.getUid());       // used as [Key]
                                     hashMap.put("email", acc);
-                                    hashMap.put("uid", user.getUid());
                                     hashMap.put("password", pw);
                                     hashMap.put("displayName", "");         // can be added/updated later (Manage Profile)
                                     hashMap.put("phone", "");
                                     hashMap.put("profilePic", "");
 
-                                    // Firebase database instance
-                                    FirebaseDatabase db = FirebaseDatabase.getInstance();
-                                    DatabaseReference ref = db.getReference("Users");           // path to store user data (named "Users")
-                                    ref.child(user.getUid()).setValue(hashMap);                      // put data (in Hashmap) into db
+                                    // Firebase db instance's ref >> / put data (in Hashmap) into db
+                                    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
+                                    dbRef.child("Users").child(userUID).setValue(hashMap).addOnSuccessListener((OnSuccessListener<? super Void>) (aVoid) -> {
+                                        Toast.makeText(CreateAccActivity.this, "Data Successfully added", Toast.LENGTH_SHORT);
+                                    }).addOnFailureListener((e) -> {
+                                        Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT);
+                                    });
 
-                                    // Notification > return to Main
-                                    Toast.makeText(CreateAccActivity.this, R.string.createAcc_msg_Success, Toast.LENGTH_SHORT).show();
-                                    // Intent intent = new Intent();
-                                    // intent.setClass(CreateAccActivity.this, MainActivity.class);
-                                    // startActivity(intent);
+
                                     finish();
+
                                 } else {
                                     Toast.makeText(CreateAccActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
