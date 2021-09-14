@@ -17,20 +17,5 @@ public class ForgetPwActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pw);
 
-        /** Test DB [dummy info > upload] */
-        /* Store User Info in Firebase Realtime DB too [HashMap->]  (Ref: Vid2)*/
-        Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("email", "Link DB: using dummy info (forgetpw Activity)");
-        hashMap.put("password", "123456");
-        hashMap.put("displayName", "after Storage Linked to DB.com, authen only");         // can be added/updated later (Manage Profile)
-        hashMap.put("phone", "12345678");
-        hashMap.put("profilePic", "URL");
-
-        // Firebase db instance's ref
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
-        dbRef.child("Users").child("ID01").setValue(hashMap);                      // put data (in Hashmap) into db
-
-        /** Test DB - End */
-
     }
 }
