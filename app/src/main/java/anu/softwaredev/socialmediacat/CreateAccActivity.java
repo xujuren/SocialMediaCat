@@ -92,14 +92,15 @@ public class CreateAccActivity extends AppCompatActivity {
 
                                     // Firebase db instance's ref >> / put data (in Hashmap) into db
                                     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
-                                    dbRef.child("Users").child(userUID).setValue(hashMap).addOnSuccessListener((OnSuccessListener<? super Void>) (aVoid) -> {
+                                    dbRef.child("Users").child(userUID).setValue(hashMap).addOnSuccessListener((OnSuccessListener) (aVoid) -> {
                                         Toast.makeText(CreateAccActivity.this, "Data Successfully added", Toast.LENGTH_SHORT);
                                     }).addOnFailureListener((e) -> {
                                         Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT);
                                     });
+                                    //TODO both Listener NOT triggered...
 
 
-                                    finish();
+                                    // finish();
 
                                 } else {
                                     Toast.makeText(CreateAccActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
