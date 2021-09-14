@@ -44,20 +44,21 @@ public class ProfileActivity extends AppCompatActivity {
         if (user != null) {
 
             /** M2 - get DATA from database */
-            String userId = user.getUid();
-            // mDatabase = FirebaseDatabase.getInstance().getReference();
+            String userId = user.getUid();      // Tester: "17J7kImXC9XudMSe35KteHzj7aa2"
+            mDatabase = FirebaseDatabase.getInstance().getReference("Users/" + userId);
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     // Get [User] object and use the values to update the UI        (??)
                     User userFromDb = snapshot.getValue(User.class);
-                    currentEmail = userFromDb.getEmailAddress();
+                    // System.out.println(userFromDb);     // test this instead
+                    // currentEmail = userFromDb.getEmailAddress();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     // Getting Post failed, log a message
-                    Log.w(TAG, "loadPost:onCancelled", error.toException());
+                    Log.w(TAG, "read failed (onCancelled)", error.toException());
                 }
             };
             mDatabase.addValueEventListener(userListener);
