@@ -72,13 +72,9 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    /** Test [C]: can add checkpoint here ?? */
-                    // if (snapshot.getChildren().size()==0: i.e. record NOT in database?
-                    // or even record NOT found?
-
+                    /** [C],[M] Checkpoint: create User on realtime db if NOT yet */
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
                         Toast.makeText(ProfileActivity.this, "(Setting up profile on Database ...)", Toast.LENGTH_LONG).show();
-
                         /* create record on realtime db */
                         user = FirebaseAuth.getInstance().getCurrentUser();
                         User newUser = new User(user.getUid(), user.getEmail());          // Set Up [User] obj for new user ([Uid] as KEY of user info)
@@ -86,6 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
                         dbRef.child("Users").child(user.getUid()).setValue(newUser);
                     }
 
+                    /* Get each existing field (of user) */
                     for (DataSnapshot ds : snapshot.getChildren()) {    // loop thru each [field (k,v)] of the [uesr(UID)]
                         String k = ds.getKey();
                         switch (k) {
