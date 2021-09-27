@@ -1,5 +1,4 @@
 package anu.softwaredev.socialmediacat;
-
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
