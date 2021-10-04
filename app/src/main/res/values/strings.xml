@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SocialMediaCat</string>
+    <string name="login_errormsg_inputAcc">Please enter your user account</string>
+    <string name="login_errormsg_pw">Please enter your password</string>
+    <string name="login_errormsg_wrongInput">Please check your account name and/or password</string>
+    <string name="login_msg_success">Login successful!</string>
+
+    <string name="createAcc_msg_emptyInput">Please enter an account name (email address) and a valid password </string>
+    <string name="createAcc_msg_Success">Account created! </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

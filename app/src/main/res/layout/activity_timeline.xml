@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".TimelineActivity">
+
+    <!--        android:scrollbars="vertical"-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_timeline"
+        android:layout_width="409dp"
+        android:layout_height="650dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/AppAct_title"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:text="Timeline | The Ex"-->
+    <!--        android:textAppearance="@style/TextAppearance.AppCompat.Display1"-->
+    <!--        android:textColor="#1764A1"-->
+    <!--        android:textSize="30sp"-->
+    <!--        android:textStyle="bold|italic"-->
+    <!--        android:typeface="serif"-->
+    <!--        app:layout_constraintHorizontal_bias="0.491"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882936594067",
+    "project_id": "socialmediacat2",
+    "storage_bucket": "socialmediacat2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882936594067:android:b46528f58fd67b9294d766",
+        "android_client_info": {
+          "package_name": "anu.softwaredev.socialmediacat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882936594067-9q26didvmhedflp0855pl43rmpcegvae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWQ8QeJM0gXZwAlcGV-vZI1U0_lkUZtzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882936594067-9q26didvmhedflp0855pl43rmpcegvae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

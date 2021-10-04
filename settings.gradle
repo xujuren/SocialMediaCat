@@ -1,0 +1,10 @@
+dependencyResolutionManagement {
+    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)        // commented out - avoid org.gradle.api.InvalidUserCodeException: Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by build file 'build.gradle'
+    repositories {
+        mavenCentral()
+        google()
+        jcenter() // Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "SocialMediaCat"
+include ':app'

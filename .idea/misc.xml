@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_app.xml" value="0.23385416666666667" />
+        <entry key="app/src/main/res/layout/activity_create_acc.xml" value="0.33611111111111114" />
+        <entry key="app/src/main/res/layout/activity_forget_pw.xml" value="0.33611111111111114" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33611111111111114" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33611111111111114" />
+        <entry key="app/src/main/res/layout/activity_manage_profile.xml" value="0.2635416666666667" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/activity_timeline.xml" value="0.3398148148148148" />
+        <entry key="app/src/main/res/layout/activity_timeline_post.xml" value="0.23385416666666667" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2635416666666667" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/fragment_users.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/menu/menu_nav.xml" value="0.27760416666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
