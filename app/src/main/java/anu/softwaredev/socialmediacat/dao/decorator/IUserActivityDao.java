@@ -8,7 +8,7 @@ public interface IUserActivityDao {
 
     public UserActivity createPost(String username, String postContent);
 
-    public UserActivity likePost(String username, String idPost);
+    public UserActivity likePost(String username, Integer idPost);
 
     public List<UserActivity> findAllPosts();
 

@@ -45,7 +45,18 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
     @Override
-    public UserActivity likePost(String username, String idPost) {
+    public UserActivity likePost(String username, Integer idPost) {
+        try{
+            String action = "like-post";
+            String content = "+1";
+            String text = username + ";" + action + ";" + content + ";" + idPost + "\n";
+            Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
+            System.out.println("Like saved in " + file.getAbsolutePath());
+            UserActivity userActivity = new UserActivity(username, action, content, idPost);
+            return userActivity;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -83,11 +94,20 @@ public class UserActivityDao implements IUserActivityDao {
 
     @Override
     public String getFilePath() {
-        return null;
+        return file.getAbsolutePath();
     }
 
     @Override
-    public void deleteAll() { }
+    public void deleteAll() {
+        try {
+            if (file.exists()){
+                file.delete();
+            }
+            file = File.createTempFile("user-action", ".csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // e.g. [UserActivityDao.getInstance()].createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
     public static UserActivityDao getInstance(){

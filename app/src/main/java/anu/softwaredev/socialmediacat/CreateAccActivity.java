@@ -51,8 +51,13 @@ public class CreateAccActivity extends AppCompatActivity {
         /* Additional Error Check */
         accLayout = (TextInputLayout) findViewById(R.id.createAcc_input_layout);
         accLayout.setErrorEnabled(true);
+        accLayout.setCounterMaxLength(20);
         pwLayout = (TextInputLayout) findViewById(R.id.createAcc_input_pw_layout);
         pwLayout.setErrorEnabled(true);
+        pwLayout.setCounterMaxLength(12);
+        TextInputLayout pwLayout2 = (TextInputLayout) findViewById(R.id.createAcc_input_pw2_layout);
+        pwLayout2.setErrorEnabled(true);
+        pwLayout2.setCounterMaxLength(12);
     }
 
     /* Click button [Create Acc] */
