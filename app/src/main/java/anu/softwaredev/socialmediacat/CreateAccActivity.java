@@ -18,7 +18,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class CreateAccActivity extends AppCompatActivity {
 
@@ -91,7 +98,7 @@ public class CreateAccActivity extends AppCompatActivity {
                             /** Reg > Store User Info in Firebase Realtime DB (Ref: Vid2) >> * Database location: United States (us-central1) */
                             user = mAuth.getCurrentUser();
                             String userUID = user.getUid();
-                            User newUser = new User(userUID, acc, pw);          // Set Up [User] obj for new user ([Uid] as KEY of user info)
+                            User newUser = new User(userUID, acc);          // Set Up [User] obj for new user ([Uid] as KEY of user info)
 
                             // db's ref >> / put data (in Hashmap) into db [tested OK with dummy data]
                             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
@@ -101,6 +108,20 @@ public class CreateAccActivity extends AppCompatActivity {
                                 Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                             });
 
+                            // TODO - TEST (JSON)
+                            // Trash data
+                            String uId = "1";
+                            String userName = "user1";
+                            String emailAddress = "user1@a.com";
+                            String proPicLink = "https://google.com";
+                            List<String> followers = new ArrayList<>(Arrays.asList("2", "3"));
+
+                            System.out.println(createJsonString(uId, userName, emailAddress, proPicLink, followers));
+
+                            // TODO - Test END
+
+
+
                             // finish: return to Main   /or: log in and to [AppActivity]?
                             finish();
 
@@ -109,6 +130,25 @@ public class CreateAccActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    // TODO - Test
+    public synchronized JSONObject createJsonString(String uId, String userName, String emailAddress, String proPicLink, List<String> followers) {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("uId", uId);
+            jsonObj.put("userName", userName);
+            jsonObj.put("emailAddress", emailAddress);
+            jsonObj.put("proPicLink", proPicLink);
+            // jsonObj.put("followers", followers);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Toast.makeText(CreateAccActivity.this, "jsonObj!", Toast.LENGTH_LONG);
+
+        return jsonObj;
     }
 
 }

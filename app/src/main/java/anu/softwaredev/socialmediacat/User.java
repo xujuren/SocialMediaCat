@@ -1,5 +1,12 @@
 package anu.softwaredev.socialmediacat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 // Model Class: stores User Info
 public class User {
     /** Ref:
@@ -8,12 +15,10 @@ public class User {
 
     String uId;
     String emailAddress;
+    String userName = "";
     String password = "";
-    String displayName = "";
-    // Character gender = "";
     String proPicLink = "";  // or [Uri] type?      Uri.parse("-")
-    int birthYear = -1;
-    // DoB
+    List<String> followers = new ArrayList<>(); // ???
 
     // Constructor (@Sign Up)
     public User(String uId, String emailAddress) {
@@ -22,21 +27,23 @@ public class User {
     }
 
     // Constructor (@Sign Up)2
-    public User(String uId, String emailAddress, String password) {
+    public User(String uId, String emailAddress, String userName, String proPicLink, List<String> followers) {
         this.uId = uId;
         this.emailAddress = emailAddress;
-        this.password = password;
+        this.userName = userName;
+        this.proPicLink = proPicLink;
+        this.followers = followers;
     }
 
     // Getter methods
     public String getUId() {return uId;}
     public String getEmailAddress() {return emailAddress;}
-    public String getName() {return displayName;}
+    public String getUserName() {return userName;}
     public String getProPic() {return this.proPicLink;}
 
     // Setter methods
     public void setEmailAddress(String emailAddress) {this.emailAddress = emailAddress;}
-    public void setName(String name) {this.displayName = name;}
+    public void setUserName(String userName) {this.userName = userName;}
     public void setProPic(String profilePicLink) {this.proPicLink = profilePicLink;}
 
 
