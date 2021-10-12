@@ -56,9 +56,6 @@ public class CreateAccActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_acc);
 
         initView();
-
-
-
     }
 
 
@@ -120,27 +117,6 @@ public class CreateAccActivity extends AppCompatActivity {
                                 Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                             });
 
-                            // TODO - TEST (JSON)
-                            // Trash data
-                            String uId = "1";
-                            String userName = "user1";
-                            String emailAddress = "user1@a.com";
-                            String proPicLink = "https://google.com";
-
-                            List<String> followers = new ArrayList<>(Arrays.asList("2", "3"));
-                            JSONArray followersList = new JSONArray(followers);
-
-                            System.out.println("Here: " + createJsonString(uId, userName, emailAddress, proPicLink, followersList));
-
-
-
-
-
-
-                            // TODO - Test END
-
-
-
                             // finish: return to Main   /or: log in and to [AppActivity]?
                             finish();
 
@@ -151,29 +127,5 @@ public class CreateAccActivity extends AppCompatActivity {
                 });
     }
 
-    // TODO - Test
-    public synchronized String createJsonString(String uId, String userName, String emailAddress, String proPicLink, JSONArray followersList) {
-        JSONObject jsonObj = new JSONObject();
-        String jstr = null;
-        // TODO add - try write to File
-        try (FileWriter file = new FileWriter("/Users/cpw/Downloads/ANU")) {
-            jsonObj.put("uId", uId);
-            jsonObj.put("userName", userName);
-            jsonObj.put("emailAddress", emailAddress);
-            jsonObj.put("proPicLink", proPicLink);
-            jsonObj.put("followers", followersList);
-
-            jstr = jsonObj.toString(2);
-
-            file.write(jsonObj.toString(2));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return jstr;
-    }
 
 }
