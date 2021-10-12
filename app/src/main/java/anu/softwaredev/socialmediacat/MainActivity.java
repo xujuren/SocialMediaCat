@@ -41,44 +41,21 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();         // ?
         FirebaseUser user = mAuth.getCurrentUser();
 
-        /* [?] AuthStateListener: listen for Change in AuthState */
-//        authStateListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                Log.e("Nick", "onAuthStateChanged");
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user==null) {
-//                    Log.e("Nick", "Try to Login: ");                // ?
-//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                } else {
-//                    Log.e("Nick", "Login Success");
-//                    FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
-//                    DatabaseReference myRef = fireDB.getReference("聯絡人");   // ?
-//                    // myRef.addChildEventListener(MainActivity.this);
-//                }
-//            }
-//        };
-//
-//        // Check: Show Content if <NOT aldy logged in>
-//        if (user == null) {
-//            setContentView(R.layout.activity_main);
-//            Button login = (Button) findViewById(R.id.login_button);
-//            Button signUp = (Button) findViewById(R.id.create_acc_button);
-//
-//            // Ref: login.setOnClickListener(new View.OnClickListener(){}), also for signUp
-//        } else {
-//        // if <aldy logged in>: go APP's Interface (Ref: MainAct)
-//            Intent i = new Intent();
-//            i.setClass(MainActivity.this, AppActivity.class);
-//        }
     }
 
+
+    /** TODO Testing Only [@AppActivity] */      // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)
+    public void JsonTest(View v) {
+        Intent i = new Intent(getApplicationContext(), JsonTest.class);   // to [JsonTest] Page
+        startActivity(i);
+        finish();
+    }
 
     /** Testing Only [@AppActivity] */      // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)
     public void timelineTest(View v) {
         Intent i = new Intent(getApplicationContext(), TimelineActivity.class);   // to [TimelineActivity] Page
         startActivity(i);
-        // finish();
+        finish();
     }
 
     /** Testing Only [@quick Log in] */     // Set Up the [to TimeLine Button] > [TimelineActivity] (see timeline grid/linear)

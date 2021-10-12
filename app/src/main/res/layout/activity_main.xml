@@ -130,5 +130,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/jsonTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:onClick="JsonTest"
+        android:text="JS"
+        app:layout_constraintEnd_toStartOf="@+id/test_bt_logIn"
+        tools:layout_editor_absoluteY="5dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

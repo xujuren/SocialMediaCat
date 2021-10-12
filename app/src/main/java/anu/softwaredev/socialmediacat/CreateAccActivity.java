@@ -19,13 +19,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import anu.softwaredev.socialmediacat.util.Utils;
 
 public class CreateAccActivity extends AppCompatActivity {
 
@@ -48,7 +56,11 @@ public class CreateAccActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_acc);
 
         initView();
+
+
+
     }
+
 
     private void initView() {
         accEdit = (EditText) findViewById(R.id.createAcc_input_text);
@@ -114,9 +126,16 @@ public class CreateAccActivity extends AppCompatActivity {
                             String userName = "user1";
                             String emailAddress = "user1@a.com";
                             String proPicLink = "https://google.com";
-                            List<String> followers = new ArrayList<>(Arrays.asList("2", "3"));
 
-                            System.out.println(createJsonString(uId, userName, emailAddress, proPicLink, followers));
+                            List<String> followers = new ArrayList<>(Arrays.asList("2", "3"));
+                            JSONArray followersList = new JSONArray(followers);
+
+                            System.out.println("Here: " + createJsonString(uId, userName, emailAddress, proPicLink, followersList));
+
+
+
+
+
 
                             // TODO - Test END
 
@@ -133,22 +152,28 @@ public class CreateAccActivity extends AppCompatActivity {
     }
 
     // TODO - Test
-    public synchronized JSONObject createJsonString(String uId, String userName, String emailAddress, String proPicLink, List<String> followers) {
+    public synchronized String createJsonString(String uId, String userName, String emailAddress, String proPicLink, JSONArray followersList) {
         JSONObject jsonObj = new JSONObject();
-        try {
+        String jstr = null;
+        // TODO add - try write to File
+        try (FileWriter file = new FileWriter("/Users/cpw/Downloads/ANU")) {
             jsonObj.put("uId", uId);
             jsonObj.put("userName", userName);
             jsonObj.put("emailAddress", emailAddress);
             jsonObj.put("proPicLink", proPicLink);
-            // jsonObj.put("followers", followers);
+            jsonObj.put("followers", followersList);
+
+            jstr = jsonObj.toString(2);
+
+            file.write(jsonObj.toString(2));
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
         }
 
-        Toast.makeText(CreateAccActivity.this, "jsonObj!", Toast.LENGTH_LONG);
-
-        return jsonObj;
+        return jstr;
     }
 
 }
