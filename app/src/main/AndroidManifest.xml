@@ -18,7 +18,7 @@
             android:name=".Classes.PostActivity"
             android:exported="true" />
         <activity
-            android:name=".JsonTest"
+            android:name=".LoadData_Test"
             android:exported="true" />
         <activity
             android:name=".ProfileActivity"

@@ -23,16 +23,21 @@ public class Post {
     }
 
     // Constructor with "likeCount"
-    public Post(String category, String postId, String content, String uId, int likeCount) {
+    public Post(String uId, String category, String postId, String content, int likeCount) {
+        this.uId = uId;
         this.category = category;
         this.postId = postId;
         this.content = content;
-        this.uId = uId;
         // this.likeCount = likeCount;
     }
 
     // Default constructor required for calls to DataSnapshot.getValue(anu.softwaredev.socialmediacat.Classes.Post.class)
     public Post() {}
+
+    public String getUId(){return uId;}
+    public String getCategory(){return category;}
+    public String getPostId(){return postId;}
+    public String getContent(){return content;}
 
 
     @Override
