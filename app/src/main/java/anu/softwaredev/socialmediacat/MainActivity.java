@@ -65,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
     /** TODO Below 3 methods: Testing Only [@AppActivity] */
 
-//    public void JsonTest(View v) {
-//        Intent i = new Intent(getApplicationContext(), JsonTest.class);   // to [JsonTest] Page
-//        startActivity(i);
-//        finish();
-//    }
+    public void JsonTest(View v) {
+        Intent i = new Intent(getApplicationContext(), LoadData_Test.class);   // to [JsonTest] Page
+        startActivity(i);
+        finish();
+    }
 
     /** Testing Only [@AppActivity] */
     public void timelineTest(View v) {

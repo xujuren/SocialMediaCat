@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_app.xml" value="0.23385416666666667" />
         <entry key="app/src/main/res/layout/activity_create_acc.xml" value="0.33611111111111114" />
+        <entry key="app/src/main/res/layout/activity_create_post.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/activity_forget_pw.xml" value="0.33611111111111114" />
         <entry key="app/src/main/res/layout/activity_json_test.xml" value="0.19947916666666668" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33611111111111114" />

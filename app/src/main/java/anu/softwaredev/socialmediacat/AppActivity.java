@@ -32,33 +32,32 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
 
-        /* Action bar & title */
+        // Action bar
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
 
-        /* User Info */
+        // User Info
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (!TextUtils.isEmpty(user.getDisplayName())) {
             userName = user.getDisplayName();
         } else {
-            // Extract user's email (from Login)       -  Excessive
-            Bundle extras = getIntent().getExtras();
+            Bundle extras = getIntent().getExtras();                // Extract user's email (from Login)       -  Excessive
             if (extras != null) {
                userName = extras.getString("userEmail");       // key arg: match that used in the other activity
             }
         }
-        // Display Welcome Message
         TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
         welcomeText.setText("Welcome, " + userName);
 
-        /** Default Fragment: Home Fragment Transaction */
-        actionBar.setTitle("Home");    // change actionBar title
+
+        // Default: Home Fragment Transaction
+        actionBar.setTitle("Home");
         HomeFragment frag1 = new HomeFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content, frag1, "");
         ft1.commit();
 
-        /** Bottom Nav Bar (navView.setOnItemSelectedListener(listener))*/
+        // Bottom Nav Bar (navView.setOnItemSelectedListener(listener))
         navView = findViewById(R.id.bottomNavMenu);
         navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -93,8 +92,8 @@ public class AppActivity extends AppCompatActivity {
 
     }
 
+    /** Set up bottons */
 
-    // Set Up the [Log Out Button] > return to Main Page
     public void logOutClick(View v) {
         FirebaseAuth.getInstance().signOut();                   // FirebaseAuth: signOut
         Intent intent = new Intent();                           // return to Main Page
@@ -103,19 +102,22 @@ public class AppActivity extends AppCompatActivity {
         finish();
     }
 
-
-    // Set Up the [to Timeline] Button
     public void toTimelineAct(View v){          // [c] need public
         Intent i = new Intent(getApplicationContext(), TimelineActivity.class);        // ori: AppActivity.this
         startActivity(i);
-        // finish();
+        finish();
     }
 
-    // Set Up the [Manage Profile] Button
     public void toManageProfile(View v){          // [c] need public
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(i);
-        // finish();
+        finish();
+    }
+
+    public void toCreatePost(View v){          // [c] need public
+        Intent i = new Intent(getApplicationContext(), CreatePost.class);
+        startActivity(i);
+        finish();
     }
 
 

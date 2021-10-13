@@ -30,14 +30,13 @@ import anu.softwaredev.socialmediacat.dao.decorator.User;
 public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseUser user;
-    private DatabaseReference userDbRef;        // database Reference to the [User] node
+    private DatabaseReference userDbRef;
 
     private String currentUserName;
     private String currentProPic;
     private String currentCaption;
-    private String currentEmail;
 
-    TextInputLayout userNameLayout ;           // [C] can't set (type) findViewById() here: not yet link?
+    TextInputLayout userNameLayout ;
     TextInputLayout proPicLayout ;
     TextInputLayout captionLayout;
     EditText displayNameEdit ;
@@ -58,13 +57,14 @@ public class ProfileActivity extends AppCompatActivity {
         proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
         captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
 
-        // Get the current Info of a User
+        // current User
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+
         if (user != null) {
             String userId = user.getUid();
             userDbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-            // Syn
-            ValueEventListener userListener = new ValueEventListener() {
+            ValueEventListener userListener = new ValueEventListener() {            // Syn
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -87,9 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
                                 currentUserName = (String) ds.getValue();
                                 userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
                                 userNameLayout.setHint("Edit your display name (current: " + currentUserName + ")");
-                                continue;
-                            case "email":                                   // n/a now
-                                currentEmail = (String) ds.getValue();
                                 continue;
                             case "proPic":
                                 currentProPic = (String) (ds.getValue());
@@ -126,7 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    // button [Confirm: edit profile]
+    // Confirm Input Bt (Manage Profile)
     public void profileInput(View v) {
 
         // Read Input
