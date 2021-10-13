@@ -39,7 +39,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
         // action, uname, category, content, postId
 
-        holder.getPostUsername().setText(dataset.get(position).getuId());
+        holder.getPostUsername().setText(dataset.get(position).getUId());
         holder.getPostContent().setText(dataset.get(position).getContent());
         holder.getCategoryPostId().setText(dataset.get(position).getCategory()+"["+dataset.get(position).getPostId()+"]");
         // TODO - likes?

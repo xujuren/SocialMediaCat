@@ -80,12 +80,12 @@ public class UserActivityDao implements IUserActivityDao {
                     String[] strings = line.split(";");
                     if (strings != null && strings.length == 5) {
                         String action = strings[0];
-                        String uname = strings[1];
+                        String uId = strings[1];
                         String category = strings[2];
-                        String content = strings[3];
-                        String postId = strings[4];
+                        String postId = strings[3];
+                        String content = strings[4];
                         if ("create-post".equals(action)) {
-                            UserActivity userAct = new UserActivity(action, uname, category, content, postId);
+                            UserActivity userAct = new UserActivity(action, uId, category, content, postId);
                             userActList.add(userAct);
                         }
                     }

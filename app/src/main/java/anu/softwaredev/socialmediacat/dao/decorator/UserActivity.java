@@ -25,6 +25,6 @@ public class UserActivity {
     public String getPostId() {return postId;}
     public String getContent() {return content;}
 
-    public String getuId() {return uId;}
+    public String getUId() {return uId;}
 
 }
