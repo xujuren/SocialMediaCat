@@ -6,7 +6,7 @@ public interface IUserActivityDao {
 
     /** 5 Methods */
 
-    public UserActivity createPost(String username, String postContent);
+    public UserActivity createPost(String category, String postId, String content, String uId);
 
     public UserActivity likePost(String username, Integer idPost);
 

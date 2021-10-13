@@ -16,7 +16,7 @@
         tools:srcCompat="@tools:sample/avatars[3]" />
 
     <TextView
-        android:id="@+id/tv_post_username"
+        android:id="@+id/tv_userName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -24,20 +24,44 @@
         android:textColor="#009688"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/iv_post_image"
-        app:layout_constraintBottom_toTopOf="@+id/tv_post_content"
+        app:layout_constraintBottom_toTopOf="@+id/tv_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_post_image" />
 
     <TextView
-        android:id="@+id/tv_post_content"
+        android:id="@+id/tv_CategoryPostId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/tv_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_userName"
+        app:layout_constraintTop_toBottomOf="@+id/iv_post_image" />
+
+    <TextView
+        android:id="@+id/tv_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:text="TextView"
         android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/tv_likes"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_userName" />
+
+    <TextView
+        android:id="@+id/tv_likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_username" />
+        app:layout_constraintStart_toEndOf="@+id/tv_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_CategoryPostId" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

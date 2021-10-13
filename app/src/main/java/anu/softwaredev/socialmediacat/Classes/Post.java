@@ -9,7 +9,6 @@ public class Post {
 
     public String category;         // TODO > enum
     public String postId;           // TODO > to be determined [Category + postId] = key
-    public String title;            // Post Title
     public String content;          // Post Content
     public int likeCount=0;           // no. of likes
     public String uId;              // [user ID] of author
@@ -19,16 +18,14 @@ public class Post {
     public Post(String category, String postId, String title, String content, String uId) {
         this.category = category;
         this.postId = postId;
-        this.title = title;
         this.content = content;
         this.uId = uId;
     }
 
     // Constructor with "likeCount"
-    public Post(String category, String postId, String title, String content, String uid, String author, int likeCount) {
+    public Post(String category, String postId, String title, String content, String uId, int likeCount) {
         this.category = category;
         this.postId = postId;
-        this.title = title;
         this.content = content;
         this.uId = uId;
         this.likeCount = likeCount;
@@ -42,9 +39,8 @@ public class Post {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uId", uId);
-        result.put("uId", category);
-        // result.put("userName", userName);
-        result.put("title", title);
+        result.put("category", category);
+        // result.put("photo", photo);
         result.put("content", content);
         result.put("likeCount", likeCount);
         return result;
