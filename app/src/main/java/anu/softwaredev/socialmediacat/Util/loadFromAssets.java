@@ -17,38 +17,36 @@ public abstract class loadFromAssets {
 
     public abstract List<Post> getDataFromAsset(Context ctx, String fileName);
 
+    /** get JSON (POSTS only) */
+    public static List<Post> getDataFromJson(Context ctx, String fileName) {
+        String jsonStr = getJsonFromAssets(ctx, fileName);
+        Gson gson = new Gson();
+        Type listPostType = new TypeToken<List<Post>>() {}.getType();
+
+        return gson.fromJson(jsonStr, listPostType);
+    }
+
+    // JSON > String
+    public static String getJsonFromAssets(Context ctx, String fileName){
+        String jsonStr = null;
+        try {
+            InputStream is = ctx.getAssets().open(fileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            jsonStr = new String(buffer, "UTF-8");
 
 
-//    /** get JSON (POSTS only) TODO */
-//    public static List<Post> getDataFromJson(Context ctx, String fileName) {
-//        String jsonStr = getJsonFromAssets(ctx, fileName);
-//        Gson gson = new Gson();
-//        Type listPostType = new TypeToken<List<Post>>() {}.getType();
-//
-//        return gson.fromJson(jsonStr, listPostType);
-//    }
-//
-//    // JSON > String
-//    public static String getJsonFromAssets(Context ctx, String fileName){
-//        String jsonStr = null;
-//        try {
-//            InputStream is = ctx.getAssets().open(fileName);
-//            int size = is.available();
-//            byte[] buffer = new byte[size];
-//            is.read(buffer);
-//            is.close();
-//
-//            jsonStr = new String(buffer, "UTF-8");
-//
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//
-//        } finally {
-//
-//            return jsonStr;
-//        }
-//    }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            return jsonStr;
+        }
+    }
 
 
     /** load From CSV (TODO - CREATE post only) */
