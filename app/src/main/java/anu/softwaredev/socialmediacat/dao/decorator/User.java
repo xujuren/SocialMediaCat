@@ -1,4 +1,4 @@
-package anu.softwaredev.socialmediacat;
+package anu.softwaredev.socialmediacat.dao.decorator;
 
 import org.json.JSONException;
 import org.json.JSONObject;

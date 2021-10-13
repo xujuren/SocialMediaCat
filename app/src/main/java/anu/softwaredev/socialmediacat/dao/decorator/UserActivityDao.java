@@ -14,7 +14,7 @@ public class UserActivityDao implements IUserActivityDao {
 
     // Singleton
     private static UserActivityDao instance;
-    private static Integer idCount=0;
+    private static Integer idCount=0;               // TODO TBC
     private static File file;                       // *csv file to store
     static {
         try {
@@ -26,17 +26,22 @@ public class UserActivityDao implements IUserActivityDao {
 
     private UserActivityDao() {};
 
-    @Override           // called: [UserActivityDao.getInstance()].createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
-    public UserActivity createPost(String username, String content) {           // alt: only content (username: below)
+
+    @Override
+    public UserActivity createPost(String uId, String category, String postId, String content) {           // alt: only content (userName: below)
         try {
-            idCount++;
+            if (postId == ""){      // postId TODO - how to set (with data)
+                idCount++;
+                postId = idCount.toString();
+            }
+
             String action = "create-post";
-            String text = username + ";" + action + ";" + content + ";" + idCount + "\n";
+            String text = action + ";" + uId + ";" + category + ";" + postId + ";" + content + "\n";            //TODO > userName
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }
-            System.out.println("anu.softwaredev.socialmediacat.Post saved in " + file.getAbsolutePath());
-            UserActivity userAct = new UserActivity(username, action, content, idCount);
+            System.out.println("anu.softwaredev.socialmediacat.Classes.Post saved in " + file.getAbsolutePath());
+            UserActivity userAct = new UserActivity(action, uId, category, postId, content);
             return userAct;
 
         } catch (IOException e) { e.printStackTrace(); }
@@ -46,17 +51,17 @@ public class UserActivityDao implements IUserActivityDao {
 
     @Override
     public UserActivity likePost(String username, Integer idPost) {
-        try{
-            String action = "like-post";
-            String content = "+1";
-            String text = username + ";" + action + ";" + content + ";" + idPost + "\n";
-            Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
-            System.out.println("Like saved in " + file.getAbsolutePath());
-            UserActivity userActivity = new UserActivity(username, action, content, idPost);
-            return userActivity;
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+//        try{
+//            String action = "like-post";
+//            String content = "+1";
+//            String text = username + ";" + action + ";" + content + ";" + idPost + "\n";        // TODO changed tags
+//            Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
+//            System.out.println("Like saved in " + file.getAbsolutePath());
+//            UserActivity userActivity = new UserActivity(username, action, content, idPost);
+//            return userActivity;
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
         return null;
     }
 
@@ -73,13 +78,14 @@ public class UserActivityDao implements IUserActivityDao {
             if (lines != null) {
                 for (String line : lines) {
                     String[] strings = line.split(";");
-                    if (strings != null && strings.length == 4) {
-                        String uname = strings[0];
-                        String action = strings[1];
-                        String content = strings[2];
-                        Integer id = Integer.parseInt(strings[3]);
+                    if (strings != null && strings.length == 5) {
+                        String action = strings[0];
+                        String uname = strings[1];
+                        String category = strings[2];
+                        String content = strings[3];
+                        String postId = strings[4];
                         if ("create-post".equals(action)) {
-                            UserActivity userAct = new UserActivity(uname, action, content, idCount);
+                            UserActivity userAct = new UserActivity(action, uname, category, content, postId);
                             userActList.add(userAct);
                         }
                     }

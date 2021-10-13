@@ -18,8 +18,6 @@ import com.bumptech.glide.request.RequestOptions;
 
 // create own's Adapter for the Timeline (Recycler): Imple Methods
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
-
-    /* add fields & a Constructor (Context, the dataset: List<UserActivity>) */
     private final Context ctx;
     private final List<UserActivity> dataset;
 
@@ -28,20 +26,25 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         this.dataset = dataset;
     }
 
-    /** imple Methods (Recycler Adapter) */
+    // imple Recycler Adapter methods
     @NonNull
-    @Override       // Uses "layoutInflater" [c***] inflate the [post XML]!!: send xxx to XML we’re to create now
+    @Override   // Uses layoutInflater for XML post
     public TimelineAdapter.TimelineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(ctx).inflate(R.layout.activity_timeline_post, parent, false);
         return new TimelineViewHolder(view);
     }
 
-    @Override      // associates the View with Data we hv (this.dataset): using getter methods above*
+    @Override      // associates View with Data (dataset)
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
-        holder.getPostUsername().setText(dataset.get(position).getUsername());
-        holder.getPostContent().setText(dataset.get(position).getContent());
 
-        // M (image): load rand image from external source using Glide (code from ref) (*install Glide?)
+        // action, uname, category, content, postId
+
+        holder.getPostUsername().setText(dataset.get(position).getuId());
+        holder.getPostContent().setText(dataset.get(position).getContent());
+        holder.getCategoryPostId().setText(dataset.get(position).getCategory()+"["+dataset.get(position).getPostId()+"]");
+        // TODO - likes?
+
+        // IMAGE: load rand image from external source using Glide (code from ref) (*install Glide?)
         int id = (int) (Math.random() *((100-20)+1) + 20); 	// gen rand id (use for URL below), max=100 min=(20)
         // Glide ** [Image]
         Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
@@ -59,22 +62,28 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
      * TimelineViewHolder: add Fields (objs in a post) and findViews (from XML file) */
     public class TimelineViewHolder extends RecyclerView.ViewHolder {
 
-        /* Fields (within each "anu.softwaredev.socialmediacat.Post") */
+        // Posts' Fields
         private final ImageView ivPostImage;
         private final TextView tvPostUsername;
         private final TextView tvPostContent;
+        private final TextView tvCategoryPostId;    // NEW
+        private final TextView tvLikes;
 
         public TimelineViewHolder(@NonNull View itemView) {
             super(itemView);
             this.ivPostImage = (ImageView) itemView.findViewById(R.id.iv_post_image);
-            this.tvPostUsername = (TextView) itemView.findViewById(R.id.tv_post_username);
-            this.tvPostContent = (TextView) itemView.findViewById(R.id.tv_post_content);
+            this.tvPostUsername = (TextView) itemView.findViewById(R.id.tv_userName);
+            this.tvPostContent = (TextView) itemView.findViewById(R.id.tv_content);
+            this.tvCategoryPostId = (TextView) itemView.findViewById(R.id.tv_CategoryPostId);   // New
+            this.tvLikes = (TextView) itemView.findViewById(R.id.tv_likes);
         }
 
         // Getter method (for each obj)
         public ImageView getPostImage() {return ivPostImage;}
         public TextView getPostUsername() {return tvPostUsername;}
         public TextView getPostContent() {return tvPostContent;}
+        public TextView getCategoryPostId() {return tvCategoryPostId;}
+        public TextView getLikes() {return tvLikes;}
     }
 
 }
