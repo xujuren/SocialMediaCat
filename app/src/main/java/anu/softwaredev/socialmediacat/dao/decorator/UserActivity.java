@@ -4,7 +4,7 @@ package anu.softwaredev.socialmediacat.dao.decorator;
 public class UserActivity {
 
     private String action;
-    private String uId;
+    private String uId;         // user ID of the author
     private String category;   // Category of Post (createPost)
     private String postId;     // ID of Post (createPost) (TODO <=> ++)
     private String content;
@@ -20,11 +20,9 @@ public class UserActivity {
 
     // Getters
     public String getAction() {return action;}
-
     public String getCategory() {return category;}
     public String getPostId() {return postId;}
     public String getContent() {return content;}
-
     public String getUId() {return uId;}
 
 }

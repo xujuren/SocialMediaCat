@@ -1,4 +1,4 @@
-package anu.softwaredev.socialmediacat;
+package anu.softwaredev.socialmediacat.Util;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,14 +7,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -26,6 +20,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import anu.softwaredev.socialmediacat.R;
+import anu.softwaredev.socialmediacat.dao.decorator.User;
+
 public class JsonTest extends AppCompatActivity {
 
     TextView TV1;
@@ -36,6 +33,7 @@ public class JsonTest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_json_test);
+
 
     }
 
@@ -52,21 +50,6 @@ public class JsonTest extends AppCompatActivity {
         return new User(uId, userName, emailAddress, proPicLink, followings);
 
     }
-
-
-    /** Logcat test */
-    public static void logUsersFromJson(String jsonFileString) {
-        Log.i("data", jsonFileString);
-
-        Gson gson = new Gson();
-        Type listUserType = new TypeToken<List<User>>() { }.getType();
-        List<User> users = gson.fromJson(jsonFileString, listUserType);
-        for (int i=0; i < users.size(); i++) {
-            Log.i("data", "> Item " + i + "\n" + users.get(i));
-        }
-
-    }
-
 
     /** read files stored in the Assets folder. TODO: Test */
     public String readJSONAsString(String fileName) {
@@ -90,5 +73,21 @@ public class JsonTest extends AppCompatActivity {
             return stringBuilder.toString();
         }
     }
+
+
+
+    /** Logcat test */
+    public static void logUsersFromJson(String jsonFileString) {
+        Log.i("data", jsonFileString);
+
+        Gson gson = new Gson();
+        Type listUserType = new TypeToken<List<User>>() { }.getType();
+        List<User> users = gson.fromJson(jsonFileString, listUserType);
+        for (int i=0; i < users.size(); i++) {
+            Log.i("data", "> Item " + i + "\n" + users.get(i));
+        }
+
+    }
+
 
 }

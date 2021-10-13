@@ -1,0 +1,22 @@
+[
+  {
+    "uId": "u1",
+    "category": "cat1",
+    "postId": "p1",
+    "content": "hi hi hi",
+    "likes": "0"
+  },
+  {
+    "uId": "u2",
+    "category": "cat2",
+    "postId": "p2",
+    "content": "hi hello",
+    "likes": "5"
+  },  {
+  "uId": "u3",
+  "category": "cat3",
+  "postId": "p3",
+  "content": "abcfd sfsfsd sdfdsfds",
+  "likes": "10"
+}
+]
