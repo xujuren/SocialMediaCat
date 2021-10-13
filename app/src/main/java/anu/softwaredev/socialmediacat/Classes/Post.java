@@ -7,44 +7,53 @@ import java.util.Map;
 
 public class Post {
 
+    public String uId;              // [user ID] of author
     public String category;         // TODO > enum
     public String postId;           // TODO > to be determined [Category + postId] = key
     public String content;          // Post Content
-    public int likeCount=0;           // no. of likes
-    public String uId;              // [user ID] of author
+    // public int likeCount=0;           // no. of likes
     // TODO - Photo (see how we manage resources)
 
 
-    public Post(String category, String postId, String title, String content, String uId) {
+    public Post(String uId, String category, String postId, String content) {
+        this.uId = uId;
         this.category = category;
         this.postId = postId;
         this.content = content;
-        this.uId = uId;
     }
 
     // Constructor with "likeCount"
-    public Post(String category, String postId, String title, String content, String uId, int likeCount) {
+    public Post(String category, String postId, String content, String uId, int likeCount) {
         this.category = category;
         this.postId = postId;
         this.content = content;
         this.uId = uId;
-        this.likeCount = likeCount;
+        // this.likeCount = likeCount;
     }
 
     // Default constructor required for calls to DataSnapshot.getValue(anu.softwaredev.socialmediacat.Classes.Post.class)
     public Post() {}
 
 
+    @Override
+    public String toString(){
+        return uId+"/"+category+"/"+postId+"/"+content;
+    }
+
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uId", uId);
         result.put("category", category);
-        // result.put("photo", photo);
+        result.put("postId", postId);
         result.put("content", content);
-        result.put("likeCount", likeCount);
+        // result.put("photo", photo);
+        // result.put("likeCount", likeCount);
         return result;
     }
+
+
+
 
     /** Write New Post (https://firebase.google.com/docs/database/android/read-and-write) */
 

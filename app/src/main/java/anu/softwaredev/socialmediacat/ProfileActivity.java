@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,13 +24,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import anu.softwaredev.socialmediacat.dao.decorator.User;
+
 // Manage User Profile
 public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseUser user;
     private DatabaseReference userDbRef;        // database Reference to the [User] node
 
-    private String currentDisplayName;
+    private String currentUserName;
     private String currentProPic;
     private String currentCaption;
     private String currentEmail;
@@ -49,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        /* Set Up Views (findViewsById) */
+        // Set Up Views
         userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
         proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
         captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
@@ -57,38 +58,38 @@ public class ProfileActivity extends AppCompatActivity {
         proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
         captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
 
-        /** Get the current Info of a User */
-        // (reconfirm User signed in) > try get INFO (https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseUser)
+        // Get the current Info of a User
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-
-            /** M2 - get DATA from database */
-            String userId = user.getUid();      // testing@doggo.com: "sibHOgo1a2Qzx3Jxui91ugzhqB63"
+            String userId = user.getUid();
             userDbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-
-            /* M1 (ValueEventListener): Syn */
+            // Syn
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    /** [C],[M] Checkpoint: create User on realtime db if NOT yet */
+                    // Create Profile if not exists
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
                         Toast.makeText(ProfileActivity.this, "(Setting up profile on Database ...)", Toast.LENGTH_LONG).show();
-                        /* create record on realtime db */
+                        // create record on realtime db
                         user = FirebaseAuth.getInstance().getCurrentUser();
-                        User newUser = new User(user.getUid(), user.getEmail());          // Set Up [User] obj for new user ([Uid] as KEY of user info)
+                        User newUser = new User(user.getUid(), user.getEmail());                            // Set Up a [User] obj ([Uid] as KEY of user info)
                         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
                         dbRef.child("Users").child(user.getUid()).setValue(newUser);
                     }
 
-                    /* Get each existing field (of user) */
+                    // Get each existing field (of user)
                     for (DataSnapshot ds : snapshot.getChildren()) {    // loop thru each [field (k,v)] of the [uesr(UID)]
                         String k = ds.getKey();
                         switch (k) {
-                            case "name":
-                                currentDisplayName = (String) ds.getValue();
+                            case "name" :
+                            case "userName" :
+                                currentUserName = (String) ds.getValue();
                                 userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
-                                userNameLayout.setHint("Edit your display name (current: " + currentDisplayName + ")");
+                                userNameLayout.setHint("Edit your display name (current: " + currentUserName + ")");
+                                continue;
+                            case "email":                                   // n/a now
+                                currentEmail = (String) ds.getValue();
                                 continue;
                             case "proPic":
                                 currentProPic = (String) (ds.getValue());
@@ -102,52 +103,25 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (currentCaption.length()==0) continue;
                                 captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
                                 captionLayout.setHint("Edit your caption [" + currentCaption + "]");
-                                // TD: show the PICTURE
-                                continue;
-                            case "emailAddress":    // n/a now
-                                currentEmail = (String) ds.getValue();
                                 continue;
                             default:
                                 continue;
                         }
                     }
 
-                    // [ERROR] Get [User] object and use the values to update the UI        (??)
-                    // User userFromDb = snapshot.getValue(User.class);          // .getValue(User.class)
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Getting anu.softwaredev.socialmediacat.Post failed, log a message
+                    // Getting anu.softwaredev.socialmediacat.Classes.Post failed, log a message
                     Log.w(TAG, "read failed (onCancelled)", error.toException());
                 }
             };
 
             userDbRef.addValueEventListener(userListener);
 
-
-            /* M1 (get) */
-//            userDbRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                    if (!task.isSuccessful()) {
-//                        Log.e("firebase", "Error getting data", task.getException());
-//                    }
-//                    else {
-//                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
-//                        /** where's the data ???*/
-//
-//                    }
-//                }
-//            });
-
-            /* M0 - user.getFields() @Authn*/
-//            currentName = user.getDisplayName();
-//            currentProPic = user.getPhotoUrl();
-
-
-        } else {    // No user is signed in
-            finish();
+        } else {
+            finish();   // Not signed in (unexpected case)
         }
 
     }
@@ -161,15 +135,15 @@ public class ProfileActivity extends AppCompatActivity {
         String newCaption = captionEdit.getText().toString();
 
         // TODO: add Checkings [if new=empty / invalid]
-        if (TextUtils.isEmpty(newName)) {newName = currentDisplayName;}
+        if (TextUtils.isEmpty(newName)) {newName = currentUserName;}
         if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic;}
         if (TextUtils.isEmpty(newCaption)) {newCaption = currentCaption;}
 
         // if all input fields are either empty or same as current
-        if (!(newName.equals(currentDisplayName) && newProPic.equals(currentProPic) && newCaption.equals(currentCaption))){
+        if (!(newName.equals(currentUserName) && newProPic.equals(currentProPic) && newCaption.equals(currentCaption))){
             Toast.makeText(ProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
 
-            /** Update [M1: user @authen]*/
+            // User @ Authen
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .setPhotoUri(Uri.parse(newProPic))
@@ -185,9 +159,9 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     });
 
-            /** [M2*] update fields in Realtime DB */
+            // Update Data
             userDbRef.child("name").setValue(newName);
-            userDbRef.child("displayName").setValue(newName);        // .push(): ??? became field [displayName] (correct) > ((a weird ID)) : "Teslala"
+            userDbRef.child("displayName").setValue(newName);
             userDbRef.child("proPic").setValue(newProPic);
             userDbRef.child("caption").setValue(newCaption);
 

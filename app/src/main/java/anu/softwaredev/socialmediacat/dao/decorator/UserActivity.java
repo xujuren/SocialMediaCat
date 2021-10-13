@@ -10,11 +10,11 @@ public class UserActivity {
     private String content;
 
     public UserActivity(String action, String uId, String category, String postId, String content) {
-        this.uId = uId;
         this.action = action;
-        this.content = content;
-        this.postId = postId;
+        this.uId = uId;
         this.category = category;
+        this.postId = postId;
+        this.content = content;
     }
 
 

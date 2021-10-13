@@ -19,21 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
-import anu.softwaredev.socialmediacat.util.Utils;
+import anu.softwaredev.socialmediacat.dao.decorator.User;
 
 public class CreateAccActivity extends AppCompatActivity {
 
@@ -117,7 +103,7 @@ public class CreateAccActivity extends AppCompatActivity {
                                 Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                             });
 
-                            // finish: return to Main   /or: log in and to [AppActivity]?
+                            // finish: return to Main   (Alt: logged in, to [AppActivity])
                             finish();
 
                         } else {

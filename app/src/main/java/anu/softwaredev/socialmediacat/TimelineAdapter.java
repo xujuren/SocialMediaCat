@@ -36,9 +36,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
     @Override      // associates View with Data (dataset)
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
-
-        // action, uname, category, content, postId
-
         holder.getPostUsername().setText(dataset.get(position).getUId());
         holder.getPostContent().setText(dataset.get(position).getContent());
         holder.getCategoryPostId().setText(dataset.get(position).getCategory()+"["+dataset.get(position).getPostId()+"]");
