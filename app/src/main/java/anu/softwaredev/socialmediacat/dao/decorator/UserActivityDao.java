@@ -9,6 +9,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import anu.softwaredev.socialmediacat.Classes.Post;
+
 
 public class UserActivityDao implements IUserActivityDao {
 
@@ -49,6 +51,7 @@ public class UserActivityDao implements IUserActivityDao {
         return null;
     }
 
+
     @Override
     public UserActivity likePost(String username, Integer idPost) {
 //        try{
@@ -85,7 +88,7 @@ public class UserActivityDao implements IUserActivityDao {
                         String postId = strings[3];
                         String content = strings[4];
                         if ("create-post".equals(action)) {
-                            UserActivity userAct = new UserActivity(action, uId, category, content, postId);
+                            UserActivity userAct = new UserActivity(action, uId, category, postId, content);
                             userActList.add(userAct);
                         }
                     }

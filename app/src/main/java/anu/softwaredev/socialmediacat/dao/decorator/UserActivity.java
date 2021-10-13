@@ -20,9 +20,9 @@ public class UserActivity {
 
     // Getters
     public String getAction() {return action;}
+    public String getUId() {return uId;}
     public String getCategory() {return category;}
     public String getPostId() {return postId;}
     public String getContent() {return content;}
-    public String getUId() {return uId;}
 
 }

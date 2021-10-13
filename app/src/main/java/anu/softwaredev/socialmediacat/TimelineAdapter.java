@@ -38,7 +38,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
         holder.getPostUsername().setText(dataset.get(position).getUId());
         holder.getPostContent().setText(dataset.get(position).getContent());
-        holder.getCategoryPostId().setText(dataset.get(position).getCategory()+"["+dataset.get(position).getPostId()+"]");
+        holder.getCategoryPostId().setText(dataset.get(position).getCategory()+"/"+dataset.get(position).getPostId()+"]");
         // TODO - likes?
 
         // IMAGE: load rand image from external source using Glide (code from ref) (*install Glide?)

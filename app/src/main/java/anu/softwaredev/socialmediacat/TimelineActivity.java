@@ -57,7 +57,7 @@ public class TimelineActivity extends AppCompatActivity {
         } else {
             List<Post> posts = postsFromInfo();
             for (Post post : posts){
-                UserActivityDao.getInstance().createPost(post.getUId(), post.getCategory(), post.getPostId(), post.getContent());
+                UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getCategory(), post.getPostId(), post.getContent());
             }
 
             return UserActivityDao.getInstance().findAllPosts();
@@ -73,7 +73,7 @@ public class TimelineActivity extends AppCompatActivity {
         BufferedReader bufferedReader;
         List<Post> postsFound = new ArrayList<>();
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open("loginDetails.csv"), StandardCharsets.UTF_8));
+            bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open("posts.csv"), StandardCharsets.UTF_8));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] tokens = line.split(",");
