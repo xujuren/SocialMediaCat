@@ -11,18 +11,17 @@ public class Post {
     public String postId;           // TODO > to be determined [Category + postId] = key
     public String title;            // Post Title
     public String content;          // Post Content
-    public int likeCount;          // no. of likes
-    public String uId;              // user ID of author
+    public int likeCount=0;           // no. of likes
+    public String uId;              // [user ID] of author
     // TODO - Photo (see how we manage resources)
 
 
-    public Post(String category, String postId, String title, String content, String uid, String author) {
+    public Post(String category, String postId, String title, String content, String uId) {
         this.category = category;
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.uId = uId;
-        this.likeCount = 0;
     }
 
     // Constructor with "likeCount"
