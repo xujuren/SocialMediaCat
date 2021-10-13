@@ -167,27 +167,27 @@ The following is a report template to help your team successfully provide all th
 ## Implemented Features
 
 *[What features have you implemented?]*
-
-*Here is an example:*
-
-*User Privacy*
-
-1. *Friendship. Users may send friend requests which are then accepted or denied. (easy)*
-2. *Privacy I: A user must approve a friend's request based on privacy settings. (easy)*
-3. *Privacy II: A user can only see a profile that is Public (consider that there are at least two types of profiles: public and private). (easy)*
-4. *Privacy III: A user can only follow someone who shares at least one mutual friend based on privacy settings. (Medium)*
-
 *Firebase Integration*
 1. *Use Firebase to implement user Authentication/Authorisation. (easy)*
 2. *Use Firebase to persist all data used in your app (this item replace the requirement to retrieve data from a local file) (medium)*
-
-*List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
-
+...
+..
+   
+   *Here is an example:*
+   
+   *User Privacy*
+   1. *Friendship. Users may send friend requests which are then accepted or denied. (easy)*
+   2. *Privacy I: A user must approve a friend's request based on privacy settings. (easy)*
+   3. *Privacy II: A user can only see a profile that is Public (consider that there are at least two types of profiles: public and private). (easy)*
+   4. *Privacy III: A user can only follow someone who shares at least one mutual friend based on privacy settings. (Medium)*
+   *Type 2*
+      ...
+   
 ## Team Meetings
 
-*Here is an example:*
+- *[Team Meeting 1](./MeetingTemplate.md)*      // TODO - find Kev's 
+- *[Team Meeting 2](./Meeting2_Minutes.md)*
+- *TODO*
 
-- *[Team Meeting 1](./MeetingTemplate.md)*
-- ...
-
-*Either write your meeting minutes here or link to documents that contain them. There must be at least 3 team meetings.*
+*Either write your meeting minutes here or link to documents that contain them. 
+There must be at least 3 team meetings.*

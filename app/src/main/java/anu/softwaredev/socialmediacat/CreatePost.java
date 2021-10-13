@@ -19,15 +19,12 @@ import java.util.Map;
 import anu.softwaredev.socialmediacat.Classes.Post;
 
 public class CreatePost extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser user;
     private DatabaseReference dbRef;
-    private String uId = "";
-    TextInputLayout contentLayout ;           // post_input_content_text
-    TextInputLayout categoryLayout ;          // category_input_category_text
-    TextInputLayout locLayout;              // post_input_location_reply
-    TextInputLayout photoURLLayout;              // post_input_Photo_text
+    TextInputLayout contentLayout ;
+    TextInputLayout categoryLayout ;
+    TextInputLayout locLayout;
+    TextInputLayout photoURLLayout;
     EditText contentEdit ;
     EditText categoryEdit ;
     EditText locEdit;
@@ -42,7 +39,6 @@ public class CreatePost extends AppCompatActivity {
 
     }
 
-    // Set Up Views
     public void initView() {
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
         categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);
@@ -68,6 +64,7 @@ public class CreatePost extends AppCompatActivity {
             String postId = "P101";                                     //TODO - unique, new
 
             if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
+
                 // Add to DB
                 dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB
                 String key = dbRef.child("Posts").push().getKey();                  // unique Key for Posts
