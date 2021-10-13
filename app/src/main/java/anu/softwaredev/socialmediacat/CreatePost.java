@@ -44,10 +44,6 @@ public class CreatePost extends AppCompatActivity {
 
         initView();
 
-        // current User
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {uId = user.getUid();}
-
     }
 
     // Set Up Views
@@ -65,6 +61,9 @@ public class CreatePost extends AppCompatActivity {
 
     // Create Post - button
     public void bt_confirm_CreatePost(View v) {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {uId = user.getUid();}
+
         String content = contentEdit.getText().toString();
         String category = categoryEdit.getText().toString();
         String locShare = locEdit.getText().toString();
@@ -72,7 +71,6 @@ public class CreatePost extends AppCompatActivity {
 
         String postId = "P101";     //TODO - unique, new
 
-        // TODO: add Checkings [if new=empty / invalid]
         if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
             dbRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
             ValueEventListener postListener = new ValueEventListener() {            // Syn
@@ -80,10 +78,10 @@ public class CreatePost extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     // Create Post
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
-                        Toast.makeText(CreatePost.this, "(Creating Post ...)", Toast.LENGTH_LONG).show();
                         Post newPost = new Post(uId, category, postId, content);                // TODO [postId]
-                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
-                        dbRef.child("Posts").child(postId).setValue(newPost);                           // *postId
+                        Toast.makeText(CreatePost.this, "(Creating Post " + newPost.toString() + "...)", Toast.LENGTH_LONG).show();
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store
+                        dbRef.child("Posts").child(newPost.getPostId()).setValue(newPost);                           // *postId
                     }
                 }
 

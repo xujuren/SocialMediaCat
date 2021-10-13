@@ -70,11 +70,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                     // Create Profile if not exists
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
-                        Toast.makeText(ProfileActivity.this, "(Setting up profile on Database ...)", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileActivity.this, "(Setting up your profile ...)", Toast.LENGTH_LONG).show();
                         // create record on realtime db
                         user = FirebaseAuth.getInstance().getCurrentUser();
-                        User newUser = new User(user.getUid(), user.getEmail());                            // Set Up a [User] obj ([Uid] as KEY of user info)
-                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
+                        User newUser = new User(user.getUid(), user.getEmail());                            // Set Up User (Uid as KEY)
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data
                         dbRef.child("Users").child(user.getUid()).setValue(newUser);
                     }
 
@@ -84,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
                         switch (k) {
                             case "name" :
                             case "userName" :
+                            case "displayName" :
                                 currentUserName = (String) ds.getValue();
                                 userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
                                 userNameLayout.setHint("Edit your display name (current: " + currentUserName + ")");
