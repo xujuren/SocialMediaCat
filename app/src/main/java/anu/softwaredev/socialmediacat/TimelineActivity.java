@@ -29,28 +29,17 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        // Timeline (the Recycler View)
-        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
-
-        // Data
-        List<UserActivity> allPosts = getAllPosts(true, true, false);
-
-        // Adapter
-        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);
+        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline (the Recycler View)
+        List<UserActivity> allPosts = getAllPosts(true, true, false);                  // Data
+        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);        // Adapter
         rvTimeline.setAdapter(timelineAdapter);
-        rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));        // Grid Layout
-            // rvTimeline.setLayoutManager(new LinearLayoutManager(this));       // set layout (Linear: ≈IG)
+        rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));                    // (Grid Layout)
+            // rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // (Linear: ≈IG)
 
     }
 
     /** Dataset */
     public List<UserActivity> getAllPosts(boolean dummy, boolean csv, boolean json) {
-
-        if (dummy){
-            UserActivityDao.getInstance().createPost("Formal", "post02", "Welcome", "uId02");
-            UserActivityDao.getInstance().createPost("Sports", "post03", "Running ... ...", "uId03");
-            UserActivityDao.getInstance().createPost("Casual", "post01", "Hi", "uId01");
-        }
 
         if (csv) {
             List<Post> posts = postsFromInfo();
@@ -61,6 +50,12 @@ public class TimelineActivity extends AppCompatActivity {
 
         if (json) {
             // TODO
+        }
+
+        if (dummy){
+            UserActivityDao.getInstance().createPost("Formal", "post02", "Welcome", "uId02");
+            UserActivityDao.getInstance().createPost("Sports", "post03", "Running ... ...", "uId03");
+            UserActivityDao.getInstance().createPost("Casual", "post01", "Hi", "uId01");
         }
 
         return UserActivityDao.getInstance().findAllPosts();
