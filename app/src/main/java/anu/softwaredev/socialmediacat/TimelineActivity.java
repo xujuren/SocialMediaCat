@@ -32,8 +32,8 @@ public class TimelineActivity extends AppCompatActivity {
         // Timeline (the Recycler View)
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
 
-        // Data (create sth as posts here > set up a list w/ all posts)
-        List<UserActivity> allPosts = getAllPosts();
+        // Data
+        List<UserActivity> allPosts = getAllPosts(true, true, false);
 
         // Adapter
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);
@@ -43,32 +43,31 @@ public class TimelineActivity extends AppCompatActivity {
 
     }
 
-    /** TODO - DATASET (posts) for TimeLineAdapter */
-    public List<UserActivity> getAllPosts() {
+    /** Dataset */
+    public List<UserActivity> getAllPosts(boolean dummy, boolean csv, boolean json) {
 
-        // TODO Test: (Dummy Posts) TODO Testing
-        if (false){
+        if (dummy){
             UserActivityDao.getInstance().createPost("Formal", "post02", "Welcome", "uId02");
             UserActivityDao.getInstance().createPost("Sports", "post03", "Running ... ...", "uId03");
             UserActivityDao.getInstance().createPost("Casual", "post01", "Hi", "uId01");
+        }
 
-            return UserActivityDao.getInstance().findAllPosts();
-
-        } else {
+        if (csv) {
             List<Post> posts = postsFromInfo();
             for (Post post : posts){
                 UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getCategory(), post.getPostId(), post.getContent());
             }
-
-            return UserActivityDao.getInstance().findAllPosts();
-
         }
 
-        // return UserActivityDao.getInstance().findAllPosts();
+        if (json) {
+            // TODO
+        }
+
+        return UserActivityDao.getInstance().findAllPosts();
     }
 
 
-    /** [Test: re Lab] read CSV file in the Assets folder - ALL */
+    /** load Posts from CSV file */
     public List<Post> postsFromInfo(){
         BufferedReader bufferedReader;
         List<Post> postsFound = new ArrayList<>();
