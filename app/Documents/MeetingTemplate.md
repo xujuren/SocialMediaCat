@@ -1,10 +1,10 @@
 # [Team Name]
 This following is a team meeting template. You may change this template as you like.
 
-## Team Meeting [2] - Week [9] - [October 8] (10-11:40PM AEST)
-**Absent: None**
+## Team Meeting [number] - Week [number] - [date] (start-end time)
+**Absent:**
 <br>
-**Lead/scribe: Juren/Cathy**
+**Lead/scribe:**
 
 ## Agreed Procedure
 Stand up Procedure: ...
@@ -12,31 +12,28 @@ Stand up Procedure: ...
 ## Agenda Items
 | Number | Item |
 | :--- | ---: |
-| [1] | [Report Progress] |
-| [2] | [Discuss issues] |
-| [3] | [Tasks allocation] |
+| [number] | [item name] |
+| [number] | [item name] |
+| [number] | [item name] |
+| [number] | [item name] |
 
 ## Meeting Minutes
-- Class Structure: Discussion and confusion about 'UserActivity', voted and agreed on decomposion
-- Layout: Rearrangement needed.
+- ...
+- ...
 
 ## TODO Items
 | Task | Assignee |
 | :--- | ---: |
-| [Feature: Read Data Instances from different files (easy)] | [Cathy] |
-| [Mandatory Task: Research on Search] | [Juren] |
-| [Mandatory Task: Research on RB Tree] | [Juren] |
-| [Overall: Revise Class Structure] | [Kyle] |
-| [Overall: Revise App Layout/structure] | [Kyle] |
-| [Continue with Mandatory Task: Tokenier & Parser] | [Kevin] |
-| [Feature: User firebase to persist all data used (medium)] | [Cathy] |
-# Follow Up:
-| [Mandatory Task: 1,000 Data Instances about ACTIONS (e.g. Create Post, like, follow)] | [TBC] |
-| [Feature: Create UI and related Features for "Like" (easy)] | [TBC] |
-| [Mandatory Task: Test Cases (non-UI)] | [TBC] |
-| **Outstanding Features: 2 Easy, 1 Medium, 1 Hard**
-| [Admin]] | [UML Diagram, REPORT, Powerpoint Slides] |
-
+| [task] | [assignee] |
+| [task] | [assignee] |
+| [task] | [assignee] |
+| [task] | [assignee] |
 
 ## Scribe Rotation
-(follows the rotation as at Meeting 1, unless special occasions)
+The following dictates who will be scribe in this and the next meeting.
+| Name |
+| :---: |
+| [Member name] |
+| [Member name] |
+| [Member name] |
+| [Member name] |
