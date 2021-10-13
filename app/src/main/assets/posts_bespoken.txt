@@ -1,7 +1,7 @@
 create-post[String uId, String category, String postId, String content]
-create-post(u11, cat1, p01, hi hi hi hi)
-create-post(u12, cat3, p01, content in bespoken)
-create-post(u11, cat4, p01, hi hi hi hi)
-create-post(u11, cat5, p01, content in bespokenSpoken)
-create-post(u12, cat4, p01, veryveryveryveryveryveryvery very long content)
-create-post(u13, cat5, p01, hi hi ho)
+create-post(u11, cat1, p01, [B]hi hi hi hi)
+create-post(u12, cat3, p01, [B]content in bespoken)
+create-post(u11, cat4, p01, [B]hi hi hi hi)
+create-post(u11, cat5, p01, [B]content in bespokenSpoken)
+create-post(u12, cat4, p01, [B]veryveryveryveryveryveryvery very long content)
+create-post(u13, cat5, p01, [B]hi hi ho)

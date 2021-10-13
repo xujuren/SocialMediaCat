@@ -1,5 +1,4 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
-
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import java.io.File;
@@ -10,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
-
+import anu.softwaredev.socialmediacat.actionReport.ActionCount;
+import anu.softwaredev.socialmediacat.actionReport.CsvActionReport;
 
 public class UserActivityDao implements IUserActivityDao {
 
-    // Singleton
+    // [Singleton]
     private static UserActivityDao instance;
     private static Integer idCount=0;               // TODO TBC
     private static File file;                       // *csv file to store
@@ -42,9 +42,9 @@ public class UserActivityDao implements IUserActivityDao {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }
-            System.out.println("anu.softwaredev.socialmediacat.Classes.Post saved in " + file.getAbsolutePath());
-            UserActivity userAct = new UserActivity(action, uId, category, postId, content);
-            return userAct;
+
+            System.out.println("Post saved in " + file.getAbsolutePath());
+            return new UserActivity(action, uId, category, postId, content);
 
         } catch (IOException e) { e.printStackTrace(); }
 
@@ -57,7 +57,7 @@ public class UserActivityDao implements IUserActivityDao {
 //        try{
 //            String action = "like-post";
 //            String content = "+1";
-//            String text = username + ";" + action + ";" + content + ";" + idPost + "\n";        // TODO changed tags
+//            String text = action + ";" + username + ";" + content + ";" + idPost + "\n";        // TODO changed tags
 //            Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
 //            System.out.println("Like saved in " + file.getAbsolutePath());
 //            UserActivity userActivity = new UserActivity(username, action, content, idPost);
@@ -118,11 +118,23 @@ public class UserActivityDao implements IUserActivityDao {
         }
     }
 
-    // e.g. [UserActivityDao.getInstance()].createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
     public static UserActivityDao getInstance(){
+        // e.g. [UserActivityDao.getInstance()].createPost("@woofie", "owuowu, owuowuowu, owu! OWU!");
         if (instance == null) { instance = new UserActivityDao(); }
         return instance;
     }
+
+
+//    /** reports */
+//    public List<ActionCount> generateActionCountReport() {
+//        CsvActionReport csvActionReport = new CsvActionReport();
+//        UserActivityDao userActivityDao = UserActivityDao.getInstance();
+//        String path = "posts.csv";
+//        // String path = userActivityDao.getFilePath();
+//        List<ActionCount> actionCountList = csvActionReport.generateReport(path);
+//        return actionCountList;
+//    }
+
 
 }
 

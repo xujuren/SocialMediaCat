@@ -21,7 +21,7 @@
             android:name=".Classes.PostActivity"
             android:exported="true" />
         <activity
-            android:name=".LoadData_Test"
+            android:name=".loadData_Test_Act"
             android:exported="true" />
         <activity
             android:name=".ProfileActivity"

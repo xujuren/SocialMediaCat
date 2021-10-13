@@ -1,0 +1,20 @@
+[
+  {
+    "uId": "u1J",
+    "category": "cat1",
+    "postId": "p9",
+    "content": "(J)hi hi hi"
+  },
+  {
+    "uId": "u2J",
+    "category": "cat3",
+    "postId": "p12",
+    "content": "(J)hi hello"
+  },
+  {
+    "uId": "u3J",
+    "category": "cat5",
+    "postId": "p32",
+    "content": "(J)abcfd sfsfsd sdfdsfds"
+  }
+]
