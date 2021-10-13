@@ -1,11 +1,9 @@
 package anu.softwaredev.socialmediacat;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,8 +30,6 @@ public class CreateAccActivity extends AppCompatActivity {
     private EditText pwEdit2;       // check
     private TextInputLayout accLayout;
     private TextInputLayout pwLayout;
-    private EditText msgTextEdit;
-    private Button signUpBt;
     private FirebaseUser user;
 
     @Override
@@ -80,31 +76,27 @@ public class CreateAccActivity extends AppCompatActivity {
         accLayout.setError("");             // reset upon new Click (?)
         pwLayout.setError("");              //
 
-        /** Create Account [Firebase]*/
+        /** Create Account [Firebase] */
         mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(acc, pw)
                 .addOnCompleteListener(CreateAccActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Notification [CreateAcc]
                             Toast.makeText(CreateAccActivity.this, R.string.createAcc_msg_Success, Toast.LENGTH_SHORT).show();
-
-                            /** Reg > Store User Info in Firebase Realtime DB (Ref: Vid2) >> * Database location: United States (us-central1) */
                             user = mAuth.getCurrentUser();
                             String userUID = user.getUid();
                             User newUser = new User(userUID, acc);          // Set Up [User] obj for new user ([Uid] as KEY of user info)
 
-                            // db's ref >> / put data (in Hashmap) into db [tested OK with dummy data]
-                            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data (named "Users")
+                            // to database
+                            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store data
                             dbRef.child("Users").child(userUID).setValue(newUser).addOnSuccessListener((OnSuccessListener) (aVoid) -> {
                                 Toast.makeText(CreateAccActivity.this, "Data Successfully added", Toast.LENGTH_SHORT).show();
                             }).addOnFailureListener((e) -> {
                                 Toast.makeText(CreateAccActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                             });
 
-                            // finish: return to Main   (Alt: logged in, to [AppActivity])
-                            finish();
+                            finish();       // return to Main   (Alt: logged in, to [AppActivity])
 
                         } else {
                             Toast.makeText(CreateAccActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

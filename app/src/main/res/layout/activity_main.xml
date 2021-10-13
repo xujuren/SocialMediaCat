@@ -70,28 +70,6 @@
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
     <Button
-        android:id="@+id/forget_pw_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="80dp"
-        android:backgroundTint="#F5F8F8"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:onClick="forgetPw"
-        android:shadowColor="#FAF9F9"
-        android:text="Forgot Password"
-        android:textColor="#5A5B61"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_acc_button"
-        app:rippleColor="#FFFFFF"
-        app:strokeColor="#FFFFFF" />
-
-    <Button
         android:id="@+id/spec_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

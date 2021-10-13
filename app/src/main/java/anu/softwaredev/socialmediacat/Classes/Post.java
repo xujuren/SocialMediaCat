@@ -8,11 +8,11 @@ import java.util.Map;
 public class Post {
 
     public String uId;              // [user ID] of author
-    public String category;         // TODO > enum
-    public String postId;           // TODO > to be determined [Category + postId] = key
+    public String category;         // TODO > enum ?
+    public String postId;           // TODO > to be determined [Category + postId] = key ??
     public String content;          // Post Content
     // public int likeCount=0;           // no. of likes
-    // TODO - Photo (see how we manage resources)
+    // TODO - Photo (see time)
 
 
     public Post(String uId, String category, String postId, String content) {

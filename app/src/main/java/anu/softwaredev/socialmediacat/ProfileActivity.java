@@ -28,10 +28,8 @@ import anu.softwaredev.socialmediacat.dao.decorator.User;
 
 // Manage User Profile
 public class ProfileActivity extends AppCompatActivity {
-
     private FirebaseUser user;
     private DatabaseReference userDbRef;
-
     private String currentUserName;
     private String currentProPic;
     private String currentCaption;
@@ -59,26 +57,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         // current User
         user = FirebaseAuth.getInstance().getCurrentUser();
-
-
         if (user != null) {
             String userId = user.getUid();
             userDbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
             ValueEventListener userListener = new ValueEventListener() {            // Syn
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                     // Create Profile if not exists
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
                         Toast.makeText(ProfileActivity.this, "(Setting up your profile ...)", Toast.LENGTH_LONG).show();
-                        // create record on realtime db
-                        user = FirebaseAuth.getInstance().getCurrentUser();
                         User newUser = new User(user.getUid(), user.getEmail());                            // Set Up User (Uid as KEY)
+                        // create record (db)
                         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data
                         dbRef.child("Users").child(user.getUid()).setValue(newUser);
                     }
 
-                    // Get each existing field (of user)
+                    // Get any existing fields
                     for (DataSnapshot ds : snapshot.getChildren()) {    // loop thru each [field (k,v)] of the [uesr(UID)]
                         String k = ds.getKey();
                         switch (k) {
