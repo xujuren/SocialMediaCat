@@ -28,10 +28,10 @@ public class UserActivityDao implements IUserActivityDao {
     private UserActivityDao() {};
 
 
-    @Override
+    @Override           /** TODO (userName, Content) ... */
     public UserActivity createPost(String uId, String category, String postId, String content) {           // alt: only content (userName: below)
         try {
-            if (postId==null || postId == ""){      // postId TODO - how to set (with data)
+            if (postId==null || postId=="P-1"){      // postId ("P-1": dummy) TODO - how set (with data)
                 idCount++;
                 postId = idCount.toString();
             }
@@ -49,6 +49,7 @@ public class UserActivityDao implements IUserActivityDao {
 
         return null;
     }
+
 
 
     @Override

@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
+import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 public class CreatePost extends AppCompatActivity {
     private FirebaseUser user;
@@ -109,9 +111,6 @@ public class CreatePost extends AppCompatActivity {
             Boolean shareLocBool = shareLocOption.getText().toString().equals("Loc will be shared!");
             String photoURL = photoURLEdit.getText().toString();
 
-            // TODO
-            /** shd be > UserActivityDAO */
-
             if (shareLocBool) {
                 // getLoc();
                 String latLng = latlngText.getText().toString();
@@ -121,9 +120,9 @@ public class CreatePost extends AppCompatActivity {
                 }
             }
 
-            // URL
+            // URL             // TODO - Check Validity
             Boolean photoURLValid = false;
-            if (!photoURL.equals("")) {
+            if (!TextUtils.isEmpty(photoURL)) {
                 try {
                     (new java.net.URL(photoURL)).openStream().close();
                     photoURLValid = true;
@@ -132,18 +131,23 @@ public class CreatePost extends AppCompatActivity {
             }
             Toast.makeText(CreatePost.this, "PhotoValid? - " + photoURLValid.toString(), Toast.LENGTH_SHORT);
 
-
-            String postId = "P101";                                     //TODO - unique, new
-
-
+            // Check required info
             if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
+
+                /** shd be > UserActivityDAO */
+                String postId_dummy = "P-1";                                     // TODO - dummy Id
+                UserActivity newPostAct = UserActivityDao.getInstance().createPost(uId, category, postId_dummy, content);
+                Post newPost = new Post(newPostAct.getUId(), newPostAct.getCategory(), newPostAct.getPostId(), newPostAct.getContent());           // TODO [postId]
+                /** ... End of Testing */
+
+                // ORI - Post newPost = new Post(uId, category, postId_dummy, content);           // TODO [postId]
+
+                Toast.makeText(CreatePost.this, "Loading ... " + newPost.toString(), Toast.LENGTH_SHORT).show();
+
 
                 // Add to DB
                 dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB
                 String key = dbRef.child("Posts").push().getKey();                  // unique Key for Posts
-                Post newPost = new Post(uId, category, postId, content);           // TODO [postId]
-                Toast.makeText(CreatePost.this, "Loading ... " + newPost.toString(), Toast.LENGTH_SHORT).show();
-
                 Map<String, Object> postValues = newPost.toMap();
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put("/Posts/" + key, postValues);
