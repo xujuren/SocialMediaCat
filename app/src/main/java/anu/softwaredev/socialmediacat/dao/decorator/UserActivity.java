@@ -1,5 +1,7 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
 
+import anu.softwaredev.socialmediacat.Classes.Post;
+
 /** User Activity */
 public class UserActivity {
     private String action;      // name of action
@@ -22,5 +24,10 @@ public class UserActivity {
     public String getCategory() {return category;}
     public String getPostId() {return postId;}
     public String getContent() {return content;}
+
+    // Post
+    public Post getPost(){
+        return new Post(uId, category, postId, content);
+    }
 
 }

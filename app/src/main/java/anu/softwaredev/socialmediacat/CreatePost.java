@@ -134,16 +134,11 @@ public class CreatePost extends AppCompatActivity {
             // Check required info
             if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
 
-                /** shd be > UserActivityDAO */
+                // Create Post
                 String postId_dummy = "P-1";                                     // TODO - dummy Id
                 UserActivity newPostAct = UserActivityDao.getInstance().createPost(uId, category, postId_dummy, content);
-                Post newPost = new Post(newPostAct.getUId(), newPostAct.getCategory(), newPostAct.getPostId(), newPostAct.getContent());           // TODO [postId]
-                /** ... End of Testing */
-
-                // ORI - Post newPost = new Post(uId, category, postId_dummy, content);           // TODO [postId]
-
+                Post newPost = newPostAct.getPost();          // TODO [postId]
                 Toast.makeText(CreatePost.this, "Loading ... " + newPost.toString(), Toast.LENGTH_SHORT).show();
-
 
                 // Add to DB
                 dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB
