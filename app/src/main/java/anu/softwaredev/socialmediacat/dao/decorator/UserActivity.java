@@ -1,13 +1,12 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
 
-// from Design Pattern Lec
+/** User Activity */
 public class UserActivity {
-
-    private String action;
-    private String uId;         // user ID of the author
-    private String category;   // Category of Post (createPost)
-    private String postId;     // ID of Post (createPost) (TODO <=> ++)
-    private String content;
+    private String action;      // name of action
+    private String uId;         // user ID
+    private String category;   // Category (*for createPost)
+    private String postId;     // PostId (TODO <=> ++)
+    private String content;     // content of post/action
 
     public UserActivity(String action, String uId, String category, String postId, String content) {
         this.action = action;
@@ -16,7 +15,6 @@ public class UserActivity {
         this.postId = postId;
         this.content = content;
     }
-
 
     // Getters
     public String getAction() {return action;}

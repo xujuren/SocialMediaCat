@@ -12,12 +12,11 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.actionReport.ActionCount;
 import anu.softwaredev.socialmediacat.actionReport.CsvActionReport;
 
+/** DAO for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
-
-    // [Singleton]
-    private static UserActivityDao instance;
+    private static UserActivityDao instance;        /** defined as Singleton */
     private static Integer idCount=0;               // TODO TBC
-    private static File file;                       // *csv file to store
+    private static File file;                       // temporary fire
     static {
         try {
             file = File.createTempFile("user-action", ".csv");
@@ -32,7 +31,7 @@ public class UserActivityDao implements IUserActivityDao {
     @Override
     public UserActivity createPost(String uId, String category, String postId, String content) {           // alt: only content (userName: below)
         try {
-            if (postId == ""){      // postId TODO - how to set (with data)
+            if (postId==null || postId == ""){      // postId TODO - how to set (with data)
                 idCount++;
                 postId = idCount.toString();
             }
