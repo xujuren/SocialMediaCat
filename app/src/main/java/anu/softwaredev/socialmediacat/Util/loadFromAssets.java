@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
 public abstract class loadFromAssets {
 
@@ -54,18 +55,17 @@ public abstract class loadFromAssets {
     }
 
 
-    /** load From CSV (TODO - CREATE post only) */
-    public static List<Post> getDataFromCSV(Context ctx, String fileName) {
+    /** load From CSV (1) Act (TODO***) */
+    public static List<UserActivity> loadUserActFromCSV(Context ctx, String fileName) {
         BufferedReader bufferedReader;
-        List<Post> postsFound = new ArrayList<>();
+        List<UserActivity> userActs = new ArrayList<>();
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open(fileName), StandardCharsets.UTF_8));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                if (!tokens[0].equals("uId")) {                // excl Header
-                    postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3]));
-                }
+                if (tokens.length!=5) {continue;}
+                userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]));
             }
             bufferedReader.close();
 
@@ -74,7 +74,61 @@ public abstract class loadFromAssets {
             return null;
 
         } finally {
-            return postsFound;
+            if (userActs != null && userActs.size()>0){
+                userActs.remove(0);
+            }
+            return userActs;    // remove header
+        }
+    }
+
+    /** load From CSV (2) [C] [[CREATE]] Posts (TODO***) */
+    public static List<Post> createPostsFromCsv(Context ctx, String fileName) {
+
+        // (1) Load all Activities
+        List<UserActivity> userActsFromCsv = loadUserActFromCSV(ctx, fileName);
+
+        // (2) to POSTS
+        List<Post> postsCreatedFromCsv = new ArrayList<>();
+
+        for (UserActivity userAct : userActsFromCsv) {
+
+            if (userAct.getAction().equals("create-post")) {
+                String uId = userAct.getUId();
+                String category = userAct.getCategory();
+                String postId = userAct.getPostId();
+                String content = userAct.getContent();
+                postsCreatedFromCsv.add(new Post(uId, category, postId, content));
+            }
+        }
+
+        return postsCreatedFromCsv;
+
+    }
+
+
+    /** ((ORI)) load From CSV - Post (without action) */
+    public static List<Post> loadPostsFromCSV(Context ctx, String fileName) {
+        BufferedReader bufferedReader;
+        List<Post> postsFound = new ArrayList<>();
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open(fileName), StandardCharsets.UTF_8));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] tokens = line.split(",");
+                if (tokens.length!=4) {continue;}
+                postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3]));
+            }
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            System.out.println("IO Exception!!");
+            return null;
+
+        } finally {
+            if (postsFound != null && postsFound.size()>0){
+                postsFound.remove(0);
+            }
+            return postsFound;    // remove header
         }
     }
 

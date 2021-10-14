@@ -1,11 +1,11 @@
-uId,category,postId,content
-u01,cat1,p01,(C)hi hi hi hi
-u01,cat1,p02,(C)content in CSV
-u01,cat2,p01,(C)content in bespoken for cat2
-u02,cat3,p01,(C)content in bespoken for cat2
-u03,cat1,p03,(C)xyz and abc
-u05,cat5,p01,(C)hi hi hi hi
-u02,cat6,p01,(C)content in bespoken
-u01,cat9,p01,(C)content in bespoken for cat2
-u03,cat9,p02,(C)content in bespoken for cat2
-u03,cat2,p02,(C)xyz and abc
+action,uId,category,postId,content
+create-post,u01,cat1,p01,(C)hi hi hi hi
+create-post,u01,cat1,p02,(C)content in CSV
+create-post,u01,cat2,p01,(C)content in bespoken for cat2
+create-post,u02,cat3,p01,(C)content in bespoken for cat2
+create-post,u03,cat1,p03,(C)xyz and abc
+create-post,u05,cat5,p01,(C)hi hi hi hi
+create-post,u02,cat6,p01,(C)content in bespoken
+create-post,u01,cat9,p01,(C)content in bespoken for cat2
+create-post,u03,cat9,p02,(C)content in bespoken for cat2
+create-post,u03,cat2,p02,(C)xyz and abc
