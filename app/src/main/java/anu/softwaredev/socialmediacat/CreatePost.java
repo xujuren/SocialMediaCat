@@ -4,13 +4,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,14 +16,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +36,7 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 public class CreatePost extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference dbRef;
+    private TextView latlngText;
     private TextInputLayout contentLayout;
     private TextInputLayout categoryLayout;
     private ToggleButton shareLocOption;
@@ -47,10 +44,6 @@ public class CreatePost extends AppCompatActivity {
     private EditText contentEdit;
     private EditText categoryEdit;
     private EditText photoURLEdit;
-    private LocationManager locManager;
-    private LocationListener locListener;
-    private String lat;
-    private String lng;
 
 
     @Override
@@ -60,6 +53,51 @@ public class CreatePost extends AppCompatActivity {
 
         initView();
 
+        // Location
+        LocationManager locManager;
+        LocationListener locListener;
+//        String lat;
+//        String lng;
+
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        locListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                latlngText.setText("["+String.format("%.2f", location.getLatitude()) + ", " + String.format("%.2f", location.getLongitude())+"]");
+            }
+
+            @Override
+            public void onLocationChanged (@NonNull List < Location > locations) {}
+            @Override
+            public void onFlushComplete ( int requestCode){
+
+            }
+            @Override
+            public void onStatusChanged (String provider,int status, Bundle extras){}
+            @Override
+            public void onProviderEnabled (@NonNull String provider){
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+            @Override
+            public void onProviderDisabled (@NonNull String provider){}
+        };
+
+        // check Permissions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 100);
+            }
+        }
+        locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
+
+
+
+        /** Alt */
+        //FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //getLastLocation();        // method to get the location
 
     }
 
@@ -67,6 +105,8 @@ public class CreatePost extends AppCompatActivity {
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
         categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);
         shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);
+        latlngText = (TextView) findViewById(R.id.tv_latlng);
+        latlngText.setText("(Loading Location)");
         photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
         contentEdit = (EditText) findViewById(R.id.content_createpost_et);
         categoryEdit = (EditText) findViewById(R.id.category_createpost_et);
@@ -78,24 +118,22 @@ public class CreatePost extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uId = user.getUid();
-
             // Get Input
             String content = contentEdit.getText().toString();
             String category = categoryEdit.getText().toString();
             Boolean shareLocBool = shareLocOption.getText().toString().equals("Location will be shared!");
             String photoURL = photoURLEdit.getText().toString();
 
-
             // TODO
             /** shd be > UserActivityDAO */
 
             if (shareLocBool) {
-                getLatLong();   // locationListener
-                getLoc();
-
-
-                Toast.makeText(CreatePost.this, "ll: " + lat + "," + lng, Toast.LENGTH_LONG).show();
-                content = content + "["+lat+", "+lng+"]";
+                // getLoc();
+                String latLng = latlngText.getText().toString();
+                // add to Content if share location chosen and location is available.
+                if (latLng.charAt(0)!='('){
+                    content = content + latLng;
+                }
             }
 
             // URL
@@ -142,66 +180,5 @@ public class CreatePost extends AppCompatActivity {
         }
 
     }
-
-    public void getLoc() {
-        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        // check Permissions
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 10);
-            }
-        }
-
-        locManager.requestLocationUpdates("gps", 10000, 1000, locListener);
-
-        // Toast.makeText(CreatePost.this, "ll: "+latLong[0]+","+latLong[1], Toast.LENGTH_LONG).show();
-    }
-
-    /** location listener */
-    private void getLatLong() {
-        locListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-
-                lat = String.format("%.2f", location.getLatitude());
-                lng = String.format("%.2f", location.getLongitude());
-
-                // TODO - super slow?? persistent?
-                // Toast.makeText(CreatePost.this, "in getLL(): "+ lat+","+lng, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onLocationChanged(@NonNull List<Location> locations) {
-
-            }
-
-            @Override
-            public void onFlushComplete(int requestCode) {
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(@NonNull String provider) {
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-
-            @Override
-            public void onProviderDisabled(@NonNull String provider) {
-            }
-        };
-
-    }
-
-
-
-
 
 }

@@ -34,10 +34,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/content_createpost_et"
             android:layout_width="380dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
+            android:maxLength="100"
             android:textColor="#450606"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -49,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:hint="What's the Category?"
+        android:hint="Tag your post!"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,24 +60,26 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/category_createpost_et"
             android:layout_width="380dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
+            android:maxLength="15"
             android:textColor="#450606"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ToggleButton
         android:id="@+id/bt_shareLoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:hint="Share location?"
+        android:textColor="#f00"
         android:textOff="Location Not Shared"
         android:textOn="Location will be shared!"
-        android:textColor="#f00"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_createpost" />
 
@@ -98,12 +101,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/photo_createpost_et"
             android:layout_width="380dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            android:maxLength="50"
             android:textColor="#450606"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -121,6 +125,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/photo_createpost" />
 
+    <TextView
+        android:id="@+id/tv_latlng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bt_shareLoc"
+        app:layout_constraintTop_toBottomOf="@+id/category_createpost" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
