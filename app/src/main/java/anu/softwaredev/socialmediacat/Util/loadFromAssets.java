@@ -17,7 +17,14 @@ public abstract class loadFromAssets {
 
     public abstract List<Post> getDataFromAsset(Context ctx, String fileName);
 
-    /** get JSON (POSTS only) */
+    /** Template Method */
+    public static void templateMethodTbc() {
+        // 1) Get Data (List<UserActivity>)
+        // 2) Check Activity Type, (Filter?)
+    }
+
+
+    /** get JSON (TODO - CREATE post only) */
     public static List<Post> getDataFromJson(Context ctx, String fileName) {
         String jsonStr = getJsonFromAssets(ctx, fileName);
         Gson gson = new Gson();
@@ -38,12 +45,10 @@ public abstract class loadFromAssets {
 
             jsonStr = new String(buffer, "UTF-8");
 
-
         } catch (IOException e) {
             e.printStackTrace();
 
         } finally {
-
             return jsonStr;
         }
     }
@@ -73,8 +78,6 @@ public abstract class loadFromAssets {
         }
     }
 
-    /** load from Bespoken (TODO - POSTS only) */
-
     /** load From Bespoke (TODO - CREATE post only) */
     public static List<Post> getDataFromBespoke(Context ctx, String fileName){
         BufferedReader bufferedReader;
@@ -87,8 +90,6 @@ public abstract class loadFromAssets {
                 int endBr = line.indexOf(')');
                 if (startBr==-1 || endBr==-1) {continue;}
 
-                // String action = line.substring(0, startBr);
-                // if (action=="create-post")
                 String params = line.substring(startBr+1, endBr);
                 String[] tokens = params.split(", ");
 
