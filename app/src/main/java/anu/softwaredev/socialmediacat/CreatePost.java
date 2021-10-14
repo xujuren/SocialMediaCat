@@ -87,7 +87,7 @@ public class CreatePost extends AppCompatActivity {
         locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
     }
 
-    public void initView() {
+    private void initView() {
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
         categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);
         shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);

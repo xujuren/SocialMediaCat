@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import anu.softwaredev.socialmediacat.dao.decorator.User;
 
 public class CreateAccActivity extends AppCompatActivity {
-
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String acc;
@@ -38,8 +37,8 @@ public class CreateAccActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_acc);
 
         initView();
-    }
 
+    }
 
     private void initView() {
         accEdit = (EditText) findViewById(R.id.createAcc_input_text);

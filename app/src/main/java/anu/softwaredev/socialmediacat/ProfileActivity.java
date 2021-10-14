@@ -29,11 +29,10 @@ import anu.softwaredev.socialmediacat.dao.decorator.User;
 // Manage User Profile
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
-    private DatabaseReference userDbRef;
+    private DatabaseReference dbRef;
     private String currentUserName;
     private String currentProPic;
     private String currentCaption;
-
     TextInputLayout userNameLayout ;
     TextInputLayout proPicLayout ;
     TextInputLayout captionLayout;
@@ -41,25 +40,20 @@ public class ProfileActivity extends AppCompatActivity {
     EditText proPicEdit ;
     EditText captionEdit;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Set Up Views
-        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
-        proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
-        captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
-        displayNameEdit = (EditText) findViewById(R.id.profile_input_displayName_text);
-        proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
-        captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
+        initView();
+        editProfit();
+    }
 
-        // current User
+    private void editProfit() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            userDbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
             ValueEventListener userListener = new ValueEventListener() {            // Syn
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -110,16 +104,15 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             };
 
-            userDbRef.addValueEventListener(userListener);
+            dbRef.addValueEventListener(userListener);
 
         } else {
             finish();   // Not signed in (unexpected case)
         }
-
     }
 
-    // Confirm Input Bt (Manage Profile)
-    public void profileInput(View v) {
+    // Confirm Button (Manage Profile)
+    private void profileInput(View v) {
 
         // Read Input
         String newName = displayNameEdit.getText().toString();
@@ -152,16 +145,26 @@ public class ProfileActivity extends AppCompatActivity {
                     });
 
             // Update Data
-            userDbRef.child("name").setValue(newName);
-            userDbRef.child("displayName").setValue(newName);
-            userDbRef.child("proPic").setValue(newProPic);
-            userDbRef.child("caption").setValue(newCaption);
+            dbRef.child("name").setValue(newName);
+            dbRef.child("displayName").setValue(newName);
+            dbRef.child("proPic").setValue(newProPic);
+            dbRef.child("caption").setValue(newCaption);
 
             return;
 
         } else {
             Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void initView() {
+        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
+        proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
+        captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
+        displayNameEdit = (EditText) findViewById(R.id.profile_input_displayName_text);
+        proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
+        captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
 
     }
 
