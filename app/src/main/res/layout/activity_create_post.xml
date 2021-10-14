@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".CreatePost">
 
+
     <TextView
         android:id="@+id/tv_CreatePost_Intro"
         android:layout_width="wrap_content"
@@ -69,20 +70,40 @@
             android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <TextView
+        android:id="@+id/tv_shareLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Share Your Location?"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_createpost" />
+
+    <TextView
+        android:id="@+id/tv_show_latlng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:text="(Loading location)"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_shareLoc"
+        app:layout_constraintEnd_toStartOf="@+id/bt_shareLoc" />
+
     <ToggleButton
         android:id="@+id/bt_shareLoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
         android:hint="Share location?"
-        android:textColor="#f00"
-        android:textOff="Location Not Shared"
-        android:textOn="Location will be shared!"
+        android:textOff="Not Shared"
+        android:textOn="Loc will be shared!"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_createpost" />
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/photo_createpost"
@@ -124,19 +145,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/photo_createpost" />
-
-    <TextView
-        android:id="@+id/tv_latlng"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:text="TextView"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bt_shareLoc"
-        app:layout_constraintTop_toBottomOf="@+id/category_createpost" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

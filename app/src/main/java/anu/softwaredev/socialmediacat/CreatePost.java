@@ -1,5 +1,4 @@
 package anu.softwaredev.socialmediacat;
-
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
@@ -44,7 +43,8 @@ public class CreatePost extends AppCompatActivity {
     private EditText contentEdit;
     private EditText categoryEdit;
     private EditText photoURLEdit;
-
+    private LocationManager locManager;
+    private LocationListener locListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +53,8 @@ public class CreatePost extends AppCompatActivity {
 
         initView();
 
-        // Location
-        LocationManager locManager;
-        LocationListener locListener;
-//        String lat;
-//        String lng;
-
+        // Location Manage & Listener
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         locListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
@@ -82,7 +76,6 @@ public class CreatePost extends AppCompatActivity {
             @Override
             public void onProviderDisabled (@NonNull String provider){}
         };
-
         // check Permissions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -92,21 +85,13 @@ public class CreatePost extends AppCompatActivity {
             }
         }
         locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
-
-
-
-        /** Alt */
-        //FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //getLastLocation();        // method to get the location
-
     }
 
     public void initView() {
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
         categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);
         shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);
-        latlngText = (TextView) findViewById(R.id.tv_latlng);
-        latlngText.setText("(Loading Location)");
+        latlngText = (TextView) findViewById(R.id.tv_show_latlng);
         photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
         contentEdit = (EditText) findViewById(R.id.content_createpost_et);
         categoryEdit = (EditText) findViewById(R.id.category_createpost_et);
@@ -121,7 +106,7 @@ public class CreatePost extends AppCompatActivity {
             // Get Input
             String content = contentEdit.getText().toString();
             String category = categoryEdit.getText().toString();
-            Boolean shareLocBool = shareLocOption.getText().toString().equals("Location will be shared!");
+            Boolean shareLocBool = shareLocOption.getText().toString().equals("Loc will be shared!");
             String photoURL = photoURLEdit.getText().toString();
 
             // TODO
