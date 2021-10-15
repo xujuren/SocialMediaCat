@@ -2,19 +2,23 @@ package anu.softwaredev.socialmediacat;
 import static anu.softwaredev.socialmediacat.Util.loadFromAssets.getDataFromJson;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
 import java.util.List;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.Util.loadFromAssets;
 import anu.softwaredev.socialmediacat.Util.loadFromBespoke;
 import anu.softwaredev.socialmediacat.Util.loadFromCSV;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
+/** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -23,49 +27,21 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline (the Recycler View)
-        List<UserActivity> allPosts = getAllPosts(true, true, false,false);                  // Data
+        List<UserActivity> allPosts = getAllPosts(getApplicationContext(), true, true, false,false);                  // Data
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);        // Adapter
         rvTimeline.setAdapter(timelineAdapter);
-        rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));                    // (Grid Layout)
-            // rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // (Linear: ≈IG)
+        rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // (Linear timeline, more spaces for information)
+            // rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));                             // (Grid Layout)
 
     }
 
-    /** Dataset: Sources ((just loading POSTS info >> CREATE from file!?) */
-    public List<UserActivity> getAllPosts(boolean csv, boolean bespoke, boolean json, boolean dummy) {
+    /** TODO + Sources of data set */
+    public List<UserActivity> getAllPosts(Context ctx, boolean csv, boolean bespoke, boolean json, boolean dummy) {
 
-        /** TODO Testing (from below) */
-        if (csv) {
-            loadFromCSV loadCSV = new loadFromCSV();
-            List<Post> posts = loadCSV.postsToCreate(getApplicationContext(), "posts.csv");
-            for (Post post : posts){
-                UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getCategory(), post.getPostId(), post.getContent());
-            }
-        }
+        // get from DATA INSTANCES only (Create Post)
+        return loadFromAssets.getAllPosts(getApplicationContext(), csv, bespoke, json, dummy);
 
-        if (bespoke) {
-            loadFromBespoke loadbespoke = new loadFromBespoke();
-            List<Post> posts = loadbespoke.postsToCreate(getApplicationContext(), "posts_bespoken.txt");
-            for (Post post : posts){
-                UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getCategory(), post.getPostId(), post.getContent());
-            }
-        }
 
-        if (json) {
-            List<Post> posts = getDataFromJson(getApplicationContext(), "posts.json");
-            for (Post post : posts){
-                UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getCategory(), post.getPostId(), post.getContent());
-            }
-        }
-
-        if (dummy){
-            // UserActivityDao.getInstance().createPost("uId02", "Formal", "post02", "Welcome");
-            //UserActivityDao.getInstance().createPost("uId03", "Sports", "post03", "Running ... ...");
-            //UserActivityDao.getInstance().createPost("uId01", "Casual", "post01", "Hi");
-        }
-
-        // All
-        return UserActivityDao.getInstance().findAllPosts();
     }
 
 
