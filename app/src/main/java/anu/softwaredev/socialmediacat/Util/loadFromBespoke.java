@@ -16,7 +16,6 @@ public class loadFromBespoke extends loadFromAssets {
 
     @Override
     public List<UserActivity> actionsFromAssets(Context ctx) {
-
         BufferedReader bufferedReader;
         List<UserActivity> userActs = new ArrayList<>();
         try {

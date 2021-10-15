@@ -25,7 +25,7 @@ public class loadFromCSV extends loadFromAssets {
                 if (tokens.length==5) {
                     userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]));
                 } else if (tokens.length==4) {
-                    userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], "", tokens[4]));    // TODO - % POSTID (if CRASH?)
+                    userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], "", tokens[3]));    // TODO - % POSTID (if CRASH?)
                 } // else ignore
             }
             bufferedReader.close();

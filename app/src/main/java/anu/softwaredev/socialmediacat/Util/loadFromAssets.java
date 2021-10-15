@@ -85,8 +85,8 @@ public abstract class loadFromAssets {
 
         /** below tbd, test CSV first*/
         if (bespoke) {
-            loadFromBespoke loadbespoke = new loadFromBespoke();
-            List<Post> posts = loadbespoke.postsToCreate(ctx);
+            loadFromBespoke loadBespoke = new loadFromBespoke();
+            List<Post> posts = loadBespoke.postsToCreate(ctx);
             for (Post post : posts){
                 UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getTags(), post.getPostId(), post.getContent());
             }
