@@ -22,10 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AppActivity extends AppCompatActivity {
-    FirebaseUser user;
-    String userName;                // user's displayName (if available) or e-mail address
-    BottomNavigationView navView;
-    ActionBar actionBar;
+    private FirebaseUser user;
+    private String userName;                // user's displayName (if available) or e-mail address
+    private BottomNavigationView navView;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package anu.softwaredev.socialmediacat;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /** Adapter for the Timeline displayed to Users */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
@@ -34,14 +37,18 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {                        // bind data
-        holder.getPostUsername().setText("@"+dataset.get(position).getUId());
+    public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
+        String uId = dataset.get(position).getUId();
+        //TODO n
+
+        // bind data
+        holder.getPostUsername().setText("@"+uId);
         holder.getPostContent().setText(dataset.get(position).getContent());
         holder.getCategoryPostId().setText(dataset.get(position).getTags()+" /"+dataset.get(position).getPostId());
         holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
         // TODO: Like Button
 
-        // Load Post Image
+        // Load Image
         int photoId = dataset.get(position).getPhotoId();
         Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached

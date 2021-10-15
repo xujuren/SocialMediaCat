@@ -10,6 +10,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
@@ -17,14 +20,7 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 /** Load data instances from different local files (Assets) */
 public abstract class loadFromAssets {
 
-    // TODO
-    // 1) create-post : WITHOUT Post ID
-        // Instances, Methods here ([4])
-    // 2) (Posts: WITH POST ID)
-
-    // public abstract List<Post> getDataFromAsset(Context ctx, String fileName);
-
-    /** Template Method */
+    /** Template Methods */
     public abstract List<UserActivity> actionsFromAssets(Context ctx);
     public abstract List<Post> postsFromAssets(Context ctx);        // TODO: DIRECT (existing Posts) > still create (with PID, likes)
 
@@ -39,7 +35,7 @@ public abstract class loadFromAssets {
         List<Post> postsToCreate = new ArrayList<>();
         for (UserActivity userAct : userActsFromCsv) {
             if (userAct.getAction().equals("create-post")) {
-                String uId = userAct.getUId();                      // TODO to NAME
+                String uId = userAct.getUId();
                 String tags = userAct.getTags();
                 String content = userAct.getContent();
                 int photoId = userAct.getPhotoId();
@@ -63,11 +59,31 @@ public abstract class loadFromAssets {
     }
 
 
-    // TODO - lo// TODO - ad Activities: also for (LIKES) if we add it
-    // TODO - Time Interval
-    /** create posts from data instances provided
-     * Dataset:  */
-    public static void createPostsfromDataInstances(Context ctx) {
+    /** create posts from data instances provided */
+    public static void createPost_FixedTimeInterval(Context ctx) {
+
+        List<Post> postsData = createPostsfromDataInstances(ctx);        // assume called first
+        int size = postsData.size();
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask(){
+            int i=0;
+            @Override
+            public void run() {
+                if (i <size){
+                    Post postData = postsData.get(i);
+                    UserActivityDao.getInstance().createPost(postData.getUId(), postData.getTags(), postData.getContent(), postData.getPhotoId());
+                }
+                i++;
+            }
+        }, 0, 20*1000);
+
+    }
+
+    // TODO - lo// TODO - add Action: also for (LIKES) if we add it
+
+
+    // load the data for create post
+    public static List<Post> createPostsfromDataInstances(Context ctx) {
 
         // load actions from assets
         boolean csv = true;
@@ -96,11 +112,12 @@ public abstract class loadFromAssets {
         }
 
         for (Post post : postsToCreate){
-            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), post.getContent(), post.getPhotoId());
+
+            // UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), post.getContent(), post.getPhotoId());
         }
 
+        return postsToCreate;
     }
-
 
     /** Load existing posts from data instances  */
     public static void loadPostsfromDataInstances(Context ctx) {
@@ -135,8 +152,7 @@ public abstract class loadFromAssets {
             postsLoaded.addAll(dummyPosts);
         }
 
-        // TODO create NEW Method in in DAO: loadPost (for existing - with PID)
-        // create with the post IDs (Notes: not uploaded!)
+        // load existing posts from assets
         for (Post post : postsLoaded){
             UserActivityDao.getInstance().loadPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent(), post.getPhotoId(), post.getLikes());
         }

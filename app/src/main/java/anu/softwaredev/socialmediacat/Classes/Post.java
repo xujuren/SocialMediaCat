@@ -5,16 +5,16 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
+/** Posts to be created by users*/
 public class Post {
 
     public String uId;              // [user ID] of author
-    // public String category;         // TODO > (1) maybe DELETE? given that we have tag, (2) enum ?
-    private String tags;             // TODO (NEW, for Tag Search) user input, in the format of #<tag1> or  #<tag1> #<tag2> ... #<tagn> (without whitespaces)
-    private String postId;           // TODO > to be determined [Category + postId] = key ??
-    private String content;          // Post Content
+    private String tags;             // for Tag Search (user input, EXPECT to be in the format of #tagContent (without whitespaces))
+    private String postId;           // Unique KEY for Posts
+    private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
-    private int photoId;
-    // TODO - Photo (see time)
+    private int photoId;            // ID of the photo on
+
 
     /* Constructor 2.0 - real Create (without PostID)*/
     public Post(String uId, String tags, String content, int photoId) {
@@ -25,7 +25,7 @@ public class Post {
         this.likeCount = 0;
     }
 
-    /* Constructor 2.1 (TODO tags replace category) */
+    /* Constructor 2.1 (with PostId, but without Likes) */
     public Post(String uId, String tags, String postId, String content, int photoId) {
         this.uId = uId;
         this.tags = tags;
@@ -35,7 +35,7 @@ public class Post {
         this.likeCount = 0;
     }
 
-    /* Constructor 2.2 - with likeCount (TODO tags replace category) */
+    /* Constructor 2.2 (with PostID and like count) */
     public Post(String uId, String tags, String postId, String content, int photoId, int likeCount) {
         this.uId = uId;
         this.tags = tags;

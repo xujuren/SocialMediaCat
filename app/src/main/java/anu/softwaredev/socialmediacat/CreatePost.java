@@ -85,7 +85,7 @@ public class CreatePost extends AppCompatActivity {
                 content = content + latLng;
             }
 
-            // URL             // TODO - Check Validity
+            // ID for Post Photo
             int photoId = -1;   // error code
             if (!TextUtils.isEmpty(photoIDInput)) {
                 try {

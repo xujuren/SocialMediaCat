@@ -3,17 +3,22 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import java.util.List;
+import android.text.TextUtils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.Util.loadFromAssets;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +34,14 @@ public class TimelineActivity extends AppCompatActivity {
 
     }
 
+    // TODO: add one blank Post at the bottom (can't show)
     /** TODO + Sources of data set */
     public List<Post> getAllPosts() {
 
         // load Posts
         loadFromAssets.loadPostsfromDataInstances(getApplicationContext());
+        loadFromAssets.createPost_FixedTimeInterval(getApplicationContext());
 
-        // TODO [###]: this >> Stream?
         loadFromAssets.createPostsfromDataInstances(getApplicationContext());
 
         return UserActivityDao.getInstance().findAllPosts();

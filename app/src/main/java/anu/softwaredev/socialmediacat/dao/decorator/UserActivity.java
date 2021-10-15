@@ -32,12 +32,8 @@ public class UserActivity {
     public String getAction() {return action;}
     public String getUId() {return uId;}
     public String getTags() {return tags;}
-    // public String getPostId() {return postId;}
     public String getContent() {return content;}
     public int getPhotoId() {return photoId;}
-    public int getLikeCount() {return likeCount;}
 
-    // Post
-    //public Post getPost(){  return new Post(uId, tags, postId, content, photoId);}
 
 }
