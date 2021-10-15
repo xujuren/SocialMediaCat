@@ -1,4 +1,4 @@
-# [Team Name]
+# ezclap
 This following is a team meeting template. You may change this template as you like.
 
 ## Team Meeting 3 - Week 10 - October 14, 2021 (10PM-11PM AEST)
@@ -34,8 +34,8 @@ This following is a team meeting template. You may change this template as you l
 | :--- | ---: |
 | Cathy | finalize classes (DPs), change format for (loadFrom∆local), separate methods (load Activity vs. *getALLPOSTS!*), data instances, Firebase likes (& delete?) (optional: try Posts) |
 | Juren | revise data structure/discuss changes for Migration, <=> Kevin's parser for migration, RB-Tree Deletion (Hard), UI for Delete (???) |
-| Kevin | Parser & Tokenizer , look into additional [Medium] tasks, UI for Search (???) |
-| Kyle | Draft Report, 'like' post (Easy feature) UI & implementation, look into additional [Medium] tasks, Migration |
+| Kevin | Parser & Tokenizer , look into additional [Medium] tasks (graph summary/follow list/partially invalid search), UI for Search (???) |
+| Kyle | Draft Report, 'like' post (Easy feature) UI & implementation, look into additional [Medium] tasks (graph summary/follow list), Migration (Merge) |
 | All | Testing, organize notes for final report |
 
 ## Scribe Rotation
