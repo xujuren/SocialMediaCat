@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import anu.softwaredev.socialmediacat.dao.decorator.User;
 
-// Manage User Profile
+/** Activity for users to manage their profile: update information */
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference dbRef;
@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (user != null) {
             String userId = user.getUid();
             dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-            ValueEventListener userListener = new ValueEventListener() {            // Syn
+            ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     // Create Profile if not exists

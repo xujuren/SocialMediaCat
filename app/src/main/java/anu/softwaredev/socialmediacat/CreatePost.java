@@ -1,9 +1,7 @@
 package anu.softwaredev.socialmediacat;
 import com.google.firebase.auth.FirebaseAuth;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,13 +20,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-
 import java.util.List;
-
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
@@ -46,83 +40,14 @@ public class CreatePost extends AppCompatActivity {
     private LocationManager locManager;
     private LocationListener locListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
 
         initView();
-
     }
-
-    // TEST - can extract (so that call only if asked and permit?)
-    private void checkLocation() {
-
-        // Location Manager & Listener
-        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                latlngText.setText("["+String.format("%.2f", location.getLatitude()) + ", " + String.format("%.2f", location.getLongitude())+"]");
-            }
-
-            @Override
-            public void onLocationChanged (@NonNull List < Location > locations) {}
-            @Override
-            public void onFlushComplete ( int requestCode){
-
-            }
-            @Override
-            public void onStatusChanged (String provider,int status, Bundle extras){}
-            @Override
-            public void onProviderEnabled (@NonNull String provider){
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-            @Override
-            public void onProviderDisabled (@NonNull String provider){}
-        };
-
-        // check Permissions
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-
-                // TEST
-                Toast.makeText(CreatePost.this, "should request permission now...", Toast.LENGTH_SHORT).show();
-
-                // TODO did NOT pop up... WHY???
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 100);
-
-            } else {
-                locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
-            }
-
-        } // version issue
-
-    }
-
-    // TODO - try get permission result
-    // TODO [BUG] ??? when called (check Loc above), show "NO permission" directly (without request)
-    @Override
-    @SuppressLint("MissingPermission")
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        // M1
-        if (requestCode==100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // permission OK
-            Toast.makeText(CreatePost.this, "got permission", Toast.LENGTH_SHORT).show();
-            locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
-
-        } else {
-            // Not ok
-            Toast.makeText(CreatePost.this, "NO permission - grantResults[0]: "+grantResults[0], Toast.LENGTH_SHORT).show();
-            latlngText.setText("(permission required)");
-        }
-
-    }
-
 
     private void initView() {
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
@@ -140,7 +65,7 @@ public class CreatePost extends AppCompatActivity {
                     latlngText.setText("(Loading location)");
                     checkLocation();
                 } else {
-                    latlngText.setText("(Not selected)");
+                    latlngText.setText("N/A");
                 }
             }
         });
@@ -154,13 +79,11 @@ public class CreatePost extends AppCompatActivity {
             // Get Input
             String content = contentEdit.getText().toString();
             String category = tagsEdit.getText().toString();
-            Boolean shareLocBool = shareLocOption.getText().toString().equals("Loc will be shared!");
             String photoURL = photoURLEdit.getText().toString();
 
-            // TODO - bug (location)
-            // add Location to Content, if chosen and permitted
+            // add Location to Content (if permitted and available)
             String latLng = latlngText.getText().toString();
-            if (latLng.charAt(0)!='('){
+            if (latLng.charAt(0)=='['){
                 content = content + latLng;
             }
 
@@ -190,6 +113,65 @@ public class CreatePost extends AppCompatActivity {
         } else {
             Toast.makeText(CreatePost.this, "An error occur. Sorry for the inconveniences", Toast.LENGTH_LONG).show();
             finish();   // UNEXPECTED Branch
+        }
+
+    }
+
+
+    /** read GPS location */
+    private void checkLocation() {
+
+        // Location Manager & Listener
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                latlngText.setText("[" + String.format("%.2f", location.getLatitude()) + ", " + String.format("%.2f", location.getLongitude()) + "]");
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+            @Override
+            public void onProviderEnabled(@NonNull String provider) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+
+            @Override
+            public void onProviderDisabled(@NonNull String provider) {
+            }
+        };
+
+        // TODO Issue: does not re-ask permission even if run (unless Emulator rerun?)
+        // check Permissions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                // Toast.makeText(CreatePost.this, "should request permission now...", Toast.LENGTH_SHORT).show();
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 1);
+
+            } else {
+                locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
+            }
+
+        } // NOT expected (unless version issue)
+
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
+
+        } else if (requestCode == 1) {
+            // Not ok
+            Toast.makeText(CreatePost.this, "NO permission - grantResults[0]: " + grantResults[0], Toast.LENGTH_SHORT).show();
+            latlngText.setText("N/A");
+            shareLocOption.setText("Missing Permission!");
         }
 
     }

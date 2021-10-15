@@ -2,20 +2,20 @@ plugins {
     id 'com.android.application'
 }
 
-apply plugin: 'com.google.gms.google-services'          // added (suppose 'com.android.application' also is apply plugin:)??
+apply plugin: 'com.google.gms.google-services'          
 
 android {
-    compileSdk 31
+    compileSdk 30
 
     defaultConfig {
         applicationId "anu.softwaredev.socialmediacat"
         minSdk 26
-        targetSdk 31
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        targetSdkVersion 31
+        targetSdkVersion 30
         minSdkVersion 26
     }
 
@@ -32,28 +32,20 @@ android {
 }
 
 dependencies {
-
-    /** Glide Android Lib - Set Up (image process) */
-    //apply plugin: 'maven-publish'                                            // For those using gradle 7, maven plugin has been removed (https://docs.gradle.org/7.0/userguide/upgrading_version_6.html?_ga=2.21245883.1883799052.1624281891-1948725710.1624281891#removal_of_the_legacy_maven_plugin)
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-    //            { transitive = true;}
-    //            { exclude group: 'com.squareup.okhttp';}
 
 
-    implementation platform('com.google.firebase:firebase-bom:28.4.0')      // import the Firebase Bom
-    // Add the dependency for the Firebase SDK for Google Analytics (When using the BoM, don't specify versions in Firebase dependencies
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
     implementation 'com.google.firebase:firebase-analytics:19.0.1'
-    // Add dependencies for any other desired Firebase products (https://firebase.google.com/docs/android/setup#available-libraries)
-    implementation 'com.google.firebase:firebase-auth:21.0.1'      // Authentication
-    implementation 'com.google.firebase:firebase-database'       // RealtimeDB Lib (ori: 'com.google.firebase:firebase-database:20.0.1')
-
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-database'
 
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    // Bottom navigation
+
     implementation 'com.google.android.material:material:1.2.1'
 
     implementation 'androidx.appcompat:appcompat:1.3.1'
