@@ -13,6 +13,7 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
 public class loadFromCSV extends loadFromAssets {
 
+    /** TODO (*) actions: >> data STREAM! */
     @Override
     public List<UserActivity> actionsFromAssets(Context ctx) {
         BufferedReader bufferedReader;

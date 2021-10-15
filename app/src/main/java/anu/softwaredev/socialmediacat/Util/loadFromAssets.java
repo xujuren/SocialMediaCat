@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
@@ -37,11 +38,11 @@ public abstract class loadFromAssets {
         // 2) Check Activity Type, (Filter?)
         List<Post> postsToCreate = new ArrayList<>();
 
-        for (UserActivity userAct : userActsFromCsv) {             // TODO (1) to POSTS
+        for (UserActivity userAct : userActsFromCsv) {              // TODO (1) to POSTS
             if (userAct.getAction().equals("create-post")) {
                 String uId = userAct.getUId();                      // TODO to NAME
                 String tags = userAct.getTags();
-                String postId = userAct.getPostId();
+                String postId = userAct.getPostId();                // TODO - create post should be WITHOUT PID
                 String content = userAct.getContent();
                 postsToCreate.add(new Post(uId, tags, postId, content));
             }
@@ -63,50 +64,43 @@ public abstract class loadFromAssets {
     }
 
 
-    /** Dataset: TODO +Sources */
+    /** create posts from data instances provided
+     * Dataset: TODO +Sources */
     public static void createPostsfromDataInstances(Context ctx) {
 
         // load data from sources
-        boolean csv = true;                    // TODO - FAIL??
-        boolean bespoke = false;            // TODO
-        boolean json = false;
+        boolean csv = true;
+        boolean bespoke = true;
+        boolean json = true;
         boolean dummy = true;           // test
 
         /** (1) Activity: Create Posts */       // no POSTID - TODO (but HOW LIKE)
-        // TODO  - List<Post> posts =
+        List<Post> postsToCreate = new ArrayList<>();
 
         if (csv) {
             loadFromCSV loadCSV = new loadFromCSV();
-            List<Post> posts = loadCSV.postsToCreate(ctx);
-            for (Post post : posts){
-                UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getTags(), post.getPostId(), post.getContent());
-            }
+            postsToCreate.addAll(loadCSV.postsToCreate(ctx));
         }
 
-        /** below tbd, test CSV first*/
         if (bespoke) {
             loadFromBespoke loadBespoke = new loadFromBespoke();
-            List<Post> posts = loadBespoke.postsToCreate(ctx);
-            for (Post post : posts){
-                UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getTags(), post.getPostId(), post.getContent());
-            }
+            postsToCreate.addAll(loadBespoke.postsToCreate(ctx));
         }
 
-        if (json) {
-//            List<Post> posts = loadFromJson.postsToCreate(ctx);
-//            for (Post post : posts){
-//                UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getTags(), post.getPostId(), post.getContent());
-//            }
-        }
+        if (json) {} // TODO - not relevant for ACTIONS
 
         if (dummy){
-            UserActivityDao.getInstance().createPost("dummy1", "#test", "pId00", "just create it");
-            //UserActivityDao.getInstance().createPost("uId03", "Sports", "post03", "Running ... ...");
-            //UserActivityDao.getInstance().createPost("uId01", "Casual", "post01", "Hi");
+            Post post1 = new Post("dummy1", "#test", "pId00", "just create it");
+            List<Post> dummyPosts = new ArrayList<>(Arrays.asList(post1));
+            postsToCreate.addAll(dummyPosts);
+            //Post post2 = new Post("dummy2", "test", "pId00", "Running ... ...");
+            //Post post3 = new Post("dummy3", "#test", "pId00", "3rd...");
         }
 
-        /** Test: Create > load directly */
-        // return UserActivityDao.getInstance().findAllPosts();
+        for (Post post : postsToCreate){
+            UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getTags(), post.getPostId(), post.getContent());
+        }
+
     }
 
 
