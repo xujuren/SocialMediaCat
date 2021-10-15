@@ -111,10 +111,9 @@ public class CreatePost extends AppCompatActivity {
             Boolean shareLocBool = shareLocOption.getText().toString().equals("Loc will be shared!");
             String photoURL = photoURLEdit.getText().toString();
 
+            // add Location to Content, if chosen and permitted
             if (shareLocBool) {
-                // getLoc();
                 String latLng = latlngText.getText().toString();
-                // add to Content if share location chosen and location is available.
                 if (latLng.charAt(0)!='('){
                     content = content + latLng;
                 }
@@ -131,26 +130,11 @@ public class CreatePost extends AppCompatActivity {
             }
             Toast.makeText(CreatePost.this, "PhotoValid? - " + photoURLValid.toString(), Toast.LENGTH_SHORT);
 
-            // Check required info
+            // Check required info - Create Post
             if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
-
-                // Create Post
-                String postId_dummy = "P-1";                                     // TODO - dummy Id
-                UserActivity newPostAct = UserActivityDao.getInstance().createPost(uId, category, postId_dummy, content);
+                UserActivity newPostAct = UserActivityDao.getInstance().createPost(uId, category, "P-1", content);  // dummy postId
                 Post newPost = newPostAct.getPost();          // TODO [postId]
-                Toast.makeText(CreatePost.this, "Loading ... " + newPost.toString(), Toast.LENGTH_SHORT).show();
-
-                // Add to DB
-                dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB
-                String key = dbRef.child("Posts").push().getKey();                  // unique Key for Posts
-                Map<String, Object> postValues = newPost.toMap();
-                Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/Posts/" + key, postValues);
-                // childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
-
-                dbRef.updateChildren(childUpdates);
-
-                Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreatePost.this, "Post Created!" + newPost.toString(), Toast.LENGTH_SHORT).show();
                 finish();
 
             } else {

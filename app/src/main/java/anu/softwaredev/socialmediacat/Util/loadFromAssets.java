@@ -64,8 +64,10 @@ public abstract class loadFromAssets {
     }
 
 
+    // TODO - load Activities: also for (LIKES) if we add it
+
     /** create posts from data instances provided
-     * Dataset: TODO (1) refactor (sep with existing posts), (2)  */
+     * Dataset:  */
     public static void createPostsfromDataInstances(Context ctx) {
 
         // load data from sources
@@ -104,8 +106,7 @@ public abstract class loadFromAssets {
     }
 
 
-    /** create posts from data instances provided
-     * Dataset: TODO (1) refactor (sep with existing posts), (2)  */
+    /** Load existing posts from data instances  */
     public static void loadPostsfromDataInstances(Context ctx) {
 
         // load data from sources
@@ -132,15 +133,15 @@ public abstract class loadFromAssets {
         }
 
         if (dummy){
-            Post post1 = new Post("dummy1", "#test", "pId00", "just create it");
-            Post post2 = new Post("dummy2", "test", "pId00", "Running ... ...");
+            Post post1 = new Post("dummy1", "#test", "lp00", "just create it");
+            Post post2 = new Post("dummy2", "test", "lp00", "Running ... ...");
             List<Post> dummyPosts = new ArrayList<>(Arrays.asList(post1, post2));
             postsLoaded.addAll(dummyPosts);
         }
 
         // create with the post IDs (Notes: not uploaded!)
         for (Post post : postsLoaded){
-            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent());
+            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), "l"+post.getPostId(), post.getContent());
         }
 
     }
