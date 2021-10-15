@@ -45,6 +45,28 @@ public class loadFromBespoke extends loadFromAssets {
 
     @Override
     public List<Post> postsFromAssets(Context ctx) {
-        return null;
+        BufferedReader bufferedReader;
+        List<Post> posts = new ArrayList<>();
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open("userActions.txt"), StandardCharsets.UTF_8));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {    // (String uId, String tags, String postId, String content)
+                int startBr = line.indexOf('(');
+                int endBr = line.indexOf(')');
+                if (startBr==-1 || endBr==-1) {continue;}
+                String params = line.substring(startBr+1, endBr);
+                String[] tokens = params.split(", ");
+                if (tokens.length==4){
+                    posts.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3]));
+                }
+            }
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            Toast.makeText(ctx, "IO Exception!!!", Toast.LENGTH_SHORT).show();
+
+        } finally {
+            return posts;
+        }
     }
 }

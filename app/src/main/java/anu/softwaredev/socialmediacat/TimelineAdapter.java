@@ -1,5 +1,4 @@
 package anu.softwaredev.socialmediacat;
-
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,8 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
-
-// create own's Adapter for the Timeline (Recycler): Imple Methods
+/** Adapter for the Timeline displayed to Users */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
     private final Context ctx;
     private final List<UserActivity> dataset;
@@ -26,17 +24,17 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         this.dataset = dataset;
     }
 
-    // imple Recycler Adapter methods
+    // Implement Recycler Adapter methods
     @NonNull
-    @Override   // Uses layoutInflater for XML post
-    public TimelineAdapter.TimelineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    @Override
+    public TimelineAdapter.TimelineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {                 // layoutInflater for XML post
         View view = LayoutInflater.from(ctx).inflate(R.layout.activity_timeline_post, parent, false);
         return new TimelineViewHolder(view);
     }
 
-    @Override      // associates View with Data (dataset)
-    public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
-        holder.getPostUsername().setText(dataset.get(position).getUId());
+    @Override
+    public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {                        // bind data
+        holder.getPostUsername().setText("@"+dataset.get(position).getUId());
         holder.getPostContent().setText(dataset.get(position).getContent());
         holder.getCategoryPostId().setText(dataset.get(position).getTags()+" /"+dataset.get(position).getPostId());
         holder.getLikes().setText(String.valueOf(dataset.get(position).getPost().getLikes()) + " likes");
@@ -50,20 +48,20 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
               .into(holder.getPostImage());
     }
 
-    @Override             // no. of items we hv
+    @Override
     public int getItemCount() {
         return dataset.size();
-    }
+    }                              // no. of items we hv
 
-    /** Create [TimelineViewHolder] class (extends RecyclerView.ViewHolder)
-     * TimelineViewHolder: add Fields (objs in a post) and findViews (from XML file) */
+
+    /** Create TimelineViewHolder,
+     * add Fields (objs in a post) and findViews (from XML file) */
     public class TimelineViewHolder extends RecyclerView.ViewHolder {
 
-        // Posts' Fields
         private final ImageView ivPostImage;
         private final TextView tvPostUsername;
         private final TextView tvPostContent;
-        private final TextView tvCategoryPostId;    // NEW
+        private final TextView tvTagsAndPostId;    // NEW
         private final TextView tvLikes;
 
         public TimelineViewHolder(@NonNull View itemView) {
@@ -71,7 +69,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             this.ivPostImage = (ImageView) itemView.findViewById(R.id.iv_post_image);
             this.tvPostUsername = (TextView) itemView.findViewById(R.id.tv_userName);
             this.tvPostContent = (TextView) itemView.findViewById(R.id.tv_content);
-            this.tvCategoryPostId = (TextView) itemView.findViewById(R.id.tv_CategoryPostId);   // New
+            this.tvTagsAndPostId = (TextView) itemView.findViewById(R.id.tv_CategoryPostId);   // New
             this.tvLikes = (TextView) itemView.findViewById(R.id.tv_likes);
         }
 
@@ -79,7 +77,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         public ImageView getPostImage() {return ivPostImage;}
         public TextView getPostUsername() {return tvPostUsername;}
         public TextView getPostContent() {return tvPostContent;}
-        public TextView getCategoryPostId() {return tvCategoryPostId;}
+        public TextView getCategoryPostId() {return tvTagsAndPostId;}
         public TextView getLikes() {return tvLikes;}
     }
 

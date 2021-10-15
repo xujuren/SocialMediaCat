@@ -32,7 +32,7 @@ public class loadFromCSV extends loadFromAssets {
             bufferedReader.close();
 
         } catch (IOException e) {
-            Toast.makeText(ctx, "IO Exception while loading actions", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx, "IO Exception while loading CSV actions", Toast.LENGTH_SHORT).show();
             return null;
 
         } finally {
@@ -58,7 +58,7 @@ public class loadFromCSV extends loadFromAssets {
             bufferedReader.close();
 
         } catch (IOException e) {
-            System.out.println("IO Exception!!");
+            Toast.makeText(ctx, "IO Exception while loading CSV posts", Toast.LENGTH_SHORT).show();
             return null;
 
         } finally {

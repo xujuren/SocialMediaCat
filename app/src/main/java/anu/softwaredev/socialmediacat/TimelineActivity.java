@@ -22,22 +22,25 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline (the Recycler View)
-        List<UserActivity> allPosts = getAllPosts(getApplicationContext());                  // Data
-        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);        // Adapter
+        // Set Up timeline view and data
+        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline
+        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), getAllPosts());        // Adapter to Data
         rvTimeline.setAdapter(timelineAdapter);
-        rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // (Linear timeline, more spaces for information)
+        rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // Linear timeline (more spaces for information)
             // rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));                             // (Grid Layout)
 
     }
 
     /** TODO + Sources of data set */
-    public List<UserActivity> getAllPosts(Context ctx) {
+    public List<UserActivity> getAllPosts() {
 
-        // TODO + [POSTS]
+        // load Posts
+        loadFromAssets.loadPostsfromDataInstances(getApplicationContext());
+
+        // TODO [###]: this >> Stream?
         loadFromAssets.createPostsfromDataInstances(getApplicationContext());
-        return UserActivityDao.getInstance().findAllPosts();
 
+        return UserActivityDao.getInstance().findAllPosts();
     }
 
 

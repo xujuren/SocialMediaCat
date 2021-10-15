@@ -65,7 +65,7 @@ public abstract class loadFromAssets {
 
 
     /** create posts from data instances provided
-     * Dataset: TODO +Sources */
+     * Dataset: TODO (1) refactor (sep with existing posts), (2)  */
     public static void createPostsfromDataInstances(Context ctx) {
 
         // load data from sources
@@ -98,11 +98,52 @@ public abstract class loadFromAssets {
         }
 
         for (Post post : postsToCreate){
-            UserActivityDao.getInstance().createPost("@"+post.getUId(), post.getTags(), post.getPostId(), post.getContent());
+            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent());
         }
 
     }
 
+
+    /** create posts from data instances provided
+     * Dataset: TODO (1) refactor (sep with existing posts), (2)  */
+    public static void loadPostsfromDataInstances(Context ctx) {
+
+        // load data from sources
+        boolean csv = true;
+        boolean bespoke = true;
+        boolean json = true;
+        boolean dummy = true;           // test
+
+        List<Post> postsLoaded = new ArrayList<>();
+
+        if (csv) {
+            loadFromCSV loadCSV = new loadFromCSV();
+            postsLoaded.addAll(loadCSV.postsFromAssets(ctx));
+        }
+
+        if (bespoke) {
+            loadFromBespoke loadBespoke = new loadFromBespoke();
+            postsLoaded.addAll(loadBespoke.postsFromAssets(ctx));
+        }
+
+        if (json) {
+            loadFromJson loadJson = new loadFromJson();
+            postsLoaded.addAll(loadJson.postsFromAssets(ctx));
+        }
+
+        if (dummy){
+            Post post1 = new Post("dummy1", "#test", "pId00", "just create it");
+            Post post2 = new Post("dummy2", "test", "pId00", "Running ... ...");
+            List<Post> dummyPosts = new ArrayList<>(Arrays.asList(post1, post2));
+            postsLoaded.addAll(dummyPosts);
+        }
+
+        // create with the post IDs (Notes: not uploaded!)
+        for (Post post : postsLoaded){
+            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent());
+        }
+
+    }
 
 
 
