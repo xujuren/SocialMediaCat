@@ -23,11 +23,10 @@ public class loadFromCSV extends loadFromAssets {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] tokens = line.split(",");
+                // String action, String uId, String tags, String content, int photoId
                 if (tokens.length==5) {
-                    userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]));
-                } else if (tokens.length==4) {
-                    userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], "", tokens[3]));    // TODO - % POSTID (if CRASH?)
-                } // else ignore
+                    userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
+                } // else ignore (or OTHER actions)
             }
             bufferedReader.close();
 
@@ -46,14 +45,18 @@ public class loadFromCSV extends loadFromAssets {
     @Override
     public List<Post> postsFromAssets(Context ctx) {
         BufferedReader bufferedReader;
-        List<Post> posts = new ArrayList<>();
+        List<Post> postsFound = new ArrayList<>();
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open("posts.csv"), StandardCharsets.UTF_8));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                if (tokens.length!=4) {continue;}
-                posts.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3]));        // Not yet check Format etc. TODO
+
+                if (tokens.length==6){ // [String uId, String category, String postId, String content, int photoId, {int likeCounts}]
+                    postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5])));
+                } else if (tokens.length==5) {
+                    postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
+                } // else ignore
             }
             bufferedReader.close();
 
@@ -62,10 +65,10 @@ public class loadFromCSV extends loadFromAssets {
             return null;
 
         } finally {
-            if (posts != null && posts.size()>0){
-                posts.remove(0);     // remove header
+            if (postsFound != null && postsFound.size()>0){
+                postsFound.remove(0);     // remove header
             }
-            return posts;
+            return postsFound;
         }
     }
 

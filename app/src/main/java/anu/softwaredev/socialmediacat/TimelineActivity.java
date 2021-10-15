@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import java.util.List;
 
+import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.Util.loadFromAssets;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
@@ -29,7 +30,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     /** TODO + Sources of data set */
-    public List<UserActivity> getAllPosts() {
+    public List<Post> getAllPosts() {
 
         // load Posts
         loadFromAssets.loadPostsfromDataInstances(getApplicationContext());

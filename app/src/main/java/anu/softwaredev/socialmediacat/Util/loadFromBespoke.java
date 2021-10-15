@@ -46,18 +46,20 @@ public class loadFromBespoke extends loadFromAssets {
     @Override
     public List<Post> postsFromAssets(Context ctx) {
         BufferedReader bufferedReader;
-        List<Post> posts = new ArrayList<>();
+        List<Post> postsFound = new ArrayList<>();
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open("userActions.txt"), StandardCharsets.UTF_8));
+            bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open("posts.txt"), StandardCharsets.UTF_8));
             String line;
-            while ((line = bufferedReader.readLine()) != null) {    // (String uId, String tags, String postId, String content)
+            while ((line = bufferedReader.readLine()) != null) {
                 int startBr = line.indexOf('(');
                 int endBr = line.indexOf(')');
                 if (startBr==-1 || endBr==-1) {continue;}
                 String params = line.substring(startBr+1, endBr);
                 String[] tokens = params.split(", ");
-                if (tokens.length==4){
-                    posts.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3]));
+                if (tokens.length==6){ // [String uId, String category, String postId, String content, int photoId, {int likeCounts}]
+                    postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5])));
+                } else if (tokens.length==5) {
+                    postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
                 }
             }
             bufferedReader.close();
@@ -66,7 +68,7 @@ public class loadFromBespoke extends loadFromAssets {
             Toast.makeText(ctx, "IO Exception!!!", Toast.LENGTH_SHORT).show();
 
         } finally {
-            return posts;
+            return postsFound;
         }
     }
 }

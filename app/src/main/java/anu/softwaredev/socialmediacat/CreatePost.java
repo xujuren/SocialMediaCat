@@ -22,8 +22,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
-import java.util.List;
-import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
@@ -36,7 +34,7 @@ public class CreatePost extends AppCompatActivity {
     private TextInputLayout photoURLLayout;
     private EditText contentEdit;
     private EditText tagsEdit;
-    private EditText photoURLEdit;
+    private EditText photoIDEdit;
     private LocationManager locManager;
     private LocationListener locListener;
 
@@ -57,7 +55,7 @@ public class CreatePost extends AppCompatActivity {
         photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
         contentEdit = (EditText) findViewById(R.id.content_createpost_et);
         tagsEdit = (EditText) findViewById(R.id.category_createpost_et);
-        photoURLEdit = (EditText) findViewById(R.id.photo_createpost_et);
+        photoIDEdit = (EditText) findViewById(R.id.photo_createpost_et);
 
         shareLocOption.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -79,7 +77,7 @@ public class CreatePost extends AppCompatActivity {
             // Get Input
             String content = contentEdit.getText().toString();
             String category = tagsEdit.getText().toString();
-            String photoURL = photoURLEdit.getText().toString();
+            String photoIDInput = photoIDEdit.getText().toString();     // *ori: photoURL
 
             // add Location to Content (if permitted and available)
             String latLng = latlngText.getText().toString();
@@ -88,32 +86,33 @@ public class CreatePost extends AppCompatActivity {
             }
 
             // URL             // TODO - Check Validity
-            Boolean photoURLValid = false;
-            if (!TextUtils.isEmpty(photoURL)) {
+            int photoId = -1;   // error code
+            if (!TextUtils.isEmpty(photoIDInput)) {
                 try {
-                    (new java.net.URL(photoURL)).openStream().close();
-                    photoURLValid = true;
+                    int photoIdInput = Integer.parseInt(photoIDInput);
+                    if (photoIdInput>=20 && photoIdInput<=100) {
+                        photoId = photoIdInput;
+                    } else {
+                        Toast.makeText(CreatePost.this, "Invalid ID! random Photo ID generated for you ...", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (Exception ex) {
+                    Toast.makeText(CreatePost.this, "Invalid ID! random Photo ID generated for you ...", Toast.LENGTH_SHORT).show();
                 }
             }
-            Toast.makeText(CreatePost.this, "PhotoValid? - " + photoURLValid.toString(), Toast.LENGTH_SHORT);
 
             // Check required info - Create Post
             if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
-                UserActivity newPostAct = UserActivityDao.getInstance().createPost(uId, category, "P-1", content);  // dummy postId
-                Post newPost = newPostAct.getPost();          // TODO [postId]
-                Toast.makeText(CreatePost.this, "Post Created!" + newPost.toString(), Toast.LENGTH_SHORT).show();
-                finish();
+                UserActivity newPostAct = UserActivityDao.getInstance().createPost(uId, category, content, photoId);  // dummy postId
+                Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
 
             } else {
                 Toast.makeText(CreatePost.this, "You did not enter the post Category and/or Content!", Toast.LENGTH_LONG).show();
-                finish();
             }
 
-        } else {
+        } else {// UNEXPECTED Branch
             Toast.makeText(CreatePost.this, "An error occur. Sorry for the inconveniences", Toast.LENGTH_LONG).show();
-            finish();   // UNEXPECTED Branch
         }
+        finish();
 
     }
 

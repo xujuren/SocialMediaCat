@@ -1,7 +1,7 @@
-StringuId, Stringtags, StringpostId, Stringcontent
-u31, #sayHi, p01, [B_posts]hi hi hi hi
-u32, #random, p01, [B_posts]content in bespoken
-u31, #sayHi, p01, [B_posts]hi hi hi hi
-u31, #random, p01, [B_posts]content in bespokenSpoken
-u32, #test, p01, [B_posts]veryveryveryveryveryveryvery very long content
-u33, #test, p01, [B]even looooooonnnnnngggggggggggerrrrrrrrrrrrrrrrrrrrrrrrrererererererererererererrrrrrrrrrrererererererererererererrrrrrrrrrrererererererererererererrrrrrrrrrrerererererererererererer
+//(String)UId, (String)tags, (String)postId, (String)content, (int)PhotoId, (int)Likes
+u31, #sayHi, pC1, [B_posts]hi hi hi hi, -1, 4
+u32, #random, pC2, [B_posts]content in csv, -1, 3
+u31, #sayHi, pC6, [B_posts]hi hi hi hi_samephoto, 30, 3
+u31, #random, pC7, [B_posts]content in csv_samephoto, 30, 3
+u32, #test, pC8, [B_posts]veryveryveryveryveryveryvery very long content csv_samephoto, 30, 30
+u33, #test, pC9, [B]even looooooonnnnnngggggggggggerrrrrrrrrrrrrrrrrrrrrrrrrererererererererererererrrrrrrrrrrererererererererererererrrrrrrrrrrererererererererererererrrrrrrrrrrerererererererererererer, -1

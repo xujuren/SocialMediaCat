@@ -33,18 +33,17 @@ public abstract class loadFromAssets {
     public List<Post> postsToCreate(Context ctx) {
 
         // 1) Get Data (List<UserActivity>):        loadFromAssets()
-        List<UserActivity> userActsFromCsv = actionsFromAssets(ctx);
+        List<UserActivity> userActsFromCsv = actionsFromAssets(ctx);        // change to NOT <UserAct>??
 
-        // 2) Check Activity Type, (Filter?)
+        // 2) Check Activity Type
         List<Post> postsToCreate = new ArrayList<>();
-
-        for (UserActivity userAct : userActsFromCsv) {              // TODO (1) to POSTS
+        for (UserActivity userAct : userActsFromCsv) {
             if (userAct.getAction().equals("create-post")) {
                 String uId = userAct.getUId();                      // TODO to NAME
                 String tags = userAct.getTags();
-                String postId = userAct.getPostId();                // TODO - create post should be WITHOUT PID
                 String content = userAct.getContent();
-                postsToCreate.add(new Post(uId, tags, postId, content));
+                int photoId = userAct.getPhotoId();
+                postsToCreate.add(new Post(uId, tags, content, photoId));
             }
         }
 
@@ -64,16 +63,15 @@ public abstract class loadFromAssets {
     }
 
 
-    // TODO - load Activities: also for (LIKES) if we add it
-
+    // TODO - lo// TODO - ad Activities: also for (LIKES) if we add it
+    // TODO - Time Interval
     /** create posts from data instances provided
      * Dataset:  */
     public static void createPostsfromDataInstances(Context ctx) {
 
-        // load data from sources
+        // load actions from assets
         boolean csv = true;
         boolean bespoke = true;
-        boolean json = true;
         boolean dummy = true;           // test
 
         /** (1) Activity: Create Posts */       // no POSTID - TODO (but HOW LIKE)
@@ -89,10 +87,8 @@ public abstract class loadFromAssets {
             postsToCreate.addAll(loadBespoke.postsToCreate(ctx));
         }
 
-        if (json) {} // TODO - not relevant for ACTIONS
-
         if (dummy){
-            Post post1 = new Post("dummy1", "#test", "pId00", "just create it");
+            Post post1 = new Post("dummy1", "#test", "", "just create it, empty photoId & photoiD-1, 100 likes", -1, 100);
             List<Post> dummyPosts = new ArrayList<>(Arrays.asList(post1));
             postsToCreate.addAll(dummyPosts);
             //Post post2 = new Post("dummy2", "test", "pId00", "Running ... ...");
@@ -100,7 +96,7 @@ public abstract class loadFromAssets {
         }
 
         for (Post post : postsToCreate){
-            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent());
+            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), post.getContent(), post.getPhotoId());
         }
 
     }
@@ -109,7 +105,7 @@ public abstract class loadFromAssets {
     /** Load existing posts from data instances  */
     public static void loadPostsfromDataInstances(Context ctx) {
 
-        // load data from sources
+        // load posts from assets
         boolean csv = true;
         boolean bespoke = true;
         boolean json = true;
@@ -133,15 +129,16 @@ public abstract class loadFromAssets {
         }
 
         if (dummy){
-            Post post1 = new Post("dummy1", "#test", "lp00", "just create it");
-            Post post2 = new Post("dummy2", "test", "lp00", "Running ... ...");
+            Post post1 = new Post("dummy1", "#test", "p00", "just create it", 50);
+            Post post2 = new Post("dummy2", "test", "p00", "Running ... ...", 50);
             List<Post> dummyPosts = new ArrayList<>(Arrays.asList(post1, post2));
             postsLoaded.addAll(dummyPosts);
         }
 
+        // TODO create NEW Method in in DAO: loadPost (for existing - with PID)
         // create with the post IDs (Notes: not uploaded!)
         for (Post post : postsLoaded){
-            UserActivityDao.getInstance().createPost(post.getUId(), post.getTags(), "l"+post.getPostId(), post.getContent());
+            UserActivityDao.getInstance().loadPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent(), post.getPhotoId(), post.getLikes());
         }
 
     }

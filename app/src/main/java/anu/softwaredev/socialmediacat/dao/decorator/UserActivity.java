@@ -7,22 +7,23 @@ public class UserActivity {
     private String action;      // name of action
     private String uId;         // user ID
     private String tags;   // Category (*for createPost) TODO: > tags
-    private String postId;     // PostId (TODO <=> ++)
     private String content;     // content of post/action
+    private int photoId;        // ID of photo used of Post
+    private int likeCount;      // likeCount of Post
 
-    public UserActivity(String action, String uId, String tags, String postId, String content) {
+    public UserActivity(String action, String uId, String tags, String content, int photoId) {
         this.action = action;
         this.uId = uId;
         this.tags = tags;
-        this.postId = postId;
         this.content = content;
+        this.photoId = photoId;
     }
 
-    // Constructor without Post ID (e.g. creat post)
+
+    // Constructor without PHOTO ID
     public UserActivity(String action, String uId, String tags, String content) {
         this.action = action;
         this.uId = uId;
-        this.postId = "";
         this.tags = tags;
         this.content = content;
     }
@@ -31,12 +32,12 @@ public class UserActivity {
     public String getAction() {return action;}
     public String getUId() {return uId;}
     public String getTags() {return tags;}
-    public String getPostId() {return postId;}
+    // public String getPostId() {return postId;}
     public String getContent() {return content;}
+    public int getPhotoId() {return photoId;}
+    public int getLikeCount() {return likeCount;}
 
     // Post
-    public Post getPost(){
-        return new Post(uId, tags, postId, content);
-    }
+    //public Post getPost(){  return new Post(uId, tags, postId, content, photoId);}
 
 }

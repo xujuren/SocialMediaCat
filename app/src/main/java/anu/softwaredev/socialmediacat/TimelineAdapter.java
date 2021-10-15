@@ -1,4 +1,5 @@
 package anu.softwaredev.socialmediacat;
+import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,9 +18,9 @@ import com.bumptech.glide.request.RequestOptions;
 /** Adapter for the Timeline displayed to Users */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
     private final Context ctx;
-    private final List<UserActivity> dataset;
+    private final List<Post> dataset;
 
-    public TimelineAdapter(Context ctx, List<UserActivity> dataset) {
+    public TimelineAdapter(Context ctx, List<Post> dataset) {
         this.ctx = ctx;
         this.dataset = dataset;
     }
@@ -37,12 +38,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.getPostUsername().setText("@"+dataset.get(position).getUId());
         holder.getPostContent().setText(dataset.get(position).getContent());
         holder.getCategoryPostId().setText(dataset.get(position).getTags()+" /"+dataset.get(position).getPostId());
-        holder.getLikes().setText(String.valueOf(dataset.get(position).getPost().getLikes()) + " likes");
-        // TODO: Button
+        holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
+        // TODO: Like Button
 
-        // IMAGE: load rand image from external source using Glide (TODO input ID)
-        int id = (int) (Math.random() *((100-20)+1) + 20); 	// gen rand id (use for URL below), max=100 min=(20)
-        Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
+        // Load Post Image
+        int photoId = dataset.get(position).getPhotoId();
+        Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
                 .skipMemoryCache(true)
               .into(holder.getPostImage());

@@ -1,5 +1,4 @@
 package anu.softwaredev.socialmediacat;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import anu.softwaredev.socialmediacat.Util.loadData_Test_Act;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -47,13 +48,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    // onClick M for button (forget_pw_button)
-    public void forgetPw(View v){
-        Intent i = new Intent(MainActivity.this, ForgetPwActivity.class);
-        startActivity(i);
-    }
-
     // onClick M for button (create_acc_button)
     public void createAcc(View v){
         Intent i = new Intent(MainActivity.this, CreateAccActivity.class);
@@ -63,22 +57,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    /** TODO Below 3 methods: Testing Only [@AppActivity] */
+    /** TODO Below 3 methods: for Testing Only [@AppActivity] */
 
     public void JsonTest(View v) {
-        Intent i = new Intent(getApplicationContext(), LoadData_Test.class);   // to [JsonTest] Page
+        Intent i = new Intent(getApplicationContext(), loadData_Test_Act.class);   // to [JsonTest] Page
         startActivity(i);
         finish();
     }
 
-    /** Testing Only [@AppActivity] */
     public void timelineTest(View v) {
         Intent i = new Intent(getApplicationContext(), TimelineActivity.class);   // to [TimelineActivity] Page
         startActivity(i);
         finish();
     }
 
-    /** Testing Only [@quick Log in] */
     public void logInTest(View v) {
         // sign in method
         mAuth.signInWithEmailAndPassword("test@test.com", "testtest")
