@@ -28,7 +28,7 @@ public class loadFromBespoke extends loadFromAssets {
                 String action = line.substring(0, startBr);
 
                 String params = line.substring(startBr+1, endBr);
-                String[] tokens = params.split(", ");
+                String[] tokens = params.split("; ");
 
                 userActs.add(new UserActivity(action, tokens[0], tokens[1], tokens[2]));
 
@@ -55,8 +55,8 @@ public class loadFromBespoke extends loadFromAssets {
                 int endBr = line.indexOf(')');
                 if (startBr==-1 || endBr==-1) {continue;}
                 String params = line.substring(startBr+1, endBr);
-                String[] tokens = params.split(", ");
-                if (tokens.length==6){ // [String uId, String category, String postId, String content, int photoId, {int likeCounts}]
+                String[] tokens = params.split("; ");
+                if (tokens.length==6){ //
                     postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5])));
                 } else if (tokens.length==5) {
                     postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
