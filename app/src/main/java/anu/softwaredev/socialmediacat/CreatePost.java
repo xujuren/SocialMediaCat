@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +26,8 @@ import android.widget.ToggleButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
@@ -36,14 +35,13 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 public class CreatePost extends AppCompatActivity {
     private FirebaseUser user;
-    private DatabaseReference dbRef;
     private TextView latlngText;
     private TextInputLayout contentLayout;
     private TextInputLayout categoryLayout;
     private ToggleButton shareLocOption;
     private TextInputLayout photoURLLayout;
     private EditText contentEdit;
-    private EditText categoryEdit;
+    private EditText tagsEdit;
     private EditText photoURLEdit;
     private LocationManager locManager;
     private LocationListener locListener;
@@ -55,7 +53,12 @@ public class CreatePost extends AppCompatActivity {
 
         initView();
 
-        // Location Manage & Listener
+    }
+
+    // TEST - can extract (so that call only if asked and permit?)
+    private void checkLocation() {
+
+        // Location Manager & Listener
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locListener = new LocationListener() {
             @Override
@@ -78,16 +81,48 @@ public class CreatePost extends AppCompatActivity {
             @Override
             public void onProviderDisabled (@NonNull String provider){}
         };
+
         // check Permissions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+
+                // TEST
+                Toast.makeText(CreatePost.this, "should request permission now...", Toast.LENGTH_SHORT).show();
+
+                // TODO did NOT pop up... WHY???
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 100);
+
+            } else {
+                locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
             }
-        }
-        locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
+
+        } // version issue
+
     }
+
+    // TODO - try get permission result
+    // TODO [BUG] ??? when called (check Loc above), show "NO permission" directly (without request)
+    @Override
+    @SuppressLint("MissingPermission")
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // M1
+        if (requestCode==100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // permission OK
+            Toast.makeText(CreatePost.this, "got permission", Toast.LENGTH_SHORT).show();
+            locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
+
+        } else {
+            // Not ok
+            Toast.makeText(CreatePost.this, "NO permission - grantResults[0]: "+grantResults[0], Toast.LENGTH_SHORT).show();
+            latlngText.setText("(permission required)");
+        }
+
+    }
+
 
     private void initView() {
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
@@ -96,8 +131,19 @@ public class CreatePost extends AppCompatActivity {
         latlngText = (TextView) findViewById(R.id.tv_show_latlng);
         photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
         contentEdit = (EditText) findViewById(R.id.content_createpost_et);
-        categoryEdit = (EditText) findViewById(R.id.category_createpost_et);
+        tagsEdit = (EditText) findViewById(R.id.category_createpost_et);
         photoURLEdit = (EditText) findViewById(R.id.photo_createpost_et);
+
+        shareLocOption.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    latlngText.setText("(Loading location)");
+                    checkLocation();
+                } else {
+                    latlngText.setText("(Not selected)");
+                }
+            }
+        });
     }
 
     // Create Post - button
@@ -107,16 +153,15 @@ public class CreatePost extends AppCompatActivity {
             String uId = user.getUid();
             // Get Input
             String content = contentEdit.getText().toString();
-            String category = categoryEdit.getText().toString();
+            String category = tagsEdit.getText().toString();
             Boolean shareLocBool = shareLocOption.getText().toString().equals("Loc will be shared!");
             String photoURL = photoURLEdit.getText().toString();
 
+            // TODO - bug (location)
             // add Location to Content, if chosen and permitted
-            if (shareLocBool) {
-                String latLng = latlngText.getText().toString();
-                if (latLng.charAt(0)!='('){
-                    content = content + latLng;
-                }
+            String latLng = latlngText.getText().toString();
+            if (latLng.charAt(0)!='('){
+                content = content + latLng;
             }
 
             // URL             // TODO - Check Validity
