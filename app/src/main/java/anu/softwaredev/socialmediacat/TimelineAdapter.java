@@ -38,12 +38,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
         holder.getPostUsername().setText(dataset.get(position).getUId());
         holder.getPostContent().setText(dataset.get(position).getContent());
-        holder.getCategoryPostId().setText(dataset.get(position).getCategory()+"/"+dataset.get(position).getPostId()+"]");
-        // TODO - likes?
+        holder.getCategoryPostId().setText(dataset.get(position).getTags()+" /"+dataset.get(position).getPostId());
+        holder.getLikes().setText(String.valueOf(dataset.get(position).getPost().getLikes()) + " likes");
+        // TODO: Button
 
-        // IMAGE: load rand image from external source using Glide (code from ref) (*install Glide?)
+        // IMAGE: load rand image from external source using Glide (TODO input ID)
         int id = (int) (Math.random() *((100-20)+1) + 20); 	// gen rand id (use for URL below), max=100 min=(20)
-        // Glide ** [Image]
         Glide.with(ctx).load("https://picsum.photos/id/" + id + "/300/200").apply(new RequestOptions())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
                 .skipMemoryCache(true)

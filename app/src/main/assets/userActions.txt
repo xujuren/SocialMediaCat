@@ -1,0 +1,7 @@
+create-post[String uId, String category, String content]
+create-post(u11, #sayHi, [B_create]hi hi hi hi)
+create-post(u12, #sayHi, [B_create]content in bespoken)
+create-post(u11, #sayHi, [B_create]hi hi hi hi)
+create-post(u11, #sayHi, [B_create]content in bespokenSpoken)
+create-post(u12, #test, [B_create]longggggggngnggngngngnggngngnggnggngngng content)
+create-post(u13, noSymbol, [B_create]hi hi ho)

@@ -1,19 +1,19 @@
 [
   {
     "uId": "u1J",
-    "category": "cat1",
+    "category": "#sayHi",
     "postId": "p9",
     "content": "(J)hi hi hi"
   },
   {
     "uId": "u2J",
-    "category": "cat3",
+    "category": "#sayHi",
     "postId": "p12",
     "content": "(J)hi hello"
   },
   {
     "uId": "u3J",
-    "category": "cat5",
+    "category": "withoutSymbol",
     "postId": "p32",
     "content": "(J)abcfd sfsfsd sdfdsfds"
   }

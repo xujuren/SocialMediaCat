@@ -129,7 +129,7 @@ public class UserActivityDao implements IUserActivityDao {
 //    public List<ActionCount> generateActionCountReport() {
 //        CsvActionReport csvActionReport = new CsvActionReport();
 //        UserActivityDao userActivityDao = UserActivityDao.getInstance();
-//        String path = "posts.csv";
+//        String path = "userActions.csv";
 //        // String path = userActivityDao.getFilePath();
 //        List<ActionCount> actionCountList = csvActionReport.generateReport(path);
 //        return actionCountList;

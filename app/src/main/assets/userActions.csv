@@ -1,0 +1,9 @@
+action,uId,tags,{postId},content
+create-post,u01,#t1,(C_create)hi hi hi hi
+create-post,u01,#test, gotAPostId,(C_create)123 321
+create-post,u02,#test, gotPIdAgain, (C_create)1234567
+create-post,u03,#t2,(C_create)xyz and abc
+create-post,u02,noSymbol,(C_create)234
+create-post,u01,#t2,(C_create)432
+create-post,u03,#t1,(C_create)45678910
+create-post,u03,#tabc #,(C_create)xyz and abc

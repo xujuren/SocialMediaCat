@@ -1,5 +1,4 @@
 package anu.softwaredev.socialmediacat;
-import static anu.softwaredev.socialmediacat.Util.loadFromAssets.getDataFromJson;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,10 +10,7 @@ import android.os.Bundle;
 
 import java.util.List;
 
-import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.Util.loadFromAssets;
-import anu.softwaredev.socialmediacat.Util.loadFromBespoke;
-import anu.softwaredev.socialmediacat.Util.loadFromCSV;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
@@ -27,7 +23,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline (the Recycler View)
-        List<UserActivity> allPosts = getAllPosts(getApplicationContext(), true, true, false,false);                  // Data
+        List<UserActivity> allPosts = getAllPosts(getApplicationContext());                  // Data
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), allPosts);        // Adapter
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // (Linear timeline, more spaces for information)
@@ -36,11 +32,11 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     /** TODO + Sources of data set */
-    public List<UserActivity> getAllPosts(Context ctx, boolean csv, boolean bespoke, boolean json, boolean dummy) {
+    public List<UserActivity> getAllPosts(Context ctx) {
 
-        // get from DATA INSTANCES only (Create Post)
-        return loadFromAssets.getAllPosts(getApplicationContext(), csv, bespoke, json, dummy);
-
+        // TODO + [POSTS]
+        loadFromAssets.createPostsfromDataInstances(getApplicationContext());
+        return UserActivityDao.getInstance().findAllPosts();
 
     }
 

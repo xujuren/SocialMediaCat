@@ -8,17 +8,19 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
 public class loadFromBespoke extends loadFromAssets {
 
     @Override
-    public List<UserActivity> loadFromAssets(Context ctx, String fileName) {
+    public List<UserActivity> actionsFromAssets(Context ctx) {
 
         BufferedReader bufferedReader;
         List<UserActivity> userActs = new ArrayList<>();
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open(fileName), StandardCharsets.UTF_8));
+            bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open("userActions.txt"), StandardCharsets.UTF_8));
             String line;
             while ((line = bufferedReader.readLine()) != null) {    // create-post(u11, cat1, p01, hi hi hi hi)
                 int startBr = line.indexOf('(');                    // action name
@@ -29,7 +31,7 @@ public class loadFromBespoke extends loadFromAssets {
                 String params = line.substring(startBr+1, endBr);
                 String[] tokens = params.split(", ");
 
-                userActs.add(new UserActivity(action, tokens[0], tokens[1], tokens[2], tokens[3]));
+                userActs.add(new UserActivity(action, tokens[0], tokens[1], tokens[2]));
 
             }
             bufferedReader.close();
@@ -40,5 +42,10 @@ public class loadFromBespoke extends loadFromAssets {
         } finally {
             return userActs;
         }
+    }
+
+    @Override
+    public List<Post> postsFromAssets(Context ctx) {
+        return null;
     }
 }

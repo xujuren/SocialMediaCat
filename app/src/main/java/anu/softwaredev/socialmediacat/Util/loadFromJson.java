@@ -15,12 +15,40 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 public class loadFromJson extends loadFromAssets {
 
     @Override
-    public List<UserActivity> loadFromAssets(Context ctx, String fileName) {
-
+    public List<UserActivity> actionsFromAssets(Context ctx) {
+        // TODO - POSTS only (without spec "create") - @current .json's structure
         return null;
     }
 
+    @Override
+    public List<Post> postsFromAssets(Context ctx) {
+        String jsonStr = getJsonFromAssets(ctx);
+        Gson gson = new Gson();
+        Type listPostType = new TypeToken<List<Post>>() {}.getType();
 
+        return gson.fromJson(jsonStr, listPostType);
+    }
+
+
+    // get JSON String
+    public static String getJsonFromAssets(Context ctx){
+        String jsonStr = null;
+        try {
+            InputStream is = ctx.getAssets().open("posts.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            jsonStr = new String(buffer, "UTF-8");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+            return jsonStr;
+        }
+    }
 
 
 }
