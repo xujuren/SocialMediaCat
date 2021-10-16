@@ -15,6 +15,11 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
 
+
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
