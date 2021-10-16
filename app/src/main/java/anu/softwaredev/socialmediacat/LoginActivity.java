@@ -34,8 +34,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText accEdit;
     private EditText pwEdit;
     private Button loginBt;
-    private FirebaseUser user;
+    private FirebaseUser user; //never used
 
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +85,14 @@ public class LoginActivity extends AppCompatActivity {
                                     user = mAuth.getCurrentUser();
 
                                     Toast.makeText(LoginActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
+                                    //go to welcome page for user to post ....etc
                                     Intent intent = new Intent();
                                     intent.putExtra("userEmail", acc);          // excessive
                                     intent.setClass(LoginActivity.this, AppActivity.class);    // or [Main] (?)
                                     startActivity(intent);
                                     finish();
                                 } else {
+                                    //show Toast message
                                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
