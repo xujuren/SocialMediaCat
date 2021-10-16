@@ -39,7 +39,12 @@ public class ProfileActivity extends AppCompatActivity {
     EditText displayNameEdit ;
     EditText proPicEdit ;
     EditText captionEdit;
+    public static final int ZERO = 0;
 
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,9 @@ public class ProfileActivity extends AppCompatActivity {
         editProfit();
     }
 
+    /**
+     * edit profile related actions
+     */
     private void editProfit() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -57,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    // Create Profile if not exists
+                    // Create Profile if not existed
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
                         Toast.makeText(ProfileActivity.this, "(Setting up your profile ...)", Toast.LENGTH_LONG).show();
                         User newUser = new User(user.getUid(), user.getEmail());                            // Set Up User (Uid as KEY)
@@ -67,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     // Get any existing fields
-                    for (DataSnapshot ds : snapshot.getChildren()) {    // loop thru each [field (k,v)] of the [uesr(UID)]
+                    for (DataSnapshot ds : snapshot.getChildren()) {    // loop through each [field (k,v)] of the [user(UID)]
                         String k = ds.getKey();
                         switch (k) {
                             case "name" :
@@ -79,14 +87,14 @@ public class ProfileActivity extends AppCompatActivity {
                                 continue;
                             case "proPic":
                                 currentProPic = (String) (ds.getValue());
-                                if (currentProPic.length()==0) continue;
+                                if (currentProPic.length()==ZERO) continue;
                                 proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
                                 proPicLayout.setHint("Edit your profile picture (current link: " + currentProPic + ")");
-                                // TD: show the PICTURE
+                                // ToDo: show the PICTURE
                                 continue;
                             case "caption":
                                 currentCaption = (String) (ds.getValue());
-                                if (currentCaption.length()==0) continue;
+                                if (currentCaption.length()==ZERO) continue;
                                 captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
                                 captionLayout.setHint("Edit your caption [" + currentCaption + "]");
                                 continue;
@@ -112,6 +120,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     // Confirm Button (Manage Profile)
+
+    /**
+     * never used yet , read input and make  changes
+     * @param v UI
+     */
     private void profileInput(View v) {
 
         // Read Input
