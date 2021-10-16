@@ -21,30 +21,39 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AppActivity extends AppCompatActivity {
-    private FirebaseUser user;
+    private FirebaseUser user; //stored in firebase
     private String userName;                // user's displayName (if available) or e-mail address
-    private BottomNavigationView navView;
+    private BottomNavigationView navView; // bottom Nav bar
     private ActionBar actionBar;
 
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app);
+        setContentView(R.layout.activity_app); // set view according to UI layout
 
         // Action bar
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
 
         // User Info
+        // The entry point of the Firebase Authentication SDK.
+        // call getCurrentUser() to get a FirebaseUser object, which contains information about the signed-in user.
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (!TextUtils.isEmpty(user.getDisplayName())) {
+            //set username with the pre-stored firebase username
             userName = user.getDisplayName();
         } else {
+            //if no pre-stored name, use email address
             Bundle extras = getIntent().getExtras();                // Extract user's email (from Login)       -  Excessive
             if (extras != null) {
                userName = extras.getString("userEmail");       // key arg: match that used in the other activity
             }
         }
+        // set welcome text
         TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
         welcomeText.setText("Welcome, " + userName);
 
@@ -59,7 +68,12 @@ public class AppActivity extends AppCompatActivity {
         // Bottom Nav Bar (navView.setOnItemSelectedListener(listener))
         navView = findViewById(R.id.bottomNavMenu);
         navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
+            /**
+             *
+             * @param item
+             * @return true if clicked valid button and set different title, false if didnt click
+             */
+             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {     //  handle item clicks
@@ -91,7 +105,10 @@ public class AppActivity extends AppCompatActivity {
 
     }
 
-    /** Set up buttons */
+    /**
+     * Set up buttons
+     * @param v , UI botton
+     */
     public void logOutClick(View v) {
         FirebaseAuth.getInstance().signOut();                   // signOut
         Intent intent = new Intent();                           // return to Main Page
@@ -100,17 +117,29 @@ public class AppActivity extends AppCompatActivity {
         finish();
     }
 
-    public void toTimelineAct(View v){          // [c] need public
+    /**
+     * switch to timeline page
+     * @param v UI
+     */
+    public void toTimelineAct(View v){
         Intent i = new Intent(getApplicationContext(), TimelineActivity.class);        // ori: AppActivity.this
         startActivity(i);
     }
 
-    public void toManageProfile(View v){          // [c] need public
+    /**
+     * switch to manageProfile page
+     * @param v UI
+     */
+    public void toManageProfile(View v){
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(i);
     }
 
-    public void toCreatePost(View v){          // [c] need public
+    /**
+     * switch to createPost page
+     * @param v UI
+     */
+    public void toCreatePost(View v){
         Intent i = new Intent(getApplicationContext(), CreatePost.class);
         startActivity(i);
     }
