@@ -13,10 +13,17 @@ public class Post {
     private String postId;           // Unique KEY for Posts
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
-    private int photoId;            // ID of the photo on
+    private int photoId;            // ID of the photo
 
 
-    /* Constructor 2.1 (with PostId, but without Likes) */
+    /**
+     *Constructor 2.1 (with PostId, but without Likes)
+     * @param uId id of author
+     * @param tags hashtag for search
+     * @param postId unique identifier for each post
+     * @param content post
+     * @param photoId photo unique identifier
+     */
     public Post(String uId, String tags, String postId, String content, int photoId) {
         this.uId = uId;
         this.tags = tags;
@@ -26,7 +33,16 @@ public class Post {
         this.likeCount = 0;
     }
 
-    /* Constructor 2.2 (with PostID and like count) */
+
+    /**
+     *     Constructor 2.2 (with PostID and like count)
+     * @param uId id of author
+     * @param tags hashtag for search
+     * @param postId unique identifier for each post
+     * @param content post
+     * @param photoId photo unique identifier
+     * @param likeCount num of likes
+     */
     public Post(String uId, String tags, String postId, String content, int photoId, int likeCount) {
         this.uId = uId;
         this.tags = tags;
@@ -47,11 +63,21 @@ public class Post {
     public int getPhotoId(){return photoId;}
     public int getLikes(){return likeCount;}
 
+
+    /**
+     *
+     * @return a default formatted string represents the post
+     */
     @Override
     public String toString(){
         return "@"+uId+ " " +content+" #"+tags+" ["+postId+"]: ";       // easy for understanding only, not following grammar
     }
 
+
+    /**
+     * convert the current class into a hashmap(dictionary), be called in UserActivity class (createPost method )
+     * @return  a hashmap data structure with all the attributes of this class
+     */
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
