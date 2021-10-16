@@ -17,6 +17,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,14 +31,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // onClick M for button (login_button)
+
+    /**
+     *      // onClick M for button (login_button)
+     * @param v login UI component
+     */
     public void logIn(View v){
+        //swtich from main welcome page to login page
         Intent i = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(i);
     }
 
 
-    // for logIn: to Complete the Transfer (username, pw) TODO
+
+    /**
+     *     for logIn: to Complete the Transfer (username, pw) TODO
+     * @param reqCode
+     * @param resultCode
+     * @param data bstract description of an operation to be performed
+     */
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data){
         super.onActivityResult(reqCode, resultCode, data);        // run ori thgs
@@ -47,8 +62,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Create account Button
+    /**
+     *         Create account Button
+     * @param v  UI component
+     */
     public void createAcc(View v){
+        // swap to create account page
         Intent i = new Intent(MainActivity.this, CreateAccActivity.class);
         startActivity(i);
         finish();
