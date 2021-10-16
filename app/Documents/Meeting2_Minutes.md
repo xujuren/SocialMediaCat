@@ -1,13 +1,9 @@
-# [Team Name]
-This following is a team meeting template. You may change this template as you like.
+# ezclap
 
-## Team Meeting 2 - Week 9 - October 9, 2021 (10-11:40PM AEST)
+## Team Meeting 2 - Week 9 - October 11, 2021 (10-11:40PM AEST)
 **Absent: None**
 <br>
 **Lead/scribe: Juren/Cathy**
-
-## Agreed Procedure
-Stand up Procedure: ...
 
 ## Agenda Items
 | Number | Item |
@@ -28,17 +24,16 @@ Stand up Procedure: ...
 | Feature: Read Data Instances from different files (easy) | Cathy |
 | Mandatory Task: Research on Search | Juren |
 | Mandatory Task: Research on RB Tree | Juren |
-| Overall: Revise Class Structure | Kyle |
-| Overall: Revise App Layout/structure | Kyle |
+| Overall: Revise Class Structure & App Layout/structure | Kyle |
+| Overall: creating data instances (?) | Kyle |
 | Continue with Mandatory Task: Tokenier & Parser | Kevin |
 | Feature: User firebase to persist all data used (medium) | Cathy |
+| Look into all unassigned tasks and issues | ALL |
+
 # Follow Up:
 | Mandatory Task: 1,000 Data Instances about ACTIONS (e.g. Create Post, like, follow) | [TBC] |
 | Mandatory Task: Test Cases (non-UI) | (TBC) |
 | Feature: Create UI and related Features for "Like" (easy) | (TBC) |
 | **Features: 2 Easy, 1 Medium, 1 Hard**|(TBC)|
 | Overall: UML Diagram, REPORT, Powerpoint Slides (due **`8`PM, Fri Oct 22**) | (TBC) |
-
-
-## Scribe Rotation
-(follows the rotation as at Meeting 1, unless special occasions)
+ occasions)
