@@ -11,9 +11,8 @@ import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
-public class loadFromCSV extends loadFromAssets {
+public class CSVHandler extends AssetHandler {
 
-    /** TODO (*) actions: >> data STREAM! */
     @Override
     public List<UserActivity> actionsFromAssets(Context ctx) {
         BufferedReader bufferedReader;
@@ -23,10 +22,9 @@ public class loadFromCSV extends loadFromAssets {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                // String action, String uId, String tags, String content, int photoId
-                if (tokens.length==5) {
+                if (tokens.length==5 && tokens[0].charAt(0)!='/'){
                     userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
-                } // else ignore (or OTHER actions)
+                } // else ignore (or OTHER actions, if any)
             }
             bufferedReader.close();
 
@@ -35,9 +33,6 @@ public class loadFromCSV extends loadFromAssets {
             return null;
 
         } finally {
-            if (userActs != null && userActs.size()>0){
-                userActs.remove(0);     // remove header
-            }
             return userActs;
         }
     }
@@ -51,11 +46,8 @@ public class loadFromCSV extends loadFromAssets {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] tokens = line.split(",");
-
-                if (tokens.length==6){ // [String uId, String category, String postId, String content, int photoId, {int likeCounts}]
+                if (tokens.length==6 && tokens[0].charAt(0)!='/'){
                     postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5])));
-                } else if (tokens.length==5) {
-                    postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
                 } // else ignore
             }
             bufferedReader.close();
@@ -65,9 +57,6 @@ public class loadFromCSV extends loadFromAssets {
             return null;
 
         } finally {
-            if (postsFound != null && postsFound.size()>0){
-                postsFound.remove(0);     // remove header
-            }
             return postsFound;
         }
     }

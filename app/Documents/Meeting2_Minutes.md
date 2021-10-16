@@ -1,7 +1,7 @@
 # [Team Name]
 This following is a team meeting template. You may change this template as you like.
 
-## Team Meeting [2] - Week [9] - [October 9] (10-11:40PM AEST)
+## Team Meeting 2 - Week 9 - October 9, 2021 (10-11:40PM AEST)
 **Absent: None**
 <br>
 **Lead/scribe: Juren/Cathy**
@@ -17,7 +17,7 @@ Stand up Procedure: ...
 | 3 | Tasks allocation |
 
 ## Meeting Minutes
-- Class Structure: Discussion and confusion about 'UserActivity', voted and agreed on decomposion
+- Class Structure: Discussion and confusion about 'UserActivity', voted and agreed on decomposition
 - Layout: Rearrangement needed.
 - Keys of search (TBC) 
 - Data Structure: RB Tree

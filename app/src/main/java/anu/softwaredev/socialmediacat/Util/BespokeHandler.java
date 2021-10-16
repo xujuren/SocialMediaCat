@@ -12,7 +12,7 @@ import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
-public class loadFromBespoke extends loadFromAssets {
+public class BespokeHandler extends AssetHandler {
 
     @Override
     public List<UserActivity> actionsFromAssets(Context ctx) {
@@ -24,7 +24,7 @@ public class loadFromBespoke extends loadFromAssets {
             while ((line = bufferedReader.readLine()) != null) {    // create-post(u11, cat1, p01, hi hi hi hi)
                 int startBr = line.indexOf('(');                    // action name
                 int endBr = line.indexOf(')');
-                if (startBr==-1 || endBr==-1) {continue;}
+                if (startBr!=0 || endBr==-1) {continue;}
                 String action = line.substring(0, startBr);
 
                 String params = line.substring(startBr+1, endBr);
@@ -53,19 +53,18 @@ public class loadFromBespoke extends loadFromAssets {
             while ((line = bufferedReader.readLine()) != null) {
                 int startBr = line.indexOf('(');
                 int endBr = line.indexOf(')');
-                if (startBr==-1 || endBr==-1) {continue;}
+                if (startBr!=0 || endBr==-1) {continue;}
                 String params = line.substring(startBr+1, endBr);
                 String[] tokens = params.split("; ");
-                if (tokens.length==6){ //
+                if (tokens.length==6){
                     postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5])));
-                } else if (tokens.length==5) {
-                    postsFound.add(new Post(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
-                }
+                } // else ignore
             }
             bufferedReader.close();
 
         } catch (IOException e) {
             Toast.makeText(ctx, "IO Exception!!!", Toast.LENGTH_SHORT).show();
+            return null;
 
         } finally {
             return postsFound;

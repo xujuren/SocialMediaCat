@@ -28,7 +28,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         this.dataset = dataset;
     }
 
-    // Implement Recycler Adapter methods
+    // Implement Recycler Adapter methods     // TODO: add one blank Post at the bottom (can't show)
     @NonNull
     @Override
     public TimelineAdapter.TimelineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {                 // layoutInflater for XML post
@@ -38,22 +38,25 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
     @Override
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
-        String uId = dataset.get(position).getUId();
-        //TODO n
+        if (dataset != null) {
+            String uId = dataset.get(position).getUId();
+            //TODO n
 
-        // bind data
-        holder.getPostUsername().setText("@"+uId);
-        holder.getPostContent().setText(dataset.get(position).getContent());
-        holder.getCategoryPostId().setText(dataset.get(position).getTags()+" /"+dataset.get(position).getPostId());
-        holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
-        // TODO: Like Button
+            // setup for holder
+            holder.getPostUsername().setText("@"+uId);
+            holder.getPostContent().setText(dataset.get(position).getContent());
+            holder.getCategoryPostId().setText(dataset.get(position).getTags()+" /"+dataset.get(position).getPostId());
+            holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
+            // TODO: Like Button
 
-        // Load Image
-        int photoId = dataset.get(position).getPhotoId();
-        Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
-                .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
-                .skipMemoryCache(true)
-              .into(holder.getPostImage());
+            // Load Image
+            int photoId = dataset.get(position).getPhotoId();
+            Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
+                    .skipMemoryCache(true)
+                    .into(holder.getPostImage());
+        }
+
     }
 
     @Override
@@ -62,8 +65,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     }                              // no. of items we hv
 
 
-    /** Create TimelineViewHolder,
-     * add Fields (objs in a post) and findViews (from XML file) */
+    /** Create TimelineViewHolder, add Fields and match by findViews */
     public class TimelineViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView ivPostImage;

@@ -12,7 +12,7 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 
 /** TBD: current JSON data instances only include posts*/
-public class loadFromJson extends loadFromAssets {
+public class JsonHandler extends AssetHandler {
 
     @Override
     public List<UserActivity> actionsFromAssets(Context ctx) {
@@ -20,7 +20,7 @@ public class loadFromJson extends loadFromAssets {
         return null;
     }
 
-    @Override
+    @Override // TODO data
     public List<Post> postsFromAssets(Context ctx) {
         String jsonStr = getJsonFromAssets(ctx);
         Gson gson = new Gson();
