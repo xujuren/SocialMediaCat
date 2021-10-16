@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialMediaCat">
         <activity
+            android:name=".CurrentPost"
+            android:exported="true" />
+        <activity
             android:name=".CreatePost"
             android:exported="true"
             android:parentActivityName=".AppActivity" />
