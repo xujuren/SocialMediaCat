@@ -27,27 +27,10 @@ public class TimelineActivity extends AppCompatActivity {
 
         // Set Up timeline view and data
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline
-        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), getAllPosts());        // Adapter to Data
+        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), UserActivityDao.getInstance().findAllPosts());        // Adapter to Data
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // Linear timeline (more spaces for information)
     }
-
-
-    /** TODO ∆ */
-    public List<Post> getAllPosts() {
-
-
-         // AssetHandler.createPosts(getApplicationContext());
-
-        // TODO [C]!!! everytime findAllPost(); = RELOAD!?
-
-         return UserActivityDao.getInstance().findAllPosts();
-
-    }
-
-
-
-
 
 
 

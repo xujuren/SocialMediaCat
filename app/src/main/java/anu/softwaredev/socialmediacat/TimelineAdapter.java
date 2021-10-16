@@ -25,9 +25,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         this.dataset = dataset;
     }
 
-    // Implement Recycler Adapter methods     // TODO: add one blank Post at the bottom (can't show)
     /**
-     *
+     * Implement Recycler Adapter methods     // TODO: add one blank Post at the bottom (can't show)
      * @param parent special view that can contain other views (called children.) The view group is the base class for layouts and views containers
      * @param viewType
      * @return TimelineViewHolder, add Fields and match by findViews
@@ -47,8 +46,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
             // setup for holder
             holder.getPostUsername().setText("@"+uId);
-            holder.getPostContent().setText(dataset.get(position).getContent());
-            holder.getCategoryPostId().setText(dataset.get(position).getTag()+" /"+dataset.get(position).getPostId());
+            holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent());
+            holder.getCategoryPostId().setText(dataset.get(position).getPostId());
             holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
             // TODO: Like Button (if here, or may be a different layout @Kyle)
 
