@@ -15,7 +15,7 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 /** DAO for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
     private DatabaseReference dbRef;
-//    private static Integer idCount=0;               // TODO TBC
+//    private static Integer postId=0;
 
     private static UserActivityDao instance;        /** defined as Singleton */
     private static File file;                       // temporary fire
@@ -28,7 +28,7 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
     // Singleton
-    private UserActivityDao() {};
+    private UserActivityDao() {this.deleteAll();};
     public static UserActivityDao getInstance(){
         if (instance == null) { instance = new UserActivityDao(); }
         return instance;
@@ -40,7 +40,7 @@ public class UserActivityDao implements IUserActivityDao {
         try {
             // check ID for photo (*for local data instances)
             if (photoId==-1 || photoId<20 || photoId>100) {
-                photoId = (int) (Math.random() *((100-20)+1) + 20); 	// gen rand id (use for URL below), max=100 min=(20)
+                photoId = (int) (Math.random() *((100-20)+1) + 20); 	    // generate rand id (use for URL below), max=100 min=(20)
             }
 
             // Update DB (new)
@@ -87,7 +87,7 @@ public class UserActivityDao implements IUserActivityDao {
 
     // TODO [@Kyle] see here for likePost
     @Override
-    public UserActivity likePost(String username, Integer idPost) {
+    public UserActivity likePost(String userId, String postId) {
 
         return null;
     }
@@ -105,7 +105,7 @@ public class UserActivityDao implements IUserActivityDao {
             if (lines != null) {
                 for (String line : lines) {
                     String[] items = line.split(";");
-                    if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "store-post".equals(items[0]))) {
+                    if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "store-post".equals(items[0]) )) {  //
                         Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
                         postsLoaded.add(post);
                     }

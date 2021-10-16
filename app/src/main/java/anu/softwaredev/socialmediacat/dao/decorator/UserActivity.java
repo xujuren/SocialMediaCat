@@ -1,7 +1,5 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
 
-import anu.softwaredev.socialmediacat.Classes.Post;
-
 /** User Activity */
 public class UserActivity {
     private String action;      // name of action
