@@ -15,7 +15,6 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
 
-
     /**
      * main method, put all logic inside
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
@@ -38,7 +37,7 @@ public class TimelineActivity extends AppCompatActivity {
     public List<Post> getAllPosts() {
 
          AssetHandler.loadPostsfromDataInstances(getApplicationContext());
-         AssetHandler.createPostsFromDataInstances(getApplicationContext());
+         AssetHandler.createPosts(getApplicationContext());
 
          return UserActivityDao.getInstance().findAllPosts();
 

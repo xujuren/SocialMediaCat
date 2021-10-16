@@ -14,11 +14,16 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 /** Load data instances from different local files (Assets) */
 public abstract class AssetHandler {
 
-    /** Template Methods */
+
     public abstract List<UserActivity> actionsFromAssets(Context ctx);
     public abstract List<Post> postsFromAssets(Context ctx);        // TODO: DIRECT (existing Posts) > still create (with PID, likes)
 
-
+    /** Create Posts template */
+    public static void createPosts(Context ctx) {
+        List<UserActivity> userActs = actionsFromDataInstances(ctx);                    // load action data
+        List<UserActivity> createPostActs = createPostsFromDataInstances(userActs);     // extract: createPost
+        createPosts(createPostActs);                                                    // create posts
+    }
 
     // load action data
     public static List<UserActivity> actionsFromDataInstances(Context ctx) {
@@ -41,8 +46,7 @@ public abstract class AssetHandler {
     }
 
     // from actions TODO start;     // TODO  LIKES if it's added
-    public static void createPostsFromDataInstances(Context ctx) {
-        List<UserActivity> userActs = actionsFromDataInstances(ctx);
+    public static List<UserActivity> createPostsFromDataInstances(List<UserActivity> userActs) {
 
         // (1) create posts
         List<UserActivity> createPostActs = new ArrayList<>();
@@ -52,7 +56,9 @@ public abstract class AssetHandler {
                 createPostActs.add(new UserActivity(userAct.getUId(), userAct.getTags(), userAct.getTags(), userAct.getContent(), userAct.getPhotoId()));
             }
         }
-        createPosts(createPostActs);
+
+        return createPostActs;
+
 
     }
 

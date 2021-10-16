@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 /** Adapter for the Timeline displayed to Users */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
-    private final Context ctx; // Interface to global information about an application environment
+    private final Context ctx;                  // Interface to global information about an application environment
     private final List<Post> dataset;
 
     public TimelineAdapter(Context ctx, List<Post> dataset) {
@@ -34,7 +34,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
      *
      * @param parent special view that can contain other views (called children.) The view group is the base class for layouts and views containers
      * @param viewType
-     * @return imelineViewHolder, add Fields and match by findViews
+     * @return TimelineViewHolder, add Fields and match by findViews
      */
     @NonNull
     @Override
