@@ -46,6 +46,10 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,13 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * never used
+     * @param inflater instantiates a layout XML file into its corresponding View objects
+     * @param container A ViewGroup is a special view that can contain other views
+     * @param savedInstanceState A mapping from String keys to various Parcelable values.
+     * @return basic building block for user interface components
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
