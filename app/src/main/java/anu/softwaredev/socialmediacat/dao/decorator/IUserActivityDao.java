@@ -10,7 +10,10 @@ public interface IUserActivityDao {
 
     public void createPost(String uId, String tags, String content, int photoId);
 
-    public UserActivity likePost(String username, Integer idPost);
+    public void likePost(Integer idPost);
+
+    // TODO [@Kyle] see here for likePost
+    UserActivity likePost(String username, Integer idPost);
 
     public List<Post> findAllPosts();       // change to get Posts
 

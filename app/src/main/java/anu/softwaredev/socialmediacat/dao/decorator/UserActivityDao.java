@@ -64,6 +64,11 @@ public class UserActivityDao implements IUserActivityDao {
 
     }
 
+    @Override
+    public void likePost(Integer idPost) {
+
+    }
+
 
     /** TODO (n, Content) ... */
     public void loadPost(String uId, String tags, String postId, String content, int photoId, int likeCounts) {           // alt: only content (userName: below)
@@ -83,17 +88,7 @@ public class UserActivityDao implements IUserActivityDao {
     // TODO [@Kyle] see here for likePost
     @Override
     public UserActivity likePost(String username, Integer idPost) {
-//        try{
-//            String action = "like-post";
-//            String content = "+1";
-//            String text = action + ";" + username + ";" + content + ";" + idPost + "\n";        // TODO changed tags
-//            Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
-//            System.out.println("Like saved in " + file.getAbsolutePath());
-//            UserActivity userActivity = new UserActivity(username, action, content, idPost);
-//            return userActivity;
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
+
         return null;
     }
 

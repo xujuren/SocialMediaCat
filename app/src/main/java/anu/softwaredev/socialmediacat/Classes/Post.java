@@ -63,7 +63,6 @@ public class Post {
     public int getPhotoId(){return photoId;}
     public int getLikes(){return likeCount;}
 
-
     /**
      *
      * @return a default formatted string represents the post
