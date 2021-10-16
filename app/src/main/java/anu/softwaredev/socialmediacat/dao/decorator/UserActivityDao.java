@@ -1,5 +1,6 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
 import android.os.Build;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -46,10 +47,10 @@ public class UserActivityDao implements IUserActivityDao {
                 photoId = (int) (Math.random() *((100-20)+1) + 20); 	    // (use for URL below)
             }
 
-            // check Tag for invalid characters
+            // Check invalid characters in tag (empty if invalid)
             if (tag.contains(",") || tag.contains(";")) {tag="";}
 
-            // check Content for invalid characters
+            // Check invalid characters in content (remove inner "'s)
             String contentText = content.substring(1, content.length()-1);
             contentText.replaceAll("\"", "");
 
