@@ -46,7 +46,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
             // setup for holder
             holder.getPostUsername().setText("@"+uId);
-            holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent());
+            holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent().substring(1, dataset.get(position).getContent().length()-1));
             holder.getCategoryPostId().setText(dataset.get(position).getPostId());
             holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
             // TODO: Like Button (if here, or may be a different layout @Kyle)
