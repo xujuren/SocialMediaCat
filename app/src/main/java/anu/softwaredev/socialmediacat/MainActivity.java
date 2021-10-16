@@ -19,7 +19,6 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
 
     /**
      * main method, put all logic inside
@@ -31,19 +30,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();         // ?
-        FirebaseUser user = mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
 
     /**
-     * // onClick M for button (login_button)
-     *
+     * onClick for button (login_button)
+     * switch from main welcome page to login page
      * @param v login UI component
      */
     public void logIn(View v) {
-        //swtich from main welcome page to login page
         Intent i = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(i);
     }
@@ -59,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);        // run ori thgs
-
-        // Log In [successful login > results]
         if (reqCode == 1 && resultCode == RESULT_OK) {             // for subj
             TextView welcomeText = (TextView) findViewById(R.id.tv_welcome);
             welcomeText.setText("Welcome, " + data.getStringExtra("username"));
@@ -69,12 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * Create account Button
+     * Create account Button: swap to create account page
      *
      * @param v UI component
      */
     public void createAcc(View v) {
-        // swap to create account page
         Intent i = new Intent(MainActivity.this, CreateAccActivity.class);
         startActivity(i);
         finish();
@@ -85,20 +79,20 @@ public class MainActivity extends AppCompatActivity {
      * for Testing Only
      */
     public void logInTest(View v) {
-
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword("test@test.com", "testtest")
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
                             user = mAuth.getCurrentUser();
 
                             Toast.makeText(MainActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
                             // Direct to the interface for users
                             Intent intent = new Intent();
                             intent.setClass(MainActivity.this, AppActivity.class);
-                            AssetHandler.loadPostsfromDataInstances(getApplicationContext());
+                            // TODO AssetHandler.loadPostsfromDataInstances(getApplicationContext());
                             startActivity(intent);
                             finish();
 

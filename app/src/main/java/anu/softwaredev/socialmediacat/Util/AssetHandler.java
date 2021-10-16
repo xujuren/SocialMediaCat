@@ -1,6 +1,5 @@
 package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,33 +30,29 @@ public abstract class AssetHandler {
         List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt"));; // "json", "dummy"
 
         // create post
-        List<UserActivity> postsToCreate = new ArrayList<>();
+        List<UserActivity> createPostActs = new ArrayList<>();
         for (String type : fileTypes) {
             AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
             AssetHandler assetHandler = assetHandlerFty.createHandler(type);
             List<UserActivity> result = assetHandler.actionsFromAssets(ctx);
-
             if (result!=null && result.size()!=0) {
-                postsToCreate.addAll(result);
+                createPostActs.addAll(result);
             }
-
         }
 
-        return postsToCreate;
+        return createPostActs;
     }
 
-    // from actions TODO start;     // TODO  LIKES if it's added
+    //  TODO  LIKES if it's added
     public static List<UserActivity> createPostsFromDataInstances(List<UserActivity> userActs) {
 
         // (1) create posts
         List<UserActivity> createPostActs = new ArrayList<>();
-
         for (UserActivity userAct : userActs) {
             if (userAct.getAction().equals("create-post")) {
-                createPostActs.add(new UserActivity(userAct.getUId(), userAct.getTags(), userAct.getTags(), userAct.getContent(), userAct.getPhotoId()));
+                createPostActs.add(userAct);
             }
         }
-
         return createPostActs;
 
 
@@ -73,7 +68,7 @@ public abstract class AssetHandler {
             public void run() {
                 if (i <size){
                     UserActivity postData = data.get(i);
-                    UserActivityDao.getInstance().createPost(postData.getUId(), postData.getTags(), postData.getContent(), postData.getPhotoId());
+                    UserActivityDao.getInstance().createPost(postData.getUId(), postData.getTag(), postData.getContent(), postData.getPhotoId());
                 }
                 i++;
             }
@@ -99,7 +94,7 @@ public abstract class AssetHandler {
         }
 
         for (Post post : posts){
-            UserActivityDao.getInstance().loadPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent(), post.getPhotoId(), post.getLikes());
+            UserActivityDao.getInstance().loadPost(post.getUId(), post.getTag(), post.getPostId(), post.getContent(), post.getPhotoId(), post.getLikes());
         }
 
     }

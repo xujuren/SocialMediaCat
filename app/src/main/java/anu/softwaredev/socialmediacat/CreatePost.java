@@ -42,10 +42,6 @@ public class CreatePost extends AppCompatActivity {
     public static final int PHOTO_LIMIT_LOWER = 20;
     public static final int PHOTO_LIMIT_UPPER = 100;
 
-
-
-
-
     @Override
     /**
      * main method, put all logic inside
@@ -62,12 +58,9 @@ public class CreatePost extends AppCompatActivity {
      * initialise view
      */
     private void initView() {
-        //post content input
-        contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
-        //category input
-        categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);
-        //share location button
-        shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);
+        contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);            //post content input
+        categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);                  //category input
+        shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);                             //share location button
         latlngText = (TextView) findViewById(R.id.tv_show_latlng);
         photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
         contentEdit = (EditText) findViewById(R.id.content_createpost_et);
@@ -97,7 +90,7 @@ public class CreatePost extends AppCompatActivity {
             String uId = user.getUid();
             // Get Input
             String content = contentEdit.getText().toString();
-            String category = tagsEdit.getText().toString();
+            String tags = tagsEdit.getText().toString();
             String photoIDInput = photoIDEdit.getText().toString();     // *ori: photoURL
 
             // add Location to Content (if permitted and available)
@@ -122,11 +115,11 @@ public class CreatePost extends AppCompatActivity {
             }
 
             // Check required info - Create Post
-            if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
-                UserActivityDao.getInstance().createPost(uId, category, content, photoId);
+            if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(tags)) {
+                UserActivityDao.getInstance().createPost(uId, tags, content, photoId);
                 Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(CreatePost.this, "You did not enter the post Category and/or Content!", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreatePost.this, "You did not enter the tag and/or content!", Toast.LENGTH_LONG).show();
             }
 
         } else {// UNEXPECTED Branch

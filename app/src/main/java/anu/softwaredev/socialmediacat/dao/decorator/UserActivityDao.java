@@ -43,17 +43,16 @@ public class UserActivityDao implements IUserActivityDao {
                 photoId = (int) (Math.random() *((100-20)+1) + 20); 	    // generate rand id (use for URL below), max=100 min=(20)
             }
 
-            // Update DB (new)
+            // Update firebase DB
             dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB
             String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
             Post newPost = new Post(uId, tags, postId, content, photoId);
             Map<String, Object> postValues = newPost.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + postId, postValues);
-            // childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
             dbRef.updateChildren(childUpdates);
 
-            // write to file (action, uId, tags, postId, content, photoId);
+            // write to file
             String text = "create-post" + ";" + uId + ";" + tags + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);

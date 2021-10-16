@@ -4,31 +4,31 @@ package anu.softwaredev.socialmediacat.dao.decorator;
 public class UserActivity {
     private String action;      // name of action
     private String uId;         // user ID
-    private String tags;   // Category (*for createPost) TODO: > tags
+    private String tag;        // tag
     private String content;     // content of post/action
     private int photoId;        // ID of photo used of Post
 
-    public UserActivity(String action, String uId, String tags, String content, int photoId) {
+    public UserActivity(String action, String uId, String tag, String content, int photoId) {
         this.action = action;
         this.uId = uId;
-        this.tags = tags;
+        this.tag = tag;
         this.content = content;
         this.photoId = photoId;
     }
 
 
     // Constructor without PHOTO ID
-    public UserActivity(String action, String uId, String tags, String content) {
+    public UserActivity(String action, String uId, String tag, String content) {
         this.action = action;
         this.uId = uId;
-        this.tags = tags;
+        this.tag = tag;
         this.content = content;
     }
 
     // Getters
     public String getAction() {return action;}
     public String getUId() {return uId;}
-    public String getTags() {return tags;}
+    public String getTag() {return tag;}
     public String getContent() {return content;}
     public int getPhotoId() {return photoId;}
 

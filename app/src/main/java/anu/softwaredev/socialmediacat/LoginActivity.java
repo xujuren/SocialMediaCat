@@ -73,14 +73,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 accLayout.setError("");
                 pwLayout.setError("");          // Reset error msg
-
-                logInAttempt(acc, pw);
+                logInAttempt();
             }
         });
     }
 
     // Try log in with user input
-    public void logInAttempt(String userAccount, String pw){
+    public void logInAttempt(){
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(acc, pw)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -88,12 +87,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-
                             Toast.makeText(LoginActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
                             // Direct to the interface for users
                             Intent intent = new Intent();
-                            intent.putExtra("userEmail", acc);          // excessive
-                            intent.setClass(LoginActivity.this, AppActivity.class);    // or [Main] (?)
+                            intent.setClass(LoginActivity.this, AppActivity.class);
+                            AssetHandler.loadPostsfromDataInstances(getApplicationContext());
                             startActivity(intent);
                             finish();
 

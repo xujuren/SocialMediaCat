@@ -39,23 +39,18 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app); // set view according to UI layout
-        // createPosts(getApplicationContext()); TODO - unhide
+        createPosts(getApplicationContext());
 
         // Action bar
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
 
-        // User Info
+        // get userName, or userEmail if userName not available
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (!TextUtils.isEmpty(user.getDisplayName())) {
-            //set username with the pre-stored firebase username
             userName = user.getDisplayName();
         } else {
-            //if no pre-stored name, use email address
-            Bundle extras = getIntent().getExtras();                // Extract user's email (from Login)       -  Excessive
-            if (extras != null) {
-               userName = extras.getString("userEmail");       // key arg: match that used in the other activity
-            }
+            userName = user.getEmail();
         }
 
 
@@ -74,8 +69,9 @@ public class AppActivity extends AppCompatActivity {
         // Bottom Nav Bar (navView.setOnItemSelectedListener(listener))
         navView = findViewById(R.id.bottomNavMenu);
         navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            /**
-             *
+            /** TODO - Notes:
+             * Navigation Bar (created just to see whether this could be used in the layout design,
+             * can delete if not)
              * @param item
              * @return true if clicked valid button and set different title, false if didnt click
              */
