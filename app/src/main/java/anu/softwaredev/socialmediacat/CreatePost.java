@@ -37,9 +37,20 @@ public class CreatePost extends AppCompatActivity {
     private EditText photoIDEdit;
     private LocationManager locManager;
     private LocationListener locListener;
+    public static final int ERROR_CODE = -1;
+    public static final int POSITION_ZERO = -1;
+    public static final int PHOTO_LIMIT_LOWER = 20;
+    public static final int PHOTO_LIMIT_UPPER = 100;
+
+
+
 
 
     @Override
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
@@ -47,9 +58,15 @@ public class CreatePost extends AppCompatActivity {
         initView();
     }
 
+    /**
+     * initialise view
+     */
     private void initView() {
+        //post content input
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);
+        //category input
         categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);
+        //share location button
         shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);
         latlngText = (TextView) findViewById(R.id.tv_show_latlng);
         photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
@@ -69,7 +86,11 @@ public class CreatePost extends AppCompatActivity {
         });
     }
 
-    // Create Post - button
+
+    /**
+     *     // Create Post - button
+     * @param v UI
+     */
     public void bt_confirm_CreatePost(View v) {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -81,16 +102,16 @@ public class CreatePost extends AppCompatActivity {
 
             // add Location to Content (if permitted and available)
             String latLng = latlngText.getText().toString();
-            if (latLng.charAt(0)=='['){
+            if (latLng.charAt(POSITION_ZERO)=='['){
                 content = content + latLng;
             }
 
             // ID for Post Photo
-            int photoId = -1;   // error code
+            int photoId = ERROR_CODE;   // error code
             if (!TextUtils.isEmpty(photoIDInput)) {
                 try {
                     int photoIdInput = Integer.parseInt(photoIDInput);
-                    if (photoIdInput>=20 && photoIdInput<=100) {
+                    if (photoIdInput>=PHOTO_LIMIT_LOWER && photoIdInput<=PHOTO_LIMIT_UPPER) {
                         photoId = photoIdInput;
                     } else {
                         Toast.makeText(CreatePost.this, "Invalid ID! random Photo ID generated for you ...", Toast.LENGTH_SHORT).show();
@@ -116,7 +137,9 @@ public class CreatePost extends AppCompatActivity {
     }
 
 
-    /** read GPS location */
+    /**
+     * read GPS location
+     */
     private void checkLocation() {
 
         // Location Manager & Listener
@@ -142,6 +165,7 @@ public class CreatePost extends AppCompatActivity {
 
         // TODO Issue: does not re-ask permission even if run (unless Emulator rerun?)
         // check Permissions
+        //Unnecessary; SDK_INT is always >= 26 might need to be deleted
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -157,6 +181,12 @@ public class CreatePost extends AppCompatActivity {
 
     }
 
+    /**
+     *  never used
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
