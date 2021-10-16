@@ -28,17 +28,13 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 public class CreatePost extends AppCompatActivity {
     private FirebaseUser user;
     private TextView latlngText;
-    private TextInputLayout contentLayout;
-    private TextInputLayout tagLayout;
     private ToggleButton shareLocOption;
-    private TextInputLayout photoURLLayout;
     private EditText contentEdit;
     private EditText tagEdit;
     private EditText photoIDEdit;
     private LocationManager locManager;
     private LocationListener locListener;
     public static final int ERROR_CODE = -1;
-    public static final int POSITION_ZERO = -1;
     public static final int PHOTO_LIMIT_LOWER = 20;
     public static final int PHOTO_LIMIT_UPPER = 100;
 
@@ -58,15 +54,11 @@ public class CreatePost extends AppCompatActivity {
      * initialise view
      */
     private void initView() {
-        contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);            //post content input
-        tagLayout = (TextInputLayout) findViewById(R.id.tag_createpost);                  //category input
         shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);                             //share location button
         latlngText = (TextView) findViewById(R.id.tv_show_latlng);
-        photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
         contentEdit = (EditText) findViewById(R.id.content_createpost_et);
         tagEdit = (EditText) findViewById(R.id.tag_createpost_et);
         photoIDEdit = (EditText) findViewById(R.id.photo_createpost_et);
-
         shareLocOption.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -81,36 +73,37 @@ public class CreatePost extends AppCompatActivity {
 
 
     /**
-     *     // Create Post - button
+     * Create Post - button
      * @param v UI
      */
     public void bt_confirm_CreatePost(View v) {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uId = user.getUid();
+
             // Get Input
             String content = contentEdit.getText().toString();
             String tag = tagEdit.getText().toString();
             String photoIDInput = photoIDEdit.getText().toString();     // *ori: photoURL
 
-            // check invalid characters in tag
-            if (tag.contains(",") || tag.contains(";")) {
+            // Check invalid characters in tag
+            if (tag.contains(",") || tag.contains(";") || TextUtils.isEmpty(tag)) {
                 tag="";
-                Toast.makeText(CreatePost.this, "Your tag is invalid. Not saved in your post.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreatePost.this, "Invalid input - your post is not tagged.", Toast.LENGTH_SHORT).show();
             }
 
-            // Content
+            // Check invalid characters in content
             content = content.replaceAll("\"", "");       // TODO remove all " inputted by user
             content = "\"" + content + "\"";
 
 
-            // add Location to Content (if permitted and available)
+            // add Location to Content (if permitted and available) //TODO known bug
             String latLng = latlngText.getText().toString();
-            if (latLng.charAt(0)=='['){     // TODO why -1?
+            if (latLng.charAt(0)=='['){
                 content = content + latLng;
             }
 
-            // ID for Post Photo
+            // check Photo ID
             int photoId = ERROR_CODE;
             if (!TextUtils.isEmpty(photoIDInput)) {
                 try {
@@ -126,13 +119,10 @@ public class CreatePost extends AppCompatActivity {
             }
 
 
-            // Check required info - Create Post
-            if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(tag)) {
-                UserActivityDao.getInstance().createPost(uId, tag, content, photoId);
-                Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(CreatePost.this, "You did not enter the tag and/or content!", Toast.LENGTH_LONG).show();
-            }
+            // create post
+            UserActivityDao.getInstance().createPost(uId, tag, content, photoId);
+            Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
+
 
         } else {// UNEXPECTED Branch
             Toast.makeText(CreatePost.this, "An error occur. Sorry for the inconveniences", Toast.LENGTH_LONG).show();

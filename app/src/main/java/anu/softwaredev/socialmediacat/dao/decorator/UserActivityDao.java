@@ -52,8 +52,6 @@ public class UserActivityDao implements IUserActivityDao {
             // check Content for invalid characters
             String contentText = content.substring(1, content.length()-1);
             contentText.replaceAll("\"", "");
-            // TODO Testing @CreatePost
-
 
             // Update firebase DB
             dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB

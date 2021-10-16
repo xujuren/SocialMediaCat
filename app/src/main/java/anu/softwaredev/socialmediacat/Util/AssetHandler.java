@@ -1,16 +1,14 @@
 package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
-// TODO
+
 /** Load data instances from different local files (Assets) */
 public abstract class AssetHandler {
 
@@ -41,10 +39,9 @@ public abstract class AssetHandler {
         return createPostActs;
     }
 
-    //  TODO  LIKES if it's added
+    //  TODO  + LIKES if added
+    // (1) create posts
     public static List<UserActivity> createPostsFromDataInstances(List<UserActivity> userActs) {
-
-        // (1) create posts
         List<UserActivity> createPostActs = new ArrayList<>();
         for (UserActivity userAct : userActs) {
             if (userAct.getAction().equals("create-post")) {
@@ -52,8 +49,6 @@ public abstract class AssetHandler {
             }
         }
         return createPostActs;
-
-
     }
 
     /* create posts from the postData */
@@ -65,8 +60,8 @@ public abstract class AssetHandler {
             @Override
             public void run() {
                 if (i <size){
-                    UserActivity postData = data.get(i);
-                    UserActivityDao.getInstance().createPost(postData.getUId(), postData.getTag(), postData.getContent(), postData.getPhotoId());
+                    UserActivity act = data.get(i);
+                    UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
                 }
                 i++;
             }
