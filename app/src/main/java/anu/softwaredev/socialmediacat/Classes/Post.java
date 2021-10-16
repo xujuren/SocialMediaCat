@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Posts to be created by users*/
-public class Post {
+public class Post implements Comparable<Post>{
     public String uId;              // [user ID] of author
     private String tag;             // for Tag Search (user input, EXPECT to be in the format of #tagContent (without whitespaces))
     private String postId;           // Unique KEY for Posts
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
     private int photoId;            // ID of the photo
+    public int pid;
 
 
     /**
@@ -31,6 +32,10 @@ public class Post {
         this.likeCount = 0;
     }
 
+
+    public int getPid() {
+        return pid;
+    }
 
     /**
      * Constructor 2.2 (with PostID and like count)
@@ -86,7 +91,10 @@ public class Post {
         return result;
     }
 
-
+    @Override
+    public int compareTo(Post o) {
+        return this.pid - o.pid;
+    }
 
 
     /** Write New Post (https://firebase.google.com/docs/database/android/read-and-write) */
