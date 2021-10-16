@@ -26,11 +26,15 @@ public class CreateAccActivity extends AppCompatActivity {
     private String pw;
     private EditText accEdit;
     private EditText pwEdit;
-    private EditText pwEdit2;       // check
+    private EditText pwEdit2;       // check/ confirm password
     private TextInputLayout accLayout;
     private TextInputLayout pwLayout;
     private FirebaseUser user;
 
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,27 +44,39 @@ public class CreateAccActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * initialise view
+     */
     private void initView() {
         accEdit = (EditText) findViewById(R.id.createAcc_input_text);
         pwEdit = (EditText) findViewById(R.id.createAcc_input_pw_text);
         pwEdit2 = (EditText) findViewById(R.id.createAcc_input_pw2_text);
 
         /* Additional Error Check */
+        //input email format constraint
         accLayout = (TextInputLayout) findViewById(R.id.createAcc_input_layout);
         accLayout.setErrorEnabled(true);
         accLayout.setCounterMaxLength(20);
+
+        //first password format check
         pwLayout = (TextInputLayout) findViewById(R.id.createAcc_input_pw_layout);
         pwLayout.setErrorEnabled(true);
         pwLayout.setCounterMaxLength(12);
+
+        //sec password format check
         TextInputLayout pwLayout2 = (TextInputLayout) findViewById(R.id.createAcc_input_pw2_layout);
         pwLayout2.setErrorEnabled(true);
         pwLayout2.setCounterMaxLength(12);
     }
 
-    /* Click button [Create Acc] */
-    public void signUpOnClick(View v) {
 
-        /** Check Input Error (basic, on top of firebase's) */
+    /**
+     * Click button [Create Acc]
+     * @param v UI
+     */
+     public void signUpOnClick(View v) {
+
+        /* Check Input Error (basic, on top of firebase's) */
         acc = accEdit.getText().toString();
         pw = pwEdit.getText().toString();
         String pw2 = pwEdit2.getText().toString();
@@ -75,13 +91,15 @@ public class CreateAccActivity extends AppCompatActivity {
         accLayout.setError("");             // reset upon new Click (?)
         pwLayout.setError("");              //
 
-        /** Create Account [Firebase] */
+        /* Create Account [Firebase] */
         mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(acc, pw)
                 .addOnCompleteListener(CreateAccActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            //A toast is a view containing a quick little message for the user
+                            //Toast setup
                             Toast.makeText(CreateAccActivity.this, R.string.createAcc_msg_Success, Toast.LENGTH_SHORT).show();
                             user = mAuth.getCurrentUser();
                             String userUID = user.getUid();
