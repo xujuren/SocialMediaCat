@@ -12,6 +12,10 @@ import java.util.Map;
 
 public class ForgetPwActivity extends AppCompatActivity {
 
+    /**
+     * main method, put all logic inside
+     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
