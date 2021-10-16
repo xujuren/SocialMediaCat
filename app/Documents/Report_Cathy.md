@@ -77,7 +77,9 @@ It would be better to *list all the concrete items* for each subsection and give
 **Data Structures**  *[data structures utilised, Where and why?]*       *[TODO]*
 
 **Design Patterns** *[design patterns utilised, Where and why?]*        *[TODO]*
-
+public abstract class AssetHandler {
+- AssetHandlerFactory - factory method 
+  - Template method pattern    public static void createPosts(Context ctx) {
 
 **Grammars**                           >> Kevin
 

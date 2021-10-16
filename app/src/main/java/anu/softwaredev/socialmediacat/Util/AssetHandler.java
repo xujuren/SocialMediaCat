@@ -14,7 +14,6 @@ import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 /** Load data instances from different local files (Assets) */
 public abstract class AssetHandler {
 
-
     public abstract List<UserActivity> actionsFromAssets(Context ctx);
     public abstract List<Post> postsFromAssets(Context ctx);        // TODO: DIRECT (existing Posts) > still create (with PID, likes)
 
@@ -25,11 +24,10 @@ public abstract class AssetHandler {
         createPosts(createPostActs);                                                    // create posts
     }
 
-    // load action data
+    // load create post activities
     public static List<UserActivity> actionsFromDataInstances(Context ctx) {
         List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt"));; // "json", "dummy"
 
-        // create post
         List<UserActivity> createPostActs = new ArrayList<>();
         for (String type : fileTypes) {
             AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
@@ -58,7 +56,7 @@ public abstract class AssetHandler {
 
     }
 
-    /** create posts from the postData */
+    /* create posts from the postData */
     public static void createPosts(List<UserActivity> data) {
         int size = data.size();
         Timer timer = new Timer();
@@ -72,7 +70,7 @@ public abstract class AssetHandler {
                 }
                 i++;
             }
-        }, 0, 20*1000);
+        }, 0, 30000);
 
     }
 
@@ -94,7 +92,7 @@ public abstract class AssetHandler {
         }
 
         for (Post post : posts){
-            UserActivityDao.getInstance().loadPost(post.getUId(), post.getTag(), post.getPostId(), post.getContent(), post.getPhotoId(), post.getLikes());
+            UserActivityDao.getInstance().loadPost(post);
         }
 
     }

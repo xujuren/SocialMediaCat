@@ -30,7 +30,7 @@ public class BespokeHandler extends AssetHandler {
                 String params = line.substring(startBr+1, endBr);
                 String[] tokens = params.split("; ");
 
-                userActs.add(new UserActivity(action, tokens[0], tokens[1], tokens[2]));
+                userActs.add(new UserActivity(action, tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3])));
 
             }
             bufferedReader.close();
