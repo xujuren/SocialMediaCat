@@ -1,5 +1,7 @@
 package anu.softwaredev.socialmediacat.dao.decorator;
 import android.os.Build;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.io.File;
@@ -11,14 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.CreatePost;
 
-/** DAO for UserActivity */
+/** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
     private DatabaseReference dbRef;
 //    private static Integer postId=0;
 
-    private static UserActivityDao instance;        /** defined as Singleton */
-    private static File file;                       // temporary fire
+    private static UserActivityDao instance;        // Singleton instance for UserActivityDao
+    private static File file;                       // temporary file
     static {
         try {
             file = File.createTempFile("user-action", ".csv");
@@ -36,24 +39,33 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     @Override           /** TODO (userName, Content) ... */
-    public void createPost(String uId, String tags, String content, int photoId) {           // alt: only content (userName: below)
+    public void createPost(String uId, String tag, String content, int photoId) {           // alt: only content (userName: below)
         try {
-            // check ID for photo (*for local data instances)
+            // check ID for photo (generate random ID for URL if invalid, [20, 100])
             if (photoId==-1 || photoId<20 || photoId>100) {
-                photoId = (int) (Math.random() *((100-20)+1) + 20); 	    // generate rand id (use for URL below), max=100 min=(20)
+                photoId = (int) (Math.random() *((100-20)+1) + 20); 	    // (use for URL below)
             }
+
+            // check Tag for invalid characters
+            if (tag.contains(",") || tag.contains(";")) {tag="";}
+
+            // check Content for invalid characters
+            String contentText = content.substring(1, content.length()-1);
+            contentText.replaceAll("\"", "");
+            // TODO Testing @CreatePost
+
 
             // Update firebase DB
             dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB
             String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
-            Post newPost = new Post(uId, tags, postId, content, photoId);
+            Post newPost = new Post(uId, tag, postId, content, photoId);
             Map<String, Object> postValues = newPost.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + postId, postValues);
             dbRef.updateChildren(childUpdates);
 
             // write to file
-            String text = "create-post" + ";" + uId + ";" + tags + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
+            String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }
@@ -70,10 +82,10 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     /** TODO (n, Content) ... */
-    public void loadPost(String uId, String tags, String postId, String content, int photoId, int likeCounts) {           // alt: only content (userName: below)
+    public void loadPost(Post post) {           // alt: only content (userName: below)
         try {
             // write to file
-            String text = "store-post" + ";" + uId + ";" + tags + ";" + postId + ";" + content + ";" + photoId + ";" + likeCounts + "\n";
+            String text = "store-post" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikes() + "\n";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }

@@ -22,18 +22,18 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
+
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 public class CreatePost extends AppCompatActivity {
     private FirebaseUser user;
     private TextView latlngText;
     private TextInputLayout contentLayout;
-    private TextInputLayout categoryLayout;
+    private TextInputLayout tagLayout;
     private ToggleButton shareLocOption;
     private TextInputLayout photoURLLayout;
     private EditText contentEdit;
-    private EditText tagsEdit;
+    private EditText tagEdit;
     private EditText photoIDEdit;
     private LocationManager locManager;
     private LocationListener locListener;
@@ -59,12 +59,12 @@ public class CreatePost extends AppCompatActivity {
      */
     private void initView() {
         contentLayout = (TextInputLayout) findViewById(R.id.content_createpost);            //post content input
-        categoryLayout = (TextInputLayout) findViewById(R.id.category_createpost);                  //category input
+        tagLayout = (TextInputLayout) findViewById(R.id.tag_createpost);                  //category input
         shareLocOption = (ToggleButton) findViewById(R.id.bt_shareLoc);                             //share location button
         latlngText = (TextView) findViewById(R.id.tv_show_latlng);
         photoURLLayout = (TextInputLayout) findViewById(R.id.photo_createpost);
         contentEdit = (EditText) findViewById(R.id.content_createpost_et);
-        tagsEdit = (EditText) findViewById(R.id.category_createpost_et);
+        tagEdit = (EditText) findViewById(R.id.tag_createpost_et);
         photoIDEdit = (EditText) findViewById(R.id.photo_createpost_et);
 
         shareLocOption.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -90,17 +90,28 @@ public class CreatePost extends AppCompatActivity {
             String uId = user.getUid();
             // Get Input
             String content = contentEdit.getText().toString();
-            String tags = tagsEdit.getText().toString();
+            String tag = tagEdit.getText().toString();
             String photoIDInput = photoIDEdit.getText().toString();     // *ori: photoURL
+
+            // check invalid characters in tag
+            if (tag.contains(",") || tag.contains(";")) {
+                tag="";
+                Toast.makeText(CreatePost.this, "Your tag is invalid. Not saved in your post.", Toast.LENGTH_SHORT).show();
+            }
+
+            // Content
+            content = content.replaceAll("\"", "");       // TODO remove all " inputted by user
+            content = "\"" + content + "\"";
+
 
             // add Location to Content (if permitted and available)
             String latLng = latlngText.getText().toString();
-            if (latLng.charAt(POSITION_ZERO)=='['){
+            if (latLng.charAt(0)=='['){     // TODO why -1?
                 content = content + latLng;
             }
 
             // ID for Post Photo
-            int photoId = ERROR_CODE;   // error code
+            int photoId = ERROR_CODE;
             if (!TextUtils.isEmpty(photoIDInput)) {
                 try {
                     int photoIdInput = Integer.parseInt(photoIDInput);
@@ -114,9 +125,10 @@ public class CreatePost extends AppCompatActivity {
                 }
             }
 
+
             // Check required info - Create Post
-            if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(tags)) {
-                UserActivityDao.getInstance().createPost(uId, tags, content, photoId);
+            if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(tag)) {
+                UserActivityDao.getInstance().createPost(uId, tag, content, photoId);
                 Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(CreatePost.this, "You did not enter the tag and/or content!", Toast.LENGTH_LONG).show();
