@@ -1,5 +1,6 @@
 package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,9 +63,8 @@ public abstract class AssetHandler {
 
     }
 
-    /** ACTIONS (1) create posts from data instances created */
+    /** create posts from the postData */
     public static void createPosts(List<UserActivity> data) {
-
         int size = data.size();
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
@@ -98,31 +98,9 @@ public abstract class AssetHandler {
             }
         }
 
-        // load Posts
         for (Post post : posts){
             UserActivityDao.getInstance().loadPost(post.getUId(), post.getTags(), post.getPostId(), post.getContent(), post.getPhotoId(), post.getLikes());
         }
-
-    }
-
-
-    /* test  */
-    public static List<Post> loadPostsfromDataInstances_directly(Context ctx) {
-
-        List<Post> posts = new ArrayList<>();
-        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt")); // "json", "dummy"
-
-        for (String type : fileTypes) {
-            AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
-            AssetHandler assetHandler = assetHandlerFty.createHandler(type);
-
-            List<Post> result = assetHandler.postsFromAssets(ctx);
-            if (result!=null && result.size()!=0) {
-                posts.addAll(result);
-            }
-        }
-        return posts;
-
 
     }
 

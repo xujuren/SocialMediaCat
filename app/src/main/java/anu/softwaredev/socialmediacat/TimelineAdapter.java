@@ -54,12 +54,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             holder.getPostContent().setText(dataset.get(position).getContent());
             holder.getCategoryPostId().setText(dataset.get(position).getTags()+" /"+dataset.get(position).getPostId());
             holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
-            // TODO: Like Button
+            // TODO: Like Button (if here, or may be a different layout @Kyle)
 
             // Load Image
             int photoId = dataset.get(position).getPhotoId();
             Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)       	// ≈ image loaded, dun want it cached
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)       	// not cached
                     .skipMemoryCache(true)
                     .into(holder.getPostImage());
         }

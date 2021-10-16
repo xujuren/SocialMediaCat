@@ -1,4 +1,6 @@
 package anu.softwaredev.socialmediacat;
+import static anu.softwaredev.socialmediacat.Util.AssetHandler.createPosts;
+
 import androidx.annotation.NonNull;
 
 import androidx.annotation.Nullable;
@@ -7,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,10 +23,12 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import anu.softwaredev.socialmediacat.Util.AssetHandler;
+
 public class AppActivity extends AppCompatActivity {
-    private FirebaseUser user; //stored in firebase
+    private FirebaseUser user;              //stored in firebase
     private String userName;                // user's displayName (if available) or e-mail address
-    private BottomNavigationView navView; // bottom Nav bar
+    private BottomNavigationView navView;   // bottom Nav bar
     private ActionBar actionBar;
 
     /**
@@ -34,14 +39,13 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app); // set view according to UI layout
+        // createPosts(getApplicationContext()); TODO - unhide
 
         // Action bar
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
 
         // User Info
-        // The entry point of the Firebase Authentication SDK.
-        // call getCurrentUser() to get a FirebaseUser object, which contains information about the signed-in user.
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (!TextUtils.isEmpty(user.getDisplayName())) {
             //set username with the pre-stored firebase username
@@ -53,6 +57,8 @@ public class AppActivity extends AppCompatActivity {
                userName = extras.getString("userEmail");       // key arg: match that used in the other activity
             }
         }
+
+
         // set welcome text
         TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
         welcomeText.setText("Welcome, " + userName);

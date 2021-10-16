@@ -23,10 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class LoginActivity extends AppCompatActivity {
+import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+public class LoginActivity extends AppCompatActivity {
+    private static FirebaseAuth mAuth;
     private String acc;
     private String pw;
     private TextInputLayout accLayout;             // [TextView]: without .setErrorEnabled(True)
@@ -48,9 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         initView();
     }
 
-    /** M: Ref (https://github.com/givemepassxd999/filebase_auth_register_demo/blob/master/app/src/main/java/com/example/givemepass/firebase_auth/LoginActivity.java) */
     private void initView() {
-        mAuth = FirebaseAuth.getInstance();
         accEdit = (EditText) findViewById(R.id.login_msg_acc_text);                      // prev: [tv_user_email]
         pwEdit = (EditText) findViewById(R.id.login_msg_pw_text);                          // tv_user_pw
         accLayout = (TextInputLayout) findViewById(R.id.login_msg_acc);         // above: [login_msg_acc]
@@ -74,32 +72,39 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 accLayout.setError("");
-                pwLayout.setError("");          // Reset error msg - else remains visible for new input
+                pwLayout.setError("");          // Reset error msg
 
-                // sign in method
-                mAuth.signInWithEmailAndPassword(acc, pw)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    user = mAuth.getCurrentUser();
-
-                                    Toast.makeText(LoginActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
-                                    //go to welcome page for user to post ....etc
-                                    Intent intent = new Intent();
-                                    intent.putExtra("userEmail", acc);          // excessive
-                                    intent.setClass(LoginActivity.this, AppActivity.class);    // or [Main] (?)
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    //show Toast message
-                                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                logInAttempt(acc, pw);
             }
         });
     }
+
+    // Try log in with user input
+    public void logInAttempt(String userAccount, String pw){
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword(acc, pw)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            user = mAuth.getCurrentUser();
+
+                            Toast.makeText(LoginActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
+                            // Direct to the interface for users
+                            Intent intent = new Intent();
+                            intent.putExtra("userEmail", acc);          // excessive
+                            intent.setClass(LoginActivity.this, AppActivity.class);    // or [Main] (?)
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            // error message
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
 
 
     // Refresh the Activity (login page)

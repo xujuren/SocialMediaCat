@@ -36,8 +36,10 @@ public class TimelineActivity extends AppCompatActivity {
     /** TODO ∆ */
     public List<Post> getAllPosts() {
 
-         AssetHandler.loadPostsfromDataInstances(getApplicationContext());
-         AssetHandler.createPosts(getApplicationContext());
+
+         // AssetHandler.createPosts(getApplicationContext());
+
+        // TODO [C]!!! everytime findAllPost(); = RELOAD!?
 
          return UserActivityDao.getInstance().findAllPosts();
 
