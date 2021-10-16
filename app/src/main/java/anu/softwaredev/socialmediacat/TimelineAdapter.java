@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 /** Adapter for the Timeline displayed to Users */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
-    private final Context ctx;
+    private final Context ctx; // Interface to global information about an application environment
     private final List<Post> dataset;
 
     public TimelineAdapter(Context ctx, List<Post> dataset) {
@@ -29,6 +29,13 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     }
 
     // Implement Recycler Adapter methods     // TODO: add one blank Post at the bottom (can't show)
+
+    /**
+     *
+     * @param parent special view that can contain other views (called children.) The view group is the base class for layouts and views containers
+     * @param viewType
+     * @return imelineViewHolder, add Fields and match by findViews
+     */
     @NonNull
     @Override
     public TimelineAdapter.TimelineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {                 // layoutInflater for XML post
