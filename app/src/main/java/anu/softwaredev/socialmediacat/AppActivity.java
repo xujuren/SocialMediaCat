@@ -1,5 +1,4 @@
 package anu.softwaredev.socialmediacat;
-
 import androidx.annotation.NonNull;
 
 import androidx.annotation.Nullable;
@@ -92,10 +91,9 @@ public class AppActivity extends AppCompatActivity {
 
     }
 
-    /** Set up bottons */
-
+    /** Set up buttons */
     public void logOutClick(View v) {
-        FirebaseAuth.getInstance().signOut();                   // FirebaseAuth: signOut
+        FirebaseAuth.getInstance().signOut();                   // signOut
         Intent intent = new Intent();                           // return to Main Page
         intent.setClass(AppActivity.this, MainActivity.class);
         startActivity(intent);
@@ -105,19 +103,16 @@ public class AppActivity extends AppCompatActivity {
     public void toTimelineAct(View v){          // [c] need public
         Intent i = new Intent(getApplicationContext(), TimelineActivity.class);        // ori: AppActivity.this
         startActivity(i);
-        finish();
     }
 
     public void toManageProfile(View v){          // [c] need public
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(i);
-        finish();
     }
 
     public void toCreatePost(View v){          // [c] need public
         Intent i = new Intent(getApplicationContext(), CreatePost.class);
         startActivity(i);
-        finish();
     }
 
 

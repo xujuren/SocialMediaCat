@@ -16,15 +16,6 @@ public class Post {
     private int photoId;            // ID of the photo on
 
 
-    /* Constructor 2.0 - real Create (without PostID)*/
-    public Post(String uId, String tags, String content, int photoId) {
-        this.uId = uId;
-        this.tags = tags;
-        this.content = content;
-        this.photoId = photoId;
-        this.likeCount = 0;
-    }
-
     /* Constructor 2.1 (with PostId, but without Likes) */
     public Post(String uId, String tags, String postId, String content, int photoId) {
         this.uId = uId;
@@ -69,7 +60,7 @@ public class Post {
         result.put("postId", postId);
         result.put("content", content);
         result.put("likeCount", likeCount);
-        // result.put("photo", photo);
+        result.put("photoId", photoId);
         return result;
     }
 

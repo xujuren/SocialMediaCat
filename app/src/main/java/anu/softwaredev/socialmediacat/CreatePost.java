@@ -102,9 +102,8 @@ public class CreatePost extends AppCompatActivity {
 
             // Check required info - Create Post
             if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(category)) {
-                UserActivity newPostAct = UserActivityDao.getInstance().createPost(uId, category, content, photoId);  // dummy postId
+                UserActivityDao.getInstance().createPost(uId, category, content, photoId);
                 Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
-
             } else {
                 Toast.makeText(CreatePost.this, "You did not enter the post Category and/or Content!", Toast.LENGTH_LONG).show();
             }

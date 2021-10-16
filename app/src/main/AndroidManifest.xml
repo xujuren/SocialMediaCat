@@ -18,10 +18,6 @@
             android:exported="true"
             android:parentActivityName=".AppActivity" />
         <activity
-            android:name=".Util.loadData_Test_Act"
-            android:exported="true"
-            android:parentActivityName=".AppActivity" />
-        <activity
             android:name=".ProfileActivity"
             android:exported="true"
             android:parentActivityName=".AppActivity" />

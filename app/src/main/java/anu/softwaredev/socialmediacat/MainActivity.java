@@ -14,11 +14,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import anu.softwaredev.socialmediacat.Util.loadData_Test_Act;
-
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    ArrayAdapter<String> fileDBAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
     // onClick M for button (login_button)
     public void logIn(View v){
         Intent i = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(i);       // for Data: startActivityForResult(i, 1) - request code: 1
+        startActivity(i);
     }
 
-    // for logIn: to Complete the Transfer (username, pw)
+
+    // for logIn: to Complete the Transfer (username, pw) TODO
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data){
         super.onActivityResult(reqCode, resultCode, data);        // run ori thgs
@@ -48,31 +46,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // onClick M for button (create_acc_button)
+
+    // Create account Button
     public void createAcc(View v){
         Intent i = new Intent(MainActivity.this, CreateAccActivity.class);
         startActivity(i);
-    }
-
-
-
-
-    /** TODO Below 3 methods: for Testing Only [@AppActivity] */
-
-    public void JsonTest(View v) {
-        Intent i = new Intent(getApplicationContext(), loadData_Test_Act.class);   // to [JsonTest] Page
-        startActivity(i);
         finish();
     }
 
-    public void timelineTest(View v) {
-        Intent i = new Intent(getApplicationContext(), TimelineActivity.class);   // to [TimelineActivity] Page
-        startActivity(i);
-        finish();
-    }
 
+
+    /** for Testing Only */
     public void logInTest(View v) {
-        // sign in method
         mAuth.signInWithEmailAndPassword("test@test.com", "testtest")
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -83,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-        // finish();
     }
 
 
