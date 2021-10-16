@@ -9,7 +9,6 @@ public class UserActivity {
     private String tags;   // Category (*for createPost) TODO: > tags
     private String content;     // content of post/action
     private int photoId;        // ID of photo used of Post
-    private int likeCount;      // likeCount of Post
 
     public UserActivity(String action, String uId, String tags, String content, int photoId) {
         this.action = action;
