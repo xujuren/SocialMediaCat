@@ -5,40 +5,87 @@ import java.util.List;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
 
-public class RBTree <E extends Post>{
-
-    /**根节点*/
-    public RBTreeNode<E> root;
+public class RBTree<T extends Comparable<T>> {
 
     /**
-     * 颜色常量 false表示红色，true表示黑色
+     * root node
+     */
+    public RBTreeNode<T> root;
+
+    /**
+     * red color is false and black is true
      */
     private static final boolean RED = false;
     private static final boolean BLACK = true;
 
 
-    public void insert(E key) {
-        System.out.println("插入[" + key + "]:");
-        RBTreeNode<E> node=new RBTreeNode<E>(key, BLACK,null,null,null);
-        // 如果新建结点失败，则返回。
+//    public void insert(E key) {
+//        System.out.println("插入[" + key + "]:");
+//        RBTreeNode<E> node=new RBTreeNode<E>(key, BLACK,null,null,null);
+//        if (node != null)
+//            insert(node);
+//
+//    }
+
+    /**
+     * insert a new node into RB tree
+     * @param key
+     */
+    public void insert(T key) {
+        System.out.println("Insert[" + key + "]:");
+        RBTreeNode<T> node=new RBTreeNode<T>(key, BLACK,null,null,null);
         if (node != null)
             insert(node);
     }
 
+    /**
+     * An inserting method special design for our app
+     * @param key
+     */
+    public void insert(T key, Post post) {
+        System.out.println("Insert[" + key + "]:");
+        RBTreeNode<T> node=new RBTreeNode<T>(key, BLACK,null,null,null, post);
+        if (node != null)
+            insert(node, post);
+    }
 
-    private void insert(RBTreeNode<E> node) {
+//    public void insert(E key, int postId) {
+//        System.out.println("插入[" + key + "]:");
+//        RBTreeNode<E> node=new RBTreeNode<E>(key, BLACK,null,null,null, postId);
+//
+//        if (node != null)
+//            insert(node, postId);
+//    }
+
+    /*
+     * 将结点插入到红黑树中
+     *
+     * 参数说明：
+     *     node 插入的结点
+     */
+
+    /**
+     * insert node into RB tree
+     * @param node
+     */
+    private void insert(RBTreeNode<T> node) {
         int cmp;
-        RBTreeNode<E> y = null;
-        RBTreeNode<E> x = this.root;
+        RBTreeNode<T> y = null;
+        RBTreeNode<T> x = this.root;
 
-        // 1. 将红黑树当作一颗二叉查找树，将节点添加到二叉查找树中。
+        // insert as a binary search tree, we will fix it later
         while (x != null) {
             y = x;
             cmp = node.key.compareTo(x.key);
-            if (cmp < 0)
-                x = x.left;
-            else
-                x = x.right;
+            if (cmp != 0){
+                if (cmp < 0)
+                    x = x.left;
+                else
+                    x = x.right;
+            }else {
+                return;
+            }
+
         }
 
         node.parent = y;
@@ -52,122 +99,256 @@ public class RBTree <E extends Post>{
             this.root = node;
         }
 
-        // 2. 设置节点的颜色为红色
+        // set node's to red
         node.color = RED;
 
-        // 3. 将它重新修正为一颗二叉查找树
-        insertFixUp(node);
+        // fix the balance of RBtree
+        fixBalance_insert(node);
     }
 
+    /**
+     * An inserting method special design for our app
+     * @param node, Posts
+     */
+    private void insert(RBTreeNode<T> node, Post post) {
+        int cmp;
+        RBTreeNode<T> y = null;
+        RBTreeNode<T> x = this.root;
 
-    private void insertFixUp(RBTreeNode<E> node) {
-        RBTreeNode<E> parent, gparent;
+        // insert as a binary search tree, we will fix it later
+        while (x != null) {
+            y = x;
+            cmp = node.key.compareTo(x.key);
+            if (cmp == 0){
+                x.postsTree.insert(post);
 
-        // 若“父节点存在，并且父节点的颜色是红色”
+                return;
+            } else {
+                if (cmp < 0)
+                    x = x.left;
+                else
+                    x = x.right;
+            }
+
+        }
+
+        node.parent = y;
+        if (y!=null) {
+            cmp = node.key.compareTo(y.key);
+            if (cmp < 0)
+                y.left = node;
+            else
+                y.right = node;
+        } else {
+            this.root = node;
+
+        }
+        // set node's to red
+        node.color = RED;
+
+        // fix the balance of RBtree
+        fixBalance_insert(node);
+    }
+
+//    private void insert(RBTreeNode<E> node, int postId) {
+//        int cmp;
+//        RBTreeNode<E> y = null;
+//        RBTreeNode<E> x = this.root;
+//
+//        // 1. 将红黑树当作一颗二叉查找树，将节点添加到二叉查找树中。
+//        while (x != null) {
+//            y = x;
+//            cmp = node.key.compareTo(x.key);
+//            if (cmp == 0){
+//                x.postsTree.insert(postId);
+//
+//                return;
+//            } else {
+//                if (cmp < 0)
+//                    x = x.left;
+//                else
+//                    x = x.right;
+//            }
+//
+//        }
+//
+//        node.parent = y;
+//        if (y!=null) {
+//            cmp = node.key.compareTo(y.key);
+//            if (cmp < 0)
+//                y.left = node;
+//            else
+//                y.right = node;
+//        } else {
+//            this.root = node;
+//
+//        }
+////        node.postsTree.insert(post);
+//        // 2. 设置节点的颜色为红色
+//        node.color = RED;
+//
+//        // 3. 将它重新修正为一颗二叉查找树
+//        insertFixUp(node);
+//    }
+
+
+    /**
+     * Fix balance of our RBtree after inserting
+     * @param node
+     */
+    private void fixBalance_insert(RBTreeNode<T> node) {
+        RBTreeNode<T> parent, gparent;
+
+        // if parent node is exist and its color is red
         while (((parent = getParent(node))!=null) && isRed(parent)) {
             gparent = getParent(parent);
 
-            //若“父节点”是“祖父节点的左孩子”
+            // if parent node is left child of grandparent
             if (parent == gparent.left) {
-                // Case 1条件：叔叔节点是红色
-                RBTreeNode<E> uncle = gparent.right;
+                // case uncle is red
+                RBTreeNode<T> uncle = gparent.right;
                 if ((uncle!=null) && isRed(uncle)) {
-                    setBlack(uncle);
-                    setBlack(parent);
-                    setRed(gparent);
+                    toBlack(uncle);
+                    toBlack(parent);
+                    toRed(gparent);
                     node = gparent;
                     continue;
                 }
 
-                // Case 3条件：叔叔是黑色，且当前节点是右孩子
+                // // if uncle is black and current node are right child of its parent
                 if (parent.right == node) {
-                    RBTreeNode<E> tmp;
+                    RBTreeNode<T> tmp;
                     leftRotate(parent);
                     tmp = parent;
                     parent = node;
                     node = tmp;
                 }
 
-                // Case 2条件：叔叔是黑色，且当前节点是左孩子。
-                setBlack(parent);
-                setRed(gparent);
+
+                // if uncle is black and current node are left child of its parent
+                toBlack(parent);
+                toRed(gparent);
                 rightRotate(gparent);
-            } else {    //若“z的父节点”是“z的祖父节点的右孩子”
-                // Case 1条件：叔叔节点是红色
-                RBTreeNode<E> uncle = gparent.left;
+            } else {
+                // case if uncle node is red
+                RBTreeNode<T> uncle = gparent.left;
                 if ((uncle!=null) && isRed(uncle)) {
-                    setBlack(uncle);
-                    setBlack(parent);
-                    setRed(gparent);
+                    toBlack(uncle);
+                    toBlack(parent);
+                    toRed(gparent);
                     node = gparent;
                     continue;
                 }
 
-                // Case 2条件：叔叔是黑色，且当前节点是左孩子
+                // case if uncle is black and current node is left child
                 if (parent.left == node) {
-                    RBTreeNode<E> tmp;
+                    RBTreeNode<T> tmp;
                     rightRotate(parent);
                     tmp = parent;
                     parent = node;
                     node = tmp;
                 }
 
-                // Case 3条件：叔叔是黑色，且当前节点是右孩子。
-                setBlack(parent);
-                setRed(gparent);
+                // case uncle is black and current node is right child
+                toBlack(parent);
+                toRed(gparent);
                 leftRotate(gparent);
             }
         }
 
-        // 将根节点设为黑色
-        setBlack(this.root);
+        // set root node to black
+        toBlack(this.root);
     }
 
 
-    public void remove(E key) {
-        RBTreeNode<E> node;
 
-        if ((node = search(root, key)) != null)
-            remove(node);
+    /**
+     * Remove a node from tree
+     * @param key
+     */
+    public void delete(T key) {
+        RBTreeNode<T> node;
+
+        if ((node = find(root, key)) != null)
+            delete(node);
     }
 
+    /**
+     * A special design delete method for our app
+     * The function will remove the node if the tree in this node is null, else it will remove post from the inner tree of this node
+     * @param key,post
+     */
+    public void delete(T key, Post post) {
+        RBTreeNode<T> node;
 
-    private void remove(RBTreeNode<E> node) {
-        RBTreeNode<E> child, parent;
+        if ((node = find(root, key)) != null)
+            if (node.postsTree.root == null)
+                delete(node);
+            else{
+                node.postsTree.delete(post);
+                System.out.println(node.postsTree.root);
+                if(node.postsTree.root == null)
+                    delete(node);
+            }
+
+    }
+
+//    public void remove(E key, int postId) {
+//        RBTreeNode<E> node;
+//
+//        if ((node = search(root, key)) != null)
+//            if (node.postsTree.root == null)
+//                remove(node);
+//            else{
+//                node.postsTree.remove(postId);
+//                System.out.println(node.postsTree.root);
+//                if(node.postsTree.root == null)
+//                    remove(node);
+//            }
+//    }
+
+
+
+
+    /**
+     * Delete a node from tree
+     * @param node
+     */
+    private void delete(RBTreeNode<T> node) {
+        RBTreeNode<T> child, parent;
         boolean color;
 
-
+        // if both right and left child of deleted node are not null
         if ( (node.left!=null) && (node.right!=null) ) {
-
-            RBTreeNode<E> replace = node;
-
-
+            // the replaced node will be right node of deleted node
+            RBTreeNode<T> replace = node;
             replace = replace.right;
             while (replace.left != null)
                 replace = replace.left;
 
-
+            // if deleted node is not root node
             if (getParent(node)!=null) {
                 if (getParent(node).left == node)
                     getParent(node).left = replace;
                 else
                     getParent(node).right = replace;
             } else {
-
+                // if deleted node is root node, then set replaced node as root node
                 this.root = replace;
             }
 
 
+            // if child is the right child of replaced node, then it is also need fix
             child = replace.right;
             parent = getParent(replace);
-
+            // save the color of replaced node
             color = getColor(replace);
 
-
+            // if deleted node is the parent node of its replaced node
             if (parent == node) {
                 parent = replace;
             } else {
-                // child不为空
+                // if child is not null
                 if (child!=null)
                     setParent(child, parent);
                 parent.left = child;
@@ -182,7 +363,7 @@ public class RBTree <E extends Post>{
             node.left.parent = replace;
 
             if (color == BLACK)
-                removeFixUp(child, parent);
+                fixBalance_delete(child, parent);
 
             node = null;
             return ;
@@ -195,11 +376,14 @@ public class RBTree <E extends Post>{
         }
 
         parent = node.parent;
+        // 保存"取代节点"的颜色
+        //
         color = node.color;
 
         if (child!=null)
             child.parent = parent;
 
+        // node is not root node
         if (parent!=null) {
             if (parent.left == node)
                 parent.left = child;
@@ -210,44 +394,49 @@ public class RBTree <E extends Post>{
         }
 
         if (color == BLACK)
-            removeFixUp(child, parent);
+            fixBalance_delete(child, parent);
         node = null;
     }
 
 
-    private void removeFixUp(RBTreeNode<E> node, RBTreeNode<E> parent) {
-        RBTreeNode<E> other;
+    /**
+     * fix the balance of tree after deleted a node
+     * @param node
+     * @param parent
+     */
+    private void fixBalance_delete(RBTreeNode<T> node, RBTreeNode<T> parent) {
+        RBTreeNode<T> other;
 
         while ((node==null || isBlack(node)) && (node != this.root)) {
             if (parent.left == node) {
                 other = parent.right;
                 if (isRed(other)) {
-                    // Case 1: x的兄弟w是红色的
-                    setBlack(other);
-                    setRed(parent);
+                    // case x's brother is red
+                    toBlack(other);
+                    toRed(parent);
                     leftRotate(parent);
                     other = parent.right;
                 }
 
                 if ((other.left==null || isBlack(other.left)) &&
                         (other.right==null || isBlack(other.right))) {
-                    // Case 2: x的兄弟w是黑色，且w的俩个孩子也都是黑色的
-                    setRed(other);
+                    // case x's brother is black the both children of it are all black
+                    toRed(other);
                     node = parent;
                     parent = getParent(node);
                 } else {
 
                     if (other.right==null || isBlack(other.right)) {
-                        // Case 4: x的兄弟w是黑色的，并且w的左孩子是红色，右孩子为黑色。
-                        setBlack(other.left);
-                        setRed(other);
+                        // case x's brother is black and its left child is red, right child is black
+                        toBlack(other.left);
+                        toRed(other);
                         rightRotate(other);
                         other = parent.right;
                     }
-                    // Case 3: x的兄弟w是黑色的；并且w的右孩子是红色的，左孩子任意颜色。
+                    // case x's brother is black and its right child is red (left child can be any color)
                     setColor(other, getColor(parent));
-                    setBlack(parent);
-                    setBlack(other.right);
+                    toBlack(parent);
+                    toBlack(other.right);
                     leftRotate(parent);
                     node = this.root;
                     break;
@@ -256,33 +445,33 @@ public class RBTree <E extends Post>{
 
                 other = parent.left;
                 if (isRed(other)) {
-                    // Case 1: x的兄弟w是红色的
-                    setBlack(other);
-                    setRed(parent);
+                    // case x's brother is red
+                    toBlack(other);
+                    toRed(parent);
                     rightRotate(parent);
                     other = parent.left;
                 }
 
                 if ((other.left==null || isBlack(other.left)) &&
                         (other.right==null || isBlack(other.right))) {
-                    // Case 2: x的兄弟w是黑色，且w的俩个孩子也都是黑色的
-                    setRed(other);
+                    // case x's brother is black and both child of it are all black
+                    toRed(other);
                     node = parent;
                     parent = getParent(node);
                 } else {
 
                     if (other.left==null || isBlack(other.left)) {
-                        // Case 4: x的兄弟w是黑色的，并且w的左孩子是红色，右孩子为黑色。
-                        setBlack(other.right);
-                        setRed(other);
+                        // case x's brother is black and its left child is red, right child is black
+                        toBlack(other.right);
+                        toRed(other);
                         leftRotate(other);
                         other = parent.left;
                     }
 
-                    // Case 3: x的兄弟w是黑色的；并且w的右孩子是红色的，左孩子任意颜色。
+                    // case x's brother is black and its right child is red (left child can be any color)
                     setColor(other, getColor(parent));
-                    setBlack(parent);
-                    setBlack(other.left);
+                    toBlack(parent);
+                    toBlack(other.left);
                     rightRotate(parent);
                     node = this.root;
                     break;
@@ -291,7 +480,7 @@ public class RBTree <E extends Post>{
         }
 
         if (node!=null)
-            setBlack(node);
+            toBlack(node);
     }
 
 
@@ -300,161 +489,239 @@ public class RBTree <E extends Post>{
      * @param key
      * @return
      */
-    public RBTreeNode<E> search(E key) {
-        return search(root, key);
+    public RBTreeNode<T> find(T key) {
+        return find(root, key);
     }
 
-    public RBTreeNode<E> search(int key) {
-        return search(root, key);
+    public RBTreeNode<Post> find(int key) {
+        return find((RBTreeNode<Post>)root, key);
     }
-
-    private RBTreeNode<E> search(RBTreeNode<E> x, int key) {
-        if (x==null)
-            return x;
-
-
-
-        int cmp = key - x.key.getPid();
-        if (cmp < 0)
-            return search(x.left, key);
-        else if (cmp > 0)
-            return search(x.right, key);
-        else
-            return x;
-    }
-
-    private RBTreeNode<E> search(RBTreeNode<E> x, E key) {
-        if (x==null)
-            return x;
-
-        int cmp = key.compareTo(x.key);
-        if (cmp < 0)
-            return search(x.left, key);
-        else if (cmp > 0)
-            return search(x.right, key);
-        else
-            return x;
-    }
-
-    /**
-     * 中序遍历
-     * @param node
-     */
 
 
     /**
-     * 中序遍历
+     * find a key in RBtree
      * @param node
+     * @param key
+     * @return
      */
-    public List<E> middleTreeIterator(RBTreeNode<E> node){
-//        List<E> tree = new ArrayList<E>();
-        List<E> list = new LinkedList<>();
-        if(node != null){
-            list.addAll(middleTreeIterator(node.left));//遍历当前节点左子树
-            list.add(node.key);
+    private RBTreeNode<T> find(RBTreeNode<T> node, T key) {
+        if (node==null)
+            return null;
+
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0)
+            return find(node.left, key);
+        else if (cmp > 0)
+            return find(node.right, key);
+        else
+            return node;
+    }
+
+    /**
+     * A special version of find method designed for our app
+     * It took an unique id of Post and find it in our tree
+     * @param node
+     * @param postId
+     * @return
+     */
+    private RBTreeNode<Post> find(RBTreeNode<Post> node, int postId) {
+        if (node==null)
+            return null;
+
+//        int cmp = key.compareTo(x.key);
+
+        int cmp = postId - node.key.getPid();
+        if (cmp < 0)
+            return find(node.left, postId);
+        else if (cmp > 0)
+            return find(node.right, postId);
+        else
+            return node;
+    }
+
+
+
+//    public void middleTreeIterator(RBTreeNode<E> node){
+//        if(node != null){
+//            middleTreeIterator(node.left);
 //            System.out.println("key:" + node.key);
-            list.addAll(middleTreeIterator(node.right));
+//            middleTreeIterator(node.right);
+//        }
+//    }
+    /**
+     * List the elements of the tree with in-order
+     * @param node
+     */
+    public List<T> treeToListInorder(RBTreeNode<T> node){
+        List<T> list = new LinkedList<>();
+        if(node != null){
+            list.addAll(treeToListInorder(node.left));
+            list.add(node.key);
+            list.addAll(treeToListInorder(node.right));
         }
         return list;
     }
 
+    /**
+     * find all node in our tree
+     *
+     * @param node
+     * @return all nodes in the tree to a list
+     */
+    public List<RBTreeNode<T>> findAll(RBTreeNode<T> node){
+        List<RBTreeNode<T>> list = new LinkedList<>();
+        if(node != null){
+            list.addAll(findAll(node.left));
+            list.add(node);
+            list.addAll(findAll(node.right));
+        }
+        return list;
+    }
 
-
-
-    private RBTreeNode<E> getParent(RBTreeNode<E> node) {
+    /**
+     * retrieve parent node of current node
+     * @param node
+     * @return parent node of param node
+     */
+    private RBTreeNode<T> getParent(RBTreeNode<T> node) {
         return node!=null ? node.parent : null;
     }
-    private boolean getColor(RBTreeNode<E> node) {
+
+    /**
+     * get color of current node
+     * @param node
+     * @return color of node
+     */
+    private boolean getColor(RBTreeNode<T> node) {
         return node!=null ? node.color : BLACK;
     }
-    private boolean isRed(RBTreeNode<E> node) {
-        return ((node!=null)&&(node.color==RED)) ? true : false;
+
+    /**
+     * check if current node is red
+     * @param node
+     * @return true if red, false if black
+     */
+    private boolean isRed(RBTreeNode<T> node) {
+        return (node != null) && (node.color == RED);
     }
-    private boolean isBlack(RBTreeNode<E> node) {
+
+    /**
+     * check if current node is black
+     * @param node
+     * @return true is black, false if red
+     */
+    private boolean isBlack(RBTreeNode<T> node) {
         return !isRed(node);
     }
-    private void setBlack(RBTreeNode<E> node) {
+
+    /**
+     * set color to black
+     * @param node
+     */
+    private void toBlack(RBTreeNode<T> node) {
         if (node!=null)
             node.color = BLACK;
     }
-    private void setRed(RBTreeNode<E> node) {
+
+    /**
+     * set color to red
+     * @param node
+     */
+    private void toRed(RBTreeNode<T> node) {
         if (node!=null)
             node.color = RED;
     }
-    private void setParent(RBTreeNode<E> node, RBTreeNode<E> parent) {
+
+    /**
+     * if node is not null, set parent
+     * @param node
+     * @param parent
+     */
+    private void setParent(RBTreeNode<T> node, RBTreeNode<T> parent) {
         if (node!=null)
             node.parent = parent;
     }
-    private void setColor(RBTreeNode<E> node, boolean color) {
+
+    /**
+     * if node is not null, set color
+     * @param node
+     * @param color
+     */
+    private void setColor(RBTreeNode<T> node, boolean color) {
         if (node!=null)
             node.color = color;
     }
 
 
+    /**
+     * Left rotation
+     * @param x
+     */
+    private void leftRotate(RBTreeNode<T> x) {
+        // set x as right child of y
+        RBTreeNode<T> y = x.right;
 
-    private void leftRotate(RBTreeNode<E> x) {
-        // 设置x的右孩子为y
-        RBTreeNode<E> y = x.right;
-
-        // 将 “y的左孩子” 设为 “x的右孩子”；
-        // 如果y的左孩子非空，将 “x” 设为 “y的左孩子的父亲”
+        // set left child of y as right child of x
+        // if left child of y is null, then set x as parent node of left child of y
         x.right = y.left;
         if (y.left != null)
             y.left.parent = x;
 
-        // 将 “x的父亲” 设为 “y的父亲”
+
+        // set x's parent as y's parent
         y.parent = x.parent;
 
         if (x.parent == null) {
-            this.root = y;            // 如果 “x的父亲” 是空节点，则将y设为根节点
+            // if x's parent node is null, then set y as root node
+            this.root = y;
         } else {
             if (x.parent.left == x)
-                x.parent.left = y;    // 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
+                // if x is left child of its parent node, then set y as left child of x's parent node
+                x.parent.left = y;
             else
-                x.parent.right = y;    // 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
+                // if x is right child of its parent node, then set y as right child of x's parent node
+                x.parent.right = y;
         }
-
-        // 将 “x” 设为 “y的左孩子”
+        // set x as y's left child
         y.left = x;
-        // 将 “x的父节点” 设为 “y”
+        // set y as parent node of y
         x.parent = y;
     }
 
 
-    private void rightRotate(RBTreeNode<E> y) {
-        // 设置x是当前节点的左孩子。
-        RBTreeNode<E> x = y.left;
+    /**
+     * Right rotation
+     * @param y
+     */
+    private void rightRotate(RBTreeNode<T> y) {
+        // set x as left child of current node
+        RBTreeNode<T> x = y.left;
 
-        // 将 “x的右孩子” 设为 “y的左孩子”；
-        // 如果"x的右孩子"不为空的话，将 “y” 设为 “x的右孩子的父亲”
+        // set right child of x as left child of y
+        // if right child of x is not null, then set y as parent node of right child of x
         y.left = x.right;
         if (x.right != null)
             x.right.parent = y;
 
-        // 将 “y的父亲” 设为 “x的父亲”
+        // set y's parent node to x's parent node
         x.parent = y.parent;
 
         if (y.parent == null) {
-            this.root = x;            // 如果 “y的父亲” 是空节点，则将x设为根节点
+            // if the parent node of y is null, then set x as root node
+            this.root = x;
         } else {
             if (y == y.parent.right)
-                y.parent.right = x;    // 如果 y是它父节点的右孩子，则将x设为“y的父节点的右孩子”
+                //if y is right child of its parent node, then set x as right child of y's parent node
+                y.parent.right = x;
             else
-                y.parent.left = x;    // (y是它父节点的左孩子) 将x设为“x的父节点的左孩子”
+                //if y is left child of his parent node, then set x as left child of its parent node
+                y.parent.left = x;
         }
 
-        // 将 “y” 设为 “x的右孩子”
+        // set "y" as "right child of x"
         x.right = y;
 
-        // 将 “y的父节点” 设为 “x”
+        // set "y's parent" as x
         y.parent = x;
     }
-
-
-    /**
-     * List the elements of the tree with in-order
-     */
-
-
-
 }

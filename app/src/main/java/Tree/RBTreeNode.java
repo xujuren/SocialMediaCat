@@ -5,96 +5,76 @@ import java.util.List;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
 
-public class RBTreeNode<E extends Post>{
+public class RBTreeNode<T extends Comparable<T>> {
 
+    /**color of node*/
     boolean color;
 
-    /**节点关键字*/
-    E key;
+    /**search key*/
+    T key;
 
-    /**父节点*/
-    RBTreeNode<E> parent;
+    /**parent node*/
+    RBTreeNode<T> parent;
 
-    /**左子节点*/
-    RBTreeNode<E> left;
+    /**left child*/
+    RBTreeNode<T> left;
 
-    /**右子节点*/
-    RBTreeNode<E> right;
+    /**right child*/
+    RBTreeNode<T> right;
 
-    /**帖子*/
-    RBTreeNode<Post> tree;
+    /**A tree in node, used to store post has same tag*/
+    RBTree<Post> postsTree= new RBTree<>();
 
-
-    public RBTreeNode(E key, boolean color, RBTreeNode<E> parent, RBTreeNode<E> left, RBTreeNode<E> right) {
+    /**
+     * Constructor, used for second layer tree
+     * @param key
+     * @param color
+     * @param parent
+     * @param left
+     * @param right
+     */
+    public RBTreeNode(T key, boolean color, RBTreeNode<T> parent, RBTreeNode<T> left, RBTreeNode<T> right) {
         this.key = key;
         this.color = color;
         this.parent = parent;
         this.left = left;
         this.right = right;
-//        this.tree = new RBTree<Posts>()
-
     }
 
-    public RBTreeNode() {
-        key = null;
-
+    /**
+     * Constructor, if tag is not found in first layer tree then create it and insert current post into tree of current node
+     * @param key
+     * @param color
+     * @param parent
+     * @param left
+     * @param right
+     * @param post
+     */
+    public RBTreeNode(T key, boolean color, RBTreeNode<T> parent, RBTreeNode<T> left, RBTreeNode<T> right, Post post ) {
+        this.key = key;
+        this.color = color;
+        this.parent = parent;
+        this.left = left;
+        this.right = right;
+        postsTree.insert(post);
     }
 
-    public RBTreeNode(E element) {
-        key = element;
-        left = new EmptyRBTreeNode<>();
-
-        right = new EmptyRBTreeNode<>();
-    }
+//    public RBTreeNode(E key, boolean color, RBTreeNode<E> parent, RBTreeNode<E> left, RBTreeNode<E> right, int postID ) {
+//        this.key = key;
+//        this.color = color;
+//        this.parent = parent;
+//        this.left = left;
+//        this.right = right;
+//        postsTree.insert(postID);
+//    }
 
     @Override
     public String toString() {
-        return "RBTNode{" +
-                "color=" + (color ? "red":"black") +
+        return "RBTreeNode{" +
+                "color=" + color +
                 ", key=" + key +
+                ", postsTree=" + postsTree +
                 '}';
     }
 
-
-    /**
-     * List the elements of the tree with in-order
-     */
-    public List<E> inOrder() {
-        return this.treeToListInOrder(this);
-    }
-
-    /**
-     * Converts tree to list in-order. Helper method of inOrder.
-     * @param tree to convert to list.
-     * @return in-order list of tree values.
-     */
-    private List<E> treeToListInOrder(RBTreeNode<E> tree) {
-        List<E> list = new LinkedList<>();
-
-        if(tree != null){
-            // Recurse through left subtree.
-            if (tree.left.key != null) {
-                list.addAll(treeToListInOrder(tree.left));
-            }
-
-            // Add current node's value
-            list.add(tree.key);
-
-            // Recurse through left subtree.
-            if (tree.right.key != null) {
-                list.addAll(treeToListInOrder(tree.right));
-            }
-
-            return list;
-        }
-        return list;
-    }
-
-
-    public static class EmptyRBTreeNode<E extends Post> extends EmptyRBTreeNode<E> {
-        @Override
-        public RBTreeNode<E> insert(E element) {
-            return new RBTreeNode<E>(element);
-        }
-    }
 }
