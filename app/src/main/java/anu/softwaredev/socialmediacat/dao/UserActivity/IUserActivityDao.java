@@ -1,4 +1,4 @@
-package anu.softwaredev.socialmediacat.dao.decorator;
+package anu.softwaredev.socialmediacat.dao.UserActivity;
 
 import java.util.List;
 

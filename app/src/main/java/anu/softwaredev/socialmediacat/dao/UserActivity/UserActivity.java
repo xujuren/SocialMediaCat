@@ -1,4 +1,4 @@
-package anu.softwaredev.socialmediacat.dao.decorator;
+package anu.softwaredev.socialmediacat.dao.UserActivity;
 
 /** User Activity */
 public class UserActivity {
