@@ -7,6 +7,7 @@ public class UserActivity {
     private String tag;        // tag
     private String content;     // content of post/action
     private int photoId;        // ID of photo used of Post
+    private int start;
 
     public UserActivity(String action, String uId, String tag, String content, int photoId) {
         this.action = action;
@@ -15,6 +16,16 @@ public class UserActivity {
         this.content = content;
         this.photoId = photoId;
     }
+
+    public UserActivity(String action, String uId, String tag, String content, int photoId,int start) {
+        this.action = action;
+        this.uId = uId;
+        this.tag = tag;
+        this.content = content;
+        this.photoId = photoId;
+        this.start = start;
+    }
+
 
 
     // Constructor without PHOTO ID
@@ -31,6 +42,6 @@ public class UserActivity {
     public String getTag() {return tag;}
     public String getContent() {return content;}
     public int getPhotoId() {return photoId;}
-
+    public int getStart() {return start;}
 
 }

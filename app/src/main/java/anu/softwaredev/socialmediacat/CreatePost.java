@@ -119,7 +119,7 @@ public class CreatePost extends AppCompatActivity {
             }
 
             // create post
-            UserActivityDao.getInstance().createPost(uId, tag, content, photoId);
+            UserActivityDao.getInstance().createPost(uId, tag, content, photoId,0);
             Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
 
 

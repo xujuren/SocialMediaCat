@@ -37,7 +37,7 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     @Override           /** TODO (userName, Content) ... */
-    public void createPost(String uId, String tag, String content, int photoId) {           // alt: only content (userName: below)
+    public void createPost(String uId, String tag, String content, int photoId,int likeCount) {           // alt: only content (userName: below)
         try {
             // check ID for photo (generate random ID for URL if invalid, [20, 100])
             if (photoId==-1 || photoId<20 || photoId>100) {
@@ -54,14 +54,14 @@ public class UserActivityDao implements IUserActivityDao {
             // Update firebase DB
             dbRef = FirebaseDatabase.getInstance().getReference();            // path to DB
             String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
-            Post newPost = new Post(uId, tag, postId, content, photoId);
+            Post newPost = new Post(uId, tag, postId, content, photoId, likeCount);
             Map<String, Object> postValues = newPost.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + postId, postValues);
             dbRef.updateChildren(childUpdates);
 
             // write to file
-            String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
+            String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + likeCount + "\n";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }

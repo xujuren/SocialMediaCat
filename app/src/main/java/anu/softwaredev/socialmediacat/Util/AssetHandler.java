@@ -61,7 +61,7 @@ public abstract class AssetHandler {
             public void run() {
                 if (i <size){
                     UserActivity act = data.get(i);
-                    UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
+                    UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId(), act.getStart());
                 }
                 i++;
             }
