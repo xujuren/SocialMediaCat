@@ -1,7 +1,5 @@
-package anu.softwaredev.socialmediacat.dao.decorator;
+package anu.softwaredev.socialmediacat.dao.UserActivity;
 import android.os.Build;
-import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -14,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.CreatePost;
 
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
