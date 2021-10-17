@@ -3,18 +3,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Build;
 import android.os.Bundle;
-
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 import java.util.List;
-
 import Tree.RBTree;
 import Tree.RBTreeNode;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.Util.AssetHandler;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
