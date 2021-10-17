@@ -1,10 +1,16 @@
 package anu.softwaredev.socialmediacat;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Toast;
+
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 import java.util.List;
 import Tree.RBTree;
@@ -29,8 +35,40 @@ public class TimelineActivity extends AppCompatActivity {
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), UserActivityDao.getInstance().findAllPosts());        // Adapter to Data
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // Linear timeline (more spaces for information)
-    }
 
+        GestureDetector gestureDetector;
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e){
+                View childView = rvTimeline.findChildViewUnder(e.getX(), e.getY());
+                if (childView != null) {
+                    int position = rvTimeline.getChildLayoutPosition(childView);
+                    Toast.makeText(getApplication(), "single click:" + position, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return super.onSingleTapUp(e);
+            }
+        });
+
+        rvTimeline.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                if (gestureDetector.onTouchEvent(e)) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        });
+    }
 
     /**
      * Function to delete a post
