@@ -12,7 +12,7 @@ public class Post implements Comparable<Post>{
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
     private int photoId=-1;            // ID of the photo
-    public int pid;
+    public int pid;                     // TODO Note: to be integrated with postId
 
     /**
      *Constructor 2.1 (with PostId, but without Likes)
