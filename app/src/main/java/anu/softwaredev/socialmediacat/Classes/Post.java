@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Posts to be created by users*/
-public class Post {
+public class Post implements Comparable<Post>{
     public String uId;              // [user ID] of author
     private String tag;             // for Tag Search (user input, EXPECT to be in the format of #tagContent (without whitespaces))
     private String postId;           // Unique KEY for Posts
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
     private int photoId=-1;            // ID of the photo
-
+    public int pid;
 
     /**
      *Constructor 2.1 (with PostId, but without Likes)
@@ -28,6 +28,12 @@ public class Post {
         this.postId = postId;
         this.content = content;
         this.photoId = photoId;
+        this.likeCount = 0;
+    }
+
+
+    public int getPid() {
+        return pid;
     }
 
     /**
@@ -65,7 +71,7 @@ public class Post {
      */
     @Override
     public String toString(){
-        return "@"+uId+ " " +content+" #"+ tag +" ["+postId+"]: ";
+        return "@"+uId+ " " +content+" #"+ tag +" ["+postId+"]: ";       // easy for understanding only, not following grammar
     }
 
 
@@ -82,6 +88,11 @@ public class Post {
         result.put("photoId", photoId);
         result.put("likeCount", likeCount);
         return result;
+    }
+
+    @Override
+    public int compareTo(Post o) {
+        return this.pid - o.pid;
     }
 
 }
