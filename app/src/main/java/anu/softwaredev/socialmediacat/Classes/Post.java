@@ -11,7 +11,7 @@ public class Post {
     private String postId;           // Unique KEY for Posts
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
-    private int photoId;            // ID of the photo
+    private int photoId=-1;            // ID of the photo
 
 
     /**
@@ -28,9 +28,7 @@ public class Post {
         this.postId = postId;
         this.content = content;
         this.photoId = photoId;
-        this.likeCount = 0;
     }
-
 
     /**
      * Constructor 2.2 (with PostID and like count)
@@ -62,12 +60,12 @@ public class Post {
     public int getLikes(){return likeCount;}
 
     /**
-     *
+     * Notes: the format is not following our CFG
      * @return a default formatted string represents the post
      */
     @Override
     public String toString(){
-        return "@"+uId+ " " +content+" #"+ tag +" ["+postId+"]: ";       // easy for understanding only, not following grammar
+        return "@"+uId+ " " +content+" #"+ tag +" ["+postId+"]: ";
     }
 
 
@@ -81,15 +79,9 @@ public class Post {
         result.put("uId", uId);
         result.put("tag", tag);
         result.put("content", content);
-        result.put("likeCount", likeCount);
         result.put("photoId", photoId);
+        result.put("likeCount", likeCount);
         return result;
     }
-
-
-
-
-    /** Write New Post (https://firebase.google.com/docs/database/android/read-and-write) */
-
 
 }

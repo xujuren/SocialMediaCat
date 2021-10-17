@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import anu.softwaredev.socialmediacat.dao.decorator.User;
+import anu.softwaredev.socialmediacat.Classes.User;
 
 /** Activity for users to manage their profile: update information */
 public class ProfileActivity extends AppCompatActivity {

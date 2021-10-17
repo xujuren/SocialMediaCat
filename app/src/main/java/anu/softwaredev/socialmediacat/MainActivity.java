@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     public void createAcc(View v) {
         Intent i = new Intent(MainActivity.this, CreateAccActivity.class);
         startActivity(i);
-        finish();
     }
 
 
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                             // Direct to the interface for users
                             Intent intent = new Intent();
                             intent.setClass(MainActivity.this, AppActivity.class);
-                            // TODO AssetHandler.loadPostsfromDataInstances(getApplicationContext());
+                            AssetHandler.loadPostsfromDataInstances(getApplicationContext());
                             startActivity(intent);
                             finish();
 
