@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
 /** TBD: current JSON data instances only include posts*/
 public class JsonHandler extends AssetHandler {

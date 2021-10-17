@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
 public class BespokeHandler extends AssetHandler {
 

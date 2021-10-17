@@ -20,10 +20,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import com.google.android.material.textfield.TextInputLayout;
+
 import com.google.firebase.auth.FirebaseUser;
 
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 public class CreatePost extends AppCompatActivity {
     private FirebaseUser user;
@@ -81,10 +81,10 @@ public class CreatePost extends AppCompatActivity {
         if (user != null) {
             String uId = user.getUid();
 
-            // Get Input
+            // Get Inputs
             String content = contentEdit.getText().toString();
             String tag = tagEdit.getText().toString();
-            String photoIDInput = photoIDEdit.getText().toString();     // *ori: photoURL
+            String photoIDInput = photoIDEdit.getText().toString();
 
             // Check invalid characters in tag
             if (tag.contains(",") || tag.contains(";") || TextUtils.isEmpty(tag)) {
@@ -117,7 +117,6 @@ public class CreatePost extends AppCompatActivity {
                     Toast.makeText(CreatePost.this, "Invalid ID! random Photo ID generated for you ...", Toast.LENGTH_SHORT).show();
                 }
             }
-
 
             // create post
             UserActivityDao.getInstance().createPost(uId, tag, content, photoId);
@@ -158,30 +157,20 @@ public class CreatePost extends AppCompatActivity {
             }
         };
 
-        // TODO Issue: does not re-ask permission even if run (unless Emulator rerun?)
         // check Permissions
-        //Unnecessary; SDK_INT is always >= 26 might need to be deleted
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     || checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-                // Toast.makeText(CreatePost.this, "should request permission now...", Toast.LENGTH_SHORT).show();
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 1);
-
             } else {
                 locManager.requestLocationUpdates("gps", 1000, 1000, locListener);
             }
-
-        } // NOT expected (unless version issue)
+        }
 
     }
 
-    /**
-     *  never used
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
+
     @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {

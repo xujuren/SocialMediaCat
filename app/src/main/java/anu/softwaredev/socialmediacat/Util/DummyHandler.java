@@ -2,10 +2,9 @@ package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
 // for testing only
 public class DummyHandler extends AssetHandler {

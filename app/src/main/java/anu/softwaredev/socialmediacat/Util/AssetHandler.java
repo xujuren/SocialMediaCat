@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivity;
-import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 /** Load data instances from different local files (Assets) */
 public abstract class AssetHandler {
