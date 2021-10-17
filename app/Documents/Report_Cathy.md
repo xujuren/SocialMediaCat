@@ -95,11 +95,11 @@ public abstract class AssetHandler {
 ## Summary of Known Errors and Bugs    [TODO]
 *[known errors and bugs? consequences they might lead to?]* List all the known errors and bugs here
 
-   *Here is an example:*
-      1. *Bug 1:*
-      - *A space bar (' ') in the sign in email will crash the application.*
-      - ...
-      2. *Bug 2:*
+1. *Bug 1:*
+- CreatePost: GPS may not re-ask permission even if re-run (unless Emulator?)
+2. *Bug 2:*
+    - *{sample} A space bar (' ') in the sign in email will crash the application.*
+
 
 
 
