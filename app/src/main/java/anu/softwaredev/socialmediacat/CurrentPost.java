@@ -1,10 +1,15 @@
 package anu.softwaredev.socialmediacat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +29,7 @@ import anu.softwaredev.socialmediacat.ui.main.CurrentPostFragment;
 
 public class CurrentPost extends AppCompatActivity {
     Post currentPost;
+    GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,39 @@ public class CurrentPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_timeline);
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                if (gestureDetector.onTouchEvent(e)) {
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        });
+
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e){
+                View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                if (childView != null) {
+                    int position = recyclerView.getChildLayoutPosition(childView);
+                    Toast.makeText(getApplication(), "single click:" + position, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return super.onSingleTapUp(e);
             }
         });
     }
