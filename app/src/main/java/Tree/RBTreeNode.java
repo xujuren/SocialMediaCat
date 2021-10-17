@@ -25,6 +25,14 @@ public class RBTreeNode<T extends Comparable<T>> {
     /**A tree in node, used to store post has same tag*/
     RBTree<Post> postsTree= new RBTree<>();
 
+    public T getKey() {
+        return key;
+    }
+
+    public RBTree<Post> getPostsTree() {
+        return postsTree;
+    }
+
     /**
      * Constructor, used for second layer tree
      * @param key

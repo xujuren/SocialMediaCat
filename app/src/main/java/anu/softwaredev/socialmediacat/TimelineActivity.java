@@ -8,6 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 
 import java.util.List;
+
+import Tree.RBTree;
+import Tree.RBTreeNode;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.Util.AssetHandler;
 import anu.softwaredev.socialmediacat.dao.decorator.UserActivityDao;
@@ -33,5 +36,58 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Function to delete a post
+     * @param post
+     * @param database
+     * @return
+     */
+    public static RBTree<String> delete(Post post, RBTree<String> database) {
+        database.delete(post.getTag(), post);
+        return database;
+    }
+
+    /**
+     * Search by post id
+     * @param id
+     * @param database
+     * @return
+     */
+    public static Post search(int id, RBTree<String> database) {
+        List<RBTreeNode<String>> allTags = database.findAll(database.root);
+        for (RBTreeNode<String> node:allTags) {
+            RBTreeNode<Post> result = node.getPostsTree().find(id);
+            if (result != null)
+                return result.getKey();
+        }
+        return null;
+    }
+
+    //Search by tag
+
+    /**
+     * Search by tag
+     * @param tag
+     * @param database
+     * @return
+     */
+    public static List<Post> search(String tag, RBTree<String> database) {
+        RBTreeNode<String> node = database.find(tag);
+        return node.getPostsTree().treeToListInorder(node.getPostsTree().root);
+    }
+
+    //Search by tag and id
+
+    /**
+     * search by tag and id
+     * @param tag
+     * @param id
+     * @param database
+     * @return
+     */
+    public static Post search(String tag, int id, RBTree<String> database) {
+        RBTreeNode<String> node = database.find(tag);
+        return node.getPostsTree().find(id).getKey();
+    }
 
 }
