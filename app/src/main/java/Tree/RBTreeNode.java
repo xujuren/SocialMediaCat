@@ -1,8 +1,5 @@
 package Tree;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import anu.softwaredev.socialmediacat.Classes.Post;
 
 public class RBTreeNode<T extends Comparable<T>> {
@@ -67,7 +64,7 @@ public class RBTreeNode<T extends Comparable<T>> {
         postsTree.insert(post);
     }
 
-//    public RBTreeNode(E key, boolean color, RBTreeNode<E> parent, RBTreeNode<E> left, RBTreeNode<E> right, int postID ) {
+    //    public RBTreeNode(E key, boolean color, RBTreeNode<E> parent, RBTreeNode<E> left, RBTreeNode<E> right, int postID ) {
 //        this.key = key;
 //        this.color = color;
 //        this.parent = parent;

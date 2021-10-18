@@ -14,8 +14,7 @@ public class Post implements Comparable<Post>{
     private String postId;           // the unique key for a post
 
     // TODO delete if Not used (> postId)
-    @Exclude
-    private int pid;
+
 
     /**
      *Constructor 2.1 (with PostId, but without Likes)
@@ -75,10 +74,6 @@ public class Post implements Comparable<Post>{
 
     @Exclude
     public String getPostId(){return postId;}
-    @Exclude
-    public int getPid() {
-        return pid;
-    }
 
 
 
@@ -109,7 +104,7 @@ public class Post implements Comparable<Post>{
 
     @Override
     public int compareTo(Post o) {
-        return this.pid - o.pid;
+        return postId.compareTo(o.getPostId());
     }
 
 }

@@ -99,6 +99,9 @@ public class TimelineActivity extends AppCompatActivity {
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), Global_Data.getInstance().toList());        // Adapter to Data
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // Linear timeline (more spaces for information)
+        RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
+
+
 
         //TODO 添加search方法
       Button searchBt = (Button) findViewById(R.id.SearchButton);
@@ -110,6 +113,7 @@ public class TimelineActivity extends AppCompatActivity {
                 String search = searchEdit.getText().toString();
                 System.out.println(search);
                 List<Post> postsResult = searchAll(search);
+                System.out.println("number: " + postsResult.size());
                 for (Post post:postsResult
                      ) {
                     System.out.println(post);

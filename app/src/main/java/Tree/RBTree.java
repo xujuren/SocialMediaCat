@@ -10,7 +10,10 @@ public class RBTree<T extends Comparable<T>> {
     /**
      * root node
      */
+//    public RBTreeNode<T> root;
+
     public RBTreeNode<T> root;
+
 
     /**
      * red color is false and black is true

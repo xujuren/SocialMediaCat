@@ -176,9 +176,10 @@ public class UserActivityDao implements IUserActivityDao {
                 for (String line : lines) {
                     String[] items = line.split(";");
                     if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "store-post".equals(items[0]) )) {  //
-                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
+//                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
+                        Post post = new Post(items[1], "random", items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
                         postsLoaded.add(post);
-                        Global_Data.getInstance().insert(post.getTag(), post);
+                        Global_Data.getInstance().insert(post);
                     }
                 }
             }
@@ -189,8 +190,20 @@ public class UserActivityDao implements IUserActivityDao {
 //            }
 
         } catch (IOException e) { e.printStackTrace(); }
+
+        /**
+         * For test, need to delete
+         */
+        System.out.println("============================================Check data========================================");
+        Global_Data.getInstance().getData().find("random").getPostsTree().inorderPrint(Global_Data.getInstance().getData().find("random").getPostsTree().root);
         return postsLoaded;
     }
+
+//    public void testData(){
+//        for (int i = 0; i < 10; i++) {
+//            Post post = new Post("u" + i, "random", "u" + i, "u" + i, i, i);
+//        }
+//    }
 
 
     @Override
