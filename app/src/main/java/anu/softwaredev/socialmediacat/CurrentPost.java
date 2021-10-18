@@ -89,7 +89,9 @@ public class CurrentPost extends AppCompatActivity {
                 FirebaseAuth user = FirebaseAuth.getInstance();
                 Global_Data.getInstance().delete(currentPost);
                 Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
-                finish();
+                intent.setClass(CurrentPost.this,TimelineActivity.class);
+                startActivity(intent);
+//                finish();
 //                if (user.getUid().equals(currentPost.getUId())) {
 //                    Global_Data.getInstance().delete(currentPost);
 //                    Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
