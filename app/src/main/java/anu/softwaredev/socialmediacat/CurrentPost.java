@@ -78,12 +78,13 @@ public class CurrentPost extends AppCompatActivity {
                 int stars = currentPost.getLikes()+1;
                 //TODO 需要给creat函数添加like字段
 //                UserActivityDao.getInstance().createPost(uId, tag, content, photoId, stars);
-                System.out.println(currentPost.getLikes());
-                Global_Data.getInstance().likePost(currentPost);
-                System.out.println(currentPost.getLikes());
-                Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();
-                intent.setClass(CurrentPost.this,TimelineActivity.class);
-                startActivity(intent);
+                boolean likeResult = Global_Data.getInstance().likePost(currentPost);
+                if (likeResult){
+                    int likec = currentPost.getLikes()+1;
+                    CharSequence dolike = "Like: " + likec;
+                    like.setText(dolike);
+                    Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -94,8 +95,6 @@ public class CurrentPost extends AppCompatActivity {
                 FirebaseAuth user = FirebaseAuth.getInstance();
                 Global_Data.getInstance().delete(currentPost);
                 Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
-                intent.setClass(CurrentPost.this,TimelineActivity.class);
-                startActivity(intent);
 //                finish();
 //                if (user.getUid().equals(currentPost.getUId())) {
 //                    Global_Data.getInstance().delete(currentPost);
@@ -104,10 +103,16 @@ public class CurrentPost extends AppCompatActivity {
 //                }else {
 //                    Toast.makeText(CurrentPost.this, "You do not have permission to delete this", Toast.LENGTH_SHORT).show();
 //                }
-
             }
         });
 
-
+        Button backBt = (Button) findViewById(R.id.BackButton);
+        backBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.setClass(CurrentPost.this,TimelineActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
