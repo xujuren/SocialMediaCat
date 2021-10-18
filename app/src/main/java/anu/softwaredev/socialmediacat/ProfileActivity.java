@@ -65,31 +65,29 @@ public class ProfileActivity extends AppCompatActivity {
             ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    // Create Profile if not existed
+                    // Create record
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
                         Toast.makeText(ProfileActivity.this, "(Setting up your profile ...)", Toast.LENGTH_LONG).show();
-                        User newUser = new User(user.getUid(), user.getEmail());                            // Set Up User (Uid as KEY)
-                        // create record (db)
-                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();            // path to store user data
+                        User newUser = new User(user.getUid(), user.getEmail());                            // Set Up User
+
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
                         dbRef.child("Users").child(user.getUid()).setValue(newUser);
                     }
 
-                    // Get any existing fields
-                    for (DataSnapshot ds : snapshot.getChildren()) {    // loop through each [field (k,v)] of the [user(UID)]
+                    // Get and display fields
+                    for (DataSnapshot ds : snapshot.getChildren()) {
                         String k = ds.getKey();
                         switch (k) {
-                            case "name" :
                             case "userName" :
-                            case "displayName" :
                                 currentUserName = (String) ds.getValue();
                                 userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
-                                userNameLayout.setHint("Edit your display name (current: " + currentUserName + ")");
+                                userNameLayout.setHint("Edit your User name [current: " + currentUserName + "]");
                                 continue;
                             case "proPic":
                                 currentProPic = (String) (ds.getValue());
                                 if (currentProPic.length()==ZERO) continue;
                                 proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
-                                proPicLayout.setHint("Edit your profile picture (current link: " + currentProPic + ")");
+                                proPicLayout.setHint("Edit your profile picture [" + currentProPic + "]");
                                 // ToDo: show the PICTURE
                                 continue;
                             case "caption":
@@ -119,10 +117,9 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    // Confirm Button (Manage Profile)
 
     /**
-     * never used yet , read input and make  changes
+     * Confirm Button (Manage Profile)
      * @param v UI
      */
     private void profileInput(View v) {
@@ -132,16 +129,15 @@ public class ProfileActivity extends AppCompatActivity {
         String newProPic = proPicEdit.getText().toString();
         String newCaption = captionEdit.getText().toString();
 
-        // TODO: add Checkings [if new=empty / invalid]
         if (TextUtils.isEmpty(newName)) {newName = currentUserName;}
         if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic;}
         if (TextUtils.isEmpty(newCaption)) {newCaption = currentCaption;}
 
-        // if all input fields are either empty or same as current
+        // ignore if all input fields are either empty or same as current
         if (!(newName.equals(currentUserName) && newProPic.equals(currentProPic) && newCaption.equals(currentCaption))){
             Toast.makeText(ProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
 
-            // User @ Authen
+            // Update user profile
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .setPhotoUri(Uri.parse(newProPic))

@@ -119,7 +119,7 @@ public class CreatePost extends AppCompatActivity {
             }
 
             // create post
-            UserActivityDao.getInstance().createPost(uId, tag, content, photoId,0);
+            UserActivityDao.getInstance().createPost(uId, tag, content, photoId);
             Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
 
 
@@ -180,7 +180,6 @@ public class CreatePost extends AppCompatActivity {
 
         } else if (requestCode == 1) {
             // Not ok
-            Toast.makeText(CreatePost.this, "NO permission - grantResults[0]: " + grantResults[0], Toast.LENGTH_SHORT).show();
             latlngText.setText("N/A");
             shareLocOption.setText("Missing Permission!");
         }
