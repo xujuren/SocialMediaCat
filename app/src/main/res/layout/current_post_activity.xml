@@ -40,11 +40,11 @@
         android:id="@+id/LikeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ContentTextView"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Like"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop = "20dp"
-        android:layout_marginLeft="100dp"
-        android:text="Like" />
+        app:layout_constraintTop_toBottomOf="@id/ContentTextView" />
 
     <Button
         android:id="@+id/DeleteButton"
@@ -55,4 +55,16 @@
         android:layout_marginTop = "20dp"
         android:layout_marginLeft = "30dp"
         android:text="Delete" />
+
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintTop_toBottomOf="@id/ContentTextView"
+        app:layout_constraintLeft_toRightOf="@id/DeleteButton"
+        android:layout_marginTop = "20dp"
+        android:layout_marginLeft = "30dp"
+        tools:layout_editor_absoluteX="319dp"
+        tools:layout_editor_absoluteY="208dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
