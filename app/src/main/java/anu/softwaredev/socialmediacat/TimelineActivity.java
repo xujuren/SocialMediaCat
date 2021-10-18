@@ -13,7 +13,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
+
+import java.util.LinkedList;
 import java.util.List;
 import Tree.RBTree;
 import Tree.RBTreeNode;
@@ -34,7 +37,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         // Set Up timeline view and data
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline
-        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), UserActivityDao.getInstance().findAllPosts());        // Adapter to Data
+        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), Global_Data.getInstance().toList());        // Adapter to Data
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // Linear timeline (more spaces for information)
 
@@ -97,10 +100,10 @@ public class TimelineActivity extends AppCompatActivity {
      * @param database
      * @return
      */
-    public static Post search(int id, RBTree<String> database) {
+    public static Post searchById(String id, RBTree<String> database) {
         List<RBTreeNode<String>> allTags = database.findAll(database.root);
         for (RBTreeNode<String> node:allTags) {
-            RBTreeNode<Post> result = node.getPostsTree().find(id);
+            RBTreeNode<Post> result = node.getPostsTree().findById(id);
             if (result != null)
                 return result.getKey();
         }
@@ -115,8 +118,10 @@ public class TimelineActivity extends AppCompatActivity {
      * @param database
      * @return
      */
-    public static List<Post> search(String tag, RBTree<String> database) {
+    public static List<Post> searchByTag(String tag, RBTree<String> database) {
         RBTreeNode<String> node = database.find(tag);
+        if (node == null)
+            return new LinkedList<Post>();
         return node.getPostsTree().treeToListInorder(node.getPostsTree().root);
     }
 
@@ -129,9 +134,11 @@ public class TimelineActivity extends AppCompatActivity {
      * @param database
      * @return
      */
-    public static Post search(String tag, int id, RBTree<String> database) {
+    public static Post search(String tag, String id, RBTree<String> database) {
         RBTreeNode<String> node = database.find(tag);
-        return node.getPostsTree().find(id).getKey();
+        if (node == null)
+            return null;
+        return node.getPostsTree().findById(id).getKey();
     }
 
 }

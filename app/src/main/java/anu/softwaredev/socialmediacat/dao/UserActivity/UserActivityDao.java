@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
 
 /** Dao for UserActivity */
@@ -115,6 +117,7 @@ public class UserActivityDao implements IUserActivityDao {
                     if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "store-post".equals(items[0]) )) {  //
                         Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
                         postsLoaded.add(post);
+                        Global_Data.getInstance().insert(post.getTag(), post);
                     }
                 }
             }

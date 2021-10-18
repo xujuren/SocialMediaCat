@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 import anu.softwaredev.socialmediacat.ui.main.CurrentPostFragment;
@@ -46,6 +47,8 @@ public class CurrentPost extends AppCompatActivity {
         int photoId = intent.getIntExtra("photoId",0);
         int likeCount = intent.getIntExtra("likeCount",0);
         currentPost = new Post(uid,tag,postId,content,photoId,likeCount);
+
+
 
         CharSequence likes = "Like: " + currentPost.getLikes();
 
@@ -83,7 +86,18 @@ public class CurrentPost extends AppCompatActivity {
         deleteBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth user = FirebaseAuth.getInstance();
+                Global_Data.getInstance().delete(currentPost);
                 Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
+                finish();
+//                if (user.getUid().equals(currentPost.getUId())) {
+//                    Global_Data.getInstance().delete(currentPost);
+//                    Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                }else {
+//                    Toast.makeText(CurrentPost.this, "You do not have permission to delete this", Toast.LENGTH_SHORT).show();
+//                }
+
             }
         });
 

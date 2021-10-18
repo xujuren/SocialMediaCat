@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import anu.softwaredev.socialmediacat.Util.AssetHandler;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 public class AppActivity extends AppCompatActivity {
     private FirebaseUser user;              //stored in firebase
@@ -40,7 +41,8 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app); // set view according to UI layout
         createPosts(getApplicationContext());
-
+        //Load all data
+        UserActivityDao.getInstance().findAllPosts();
         // Action bar
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");

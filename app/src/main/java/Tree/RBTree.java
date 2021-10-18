@@ -493,7 +493,7 @@ public class RBTree<T extends Comparable<T>> {
         return find(root, key);
     }
 
-    public RBTreeNode<Post> find(int key) {
+    public RBTreeNode<Post> findById(String key) {
         return find((RBTreeNode<Post>)root, key);
     }
 
@@ -524,13 +524,12 @@ public class RBTree<T extends Comparable<T>> {
      * @param postId
      * @return
      */
-    private RBTreeNode<Post> find(RBTreeNode<Post> node, int postId) {
+    private RBTreeNode<Post> find(RBTreeNode<Post> node, String postId) {
         if (node==null)
             return null;
 
 //        int cmp = key.compareTo(x.key);
-
-        int cmp = postId - node.key.getPid();
+        int cmp = postId.compareTo(node.key.getPostId());
         if (cmp < 0)
             return find(node.left, postId);
         else if (cmp > 0)
@@ -541,13 +540,13 @@ public class RBTree<T extends Comparable<T>> {
 
 
 
-//    public void middleTreeIterator(RBTreeNode<E> node){
-//        if(node != null){
-//            middleTreeIterator(node.left);
-//            System.out.println("key:" + node.key);
-//            middleTreeIterator(node.right);
-//        }
-//    }
+    public void inorderPrint(RBTreeNode<T> node){
+        if(node != null){
+            inorderPrint(node.left);
+            System.out.println("key:" + node.key);
+            inorderPrint(node.right);
+        }
+    }
     /**
      * List the elements of the tree with in-order
      * @param node
