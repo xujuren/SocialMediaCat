@@ -80,7 +80,8 @@ public class CurrentPost extends AppCompatActivity {
 //                UserActivityDao.getInstance().createPost(uId, tag, content, photoId, stars);
                 Global_Data.getInstance().likePost(currentPost);
                 Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();
-                finish();
+                intent.setClass(CurrentPost.this,TimelineActivity.class);
+                startActivity(intent);
             }
         });
 
