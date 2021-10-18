@@ -65,7 +65,7 @@ public abstract class AssetHandler {
                 }
                 i++;
             }
-        }, 0, 30000);
+        }, 0, 100000);
 
     }
 
