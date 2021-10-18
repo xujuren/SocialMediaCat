@@ -8,9 +8,23 @@ Add your Name to the item - so that we won't crash (and also remove/update statu
 * 2. UI and workflow for everything works *
     - ** Local Data structure: change everything into using RBTree ! **
 
-* 3. Firebase integration *
-    - DELETE post                                   @Cathy
-    - LIKE post                                     @Cathy (ok, to be merged)
+* 3. Search bar's linkage with Tokenizer, Parser (to workable)
+
+
+*** Bugs ***
+
+* new functions
+    - Like: didn't should count change at view (only once), scroll up/down also get in Current Post 
+    - delete: didnt change user
+    - both: >> implement the RBTree
+    - firebase like & post   (pushed, not yet test)
+
+* firebase should also need load ...                @Cathy
+
+
+* Minor items that affect many different places 
+    - ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class
+
 
 *** Minor but can be tedious ***
 
@@ -23,9 +37,6 @@ Add your Name to the item - so that we won't crash (and also remove/update statu
     - Check UI input's validation & warning messages, and bugs
     - layouts (different emulator sizes): e.g. currentpost out of boundary Pixel API 30  
    
-* 6. Minor items that affect many different places 
-    - ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class
-    - 
     
 
 ** Not Urgent and Optional **
@@ -36,5 +47,6 @@ Add your Name to the item - so that we won't crash (and also remove/update statu
 ====================================================================================================
 RECENTly done and pushed
     - Set up the whole RBTree  @Juren
-    - Search input linked to Tokenizer, Parser  @kev (done)
-    - 
+    - pushed Tokenizer, Parser  @kev
+    - Firebase Like & delete @Cathy
+    - Like, +UI views @Kyle
