@@ -7,8 +7,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,10 +36,7 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
-    private static DatabaseReference dbRef1;
-    private static DatabaseReference dbRef2;
-    private static DatabaseReference dbRef3;
-    private static DatabaseReference dbRef4;
+    private static DatabaseReference dbRef;
     private static List<Post> allPosts;
     private static UserActivityDao instance;        // Singleton instance for UserActivityDao
     private static File file;                       // temporary file
@@ -54,11 +53,7 @@ public class UserActivityDao implements IUserActivityDao {
     public static UserActivityDao getInstance(){
         if (instance == null) {
             instance = new UserActivityDao();
-            // TODO
-            dbRef1 = FirebaseDatabase.getInstance().getReference("Posts");
-            dbRef2 = FirebaseDatabase.getInstance().getReference("Posts");
-            dbRef3 = FirebaseDatabase.getInstance().getReference("Posts");
-            dbRef4 = FirebaseDatabase.getInstance().getReference("Posts");
+            dbRef = FirebaseDatabase.getInstance().getReference("Posts");
         }
         return instance;
     }
@@ -81,17 +76,12 @@ public class UserActivityDao implements IUserActivityDao {
             contentText.replaceAll("\"", "");
 
             // Update firebase DB
-            String postId = dbRef1.child("Posts").push().getKey();             // unique Key for Posts
+            String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
             Post newPost = new Post(uId, tag, postId, content, photoId);
-
-            // TODO - TEST (db Ref same?)
-            newPost = new Post(uId, tag, postId, "same? " + dbRef1.equals(dbRef2), photoId);
-            // TODO - TEST
-
             Map<String, Object> postValues = newPost.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + postId, postValues);
-            dbRef1.updateChildren(childUpdates);
+            dbRef.updateChildren(childUpdates);
 
             // write to file                  // post
             String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
@@ -120,42 +110,44 @@ public class UserActivityDao implements IUserActivityDao {
             } catch (IOException e) { e.printStackTrace(); }
         }
 
-        // Firebase
-        dbRef3 = FirebaseDatabase.getInstance().getReference().child("Posts");
-        ValueEventListener valueListener3 = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Get any existing fields
-                Post post = snapshot.getValue(Post.class);
-                allPosts.add(post);
-                Log.w(TAG, "Post: "+post.toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Loading failed!", error.toException());
-            }
-        };
-
-        dbRef3.addValueEventListener(valueListener3);
+        // Firebase TODO
+//        dbRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+//        ChildEventListener listener = new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                Post newPost = snapshot.getValue(Post.class);
+//                allPosts.add(newPost);
+//            }
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//            }
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//                Integer postId = Integer.parseInt(snapshot.getKey());
+//            }
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) { }
+//        };
+//        dbRef.addChildEventListener(listener);
 
 
     }
 
     @Override
     public void likePost(String userId, String postId) {
-
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
-        dbRef4 = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-        dbRef4.updateChildren(updates);
+        dbRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+        dbRef.updateChildren(updates);
     }
 
     @Override
     public void deletePost(String postId) {
         // firebase DB
-        dbRef2 = FirebaseDatabase.getInstance().getReference("Posts");
-        dbRef2.addListenerForSingleValueEvent(new ValueEventListener(){
+        dbRef = FirebaseDatabase.getInstance().getReference("Posts");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -190,6 +182,11 @@ public class UserActivityDao implements IUserActivityDao {
                     }
                 }
             }
+
+            // allPosts TODO
+//            for (Post post : allPosts) {
+//                Global_Data.getInstance().insert(post.getTag(), post);
+//            }
 
         } catch (IOException e) { e.printStackTrace(); }
         return postsLoaded;
