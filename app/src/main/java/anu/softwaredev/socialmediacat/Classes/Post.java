@@ -11,7 +11,6 @@ public class Post implements Comparable<Post>{
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
     private int photoId=-1;          // ID of the photo, representing a photo hosted on a website
-    @Exclude
     private String postId;           // the unique key for a post
 
     // TODO delete if Not used (> postId)
@@ -57,7 +56,6 @@ public class Post implements Comparable<Post>{
     // Default constructor
     public Post() {}
 
-
     /** Getters */
     public String getUId(){return uId;}
     public String getTag(){return tag;}
@@ -67,6 +65,13 @@ public class Post implements Comparable<Post>{
     public void likePost() {
         likeCount += 1;
     }
+
+    /** Setters */
+    public void setUId(String uId){uId = uId;}
+    public void setTag(String tag){tag = tag;}
+    public void setContent(String content){content = content;}
+    public void setPhotoId(String photoId){photoId =photoId;}
+    public void setLikeCount(int likeCount){likeCount = likeCount;}
 
     @Exclude
     public String getPostId(){return postId;}
