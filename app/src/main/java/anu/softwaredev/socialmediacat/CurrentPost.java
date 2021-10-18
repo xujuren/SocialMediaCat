@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,19 +38,30 @@ public class CurrentPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_post_activity);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, CurrentPostFragment.newInstance())
-                    .commitNow();
-        }
         Intent intent = getIntent();
-        currentPost =(Post) intent.getSerializableExtra("post");
+        String uid = intent.getStringExtra("uId");
+        String tag = intent.getStringExtra("tag");
+        String postId = intent.getStringExtra("postId");
+        String content = intent.getStringExtra("content");
+        int photoId = intent.getIntExtra("photoId",0);
+        int likeCount = intent.getIntExtra("likeCount",0);
+        currentPost = new Post(uid,tag,postId,content,photoId,likeCount);
+
+        CharSequence likes = "Like: " + currentPost.getLikes();
+
         ImageView image = (ImageView) findViewById(R.id.imageView);
-        image.setImageResource(currentPost.getPhotoId());
-        TextView content = (TextView) findViewById(R.id.titleTextView);
-        content.setText(currentPost.getContent());
+        Glide.with(getApplicationContext()).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(image);
+        TextView contentv = (TextView) findViewById(R.id.titleTextView);
+        contentv.setText((CharSequence)currentPost.getContent());
+        contentv.setTextSize(32f);
+        contentv.setTypeface(Typeface.DEFAULT_BOLD);
         TextView like = (TextView) findViewById(R.id.ContentTextView);
-        like.setText(currentPost.getLikes());
+        like.setText(likes);
+        like.setTextSize(32f);
+        like.setTypeface(Typeface.DEFAULT_BOLD);
 
         Button likeBt = (Button) findViewById(R.id.LikeButton);
         likeBt.setOnClickListener(new View.OnClickListener() {

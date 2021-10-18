@@ -18,6 +18,11 @@ import com.bumptech.glide.request.RequestOptions;
 /** Adapter for the Timeline displayed to Users */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
     private final Context ctx;                  // Interface to global information about an application environment
+
+    public List<Post> getDataset() {
+        return dataset;
+    }
+
     private final List<Post> dataset;
 
     public TimelineAdapter(Context ctx, List<Post> dataset) {

@@ -4,6 +4,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -43,7 +45,15 @@ public class TimelineActivity extends AppCompatActivity {
                 View childView = rvTimeline.findChildViewUnder(e.getX(), e.getY());
                 if (childView != null) {
                     int position = rvTimeline.getChildLayoutPosition(childView);
-                    Toast.makeText(getApplication(), "single click:" + position, Toast.LENGTH_SHORT).show();
+                    Post ClickPost = timelineAdapter.getDataset().get(position);
+                    Intent intent = new Intent(TimelineActivity.this,CurrentPost.class);
+                    intent.putExtra("uId",ClickPost.getUId());
+                    intent.putExtra("tag",ClickPost.getTag());
+                    intent.putExtra("postId",ClickPost.getPostId());
+                    intent.putExtra("content",ClickPost.getContent());
+                    intent.putExtra("likeCount",ClickPost.getLikes());
+                    intent.putExtra("photoId",ClickPost.getPhotoId());
+                    startActivity(intent);
                     return true;
                 }
                 return super.onSingleTapUp(e);
