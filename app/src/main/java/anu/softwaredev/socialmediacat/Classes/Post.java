@@ -8,12 +8,14 @@ import java.util.Map;
 public class Post implements Comparable<Post>{
     private String uId;              // [user ID] of author
     private String tag;              // a user-defined "tag" for the post (see report for details)
-    private String postId;           // the unique key for a post
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
     private int photoId=-1;          // ID of the photo, representing a photo hosted on a website
+    @Exclude
+    private String postId;           // the unique key for a post
 
     // TODO delete if Not used (> postId)
+    @Exclude
     private int pid;
 
     /**
@@ -59,15 +61,16 @@ public class Post implements Comparable<Post>{
     /** Getters */
     public String getUId(){return uId;}
     public String getTag(){return tag;}
-    public String getPostId(){return postId;}
     public String getContent(){return content;}
     public int getPhotoId(){return photoId;}
-    public int getLikes(){return likeCount;}
+    public int getLikeCount(){return likeCount;}
     public void likePost() {
         likeCount += 1;
     }
 
-    
+    @Exclude
+    public String getPostId(){return postId;}
+    @Exclude
     public int getPid() {
         return pid;
     }
@@ -78,11 +81,11 @@ public class Post implements Comparable<Post>{
      * Notes: the format is not following our CFG
      * @return a default formatted string, representing the post
      */
+    @Exclude
     @Override
     public String toString(){
-        return uId + ";" + tag + ";" + content + ";" + photoId + ";" + likeCount;
+        return uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + likeCount;
     }
-    
 
     /**
      * convert the current class into a hashmap(dictionary), be called in UserActivity class (createPost method )
