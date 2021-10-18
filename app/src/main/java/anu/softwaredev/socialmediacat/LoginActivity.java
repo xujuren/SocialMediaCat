@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 import anu.softwaredev.socialmediacat.Util.AssetHandler;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 public class LoginActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;

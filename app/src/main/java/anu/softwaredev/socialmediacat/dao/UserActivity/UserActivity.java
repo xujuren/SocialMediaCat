@@ -17,7 +17,7 @@ public class UserActivity {
         this.photoId = photoId;
     }
 
-    public UserActivity(String action, String uId, String tag, String content, int photoId,int start) {
+    public UserActivity(String action, String uId, String tag, String content, int photoId, int start) {
         this.action = action;
         this.uId = uId;
         this.tag = tag;
