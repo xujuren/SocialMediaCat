@@ -30,9 +30,7 @@ public class CurrentPost extends AppCompatActivity {
         String content = intent.getStringExtra("content");
         int photoId = intent.getIntExtra("photoId",0);
         int likeCount = intent.getIntExtra("likeCount",0);
-        currentPost = new Post(uid,tag,postId,content,photoId,likeCount);
-
-
+        currentPost = new Post(uid, tag, postId, content, photoId, likeCount);
 
         CharSequence likes = "Like: " + currentPost.getLikes();
 
@@ -55,13 +53,15 @@ public class CurrentPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String uId = user.getUid();
-                String tag = currentPost.getTag();
-                String content = currentPost.getContent();
-                int photoId = currentPost.getPhotoId();
-                int stars = currentPost.getLikes()+1;
+//                String uId = user.getUid();
+//                String tag = currentPost.getTag();
+//                String content = currentPost.getContent();
+//                int photoId = currentPost.getPhotoId();
+//                int stars = currentPost.getLikes()+1;
+
                 //TODO 需要给creat函数添加like字段
 //                UserActivityDao.getInstance().createPost(uId, tag, content, photoId, stars);
+
                 boolean likeResult = Global_Data.getInstance().likePost(currentPost);
                 if (likeResult){
                     int likec = currentPost.getLikes()+1;

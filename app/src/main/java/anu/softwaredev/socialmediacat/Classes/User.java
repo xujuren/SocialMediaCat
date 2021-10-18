@@ -1,17 +1,15 @@
 package anu.softwaredev.socialmediacat.Classes;
-
 import com.google.firebase.database.Exclude;
-
 import java.util.HashMap;
 import java.util.Map;
 
-// Model Class: stores User Info
+/** The model class that stores a User's information in this App*/
 public class User {
     private String uId;
     private String emailAddress;
     private String userName = "";
-    private String proPicLink = "";     // TODO - or [Uri]
-    // List<String> followers = new ArrayList<>();
+    private String caption = "";
+    private String proPicLink = "";     // TODO - CHANGE into another field, and change ProfileActivity
 
     // Constructors
     public User(String uId, String emailAddress) {
@@ -19,17 +17,18 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public User(String uId, String emailAddress, String userName, String proPicLink) {
+    public User(String uId, String emailAddress, String userName, String caption, String proPicLink) {
         this.uId = uId;
         this.emailAddress = emailAddress;
         this.userName = userName;
+        this.caption = caption;
         this.proPicLink = proPicLink;
     }
 
-    // Getter
-    public String getUid(){
-        return uId;
-    }
+
+    /** Getters */
+    public String getUid(){return uId;}
+
 
     /**
      * convert the current class into a hashmap(dictionary), be called in UserActivity class (createPost method )
@@ -38,8 +37,9 @@ public class User {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("emailAddress", emailAddress);
         result.put("userName", userName);
+        result.put("emailAddress", emailAddress);
+        result.put("caption", caption);
         result.put("proPicLink", proPicLink);
         return result;
     }
