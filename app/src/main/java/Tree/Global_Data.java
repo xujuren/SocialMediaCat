@@ -50,4 +50,27 @@ public class Global_Data {
         }
         return allPosts;
     }
+
+    public Post searchById(String postId) {
+        List<RBTreeNode<String>> allTags = data.findAll(data.root);
+        for (RBTreeNode<String> node:allTags) {
+            RBTreeNode<Post> result = node.getPostsTree().findById(postId);
+            if (result != null)
+                return result.getKey();
+        }
+        return null;
+    }
+
+    public Post search(String tag, String PostId) {
+        RBTreeNode<String> node = data.find(tag);
+        if (node == null)
+            return null;
+        return node.getPostsTree().findById(PostId).getKey();
+    }
+
+    public void likePost(Post pt) {
+        Post post = search(pt.getTag(), pt.getPostId());
+        if (post != null)
+            post.likePost();
+    }
 }

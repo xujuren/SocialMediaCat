@@ -64,6 +64,10 @@ public class Post implements Comparable<Post>{
     public String getContent(){return content;}
     public int getPhotoId(){return photoId;}
     public int getLikes(){return likeCount;}
+    public void likePost() {
+        likeCount += 1;
+    }
+
 
     /**
      * Notes: the format is not following our CFG
@@ -73,6 +77,7 @@ public class Post implements Comparable<Post>{
     public String toString(){
         return "@"+uId+ " " +content+" #"+ tag +" ["+postId+"]: ";       // easy for understanding only, not following grammar
     }
+
 
 
     /**
