@@ -46,15 +46,15 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     @Override
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
         if (dataset != null) {
-            String uId = dataset.get(position).getUId();
+            String user = dataset.get(position).getUId();
             //TODO n
 
+
             // setup for holder
-            holder.getPostUsername().setText("@"+uId);
+            holder.getPostUsername().setText("@"+user);
             holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent().substring(1, dataset.get(position).getContent().length()-1));
             holder.getCategoryPostId().setText(dataset.get(position).getPostId());
-            holder.getLikes().setText(String.valueOf(dataset.get(position).getLikes()) + " likes");
-            // TODO: Like Button (if here, or may be a different layout @Kyle)
+            holder.getLikes().setText(String.valueOf(dataset.get(position).getLikeCount()) + " likes");
 
             // Load Image
             int photoId = dataset.get(position).getPhotoId();

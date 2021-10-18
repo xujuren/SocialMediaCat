@@ -95,7 +95,7 @@ public class TimelineActivity extends AppCompatActivity {
                     intent.putExtra("tag",ClickPost.getTag());
                     intent.putExtra("postId",ClickPost.getPostId());
                     intent.putExtra("content",ClickPost.getContent());
-                    intent.putExtra("likeCount",ClickPost.getLikes());
+                    intent.putExtra("likeCount",ClickPost.getLikeCount());
                     intent.putExtra("photoId",ClickPost.getPhotoId());
                     startActivity(intent);
                     return true;
