@@ -113,7 +113,6 @@ public class TimelineActivity extends AppCompatActivity {
 
                 // postsResult to display as result
 
-
             }
         });
 
