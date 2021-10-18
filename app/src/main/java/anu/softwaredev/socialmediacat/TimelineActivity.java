@@ -65,15 +65,15 @@ public class TimelineActivity extends AppCompatActivity {
 
         if (tagToSearch.equals("") && !postIDToSearch.equals("")){
             //only postid to search
-            postsToShow.add(searchById(postIDToSearch,database)) ;
+            postsToShow.add(Global_Data.getInstance().searchById(postIDToSearch)) ;
         } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
             //only tag to search
-            postsToShow.addAll(searchByTag(tagToSearch,database)) ;
+            postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
         } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
             //empty, nothing to search
             System.out.println("nothing , Toaster throws reminder");
         } else {
-            postsToShow.add(search(tagToSearch,postIDToSearch,database)) ;
+            postsToShow.add(Global_Data.instance.search(tagToSearch,postIDToSearch)) ;
         }
 
         return postsToShow;
@@ -109,8 +109,11 @@ public class TimelineActivity extends AppCompatActivity {
 
                 String search = searchEdit.getText().toString();
                 System.out.println(search);
-                ArrayList<Post> postsResult = searchAll(search);
-
+                List<Post> postsResult = searchAll(search);
+                for (Post post:postsResult
+                     ) {
+                    System.out.println(post);
+                }
                 // postsResult to display as result
 
 
