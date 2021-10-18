@@ -78,7 +78,9 @@ public class CurrentPost extends AppCompatActivity {
                 int stars = currentPost.getLikes()+1;
                 //TODO 需要给creat函数添加like字段
 //                UserActivityDao.getInstance().createPost(uId, tag, content, photoId, stars);
+                System.out.println(currentPost.getLikes());
                 Global_Data.getInstance().likePost(currentPost);
+                System.out.println(currentPost.getLikes());
                 Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();
                 intent.setClass(CurrentPost.this,TimelineActivity.class);
                 startActivity(intent);

@@ -68,9 +68,12 @@ public class Global_Data {
         return node.getPostsTree().findById(PostId).getKey();
     }
 
-    public void likePost(Post pt) {
+    public boolean likePost(Post pt) {
         Post post = search(pt.getTag(), pt.getPostId());
-        if (post != null)
+        if (post != null) {
             post.likePost();
+            return true;
+        }
+        return false;
     }
 }
