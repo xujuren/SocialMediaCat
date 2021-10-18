@@ -22,6 +22,7 @@ import anu.softwaredev.socialmediacat.Search.Parser;
 import anu.softwaredev.socialmediacat.Search.Tokenizer;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import Tree.RBTree;
@@ -30,6 +31,8 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
+
+    RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
 
     /**
      * main method, put all logic inside
@@ -57,10 +60,11 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // search input parameters
+                ArrayList<Post> postsToShow = new ArrayList<>();
                 String tagToSearch = "";
                 String postIDToSearch = "";
 
-                        String search = searchEdit.getText().toString();
+                String search = searchEdit.getText().toString();
                 System.out.println(search);
                 // tokenize
                 Tokenizer tokenizer = new Tokenizer(search);
@@ -78,6 +82,24 @@ public class TimelineActivity extends AppCompatActivity {
                     System.out.println(parser.getPostId().show());
                     postIDToSearch = parser.getPostId().show();
                 }
+
+                if (tagToSearch.equals("") && !postIDToSearch.equals("")){
+                    //only postid to search
+                    postsToShow.add(searchById(postIDToSearch,database)) ;
+                } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
+                    //only tag to search
+                    postsToShow.addAll(searchByTag(tagToSearch,database)) ;
+                } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
+                    //empty, nothing to search
+                    System.out.println("nothing , Toaster throws reminder");
+                } else {
+                    postsToShow.add(search(tagToSearch,postIDToSearch,database)) ;
+                }
+
+                //then we have a post list to show
+
+
+
 
             }
         });
