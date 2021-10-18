@@ -5,7 +5,7 @@ Update here: your names, and you are looking into it or DOING it
 
 * 2. UI and workflow for everything works *
     - ** Local Data structure: ALL change into using RBTree **
-    - ** Search > Tokenizer, Parser ** 
+    - ** Search > Tokenizer, Parser **  @kev (done)
 
 * 3. Firebase integration *
     - DELETE post                   @Cathy
