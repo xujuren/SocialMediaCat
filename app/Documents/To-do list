@@ -1,0 +1,22 @@
+Add items here
+Update here: your names, and you are looking into it or DOING it
+
+* 1. MEDIUM FEATURE (or Hard/Very Hard) *
+
+* 2. UI and workflow for everything works *
+    - ** Local Data structure: ALL change into using RBTree **
+    - ** Search > Tokenizer, Parser ** 
+
+* 3. Firebase integration *
+    - DELETE post                   @Cathy
+
+* 4. Revise UI (minor revisions) * (write down which part/parts/all that you are changing)
+    - AppActivity: put things into the fragments ?
+    - logIn > main screen, with Create Account button
+    - Current Post can finetune a bit
+    
+
+
+// Not Urgent 
+* 1000 data instances > from real data source
+    
