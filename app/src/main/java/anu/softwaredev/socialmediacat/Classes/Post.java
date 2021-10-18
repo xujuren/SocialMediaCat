@@ -80,7 +80,7 @@ public class Post implements Comparable<Post>{
      */
     @Override
     public String toString(){
-        return uId + ";" + tag + ";" + content + ";" + photoId + ";" + likeCount;
+        return uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + likeCount;
     }
     
 

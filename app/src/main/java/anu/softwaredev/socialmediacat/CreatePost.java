@@ -130,7 +130,6 @@ public class CreatePost extends AppCompatActivity {
 
     }
 
-
     /**
      * read GPS location
      */
