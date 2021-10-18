@@ -61,6 +61,13 @@ public class Global_Data {
         return null;
     }
 
+    public List<Post> searchByTag(String tag) {
+        RBTreeNode<String> node = data.find(tag);
+        if (node == null)
+            return new LinkedList<Post>();
+        return node.getPostsTree().treeToListInorder(node.getPostsTree().root);
+    }
+
     public Post search(String tag, String PostId) {
         RBTreeNode<String> node = data.find(tag);
         if (node == null)
@@ -76,4 +83,5 @@ public class Global_Data {
         }
         return false;
     }
+
 }
