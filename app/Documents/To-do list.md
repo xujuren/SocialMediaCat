@@ -10,6 +10,8 @@ Add your Name to the item - so that we won't crash (and also remove/update statu
 
 * 3. Search bar's linkage with Tokenizer, Parser (to workable)
 
+* 4. now also need data instances for delete & like...
+
 
 *** Bugs ***
 

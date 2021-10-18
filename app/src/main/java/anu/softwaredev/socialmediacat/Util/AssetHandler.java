@@ -13,7 +13,7 @@ import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 public abstract class AssetHandler {
 
     public abstract List<UserActivity> actionsFromAssets(Context ctx);
-    public abstract List<Post> postsFromAssets(Context ctx);        // TODO: DIRECT (existing Posts) > still create (with PID, likes)
+    public abstract List<Post> postsFromAssets(Context ctx);
 
     /** Create Posts template */
     public static void createPosts(Context ctx) {
@@ -61,11 +61,11 @@ public abstract class AssetHandler {
             public void run() {
                 if (i <size){
                     UserActivity act = data.get(i);
-                    UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId(), act.getStart());
+                    UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
                 }
                 i++;
             }
-        }, 0, 30000);
+        }, 0, 100000);
 
     }
 
@@ -86,10 +86,7 @@ public abstract class AssetHandler {
             }
         }
 
-        for (Post post : posts){
-            UserActivityDao.getInstance().loadPost(post);
-        }
-
+        UserActivityDao.getInstance().loadPost(posts);
     }
 
 
