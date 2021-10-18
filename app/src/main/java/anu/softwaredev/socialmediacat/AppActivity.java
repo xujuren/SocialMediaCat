@@ -1,29 +1,19 @@
 package anu.softwaredev.socialmediacat;
 import static anu.softwaredev.socialmediacat.Util.AssetHandler.createPosts;
-
 import androidx.annotation.NonNull;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import anu.softwaredev.socialmediacat.Util.AssetHandler;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 public class AppActivity extends AppCompatActivity {
@@ -41,13 +31,15 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app); // set view according to UI layout
         createPosts(getApplicationContext());
-        //Load all data
+
+        // Load all data
         UserActivityDao.getInstance().findAllPosts();
-        // Action bar
+
+        // Action bar - TODO (design layout with fragments)
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
 
-        // get userName, or userEmail if userName not available
+        // get userName, or userEmail if userName not available -TODO check
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (!TextUtils.isEmpty(user.getDisplayName())) {
             userName = user.getDisplayName();
@@ -68,7 +60,7 @@ public class AppActivity extends AppCompatActivity {
         ft1.replace(R.id.content, frag1, "");
         ft1.commit();
 
-        // Bottom Nav Bar (navView.setOnItemSelectedListener(listener))
+        // Bottom Navigation Bar
         navView = findViewById(R.id.bottomNavMenu);
         navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             /** TODO - Notes:
