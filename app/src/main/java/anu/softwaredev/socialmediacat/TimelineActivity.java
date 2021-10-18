@@ -1,6 +1,7 @@
 package anu.softwaredev.socialmediacat;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,9 +12,14 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import Tree.Global_Data;
+import anu.softwaredev.socialmediacat.Search.Parser;
+import anu.softwaredev.socialmediacat.Search.Tokenizer;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 import java.util.LinkedList;
@@ -34,12 +40,47 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.hide();
+        }
         // Set Up timeline view and data
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), Global_Data.getInstance().toList());        // Adapter to Data
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // Linear timeline (more spaces for information)
+
+        //TODO 添加search方法
+      Button searchBt = (Button) findViewById(R.id.SearchButton);
+        EditText searchEdit = (EditText) findViewById(R.id.editTextTextPersonName);
+        searchBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // search input parameters
+                String tagToSearch = "";
+                String postIDToSearch = "";
+
+                        String search = searchEdit.getText().toString();
+                System.out.println(search);
+                // tokenize
+                Tokenizer tokenizer = new Tokenizer(search);
+                Parser parser = new Parser(tokenizer);
+                if (parser.getTag()==null){
+                    System.out.println("no Tag"); //show purpose
+                }else {
+                    System.out.println(parser.getTag().show());
+                    tagToSearch = parser.getTag().show();
+                }
+
+                if (parser.getPostId()==null){
+                    System.out.println("no postId"); //show purpose
+                }else {
+                    System.out.println(parser.getPostId().show());
+                    postIDToSearch = parser.getPostId().show();
+                }
+
+            }
+        });
 
         GestureDetector gestureDetector;
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){

@@ -1,36 +1,20 @@
 package anu.softwaredev.socialmediacat;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-
 import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
-import anu.softwaredev.socialmediacat.ui.main.CurrentPostFragment;
 
 public class CurrentPost extends AppCompatActivity {
     Post currentPost;
@@ -46,9 +30,7 @@ public class CurrentPost extends AppCompatActivity {
         String content = intent.getStringExtra("content");
         int photoId = intent.getIntExtra("photoId",0);
         int likeCount = intent.getIntExtra("likeCount",0);
-        currentPost = new Post(uid,tag,postId,content,photoId,likeCount);
-
-
+        currentPost = new Post(uid, tag, postId, content, photoId, likeCount);
 
         CharSequence likes = "Like: " + currentPost.getLikes();
 
@@ -71,13 +53,15 @@ public class CurrentPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String uId = user.getUid();
-                String tag = currentPost.getTag();
-                String content = currentPost.getContent();
-                int photoId = currentPost.getPhotoId();
-                int stars = currentPost.getLikes()+1;
+//                String uId = user.getUid();
+//                String tag = currentPost.getTag();
+//                String content = currentPost.getContent();
+//                int photoId = currentPost.getPhotoId();
+//                int stars = currentPost.getLikes()+1;
+
                 //TODO 需要给creat函数添加like字段
 //                UserActivityDao.getInstance().createPost(uId, tag, content, photoId, stars);
+
                 boolean likeResult = Global_Data.getInstance().likePost(currentPost);
                 if (likeResult){
                     int likec = currentPost.getLikes()+1;

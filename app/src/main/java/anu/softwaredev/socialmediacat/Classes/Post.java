@@ -4,15 +4,17 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Posts to be created by users*/
+/** The model class that stores a Post's information in this App*/
 public class Post implements Comparable<Post>{
-    public String uId;              // [user ID] of author
-    private String tag;             // for Tag Search (user input, EXPECT to be in the format of #tagContent (without whitespaces))
-    private String postId;           // Unique KEY for Posts
+    private String uId;              // [user ID] of author
+    private String tag;              // a user-defined "tag" for the post (see report for details)
+    private String postId;           // the unique key for a post
     private String content;          // content of post, possibly with geographical coordinates of user
     private int likeCount=0;         // no. of likes
-    private int photoId=-1;            // ID of the photo
-    public int pid;                     // TODO Note: to be integrated with postId
+    private int photoId=-1;          // ID of the photo, representing a photo hosted on a website
+
+    // TODO delete if Not used (> postId)
+    private int pid;
 
     /**
      *Constructor 2.1 (with PostId, but without Likes)
@@ -32,10 +34,6 @@ public class Post implements Comparable<Post>{
     }
 
 
-    public int getPid() {
-        return pid;
-    }
-
     /**
      * Constructor 2.2 (with PostID and like count)
      * @param uId id of author
@@ -54,10 +52,11 @@ public class Post implements Comparable<Post>{
         this.likeCount = likeCount;
     }
 
-
-    // Default constructor required for calls to DataSnapshot.getValue(anu.softwaredev.socialmediacat.Classes.Post.class)
+    // Default constructor
     public Post() {}
 
+
+    /** Getters */
     public String getUId(){return uId;}
     public String getTag(){return tag;}
     public String getPostId(){return postId;}
@@ -68,17 +67,22 @@ public class Post implements Comparable<Post>{
         likeCount += 1;
     }
 
-
-    /**
-     * Notes: the format is not following our CFG
-     * @return a default formatted string represents the post
-     */
-    @Override
-    public String toString(){
-        return "@"+uId+ " " +content+" #"+ tag +" ["+postId+"]: ";       // easy for understanding only, not following grammar
+    
+    public int getPid() {
+        return pid;
     }
 
 
+
+    /**
+     * Notes: the format is not following our CFG
+     * @return a default formatted string, representing the post
+     */
+    @Override
+    public String toString(){
+        return uId + ";" + tag + ";" + content + ";" + photoId + ";" + likeCount;
+    }
+    
 
     /**
      * convert the current class into a hashmap(dictionary), be called in UserActivity class (createPost method )
