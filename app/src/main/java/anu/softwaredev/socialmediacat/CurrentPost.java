@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 public class CurrentPost extends AppCompatActivity {
     Post currentPost;
@@ -67,6 +69,7 @@ public class CurrentPost extends AppCompatActivity {
                     int likec = currentPost.getLikes()+1;
                     CharSequence dolike = "Like: " + likec;
                     like.setText(dolike);
+                    UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
                     Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -78,7 +81,9 @@ public class CurrentPost extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth user = FirebaseAuth.getInstance();
                 Global_Data.getInstance().delete(currentPost);
+                UserActivityDao.getInstance().deletePost(currentPost.getPostId());
                 Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
+
 //                finish();
 //                if (user.getUid().equals(currentPost.getUId())) {
 //                    Global_Data.getInstance().delete(currentPost);
