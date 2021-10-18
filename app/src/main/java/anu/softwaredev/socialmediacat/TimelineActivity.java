@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import Tree.Global_Data;
+import anu.softwaredev.socialmediacat.Search.Parser;
+import anu.softwaredev.socialmediacat.Search.Tokenizer;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 import java.util.LinkedList;
@@ -54,7 +56,29 @@ public class TimelineActivity extends AppCompatActivity {
         searchBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String search = searchEdit.getText().toString();
+                // search input parameters
+                String tagToSearch = "";
+                String postIDToSearch = "";
+
+                        String search = searchEdit.getText().toString();
+                System.out.println(search);
+                // tokenize
+                Tokenizer tokenizer = new Tokenizer(search);
+                Parser parser = new Parser(tokenizer);
+                if (parser.getTag()==null){
+                    System.out.println("no Tag"); //show purpose
+                }else {
+                    System.out.println(parser.getTag().show());
+                    tagToSearch = parser.getTag().show();
+                }
+
+                if (parser.getPostId()==null){
+                    System.out.println("no postId"); //show purpose
+                }else {
+                    System.out.println(parser.getPostId().show());
+                    postIDToSearch = parser.getPostId().show();
+                }
+
             }
         });
 
