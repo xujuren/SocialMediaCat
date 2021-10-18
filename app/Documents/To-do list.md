@@ -14,10 +14,12 @@ Add your Name to the item - so that we won't crash (and also remove/update statu
 *** Bugs ***
 
 * new functions
-    - Like: didn't change count (only once)
+    - Like: didn't should count change at view (only once), scroll up/down also get in Current Post 
     - delete: didnt change user
     - both: >> implement the RBTree
-    - firebase llike & post                         @Cathy (pushed, not yet test)
+    - firebase like & post   (pushed, not yet test)
+
+* firebase should also need load ...                @Cathy
 
 
 * Minor items that affect many different places 
