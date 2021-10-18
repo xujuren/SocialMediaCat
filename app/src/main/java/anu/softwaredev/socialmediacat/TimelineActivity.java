@@ -22,6 +22,7 @@ import anu.softwaredev.socialmediacat.Search.Parser;
 import anu.softwaredev.socialmediacat.Search.Tokenizer;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import Tree.RBTree;
@@ -30,6 +31,55 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
+
+    RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
+
+
+    /**
+     * integrated search , final version
+     * @param search : input string
+     * @return post list to show as result
+     */
+    public ArrayList<Post> searchAll(String search){
+        ArrayList<Post> postsToShow = new ArrayList<>();
+        String tagToSearch = "";
+        String postIDToSearch = "";
+
+        System.out.println(search);
+        // tokenize
+        Tokenizer tokenizer = new Tokenizer(search);
+        Parser parser = new Parser(tokenizer);
+        if (parser.getTag()==null){
+            System.out.println("no Tag"); //show purpose
+        }else {
+            System.out.println(parser.getTag().show());
+            tagToSearch = parser.getTag().show();
+        }
+
+        if (parser.getPostId()==null){
+            System.out.println("no postId"); //show purpose
+        }else {
+            System.out.println(parser.getPostId().show());
+            postIDToSearch = parser.getPostId().show();
+        }
+
+        if (tagToSearch.equals("") && !postIDToSearch.equals("")){
+            //only postid to search
+            postsToShow.add(searchById(postIDToSearch,database)) ;
+        } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
+            //only tag to search
+            postsToShow.addAll(searchByTag(tagToSearch,database)) ;
+        } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
+            //empty, nothing to search
+            System.out.println("nothing , Toaster throws reminder");
+        } else {
+            postsToShow.add(search(tagToSearch,postIDToSearch,database)) ;
+        }
+
+        return postsToShow;
+
+        //then we have a post list to show
+    }
 
     /**
      * main method, put all logic inside
@@ -56,28 +106,13 @@ public class TimelineActivity extends AppCompatActivity {
         searchBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // search input parameters
-                String tagToSearch = "";
-                String postIDToSearch = "";
 
-                        String search = searchEdit.getText().toString();
+                String search = searchEdit.getText().toString();
                 System.out.println(search);
-                // tokenize
-                Tokenizer tokenizer = new Tokenizer(search);
-                Parser parser = new Parser(tokenizer);
-                if (parser.getTag()==null){
-                    System.out.println("no Tag"); //show purpose
-                }else {
-                    System.out.println(parser.getTag().show());
-                    tagToSearch = parser.getTag().show();
-                }
+                ArrayList<Post> postsResult = searchAll(search);
 
-                if (parser.getPostId()==null){
-                    System.out.println("no postId"); //show purpose
-                }else {
-                    System.out.println(parser.getPostId().show());
-                    postIDToSearch = parser.getPostId().show();
-                }
+                // postsResult to display as result
+
 
             }
         });
