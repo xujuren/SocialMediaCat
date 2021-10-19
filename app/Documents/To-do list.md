@@ -8,13 +8,13 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 _**URGENT + Fundamental**_
 
 **MEDIUM FEATURE (or Hard/Very Hard also ok) **                              @[  ]
-|Feature | Choose & implement the feature | @[*****] |
+* Feature: Choose & implement the feature
 
 **Bugs / incompleted new functions**
-|currentPost UI | scroll up/down to see posts will also get directed into current Post | @[*****] |
-|" | * Like UI: didn't change  count change at view (only +once but implemented multiple times) | @[*****] |
-|" | * delete UI: (1) didnt leave @Current Post, can press again and "Post deleted" (2) use default "last page" at android | @[*****] |
-     
+* currentPost UI: scroll up/down to see posts will also get directed into current Post @[*****]
+    * Like UI: didn't change  count change at view (only +once but implemented multiple times)
+    * delete UI: (1) didnt leave @Current Post, can press again and "Post deleted" (2) use default "last page" at android  
+    
 * delete: didn't check USER
 * both: >> implement the RBTree
 * search > tok par > show result
