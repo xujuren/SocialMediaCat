@@ -79,17 +79,18 @@ public class ProfileActivity extends AppCompatActivity {
                         switch (k) {
                             case "userName" :
                                 currentUserName = (String) ds.getValue();
+                                if (currentInterests.length()==ZERO) continue;
                                 userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
                                 userNameLayout.setHint("Edit User name [" + currentUserName + "]");
                                 continue;
                             case "interests":
-                                currentInterests = (String) (ds.getValue());
+                                currentInterests = (String) ds.getValue();
                                 if (currentInterests.length()==ZERO) continue;
                                 interestsLayout = (TextInputLayout) findViewById(R.id.profile_input_interests);
                                 interestsLayout.setHint("Edit Interests [" + currentInterests + "]");
                                 continue;
                             case "caption":
-                                currentCaption = (String) (ds.getValue());
+                                currentCaption = (String) ds.getValue();
                                 if (currentCaption.length()==ZERO) continue;
                                 captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
                                 captionLayout.setHint("Edit Caption [" + currentCaption + "]");
