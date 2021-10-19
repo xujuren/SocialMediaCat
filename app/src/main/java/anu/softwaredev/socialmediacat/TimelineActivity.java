@@ -84,6 +84,7 @@ public class TimelineActivity extends AppCompatActivity {
             actionBar.hide();
         }
         // Set Up timeline view and data
+        //RecyclerView : A flexible view for providing a limited window into a large data set.
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), Global_Data.getInstance().toList());
         rvTimeline.setAdapter(timelineAdapter);

@@ -22,6 +22,8 @@ allprojects {               // allprojects{} added
     repositories {
         mavenCentral()
         google()  // Google's Maven repository
+        //adding the jitpack
+        maven { url 'https://jitpack.io' }
     }
 }
 

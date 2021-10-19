@@ -17,9 +17,13 @@ import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
+//like button library
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 public class CurrentPost extends AppCompatActivity {
     Post currentPost;
+    private LikeButton likeButtonHeart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,24 @@ public class CurrentPost extends AppCompatActivity {
         int likeCount = intent.getIntExtra("likeCount",0);
         currentPost = new Post(uid, tag, postId, content, photoId, likeCount);
         CharSequence likes = "Like: " + currentPost.getLikeCount();
+        likeButtonHeart = (LikeButton)findViewById(R.id.likeButtonHeart); //like button
+        //initializing the LikeButton objects
+        likeButtonHeart = (LikeButton)findViewById(R.id.likeButtonHeart);
+        //like Button Heart OnLikeListener
+        likeButtonHeart.setOnLikeListener( new OnLikeListener(  ) {
+            @Override
+            public void liked( LikeButton likeButton ) {
+                //sowing simple Toast when liked
+                Toast.makeText( CurrentPost.this, " Liked Heart : )", Toast.LENGTH_SHORT ).show(  );
+            }
+
+            @Override
+            public void unLiked( LikeButton likeButton ) {
+                //sowing simple Toast when unLiked
+                Toast.makeText( CurrentPost.this, " UnLiked Heart : )", Toast.LENGTH_SHORT ).show(  );
+
+            }
+        } );
 
         ImageView image = (ImageView) findViewById(R.id.imageView);
         Glide.with(getApplicationContext()).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
