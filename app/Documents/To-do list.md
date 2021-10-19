@@ -8,18 +8,14 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 _**URGENT + Fundamental**_
 | Task | header | By |
 | ------ | ------ | ------ |
-| **MEDIUM FEATURE** | (or Hard/Very Hard also ok). Choose & implement the feature | **TBC** |
-| cell | cell | cell |
+| **MEDIUM FEATURE** <br /> (or Hard/Very Hard also ok).  | **Choose & implement the feature** | **TBC** |
 
 
 **Bugs / incompleted new functions**
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **currentPostUI** | scroll up/down to see posts will also get directed into current Post | **TBC** |
-|  | * is it fine to add postId here? | " |
-|  | * Like UI: didn't change count change at view after +1 (only +once but implemented multiple times) | " |
-|  | * delete UI: (1) may be can force it to leave the current post, so that they can't can press again and "Post deleted" shown again, and also avoid the problem: didnt update if user use default "last page" buttom  | " |
+| **currentPostUI** | scroll up/down to see posts will also get directed into current Post<br /> is it fine to add postId here? <br /> Like UI: didn't change count change at view after +1 (only +once but implemented multiple times) <br />  delete UI: (1) may be can force it to leave the current post, so that they can't can press again and "Post deleted" shown again, and also avoid the problem: didnt update if user use default "last page" buttom | **TBC** |
 | **delete** | didn't check USER | **TBC** |
 | Data Structure | change everything into using RBTree ! | **TBC** |
 | Search function | to be completed (i.e. search > tok par > show result works in UI) | **TBC** |
@@ -38,11 +34,15 @@ _**URGENT + Fundamental**_
 | **UI design** | * timeline: long postId problem | **Cathy** |
 
  
-**Checkings**
-* Check UI input's validation & warning messages, and bugs
-* layouts (different emulator sizes): e.g. currentpost out of boundary Pixel API 30  
-* testing
-   
+**Checkings(all parts)**
+
+| Task | header | By |
+| ------ | ------ | ------ |
+| Check UI input's validation & warning messages, and bugs  |  | **TBC** |
+| layouts (different emulator sizes): e.g. currentpost out of boundary Pixel API 30    |  | **TBC** |
+| **testing** |  | **TBC** |
+
+
     
 
 ** Not Urgent and Optional **
