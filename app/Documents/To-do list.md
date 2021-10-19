@@ -20,10 +20,9 @@ _**URGENT + Fundamental**_
 **Overall workflow(UI-to-process)**
 * Local Data structure: change everything into using RBTree !
 
-
 **Minor &  2nd Urgent**
 
-**data instances ** for delete & like ......
+* **data instances** for delete & like ......
 
 **Revise UI (minor revisions) ** (write down which part/parts/all that you are changing)
 * ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class
@@ -35,6 +34,7 @@ _**URGENT + Fundamental**_
 **Checkings**
 * Check UI input's validation & warning messages, and bugs
 * layouts (different emulator sizes): e.g. currentpost out of boundary Pixel API 30  
+* testing
    
     
 
