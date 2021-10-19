@@ -51,10 +51,10 @@ _**URGENT + Fundamental**_
 
 ====================================================================================================
 RECENTly done and pushed
-    - Set up the whole RBTree  @Juren
-        - tested search, set up with kev
-    - pushed Tokenizer, Parser  @kev
-    - Firebase Like & delete @Cathy     (and tested 10/19)
-        - revised layout 
-    - Like, +some UI views @Kyle
+* Set up the whole RBTree  @Juren
+    * tested search, set up with kev
+* pushed Tokenizer, Parser  @kev
+* Firebase Like & delete @Cathy     (and tested 10/19)
+    * revised layout 
+* Like, +some UI views @Kyle
     
