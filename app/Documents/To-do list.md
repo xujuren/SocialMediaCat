@@ -6,34 +6,38 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 
 
 _**URGENT + Fundamental**_
+| Task | header | By |
+| ------ | ------ | ------ |
+| **MEDIUM FEATURE** | (or Hard/Very Hard also ok). Choose & implement the feature | **TBC** |
+| cell | cell | cell |
 
-**MEDIUM FEATURE (or Hard/Very Hard also ok) **                              @[  ]
-* Feature: Choose & implement the feature
 
 **Bugs / incompleted new functions**
-* currentPost UI: scroll up/down to see posts will also get directed into current Post @[*****]
-    * Like UI: didn't change  count change at view (only +once but implemented multiple times)
-    * delete UI: (1) didnt leave @Current Post, can press again and "Post deleted" (2) use default "last page" at android  
-    
-* delete: didn't check USER
-* both: >> implement the RBTree
-* search > tok par > show result
 
-**Overall workflow(UI-to-process)**
-* Local Data structure: change everything into using RBTree !
+| Task | header | By |
+| ------ | ------ | ------ |
+| **currentPostUI** | scroll up/down to see posts will also get directed into current Post | **TBC** |
+|  | * is it fine to add postId here? | " |
+|  | * Like UI: didn't change count change at view after +1 (only +once but implemented multiple times) | " |
+|  | * delete UI: (1) may be can force it to leave the current post, so that they can't can press again and "Post deleted" shown again, and also avoid the problem: didnt update if user use default "last page" buttom  | " |
+| **delete** | didn't check USER | **TBC** |
+| Data Structure | change everything into using RBTree ! | **TBC** |
+| Search function | to be completed (i.e. search > tok par > show result works in UI) | **TBC** |
+| **Layout (Issue in many parts)** | try to use a different emulator size, things get messed up in many places | **TBC** |
 
-**Minor &  2nd Urgent**
 
-* **data instances** for delete & like ......
+**2nd Urgent, Minor**
 
-**Revise UI (minor revisions) ** (write down which part/parts/all that you are changing)
-* ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class
-    * now BUG here .... REMOVE if n/a by Thursday morning       [@Cathy]
-* AppActivity: design it so that things could be placed into fragments?
-* logIn > main screen, with Create Account button, remove forgetPassword activity & layout       [@Cathy]
-* Current Post: size out of bound, and layout can finetune  a bit
-* timeline: (long postId)     
-    
+| Task | header | By |
+| ------ | ------ | ------ |
+| **data instances** | for delete & like ...... | **TBC** |
+| **AppActivity** | design & change the whole thing (placed things into fragments if ok?) | **TBC** |
+| **data instances** | for delete & like ...... | **TBC** |
+| **UI design** | * ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class | **TBC** |
+| **UI design** | * ProfileActivity: now BUG here .... REMOVE if n/a by Thursday morning | **Cathy** |
+| **UI design** | * timeline: long postId problem | **Cathy** |
+
+ 
 **Checkings**
 * Check UI input's validation & warning messages, and bugs
 * layouts (different emulator sizes): e.g. currentpost out of boundary Pixel API 30  
@@ -55,6 +59,6 @@ RECENTly done and pushed
     * tested search, set up with kev
 * pushed Tokenizer, Parser  @kev
 * Firebase Like & delete @Cathy     (and tested 10/19)
-    * revised layout 
+    * Layout: logIn > main screen with Create Account button, remove forgetPassword activity, timeline (minor)
 * Like, +some UI views @Kyle
     
