@@ -4,26 +4,23 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 
 - If something cannot be fixed, can add to "list of known bugs" in report on Thu/Fri
 
-*** URGENT ***
+
+**URGENT + Fundamental**
+
 * MEDIUM FEATURE (or Hard/Very Hard also ok) *                                @[  ]
 
-* UI and workflow for everything works *
-    - ** Local Data structure: change everything into using RBTree ! **
-
-* Search bar's linkage with Tokenizer, Parser (to workable)
-    - i.e. search > tok par > show result
-
-
-*** URGENT - Bugs / incomplete functions ***
-
-* new functions
+* Bugs / incompleted new functions
     - currentPost: scroll up/down also get in Current Post 
     - Like: didn't change  count change at view (only +once but implemented multiple times)
     - delete UI: (1) didnt leave @Current Post, can press again and "Post deleted" (2) press "last" at android 
     - both: >> implement the RBTree
+    - search > tok par > show result
+
+* UI and workflow for everything works *
+    - ** Local Data structure: change everything into using RBTree ! **
 
 
-*** Minor &  2nd Urgent ***
+**Minor &  2nd Urgent**
 
 * now also need data instances for delete & like......
 
