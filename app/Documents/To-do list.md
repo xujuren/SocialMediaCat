@@ -15,7 +15,7 @@ _**URGENT + Fundamental**_
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **currentPostUI** | scroll up/down to see posts will also get directed into current Post<br /> is it fine to add postId here? <br /> Like UI: didn't change count change at view after +1 (only +once but implemented multiple times) <br />  delete UI: (1) may be can force it to leave the current post, so that they can't can press again and "Post deleted" shown again, and also avoid the problem: didnt update if user use default "last page" buttom | **TBC** |
+| **currentPostUI** | scroll up/down to see posts will also get directed into current Post<br /> is it fine to add postId here? <br /> Like UI: didn't show likeCount after +1 (only +once for >1 likes implemented) <br />  delete UI: (1) Suggestion: leave the current post after press delect, so that (1) they can't can press again ("Post deleted" shown again), and (2) avoid no update if user use default "last page" buttom to leave | **TBC** |
 | **delete** | didn't check USER | **TBC** |
 | Data Structure | change everything into using RBTree ! | **TBC** |
 | Search function | to be completed (i.e. search > tok par > show result works in UI) | **TBC** |
@@ -29,9 +29,8 @@ _**URGENT + Fundamental**_
 | **data instances** | for delete & like ...... | **TBC** |
 | **AppActivity** | design & change the whole thing (placed things into fragments if ok?) | **TBC** |
 | **data instances** | for delete & like ...... | **TBC** |
-| **UI design** | * ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class | **TBC** |
-| **UI design** | * ProfileActivity: now BUG here .... REMOVE if n/a by Thursday morning | **Cathy** |
-| **UI design** | * timeline: long postId problem | **Cathy** |
+| **UI design** | * ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class | **Cathy** |
+
 
  
 **Checkings(all parts)**
@@ -40,8 +39,7 @@ _**URGENT + Fundamental**_
 | ------ | ------ | ------ |
 | Check UI input's validation & warning messages, and bugs  |  | **TBC** |
 | layouts (different emulator sizes): e.g. currentpost out of boundary Pixel API 30    |  | **TBC** |
-| **testing** |  | **TBC** |
-
+| **testing** | **parser tokenizer, search** | **TBC** |
 
     
 
@@ -50,6 +48,7 @@ _**URGENT + Fundamental**_
 * 1000 data instances > from real data source
 * Screen 'tag' input after User Input, before Storing 
 * load fb
+* timeline: long postId problem (Suggested: show postId in CurrentPost, not timeline)
 
 
 
@@ -60,5 +59,6 @@ RECENTly done and pushed
 * pushed Tokenizer, Parser  @kev
 * Firebase Like & delete @Cathy     (and tested 10/19)
     * Layout: logIn > main screen with Create Account button, remove forgetPassword activity, timeline (minor)
+    * **ProfileActivity** now BUG here .... REMOVE if n/a by Thursday morning - solved
 * Like, +some UI views @Kyle
     
