@@ -122,7 +122,7 @@ public class ProfileActivity extends AppCompatActivity {
      * Confirm Button (Manage Profile)
      * @param v UI
      */
-    private void profileInput(View v) {
+    public void profileInput(View v) {
 
         // Read Input
         String newName = displayNameEdit.getText().toString();
@@ -154,10 +154,9 @@ public class ProfileActivity extends AppCompatActivity {
                     });
 
             // Update Data
-            dbRef.child("name").setValue(newName);
-            dbRef.child("displayName").setValue(newName);
-            dbRef.child("proPic").setValue(newProPic);
+            dbRef.child("userName").setValue(newName);
             dbRef.child("caption").setValue(newCaption);
+            dbRef.child("Location").setValue(newProPic);
 
             return;
 
