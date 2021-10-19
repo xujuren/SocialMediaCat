@@ -51,9 +51,66 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         initView();
-
         editProfile();
     }
+
+    /* set up views */
+    private void initView() {
+        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+        interestsLayout = (TextInputLayout) findViewById(R.id.profile_input_interests);
+        captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
+        userNameEdit = (EditText) findViewById(R.id.profile_input_displayName_text);
+        interestsEdit = (EditText) findViewById(R.id.profile_input_interests_text);
+        captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
+
+    }
+
+    /**
+     * Confirm Button (Manage Profile)
+     * @param v UI
+     */
+    public void profileInput(View v) {
+
+        // Read Input
+        String newName = userNameEdit.getText().toString().replace("\n", "");
+        String newInterests = interestsEdit.getText().toString().replace("\n", "");
+        String newCaption = captionEdit.getText().toString().replace("\n", "");
+
+        if (TextUtils.isEmpty(newName)) {newName = currentUserName;}
+        if (TextUtils.isEmpty(newInterests)) {newInterests = currentInterests;}
+        if (TextUtils.isEmpty(newCaption)) {newCaption = currentCaption;}
+
+        // ignore if all input fields are either empty or same as current
+        if (!(newName.equals(currentUserName) && newInterests.equals(currentInterests) && newCaption.equals(currentCaption))){
+            // Update user profile
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(newName)
+                    .setPhotoUri(Uri.parse(newInterests))
+                    .build();
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User profile updated.");
+                                Toast.makeText(ProfileActivity.this, "Your profile has been updated!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+            // Update Data
+            dbRef.child("userName").setValue(newName);
+            dbRef.child("caption").setValue(newCaption);
+            dbRef.child("interests").setValue(newInterests);
+
+            return;
+
+        } else {
+            Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     /**
      * edit profile related actions
@@ -113,63 +170,6 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             finish();   // exceptional case
         }
-    }
-
-
-    /**
-     * Confirm Button (Manage Profile)
-     * @param v UI
-     */
-    public void profileInput(View v) {
-
-        // Read Input
-        String newName = userNameEdit.getText().toString().replace("\n", "");
-        String newInterests = interestsEdit.getText().toString().replace("\n", "");
-        String newCaption = captionEdit.getText().toString().replace("\n", "");
-
-        if (TextUtils.isEmpty(newName)) {newName = currentUserName;}
-        if (TextUtils.isEmpty(newInterests)) {newInterests = currentInterests;}
-        if (TextUtils.isEmpty(newCaption)) {newCaption = currentCaption;}
-
-        // ignore if all input fields are either empty or same as current
-        if (!(newName.equals(currentUserName) && newInterests.equals(currentInterests) && newCaption.equals(currentCaption))){
-            // Update user profile
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(newName)
-                    .setPhotoUri(Uri.parse(newInterests))
-                    .build();
-            user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "User profile updated.");
-                                Toast.makeText(ProfileActivity.this, "Your profile has been updated!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-            // Update Data
-            dbRef.child("userName").setValue(newName);
-            dbRef.child("caption").setValue(newCaption);
-            dbRef.child("interests").setValue(newInterests);
-
-            return;
-
-        } else {
-            Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void initView() {
-        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
-        interestsLayout = (TextInputLayout) findViewById(R.id.profile_input_interests);
-        captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
-        userNameEdit = (EditText) findViewById(R.id.profile_input_displayName_text);
-        interestsEdit = (EditText) findViewById(R.id.profile_input_interests_text);
-        captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
-
     }
 
 

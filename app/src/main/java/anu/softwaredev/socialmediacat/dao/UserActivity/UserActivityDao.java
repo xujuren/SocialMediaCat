@@ -9,7 +9,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +40,6 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
     private static DatabaseReference dbRef;
-    private static List<Post> allPosts;
     private static UserActivityDao instance;        // Singleton instance for UserActivityDao
     private static File file;                       // temporary file
     static {
@@ -47,6 +49,7 @@ public class UserActivityDao implements IUserActivityDao {
             e.printStackTrace();
         }
     }
+
 
     // Singleton
     private UserActivityDao() {this.deleteAll();};
@@ -117,31 +120,7 @@ public class UserActivityDao implements IUserActivityDao {
             } catch (IOException e) { e.printStackTrace(); }
         }
 
-        // Firebase TODO (FROM)
-//        dbRef = FirebaseDatabase.getInstance().getReference().child("Posts");
-//        ChildEventListener listener = new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                Post newPost = snapshot.getValue(Post.class);
-//                allPosts.add(newPost);
-//            }
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//            }
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//                Integer postId = Integer.parseInt(snapshot.getKey());
-//            }
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) { }
-//        };
-//        dbRef.addChildEventListener(listener);
-
-
     }
-
 
     @Override
     public void likePost(String userId, String postId) {

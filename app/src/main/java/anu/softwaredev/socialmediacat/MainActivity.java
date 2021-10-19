@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import anu.softwaredev.socialmediacat.Util.AssetHandler;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 public class MainActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+
+        // TODO
+        // UserActivityDao.getInstance().getNameFromDb("uPY7ZZESLPPs9uqkofx6Gwb0gGI3");
+
+
     }
 
 
