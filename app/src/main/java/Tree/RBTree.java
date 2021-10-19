@@ -35,7 +35,7 @@ public class RBTree<T extends Comparable<T>> {
      * @param key
      */
     public void insert(T key) {
-        System.out.println("Insert[" + key + "]:");
+        // System.out.println("Insert[" + key + "]:");
         RBTreeNode<T> node=new RBTreeNode<T>(key, BLACK,null,null,null);
         if (node != null)
             insert(node);
@@ -46,7 +46,7 @@ public class RBTree<T extends Comparable<T>> {
      * @param key
      */
     public void insert(T key, Post post) {
-        System.out.println("Insert[" + key + "]:");
+        // System.out.println("Insert[" + key + "]:");
         RBTreeNode<T> node=new RBTreeNode<T>(key, BLACK,null,null,null, post);
         if (node != null)
             insert(node, post);

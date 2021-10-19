@@ -3,6 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +35,6 @@ public class TimelineActivity extends AppCompatActivity {
 
     RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
 
-
     /**
      * integrated search , final version
      * @param search : input string
@@ -44,27 +44,24 @@ public class TimelineActivity extends AppCompatActivity {
         ArrayList<Post> postsToShow = new ArrayList<>();
         String tagToSearch = "";
         String postIDToSearch = "";
-
         System.out.println(search);
-        // tokenize
+        // Tokenize, Parse
         Tokenizer tokenizer = new Tokenizer(search);
         Parser parser = new Parser(tokenizer);
-        if (parser.getTag()==null){
-            System.out.println("no Tag"); //show purpose
-        }else {
+        if (parser.getTag()==null) {
+            System.out.println("no Tag");               //show purpose
+        } else {
             System.out.println(parser.getTag().show());
             tagToSearch = parser.getTag().show();
         }
-
         if (parser.getPostId()==null){
-            System.out.println("no postId"); //show purpose
-        }else {
+            System.out.println("no postId");            //show purpose
+        } else {
             System.out.println(parser.getPostId().show());
             postIDToSearch = parser.getPostId().show();
         }
-
         if (tagToSearch.equals("") && !postIDToSearch.equals("")){
-            //only postid to search
+            // only postid to search
             postsToShow.add(Global_Data.getInstance().searchById(postIDToSearch)) ;
         } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
             //only tag to search
@@ -95,31 +92,27 @@ public class TimelineActivity extends AppCompatActivity {
             actionBar.hide();
         }
         // Set Up timeline view and data
-        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);                        // Timeline
-        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), Global_Data.getInstance().toList());        // Adapter to Data
+        RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
+        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), Global_Data.getInstance().toList());
         rvTimeline.setAdapter(timelineAdapter);
-        rvTimeline.setLayoutManager(new LinearLayoutManager(this));                              // Linear timeline (more spaces for information)
+        rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));         // Grid layout timeline
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
 
 
-
         //TODO 添加search方法
-      Button searchBt = (Button) findViewById(R.id.SearchButton);
+        Button searchBt = (Button) findViewById(R.id.SearchButton);
         EditText searchEdit = (EditText) findViewById(R.id.editTextTextPersonName);
         searchBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String search = searchEdit.getText().toString();
                 System.out.println(search);
                 List<Post> postsResult = searchAll(search);
                 System.out.println("number: " + postsResult.size());
-                for (Post post:postsResult
-                     ) {
+                for (Post post:postsResult) {
                     System.out.println(post);
                 }
-                // postsResult to display as result
-
+                // TODO - postsResult to display as result
 
             }
         });
@@ -151,7 +144,7 @@ public class TimelineActivity extends AppCompatActivity {
             public void onTouchEvent(RecyclerView rv, MotionEvent e) {
 
             }
-
+            // TODO - is here the method scroll up/down also considered choosing apost?
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
                 if (gestureDetector.onTouchEvent(e)) {
