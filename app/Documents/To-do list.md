@@ -1,54 +1,59 @@
 ** To-Do List **
-Pls Add item/make updates here 
-Add your Name to the item - so that we won't crash (and also remove/update status if needed)
+Pls Add/update items and Bugs
+Add your **Name** to the items (except =your original tasks) to avoid crash     (and also remove/update status)
+
+- If something cannot be fixed, can add to "list of known bugs" in report on Thu/Fri
 
 *** URGENT ***
-* 1. MEDIUM FEATURE (or Hard/Very Hard also ok) *                       @[  ]
+* MEDIUM FEATURE (or Hard/Very Hard also ok) *                                @[  ]
 
-* 2. UI and workflow for everything works *
+* UI and workflow for everything works *
     - ** Local Data structure: change everything into using RBTree ! **
 
-* 3. Search bar's linkage with Tokenizer, Parser (to workable)
+* Search bar's linkage with Tokenizer, Parser (to workable)
+    - i.e. search > tok par > show result
 
-* 4. now also need data instances for delete & like...
 
-
-*** Bugs ***
+*** URGENT - Bugs / incomplete functions ***
 
 * new functions
-    - Like: didn't should count change at view (only once), scroll up/down also get in Current Post 
-    - delete: didnt change user
+    - currentPost: scroll up/down also get in Current Post 
+    - Like: didn't change  count change at view (only +once but implemented multiple times)
+    - delete UI: (1) didnt leave @Current Post, can press again and "Post deleted" (2) press "last" at android 
     - both: >> implement the RBTree
-    - firebase like & post   (pushed, not yet test)
-
-* firebase should also need load ...                @Cathy
 
 
-* Minor items that affect many different places 
+*** Minor &  2nd Urgent ***
+
+* now also need data instances for delete & like......
+
+* Revise UI (minor revisions) * (write down which part/parts/all that you are changing)
     - ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class
-
-
-*** Minor but can be tedious ***
-
-* 4. Revise UI (minor revisions) * (write down which part/parts/all that you are changing)
     - AppActivity: design it so that things could be placed into fragments?
     - logIn > main screen, with Create Account button, remove forgetPassword activity & layout
-    - can finetune Current Post a bit
+    - Current Post: size out of bound, and layout can finetune  a bit
+    - timeline: (long postId)     
     
-* 5. Checkings
+* Checkings
     - Check UI input's validation & warning messages, and bugs
     - layouts (different emulator sizes): e.g. currentpost out of boundary Pixel API 30  
    
     
 
 ** Not Urgent and Optional **
+
 * 1000 data instances > from real data source
 * Screen 'tag' input after User Input, before Storing 
+* firebase load @Cathy
+
 
 
 ====================================================================================================
 RECENTly done and pushed
     - Set up the whole RBTree  @Juren
+        - tested search, set up with kev
     - pushed Tokenizer, Parser  @kev
-    - Firebase Like & delete @Cathy
-    - Like, +UI views @Kyle
+    - Firebase Like & delete @Cathy     (and tested 10/19)
+        - revised layout 
+    - Like, +some UI views @Kyle
+    
