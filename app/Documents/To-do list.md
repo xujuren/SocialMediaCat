@@ -26,6 +26,7 @@ _**URGENT + Fundamental**_
 
 **Revise UI (minor revisions) ** (write down which part/parts/all that you are changing)
 * ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class
+    * now BUG here .... REMOVE if n/a by Thursday morning       [@Cathy]
 * AppActivity: design it so that things could be placed into fragments?
 * logIn > main screen, with Create Account button, remove forgetPassword activity & layout
 * Current Post: size out of bound, and layout can finetune  a bit
