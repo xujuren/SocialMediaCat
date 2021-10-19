@@ -2,7 +2,7 @@
 Pls Add/update items and Bugs
 Add your **Name** to the items (except =your original tasks) to avoid crash     (and also remove/update status)
 
-- If something cannot be fixed, can add to "list of known bugs" in report on Thu/Fri
+- If something cannot be fixed or don't want to fix it, can add to "list of known bugs" in report on Thu/Fri
 
 
 _**URGENT + Fundamental**_
@@ -10,9 +10,10 @@ _**URGENT + Fundamental**_
 **MEDIUM FEATURE (or Hard/Very Hard also ok) **                              @[  ]
 
 **Bugs / incompleted new functions**
-* currentPost: scroll up/down also get in Current Post 
-* Like: didn't change  count change at view (only +once but implemented multiple times)
-* delete UI: (1) didnt leave @Current Post, can press again and "Post deleted" (2) press "last" at android 
+* currentPost UI: scroll up/down to see posts will also get directed into current Post 
+    * Like UI: didn't change  count change at view (only +once but implemented multiple times)
+    * delete UI: (1) didnt leave @Current Post, can press again and "Post deleted" (2) use default "last page" at android 
+* delete: didn't check USER
 * both: >> implement the RBTree
 * search > tok par > show result
 
@@ -41,7 +42,7 @@ _**URGENT + Fundamental**_
 
 * 1000 data instances > from real data source
 * Screen 'tag' input after User Input, before Storing 
-* firebase load @Cathy
+* load fb
 
 
 
