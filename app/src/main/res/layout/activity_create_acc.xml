@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8FF8F4CF"
+    android:background="#8FFFFFFF"
     tools:context=".CreateAccActivity">
 
     <TextView
@@ -13,8 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Create Account"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#0066A6"
+        android:textSize="32sp"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,9 +30,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:hint="Enter e-mail address (as Login account)"
+        android:hint="Enter E-mail address (as Login account)"
         android:textColor="#490404"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_create_acc_intro">
@@ -42,7 +45,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:textColor="#450606"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -56,10 +59,10 @@
         android:hint="Enter a password"
         android:textColor="#490404"
         android:textSize="18sp"
-        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAcc_input_layout">
+        app:layout_constraintTop_toBottomOf="@+id/createAcc_input_layout"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/createAcc_input_pw_text"
@@ -68,9 +71,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
+            android:inputType="textPassword"
             android:textColor="#450606"
-            android:textSize="18sp"
-            android:inputType="textPassword" />
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -84,10 +87,10 @@
         android:hint="Confirm password"
         android:textColor="#490404"
         android:textSize="18sp"
-        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAcc_input_pw_layout">
+        app:layout_constraintTop_toBottomOf="@+id/createAcc_input_pw_layout"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/createAcc_input_pw2_text"
@@ -96,96 +99,99 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
+            android:inputType="textPassword"
             android:textColor="#450606"
-            android:textSize="18sp"
-            android:inputType="textPassword" />
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--    <EditText-->
-<!--        android:id="@+id/input_email_createacc"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:backgroundTint="#009688"-->
-<!--        android:hint="Input Your Email Address"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:shadowColor="@color/white"-->
-<!--        android:textColor="#2196F3"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_create_acc_intro" />-->
+    <!--        android:id="@+id/input_email_createacc"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="10dp"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:backgroundTint="#009688"-->
+    <!--        android:hint="Input Your Email Address"-->
+    <!--        android:inputType="textPersonName"-->
+    <!--        android:shadowColor="@color/white"-->
+    <!--        android:textColor="#2196F3"-->
+    <!--        android:textSize="16sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/tv_create_acc_intro" />-->
 
-<!--    <EditText-->
-<!--        android:id="@+id/input_pw1_createacc"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:backgroundTint="#009688"-->
-<!--        android:hint="Set Your Password"-->
-<!--        android:inputType="textPassword"-->
-<!--        android:shadowColor="@color/white"-->
-<!--        android:textColor="#2196F3"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/input_email_createacc" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/input_pw1_createacc"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="10dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:backgroundTint="#009688"-->
+    <!--        android:hint="Set Your Password"-->
+    <!--        android:inputType="textPassword"-->
+    <!--        android:shadowColor="@color/white"-->
+    <!--        android:textColor="#2196F3"-->
+    <!--        android:textSize="16sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.497"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/input_email_createacc" />-->
 
-<!--    <EditText-->
-<!--        android:id="@+id/input_pw2_createacc"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:backgroundTint="#009688"-->
-<!--        android:hint="Input your Password again"-->
-<!--        android:inputType="textPassword"-->
-<!--        android:shadowColor="@color/white"-->
-<!--        android:textColor="#2196F3"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.474"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/input_pw1_createacc" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/input_pw2_createacc"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="10dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:backgroundTint="#009688"-->
+    <!--        android:hint="Input your Password again"-->
+    <!--        android:inputType="textPassword"-->
+    <!--        android:shadowColor="@color/white"-->
+    <!--        android:textColor="#2196F3"-->
+    <!--        android:textSize="16sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.474"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/input_pw1_createacc" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textView2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="150dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:layout_marginBottom="150dp"-->
-<!--        android:text="Password Requirement: alphanumeric characters of length 8"-->
-<!--        android:textSize="12sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.492"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/Create_Acc_button" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="8dp"-->
+    <!--        android:layout_marginTop="150dp"-->
+    <!--        android:layout_marginEnd="8dp"-->
+    <!--        android:layout_marginBottom="150dp"-->
+    <!--        android:text="Password Requirement: alphanumeric characters of length 8"-->
+    <!--        android:textSize="12sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.492"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/Create_Acc_button" />-->
 
     <Button
         android:id="@+id/Create_Acc_Bt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="#2196F3"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="250dp"
+        android:backgroundTint="#1764A1"
         android:onClick="signUpOnClick"
         android:text="Confirm"
+        android:textColor="#D9EAF8"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAcc_input_pw_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/createAcc_input_pw2_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
