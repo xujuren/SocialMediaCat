@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-
     <TextView
         android:id="@+id/tv_manage_profile_intro"
         android:layout_width="wrap_content"
@@ -51,7 +50,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="Set your profile picture: Enter a link"
+        android:hint="Input your interests"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +76,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:hint="Set your caption"
+        android:hint="Create a caption!"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

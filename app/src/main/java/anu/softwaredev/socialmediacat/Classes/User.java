@@ -4,30 +4,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** The model class that stores a User's information in this App*/
+
 public class User {
     private String uId;
     private String emailAddress;
     private String userName = "";
     private String caption = "";
-    private String proPicLink = "";     // TODO - CHANGE into another field, and change ProfileActivity
+    private String interests = "";
 
-    // Constructors
+    /* Constructors */
     public User(String uId, String emailAddress) {
         this.uId = uId;
         this.emailAddress = emailAddress;
     }
 
-    public User(String uId, String emailAddress, String userName, String caption, String proPicLink) {
+    public User(String uId, String emailAddress, String userName, String caption, String interests) {
         this.uId = uId;
         this.emailAddress = emailAddress;
         this.userName = userName;
         this.caption = caption;
-        this.proPicLink = proPicLink;
+        this.interests = interests;
     }
 
-
-    /** Getters */
+    /* Getters */
     public String getUid(){return uId;}
+    public String getEmailAddress(){return emailAddress;}
+    public String getUserName(){return userName;}
+    public String getCaption(){return caption;}
+    public String getInterests(){return interests;}
+
+    /* Setters */
+    public String setUid(){return uId;}
+    public String setEmailAddress(){return emailAddress;}
+    public String setUserName(){return userName;}
+    public String setCaption(){return caption;}
+    public String setInterests(){return interests;}
 
 
     /**
@@ -40,7 +51,7 @@ public class User {
         result.put("userName", userName);
         result.put("emailAddress", emailAddress);
         result.put("caption", caption);
-        result.put("proPicLink", proPicLink);
+        result.put("interests", interests);
         return result;
     }
 
