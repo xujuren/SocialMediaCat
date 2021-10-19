@@ -122,9 +122,9 @@ public class ProfileActivity extends AppCompatActivity {
     public void profileInput(View v) {
 
         // Read Input
-        String newName = userNameEdit.getText().toString();
-        String newInterests = interestsEdit.getText().toString();
-        String newCaption = captionEdit.getText().toString();
+        String newName = userNameEdit.getText().toString().replace("\n", "");
+        String newInterests = interestsEdit.getText().toString().replace("\n", "");
+        String newCaption = captionEdit.getText().toString().replace("\n", "");
 
         if (TextUtils.isEmpty(newName)) {newName = currentUserName;}
         if (TextUtils.isEmpty(newInterests)) {newInterests = currentInterests;}
