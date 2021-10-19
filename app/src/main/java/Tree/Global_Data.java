@@ -22,8 +22,8 @@ public class Global_Data {
     }
 
 
-    public void insert(String tag, Post post) {
-        data.insert(tag, post);
+    public void insert(Post post) {
+        data.insert(post.getTag(), post);
     }
 
     public void delete(Post post) {
@@ -65,7 +65,7 @@ public class Global_Data {
         RBTreeNode<String> node = data.find(tag);
         if (node == null)
             return new LinkedList<Post>();
-        return node.getPostsTree().treeToListInorder(node.getPostsTree().root);
+        return node.postsTree.treeToListInorder(node.postsTree.root);
     }
 
     public Post search(String tag, String PostId) {

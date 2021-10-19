@@ -9,7 +9,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +40,6 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
     private static DatabaseReference dbRef;
-    private static List<Post> allPosts;
     private static UserActivityDao instance;        // Singleton instance for UserActivityDao
     private static File file;                       // temporary file
     static {
@@ -48,12 +50,13 @@ public class UserActivityDao implements IUserActivityDao {
         }
     }
 
+
     // Singleton
     private UserActivityDao() {this.deleteAll();};
     public static UserActivityDao getInstance(){
         if (instance == null) {
             instance = new UserActivityDao();
-            dbRef = FirebaseDatabase.getInstance().getReference("Posts");
+            dbRef = FirebaseDatabase.getInstance().getReference();
         }
         return instance;
     }
@@ -88,7 +91,7 @@ public class UserActivityDao implements IUserActivityDao {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }
-            System.out.println("Post saved in " + file.getAbsolutePath());
+            System.out.println("Post created saved in " + file.getAbsolutePath());
 
         } catch (IOException e) { e.printStackTrace(); }
 
@@ -99,39 +102,23 @@ public class UserActivityDao implements IUserActivityDao {
     public void loadPost(List<Post> posts) {
 
         for (Post post : posts){
+
+            // Update firebase DB
+            Map<String, Object> postValues = post.toMap();
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/Posts/" + post.getPostId(), postValues);
+            dbRef.updateChildren(childUpdates);
+
             // write to file
             try {
                 String text = "store-post" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
                 }
-                System.out.println("Post saved in " + file.getAbsolutePath());
+                System.out.println("Post loaded to " + file.getAbsolutePath());
 
             } catch (IOException e) { e.printStackTrace(); }
         }
-
-        // Firebase TODO
-//        dbRef = FirebaseDatabase.getInstance().getReference().child("Posts");
-//        ChildEventListener listener = new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                Post newPost = snapshot.getValue(Post.class);
-//                allPosts.add(newPost);
-//            }
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//            }
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//                Integer postId = Integer.parseInt(snapshot.getKey());
-//            }
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) { }
-//        };
-//        dbRef.addChildEventListener(listener);
-
 
     }
 
@@ -139,15 +126,12 @@ public class UserActivityDao implements IUserActivityDao {
     public void likePost(String userId, String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
-        dbRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-        dbRef.updateChildren(updates);
+        dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
     @Override
     public void deletePost(String postId) {
-        // firebase DB
-        dbRef = FirebaseDatabase.getInstance().getReference("Posts");
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener(){
+        dbRef.child("Posts").addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -156,9 +140,10 @@ public class UserActivityDao implements IUserActivityDao {
                     }
                 }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.toString());
+            }
         });
     }
 
@@ -176,9 +161,10 @@ public class UserActivityDao implements IUserActivityDao {
                 for (String line : lines) {
                     String[] items = line.split(";");
                     if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "store-post".equals(items[0]) )) {  //
-                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
+//                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
+                        Post post = new Post(items[1], "random", items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
                         postsLoaded.add(post);
-                        Global_Data.getInstance().insert(post.getTag(), post);
+                        Global_Data.getInstance().insert(post);
                     }
                 }
             }
@@ -189,8 +175,20 @@ public class UserActivityDao implements IUserActivityDao {
 //            }
 
         } catch (IOException e) { e.printStackTrace(); }
+
+        /** TODO
+         * For test, need to delete
+         */
+        System.out.println("============================================Check data========================================");
+        Global_Data.getInstance().getData().find("random").getPostsTree().inorderPrint(Global_Data.getInstance().getData().find("random").getPostsTree().root);
         return postsLoaded;
     }
+
+//    public void testData(){
+//        for (int i = 0; i < 10; i++) {
+//            Post post = new Post("u" + i, "random", "u" + i, "u" + i, i, i);
+//        }
+//    }
 
 
     @Override

@@ -33,7 +33,6 @@ public class CurrentPost extends AppCompatActivity {
         int photoId = intent.getIntExtra("photoId",0);
         int likeCount = intent.getIntExtra("likeCount",0);
         currentPost = new Post(uid, tag, postId, content, photoId, likeCount);
-
         CharSequence likes = "Like: " + currentPost.getLikeCount();
 
         ImageView image = (ImageView) findViewById(R.id.imageView);
@@ -41,6 +40,8 @@ public class CurrentPost extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(image);
+
+        // TODO - hi kyle, (if you will change the layout) can you also + postId here?
         TextView contentv = (TextView) findViewById(R.id.titleTextView);
         contentv.setText((CharSequence)currentPost.getContent());
         contentv.setTextSize(32f);

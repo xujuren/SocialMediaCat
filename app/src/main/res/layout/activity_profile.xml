@@ -6,25 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-
     <TextView
         android:id="@+id/tv_manage_profile_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Manage your Profile"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#0066A6"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profile_input_displayName"
+        android:id="@+id/profile_input_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
         android:hint="Set your display name"
         android:textColor="#490404"
         android:textSize="18sp"
@@ -45,21 +48,21 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profile_input_proPic"
+        android:id="@+id/profile_input_interests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="Set your profile picture: Enter a link"
+        android:hint="Input your interests"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_input_displayName">
+        app:layout_constraintTop_toBottomOf="@+id/profile_input_userName">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profile_input_proPic_text"
+            android:id="@+id/profile_input_interests_text"
             android:layout_width="380dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -77,12 +80,12 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:hint="Set your caption"
+        android:hint="Create a caption!"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_input_proPic">
+        app:layout_constraintTop_toBottomOf="@+id/profile_input_interests">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/profile_input_caption_text"
@@ -98,11 +101,11 @@
     <Button
         android:id="@+id/Confirm_Profile_Bt"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60sp"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#2196F3"
+        android:backgroundTint="#0066A6"
         android:onClick="profileInput"
-        android:text="Confirm Input and/or changes"
+        android:text="Confirm Updates"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

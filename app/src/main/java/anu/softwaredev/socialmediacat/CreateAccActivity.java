@@ -24,7 +24,6 @@ import anu.softwaredev.socialmediacat.Classes.User;
 
 public class CreateAccActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private String email;
     private String pw;
     private EditText accEdit;

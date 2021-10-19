@@ -1,5 +1,7 @@
 package anu.softwaredev.socialmediacat;
+
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,12 +20,8 @@ import com.bumptech.glide.request.RequestOptions;
 /** Adapter for the Timeline displayed to Users */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
     private final Context ctx;                  // Interface to global information about an application environment
-
-    public List<Post> getDataset() {
-        return dataset;
-    }
-
     private final List<Post> dataset;
+    public List<Post> getDataset() {return dataset; }
 
     public TimelineAdapter(Context ctx, List<Post> dataset) {
         this.ctx = ctx;
@@ -43,23 +41,17 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         return new TimelineViewHolder(view);
     }
 
+    /* Set up timeline */
     @Override
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
         if (dataset != null) {
-            String user = dataset.get(position).getUId();
-            //TODO n
-
-
-            // setup for holder
-            holder.getPostUsername().setText("@"+user);
+            holder.getPostUsername().setText("@"+dataset.get(position).getUId());
             holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent().substring(1, dataset.get(position).getContent().length()-1));
             holder.getCategoryPostId().setText(dataset.get(position).getPostId());
             holder.getLikes().setText(String.valueOf(dataset.get(position).getLikeCount()) + " likes");
-
-            // Load Image
-            int photoId = dataset.get(position).getPhotoId();
+            int photoId = dataset.get(position).getPhotoId();       // Load Image
             Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)       	// not cached
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .skipMemoryCache(true)
                     .into(holder.getPostImage());
         }
@@ -68,8 +60,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
     @Override
     public int getItemCount() {
-        return dataset.size();
-    }                              // no. of items we hv
+        return dataset.size();                             // no. of items we hv
+    }
+
 
 
     /** Create TimelineViewHolder, add Fields and match by findViews */
