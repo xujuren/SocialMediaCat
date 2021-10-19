@@ -4,9 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,14 +13,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Search.Parser;
 import anu.softwaredev.socialmediacat.Search.Tokenizer;
-import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +25,6 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
-
     RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
 
     /**
@@ -125,7 +117,7 @@ public class TimelineActivity extends AppCompatActivity {
                 if (childView != null) {
                     int position = rvTimeline.getChildLayoutPosition(childView);
                     Post ClickPost = timelineAdapter.getDataset().get(position);
-                    Intent intent = new Intent(TimelineActivity.this,CurrentPost.class);
+                    Intent intent = new Intent(TimelineActivity.this, CurrentPost.class);
                     intent.putExtra("uId",ClickPost.getUId());
                     intent.putExtra("tag",ClickPost.getTag());
                     intent.putExtra("postId",ClickPost.getPostId());

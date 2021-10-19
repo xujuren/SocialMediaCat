@@ -197,7 +197,7 @@ public class UserActivityDao implements IUserActivityDao {
 
         } catch (IOException e) { e.printStackTrace(); }
 
-        /**
+        /** TODO
          * For test, need to delete
          */
         System.out.println("============================================Check data========================================");
