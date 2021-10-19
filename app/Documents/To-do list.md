@@ -17,7 +17,7 @@ _**URGENT + Fundamental**_
 * both: >> implement the RBTree
 * search > tok par > show result
 
-**UI and workflow for everything works ***
+**Overall workflow(UI-to-process)**
 * Local Data structure: change everything into using RBTree !
 
 
