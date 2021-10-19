@@ -39,7 +39,7 @@ public abstract class AssetHandler {
         return createPostActs;
     }
 
-    //  TODO  + LIKES if added
+
     // (1) create posts
     public static List<UserActivity> createPostsFromDataInstances(List<UserActivity> userActs) {
         List<UserActivity> createPostActs = new ArrayList<>();
@@ -57,14 +57,9 @@ public abstract class AssetHandler {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
             int i=0;
-            int j=0;
             @Override
             public void run() {
-
-                // DUMMY Can't
-                if (false) {
-                    UserActivityDao.getInstance().createPostForTesting("u00", "#test", "testPostId123", "hi, try it;", 50);
-                } else if (i <size) {
+                if (i <size) {
                     UserActivity act = data.get(i);
                     UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
                 }

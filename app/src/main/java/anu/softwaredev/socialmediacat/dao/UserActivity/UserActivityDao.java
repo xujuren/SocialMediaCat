@@ -88,40 +88,7 @@ public class UserActivityDao implements IUserActivityDao {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }
-            System.out.println("Post saved in " + file.getAbsolutePath());
-
-        } catch (IOException e) { e.printStackTrace(); }
-
-    }
-
-    // postId = "testPostId123"
-    public void createPostForTesting(String uId, String tag, String postId, String content, int photoId) {
-        try {
-
-            // dummy
-            if (photoId==-1 || photoId<20 || photoId>100) {photoId = 50;}
-
-            // Check invalid characters in tag (empty if invalid)
-            if (tag.contains(",") || tag.contains(";")) {tag="";}
-
-            // Check invalid characters in content (remove inner "'s)
-            String contentText = content.substring(1, content.length()-1);
-            contentText.replaceAll("\"", "");
-
-            // Update firebase DB
-            // TODO postId
-            Post newPost = new Post(uId, tag, postId, content, photoId);
-            Map<String, Object> postValues = newPost.toMap();
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/Posts/" + postId+"/", postValues);
-            dbRef.updateChildren(childUpdates);
-
-            // write to file                  // post
-            String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
-            }
-            System.out.println("Post saved in " + file.getAbsolutePath());
+            System.out.println("Post created saved in " + file.getAbsolutePath());
 
         } catch (IOException e) { e.printStackTrace(); }
 
@@ -132,18 +99,25 @@ public class UserActivityDao implements IUserActivityDao {
     public void loadPost(List<Post> posts) {
 
         for (Post post : posts){
+
+            // Update firebase DB
+            Map<String, Object> postValues = post.toMap();
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/Posts/" + post.getPostId(), postValues);
+            dbRef.updateChildren(childUpdates);
+
             // write to file
             try {
                 String text = "store-post" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
                 }
-                System.out.println("Post saved in " + file.getAbsolutePath());
+                System.out.println("Post loaded to " + file.getAbsolutePath());
 
             } catch (IOException e) { e.printStackTrace(); }
         }
 
-        // Firebase TODO
+        // Firebase TODO (FROM)
 //        dbRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 //        ChildEventListener listener = new ChildEventListener() {
 //            @Override
@@ -168,17 +142,17 @@ public class UserActivityDao implements IUserActivityDao {
 
     }
 
+
     @Override
     public void likePost(String userId, String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
-        dbRef.child(postId).updateChildren(updates);
+        dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
     @Override
     public void deletePost(String postId) {
-        // firebase DB
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener(){
+        dbRef.child("Posts").addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -187,9 +161,10 @@ public class UserActivityDao implements IUserActivityDao {
                     }
                 }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.toString());
+            }
         });
     }
 
