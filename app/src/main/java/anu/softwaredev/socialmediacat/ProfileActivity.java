@@ -31,13 +31,13 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference dbRef;
     private String currentUserName;
-    private String currentProPic;
+    private String currentInterests;
     private String currentCaption;
     TextInputLayout userNameLayout ;
-    TextInputLayout proPicLayout ;
+    TextInputLayout interestsLayout;
     TextInputLayout captionLayout;
-    EditText displayNameEdit ;
-    EditText proPicEdit ;
+    EditText userNameEdit;
+    EditText interestsEdit;
     EditText captionEdit;
     public static final int ZERO = 0;
 
@@ -51,13 +51,14 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         initView();
-        editProfit();
+
+        editProfile();
     }
 
     /**
      * edit profile related actions
      */
-    private void editProfit() {
+    private void editProfile() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
@@ -67,9 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     // Create record
                     if (!snapshot.exists() || !snapshot.hasChildren()) {
-                        Toast.makeText(ProfileActivity.this, "(Setting up your profile ...)", Toast.LENGTH_LONG).show();
-                        User newUser = new User(user.getUid(), user.getEmail());                            // Set Up User
-
+                        User newUser = new User(user.getUid(), user.getEmail());
                         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
                         dbRef.child("Users").child(user.getUid()).setValue(newUser);
                     }
@@ -80,15 +79,14 @@ public class ProfileActivity extends AppCompatActivity {
                         switch (k) {
                             case "userName" :
                                 currentUserName = (String) ds.getValue();
-                                userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
+                                userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
                                 userNameLayout.setHint("Edit your User name [current: " + currentUserName + "]");
                                 continue;
-                            case "proPic":
-                                currentProPic = (String) (ds.getValue());
-                                if (currentProPic.length()==ZERO) continue;
-                                proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
-                                proPicLayout.setHint("Edit your profile picture [" + currentProPic + "]");
-                                // ToDo: show the PICTURE
+                            case "interests":
+                                currentInterests = (String) (ds.getValue());
+                                if (currentInterests.length()==ZERO) continue;
+                                interestsLayout = (TextInputLayout) findViewById(R.id.profile_input_interests);
+                                interestsLayout.setHint("Edit your profile picture [" + currentInterests + "]");
                                 continue;
                             case "caption":
                                 currentCaption = (String) (ds.getValue());
@@ -109,11 +107,10 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.w(TAG, "read failed (onCancelled)", error.toException());
                 }
             };
-
             dbRef.addValueEventListener(userListener);
 
         } else {
-            finish();   // Not signed in (unexpected case)
+            finish();   // exceptional case
         }
     }
 
@@ -125,22 +122,20 @@ public class ProfileActivity extends AppCompatActivity {
     public void profileInput(View v) {
 
         // Read Input
-        String newName = displayNameEdit.getText().toString();
-        String newProPic = proPicEdit.getText().toString();
+        String newName = userNameEdit.getText().toString();
+        String newInterests = interestsEdit.getText().toString();
         String newCaption = captionEdit.getText().toString();
 
         if (TextUtils.isEmpty(newName)) {newName = currentUserName;}
-        if (TextUtils.isEmpty(newProPic)) {newProPic = currentProPic;}
+        if (TextUtils.isEmpty(newInterests)) {newInterests = currentInterests;}
         if (TextUtils.isEmpty(newCaption)) {newCaption = currentCaption;}
 
         // ignore if all input fields are either empty or same as current
-        if (!(newName.equals(currentUserName) && newProPic.equals(currentProPic) && newCaption.equals(currentCaption))){
-            Toast.makeText(ProfileActivity.this, "Updating Profile...", Toast.LENGTH_SHORT).show();
-
+        if (!(newName.equals(currentUserName) && newInterests.equals(currentInterests) && newCaption.equals(currentCaption))){
             // Update user profile
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
-                    .setPhotoUri(Uri.parse(newProPic))
+                    .setPhotoUri(Uri.parse(newInterests))
                     .build();
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -148,7 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "User profile updated.");
-                                Toast.makeText(ProfileActivity.this, "User profile updated.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "Your profile has been updated!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -156,7 +151,7 @@ public class ProfileActivity extends AppCompatActivity {
             // Update Data
             dbRef.child("userName").setValue(newName);
             dbRef.child("caption").setValue(newCaption);
-            dbRef.child("Location").setValue(newProPic);
+            dbRef.child("interests").setValue(newInterests);
 
             return;
 
@@ -167,11 +162,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_displayName);
-        proPicLayout = (TextInputLayout) findViewById(R.id.profile_input_proPic);
+        userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
+        interestsLayout = (TextInputLayout) findViewById(R.id.profile_input_interests);
         captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
-        displayNameEdit = (EditText) findViewById(R.id.profile_input_displayName_text);
-        proPicEdit = (EditText) findViewById(R.id.profile_input_proPic_text);
+        userNameEdit = (EditText) findViewById(R.id.profile_input_displayName_text);
+        interestsEdit = (EditText) findViewById(R.id.profile_input_interests_text);
         captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
 
     }
