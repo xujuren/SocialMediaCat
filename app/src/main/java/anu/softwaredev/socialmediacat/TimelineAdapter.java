@@ -49,7 +49,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             String user = dataset.get(position).getUId();
             //TODO n
 
-
             // setup for holder
             holder.getPostUsername().setText("@"+user);
             holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent().substring(1, dataset.get(position).getContent().length()-1));
@@ -59,7 +58,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             // Load Image
             int photoId = dataset.get(position).getPhotoId();
             Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)       	// not cached
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)       	// DiskCacheStrategy.NONE
                     .skipMemoryCache(true)
                     .into(holder.getPostImage());
         }

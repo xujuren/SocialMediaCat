@@ -53,7 +53,7 @@ public class UserActivityDao implements IUserActivityDao {
     public static UserActivityDao getInstance(){
         if (instance == null) {
             instance = new UserActivityDao();
-            dbRef = FirebaseDatabase.getInstance().getReference("Posts");
+            dbRef = FirebaseDatabase.getInstance().getReference();
         }
         return instance;
     }
@@ -81,6 +81,39 @@ public class UserActivityDao implements IUserActivityDao {
             Map<String, Object> postValues = newPost.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + postId, postValues);
+            dbRef.updateChildren(childUpdates);
+
+            // write to file                  // post
+            String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
+            }
+            System.out.println("Post saved in " + file.getAbsolutePath());
+
+        } catch (IOException e) { e.printStackTrace(); }
+
+    }
+
+    // postId = "testPostId123"
+    public void createPostForTesting(String uId, String tag, String postId, String content, int photoId) {
+        try {
+
+            // dummy
+            if (photoId==-1 || photoId<20 || photoId>100) {photoId = 50;}
+
+            // Check invalid characters in tag (empty if invalid)
+            if (tag.contains(",") || tag.contains(";")) {tag="";}
+
+            // Check invalid characters in content (remove inner "'s)
+            String contentText = content.substring(1, content.length()-1);
+            contentText.replaceAll("\"", "");
+
+            // Update firebase DB
+            // TODO postId
+            Post newPost = new Post(uId, tag, postId, content, photoId);
+            Map<String, Object> postValues = newPost.toMap();
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/Posts/" + postId+"/", postValues);
             dbRef.updateChildren(childUpdates);
 
             // write to file                  // post
@@ -139,14 +172,12 @@ public class UserActivityDao implements IUserActivityDao {
     public void likePost(String userId, String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
-        dbRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
-        dbRef.updateChildren(updates);
+        dbRef.child(postId).updateChildren(updates);
     }
 
     @Override
     public void deletePost(String postId) {
         // firebase DB
-        dbRef = FirebaseDatabase.getInstance().getReference("Posts");
         dbRef.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
