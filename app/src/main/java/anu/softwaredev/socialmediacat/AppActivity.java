@@ -1,5 +1,5 @@
 package anu.softwaredev.socialmediacat;
-import static anu.softwaredev.socialmediacat.Util.AssetHandler.createPosts;
+import static anu.softwaredev.socialmediacat.Util.AssetHandler.performActions;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import anu.softwaredev.socialmediacat.Util.AssetHandler;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 public class AppActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app); // set view according to UI layout
-        createPosts(getApplicationContext());
+        AssetHandler.performActions(getApplicationContext());
 
         // Load all data
         UserActivityDao.getInstance().findAllPosts();

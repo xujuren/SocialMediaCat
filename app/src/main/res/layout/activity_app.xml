@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="The Social Media"
+        android:text="Canberra"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#1764A1"
-        android:textSize="30sp"
+        android:textSize="45sp"
         android:textStyle="bold|italic"
         android:typeface="serif"
         app:layout_constraintHorizontal_bias="0.491"
@@ -39,14 +39,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="50dp"
-        android:backgroundTint="#673AB7"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#3F51B5"
         android:onClick="logOutClick"
         android:text="Log Out"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavMenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/AppAct_title"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/AppAct_title" />
 
     <Button
         android:id="@+id/to_timeline_bt"

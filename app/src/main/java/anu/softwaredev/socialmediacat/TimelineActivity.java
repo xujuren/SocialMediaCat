@@ -180,8 +180,6 @@ public class TimelineActivity extends AppCompatActivity {
         return node.getPostsTree().treeToListInorder(node.getPostsTree().root);
     }
 
-    //Search by tag and id
-
     /**
      * search by tag and id
      * @param tag
@@ -208,6 +206,7 @@ public class TimelineActivity extends AppCompatActivity {
         String tagToSearch = "";
         String postIDToSearch = "";
         System.out.println(search);
+
         // Tokenize, Parse
         Tokenizer tokenizer = new Tokenizer(search);
         Parser parser = new Parser(tokenizer);

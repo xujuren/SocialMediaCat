@@ -105,7 +105,7 @@
         android:layout_height="60sp"
         android:layout_marginTop="50dp"
         android:backgroundTint="#0066A6"
-        android:onClick="profileInput"
+        android:onClick="ConfirmManageProfileBt"
         android:text="Confirm Updates"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

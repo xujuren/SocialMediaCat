@@ -34,11 +34,11 @@ public class User {
     public String getInterests(){return interests;}
 
     /* Setters */
-    public String setUid(){return uId;}
-    public String setEmailAddress(){return emailAddress;}
-    public String setUserName(){return userName;}
-    public String setCaption(){return caption;}
-    public String setInterests(){return interests;}
+    public void setUid(String uId){this.uId=uId;}
+    public void setEmailAddress(String emailAddress){this.emailAddress=emailAddress;}
+    public void setUserName(String userName){this.userName=userName;}
+    public void setCaption(String caption){this.caption=caption;}
+    public void setInterests(String interests){this.interests=interests;}
 
 
     /**
