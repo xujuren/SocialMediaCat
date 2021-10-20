@@ -5,7 +5,14 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 - If something cannot be fixed or don't want to fix it, can add to "list of known bugs" in report on Thu/Fri
 
 ***Bugs ***
-delete post , doesnt work , post still in (mypost)
+* delete post , doesnt work , post still in (mypost)
+* (Oct 20, 8PM canberra time)
+* Search: Input "#" in timeline search bar > error, Quit program 
+* Search: Input "# entwines" (invalid) did not show error message 
+* Search: Input "##" shows results if user inputted "#" (should not be tokenized?) when create post
+* At "Current Post": click "back button" (back to timeline) -> click android's back button (Current post again) Stuck
+* Dislike Not implemented on firebase - *Cathy*
+
 
 _**URGENT + Fundamental**_
 | Task | header | By |
@@ -17,9 +24,9 @@ _**URGENT + Fundamental**_
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **delete** | adding a section for viewing the User's own posts (need modify) | **Juren**  |
+| **delete** | adding a section for viewing the User's own posts (need modify) | **Juren** |
 | Data Structure | change everything into using RBTree ! | **Juren** |
-| **Like** | Confirm the mechanism (infinite like/ like dislike) & make sure no bug (every click recorded and correct message) | **Kyle** |
+| Like | confirm & align latest way it works | **Kyle** |
 
 
 **Checkings(all parts)**
