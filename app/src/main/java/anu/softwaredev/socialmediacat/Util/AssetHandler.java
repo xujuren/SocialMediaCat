@@ -65,13 +65,16 @@ public abstract class AssetHandler {
             public void run() {
                 if (i <size) {
                     UserActivity act = data.get(i);
+                    System.out.println(act.toString());
                     if (act!=null) {
                         if (act.getAction()=="CP"){
                             UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
-                        } else if (act.getAction()=="LP"){
-                            UserActivityDao.getInstance().likePost(act.getUId(), act.getPid());
-                        } else if (act.getAction()=="DP"){
-                            UserActivityDao.getInstance().deletePost(act.getUId(), act.getPid());
+                        } else {
+                            if (act.getAction()=="LP"){
+                                UserActivityDao.getInstance().likePost(act.getUId(), act.getPostId());
+                            } else if (act.getAction()=="DP"){
+                                UserActivityDao.getInstance().deletePost(act.getUId(), act.(());
+                            }
                         }
                     }
                 }
