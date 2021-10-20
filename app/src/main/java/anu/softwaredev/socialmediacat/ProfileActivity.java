@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
                         switch (k) {
                             case "userName" :
                                 currentUserName = (String) ds.getValue();
-                                if (currentInterests.length()==ZERO) continue;
+                                if (currentUserName.length()==ZERO) continue;
                                 userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
                                 userNameLayout.setHint("Edit User name [" + currentUserName + "]");
                                 continue;

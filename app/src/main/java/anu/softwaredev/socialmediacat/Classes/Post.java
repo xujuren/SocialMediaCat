@@ -62,8 +62,6 @@ public class Post implements Comparable<Post>{
         }
     }
 
-
-
     /** Getters */
     public String getUId(){return uId;}
     public String getPostId(){return postId;}           // Excluded?
