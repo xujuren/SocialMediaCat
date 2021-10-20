@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Search.Parser;
 import anu.softwaredev.socialmediacat.Search.Tokenizer;
@@ -46,7 +48,8 @@ public class TimelineActivity extends AppCompatActivity {
         if (MESSAGE)
             postList.addAll(Global_Data.getInstance().toList());
         else
-            postList.addAll(Global_Data.getInstance().getMyPosts());
+            postList.addAll(Global_Data.getInstance().searchByUser(FirebaseAuth.getInstance().getUid()));
+//            postList.addAll(Global_Data.getInstance().getMyPosts());
 
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){

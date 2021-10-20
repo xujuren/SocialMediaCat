@@ -1,5 +1,5 @@
 package anu.softwaredev.socialmediacat;
-import static anu.softwaredev.socialmediacat.Util.AssetHandler.createAccfromDataInstances;
+//import static anu.softwaredev.socialmediacat.Util.AssetHandler.createAccfromDataInstances;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
