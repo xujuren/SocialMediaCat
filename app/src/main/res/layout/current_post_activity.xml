@@ -91,6 +91,15 @@
         app:liked="false"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/PostIdtextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="237dp"
+        app:layout_constraintTop_toBottomOf="@id/ContentTextView"/>
+
     <!-- heart like button -->
 
 
