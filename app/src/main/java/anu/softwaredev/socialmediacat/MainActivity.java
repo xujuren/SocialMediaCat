@@ -45,12 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
-
-        // TODO
-        // UserActivityDao.getInstance().getNameFromDb("uPY7ZZESLPPs9uqkofx6Gwb0gGI3");
-
-
-
     }
 
 
