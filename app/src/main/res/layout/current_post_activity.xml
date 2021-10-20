@@ -13,11 +13,14 @@
         android:id="@+id/captionTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
-        android:text="TextView"
+        android:layout_marginEnd="10dp"
+        android:text="0123456789123456782234567893234567894234567895"
         android:textColor="#6C6C6E"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView

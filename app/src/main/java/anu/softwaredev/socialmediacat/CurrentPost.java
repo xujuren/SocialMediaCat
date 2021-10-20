@@ -156,7 +156,8 @@ public class CurrentPost extends AppCompatActivity {
 
 
     /**
-     * Match existing User Profile on Firebase
+     * Find the Profiles of the Post's Author on Firebase,
+     * and display the corresponding information
      */
     public void userProfile(String userId) {
         dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
@@ -179,10 +180,13 @@ public class CurrentPost extends AppCompatActivity {
                                 }
                                 continue;
                             case "caption":
-                                caption = (String) ds.getValue();
-                                if (caption.length()==0) continue;
                                 captionTv = (TextView) findViewById(R.id.captionTv);
-                                captionTv.setText(caption);
+                                caption = (String) ds.getValue();
+                                if (caption!=null && caption.length()>0 && !caption.equals("null")){
+                                    captionTv.setText(caption);
+                                } else {
+                                    captionTv.setText("");
+                                }
                                 continue;
                             default:
                                 continue;
