@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Search.Parser;
 import anu.softwaredev.socialmediacat.Search.Tokenizer;
@@ -67,6 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
                 String search = searchEdit.getText().toString();
                 System.out.println(search);
                 List<Post> postsResult = searchAll(search);
+                System.out.println();
                 System.out.println("number: " + postsResult.size());
                 for (Post post:postsResult) {
                     System.out.println(post);
@@ -75,6 +78,8 @@ public class TimelineActivity extends AppCompatActivity {
                 postList.clear();
                 postList.addAll(postsResult);
                 timelineAdapter.notifyDataSetChanged();
+                if (postsResult.size() == 0)
+                    Toast.makeText(getApplicationContext(), "No result", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -225,7 +230,9 @@ public class TimelineActivity extends AppCompatActivity {
         }
         if (tagToSearch.equals("") && !postIDToSearch.equals("")){
             // only postid to search
-            postsToShow.add(Global_Data.getInstance().searchById(postIDToSearch)) ;
+            Post result = Global_Data.instance.searchById(postIDToSearch);
+            if (result != null)
+                postsToShow.add(result);
         } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
             //only tag to search
             postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
@@ -233,7 +240,10 @@ public class TimelineActivity extends AppCompatActivity {
             //empty, nothing to search
             System.out.println("nothing , Toaster throws reminder");
         } else {
-            postsToShow.add(Global_Data.instance.search(tagToSearch,postIDToSearch)) ;
+            Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+            if (result != null)
+                postsToShow.add(result);
+//            postsToShow.add() ;
         }
 
         return postsToShow;

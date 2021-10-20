@@ -197,7 +197,7 @@ public class UserActivityDao implements IUserActivityDao {
          * For test, need to delete
          */
         System.out.println("============================================Check data========================================");
-        Global_Data.getInstance().getData().find("random").getPostsTree().inorderPrint(Global_Data.getInstance().getData().find("random").getPostsTree().root);
+//        Global_Data.getInstance().getData().find("random").getPostsTree().inorderPrint(Global_Data.getInstance().getData().find("random").getPostsTree().root);
         return postsLoaded;
     }
 
