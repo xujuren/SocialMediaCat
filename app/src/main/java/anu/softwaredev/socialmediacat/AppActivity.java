@@ -118,7 +118,7 @@ public class AppActivity extends AppCompatActivity {
      * @param v UI
      */
     public void toTimelineAct(View v){
-        Intent i = new Intent(getApplicationContext(), TimelineActivity.class);        // ori: AppActivity.this
+        Intent i = new Intent(getApplicationContext(), TimelineActivity.class);
         startActivity(i);
     }
 

@@ -10,11 +10,9 @@ public class Post implements Comparable<Post>{
     private String tag;              // a user-defined "tag" for the post (see report for details)
     private String postId;           // the unique key for a post
     private String content;          // content of post, possibly with geographical coordinates of user
-    private long likeCount=0;        // no. of likes
-    private long photoId=-1;         // ID of the photo, representing a photo hosted on a website
-    @Exclude
+    private int likeCount=0;        // no. of likes
+    private int photoId=-1;         // ID of the photo, representing a photo hosted on a website
     private final int PHOTO_ID_LOWER=0;
-    @Exclude
     private final int PHOTO_ID_UPPER=100;
 
     /**
@@ -25,7 +23,7 @@ public class Post implements Comparable<Post>{
      * @param content post
      * @param photoId photo unique identifier
      */
-    public Post(String uId, String tag, String postId, String content, long photoId) {
+    public Post(String uId, String tag, String postId, String content, int photoId) {
         this.uId = uId;
         this.tag = tag;
         this.postId = postId;
@@ -43,7 +41,7 @@ public class Post implements Comparable<Post>{
      * @param photoId photo unique identifier
      * @param likeCount num of likes
      */
-    public Post(String uId, String tag, String postId, String content, long photoId, long likeCount) {
+    public Post(String uId, String tag, String postId, String content, int photoId, int likeCount) {
         this.uId = uId;
         this.tag = tag;
         this.postId = postId;
@@ -56,7 +54,7 @@ public class Post implements Comparable<Post>{
     public Post() {}
 
     // check photo ID (standardized using -1 if not valid)
-    public long verifyPhotoId(long photoId){
+    public int verifyPhotoId(int photoId){
         if (photoId>=PHOTO_ID_LOWER && photoId<=PHOTO_ID_UPPER){
             return photoId;
         } else {
@@ -71,32 +69,30 @@ public class Post implements Comparable<Post>{
     public String getPostId(){return postId;}           // Excluded?
     public String getTag(){return tag;}
     public String getContent(){return content;}
-    public long getPhotoId(){return photoId;}
-    public long getLikeCount(){return likeCount;}
+    public int getPhotoId(){return photoId;}
+    public int getLikeCount(){return likeCount;}
 
     /** Setters */
     public void setPostId(String postId){postId = postId;}  // excluded?
     public void setUId(String uId){uId = uId;}
     public void setTag(String tag){tag = tag;}
     public void setContent(String content){content = content;}
-    public void setPhotoId(String photoId){photoId =photoId;}
-    public void setLikeCount(long likeCount){likeCount = likeCount;}
-
+    public void setPhotoId(int photoId){photoId =photoId;}
+    public void setLikeCount(int likeCount){likeCount = likeCount;}
 
     public void likePost() {
         likeCount += 1;
     }
 
-
-
-
-
+    public void dislikePost() {
+        likeCount -= 1;
+    }
+    
 
     /**
      * Notes: the format is not following our CFG
      * @return a default formatted string, representing the post
      */
-    @Exclude
     @Override
     public String toString(){
         return uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + likeCount;
