@@ -11,7 +11,7 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 * Search: Input "# entwines" (invalid) did not show error message 
 * Search: Input "##" shows results if user inputted "#" (should not be tokenized?) when create post
 * At "Current Post": click "back button" (back to timeline) -> click android's back button (Current post again) Stuck
-* Dislike Not implemented on firebase - *Cathy*
+* after searching something (blank input and click serach again), should show back the complete timeline?
 
 
 _**URGENT + Fundamental**_
@@ -35,7 +35,7 @@ _**URGENT + Fundamental**_
 | ------ | ------ | ------ |
 | Check UI input's validation & warning messages, and bugs  |  | **TBC** |
 | **Layout (Issue in many parts)** | try to use a different emulator size, things get messed up in many places  <br /> design & change the whole thing (placed things into fragments if ok?) <br /> | **Kevin** |
-| **testing** | all | **TBC** |
+| **testing** | all | Unit tests - **Juren** |
 
 
 
@@ -43,9 +43,10 @@ _**URGENT + Fundamental**_
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **currentPostUI** | (1) scroll up/down will also get directed into current Post? <br /> (2) add other long info (content, postId, userId, ...) to Current Post instead of timeline? <br /> (3) delete UI bug (see above) | **Kevin** |
+| **currentPostUI** | (1) scroll up/down will also get directed into current Post? <br /> (2) delete UI bug (see above) | **Kevin** |
 | **ProfileActivity** | * import Photos, replace photoId (before Thurs) | **TBC** |
-| **Profile Linkage** | * show user Info in timeline/current post (e.g. name, caption) | **TBC** |
+| **Profile Linkage** | * show user Info in timeline/current post (e.g. name, caption) | **Cathy** |
+| **Use Case** | * got an idea, try to get the full creativity mark LoL | **Cathy** |
 | **Post Input** | * Screen 'tag' input after User Input, before Storing  | **TBC** |
 | **Local Firebase** | *load Firebase *Juren*  | **TBC** |
 
@@ -59,9 +60,10 @@ RECENTly done and pushed
     * tested search, set up with kev
 * pushed Tokenizer, Parser  @kev
 * Firebase Like & delete @Cathy     (and tested 10/19)
-    * Layout: logIn > main screen with Create Account button, remove forgetPassword activity, timeline (minor)
-    * **ProfileActivity** now BUG here .... REMOVE if n/a by Thursday morning - solved
+* Layout: logIn > main screen with Create Account button, remove forgetPassword activity, timeline (minor) - C
+* **ProfileActivity** now BUG here .... solved & changed into Interest & Caption - Cat
 * Like, +some UI views @Kyle
-* 1000 data instances: >> facebook data (in our format) <br /> + delete & like - Cathy
-* Search function: search > tok par > show result works in UI - Kyle
-
+* 1000 data instances: >> facebook data (in our format) <br /> + delete & like - Cathy (also added User data)
+* Search function: search > tok par > show result works in UI - Kyle, and setting up with timeline/Current Post
+* Dislike implemented on firebase - *Cathy*
+* (2) add other long info (content, postId, userId, ...) to Current Post instead of timeline - *Cathy*
