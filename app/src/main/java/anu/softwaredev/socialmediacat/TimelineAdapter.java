@@ -21,6 +21,9 @@ import com.bumptech.glide.request.RequestOptions;
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
     private final Context ctx;                  // Interface to global information about an application environment
     private final List<Post> dataset;
+    private final int PHOTO_ID_LOWER=0;
+    private final int PHOTO_ID_UPPER=100;
+
     public List<Post> getDataset() {return dataset; }
 
     public TimelineAdapter(Context ctx, List<Post> dataset) {
@@ -49,11 +52,15 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent().substring(1, dataset.get(position).getContent().length()-1));
             holder.getCategoryPostId().setText(dataset.get(position).getPostId());
             holder.getLikes().setText(String.valueOf(dataset.get(position).getLikeCount()) + " likes");
-            int photoId = dataset.get(position).getPhotoId();       // Load Image
-            Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .skipMemoryCache(true)
-                    .into(holder.getPostImage());
+            long photoId = dataset.get(position).getPhotoId();
+            // Load Image
+            if (photoId>=PHOTO_ID_LOWER && photoId<=PHOTO_ID_UPPER){
+                Glide.with(ctx).load("https://picsum.photos/id/" + photoId + "/300/200").apply(new RequestOptions())
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .skipMemoryCache(true)
+                        .into(holder.getPostImage());
+            }
+
         }
 
     }
@@ -71,7 +78,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         private final ImageView ivPostImage;
         private final TextView tvPostUsername;
         private final TextView tvPostContent;
-        private final TextView tvTagsAndPostId;    // NEW
+        private final TextView tvTagsAndPostId;
         private final TextView tvLikes;
 
         public TimelineViewHolder(@NonNull View itemView) {
