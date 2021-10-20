@@ -26,7 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import anu.softwaredev.socialmediacat.Classes.User;
 
-/** Activity for users to manage their profile: update information */
+/** Activity for users to view and update their profile,
+ * Which includes User name, Interest, and a Caption (i.e., or a quote) */
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference dbRef;
@@ -41,21 +42,13 @@ public class ProfileActivity extends AppCompatActivity {
     EditText captionEdit;
     public static final int ZERO = 0;
 
-    /**
-     * main method, put all logic inside
-     * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        initView();
-        editProfile();
-    }
-
-    /* set up views */
-    private void initView() {
+        // Set Up Views
         userNameLayout = (TextInputLayout) findViewById(R.id.profile_input_userName);
         interestsLayout = (TextInputLayout) findViewById(R.id.profile_input_interests);
         captionLayout = (TextInputLayout) findViewById(R.id.profile_input_caption);
@@ -63,26 +56,30 @@ public class ProfileActivity extends AppCompatActivity {
         interestsEdit = (EditText) findViewById(R.id.profile_input_interests_text);
         captionEdit = (EditText) findViewById(R.id.profile_input_caption_text);
 
+        editProfile();
     }
 
+
     /**
-     * Confirm Button (Manage Profile)
+     * OnClick method for the Confirm Button (Manage Profile)
      * @param v UI
      */
-    public void profileInput(View v) {
+    public void ConfirmManageProfileBt(View v) {
 
-        // Read Input
+        // Read Input, Ignore Empty fields
         String newName = userNameEdit.getText().toString().replace("\n", "");
         String newInterests = interestsEdit.getText().toString().replace("\n", "");
         String newCaption = captionEdit.getText().toString().replace("\n", "");
-
         if (TextUtils.isEmpty(newName)) {newName = currentUserName;}
         if (TextUtils.isEmpty(newInterests)) {newInterests = currentInterests;}
         if (TextUtils.isEmpty(newCaption)) {newCaption = currentCaption;}
 
-        // ignore if all input fields are either empty or same as current
-        if (!(newName.equals(currentUserName) && newInterests.equals(currentInterests) && newCaption.equals(currentCaption))){
-            // Update user profile
+        // ignore if all input fields are empty or same as current
+        if (!(newName.equals(currentUserName) && newInterests.equals(currentInterests) && newCaption.equals(currentCaption))) {
+            Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
+
+        // Update user profile
+        } else {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(newName)
                     .setPhotoUri(Uri.parse(newInterests))
@@ -104,16 +101,13 @@ public class ProfileActivity extends AppCompatActivity {
             dbRef.child("interests").setValue(newInterests);
 
             return;
-
-        } else {
-            Toast.makeText(ProfileActivity.this, "No updates has been made", Toast.LENGTH_SHORT).show();
         }
 
     }
 
 
     /**
-     * edit profile related actions
+     * Match existing User Profile on Firebase
      */
     private void editProfile() {
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -129,7 +123,6 @@ public class ProfileActivity extends AppCompatActivity {
                         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
                         dbRef.child("Users").child(user.getUid()).setValue(newUser);
                     }
-
                     // Get and display fields
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         String k = ds.getKey();
@@ -161,14 +154,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Getting anu.softwaredev.socialmediacat.Classes.Post failed, log a message
-                    Log.w(TAG, "read failed (onCancelled)", error.toException());
+                    Log.w(TAG, "Firebase Read Fail", error.toException());
                 }
             };
             dbRef.addValueEventListener(userListener);
 
         } else {
-            finish();   // exceptional case
+            finish();   // exceptional case (not loggin in)
         }
     }
 
