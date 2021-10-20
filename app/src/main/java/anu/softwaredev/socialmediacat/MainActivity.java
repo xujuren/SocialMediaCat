@@ -1,4 +1,6 @@
 package anu.softwaredev.socialmediacat;
+import static anu.softwaredev.socialmediacat.Util.AssetHandler.createAccfromDataInstances;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,10 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private Button loginBt;
     private FirebaseUser user;
 
-
     /**
      * main method, put all logic inside
-     *
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
      */
     @Override
@@ -45,15 +45,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
-
-        // TODO
-        // UserActivityDao.getInstance().getNameFromDb("uPY7ZZESLPPs9uqkofx6Gwb0gGI3");
-
-
-
     }
 
-
+    /**
+     * Set up for basic view components
+     */
     private void initView() {
         accEdit = (EditText) findViewById(R.id.login_msg_acc_text);                      // prev: [tv_user_email]
         pwEdit = (EditText) findViewById(R.id.login_msg_pw_text);                          // tv_user_pw
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         accLayout.setErrorEnabled(true);
         pwLayout.setErrorEnabled(true);
 
-        /* login button - onClick */
+        // onClick method for the Login Button
         loginBt = (Button) findViewById(R.id.login_button);
         loginBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * for logIn: to Complete the Transfer (username, pw) TODO
-     *
-     * @param reqCode
-     * @param resultCode
-     * @param data       bstract description of an operation to be performed
+     * for the Log in Method
+     * Complete transfer the username to the next Activity
      */
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -104,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * Create account Button
+     * onClick method for the Create Account Button
+     * Direct user to another Page to create account
      * @param v UI component
      */
     public void createAcc(View v) {
@@ -151,12 +145,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-
                             Toast.makeText(MainActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
-                            // Direct to the interface for users
-                            Intent intent = new Intent();
-                            intent.setClass(MainActivity.this, AppActivity.class);
+                            Intent intent = new Intent(MainActivity.this, AppActivity.class);
                             AssetHandler.loadPostsfromDataInstances(getApplicationContext());
                             startActivity(intent);
                             finish();
