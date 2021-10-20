@@ -23,28 +23,32 @@ public abstract class AssetHandler {
     }
 
     // load create post activities
+    // TODO - action("create-post"),uId,tags,"content",photoId
+    // TODO - action("like-post"),uId,postId
+    // TODO - action("del-post"),uId,postId
     public static List<UserActivity> actionsFromDataInstances(Context ctx) {
-        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt"));; // "json", "dummy"
+        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt")); // "json", "dummy"
 
-        List<UserActivity> createPostActs = new ArrayList<>();
+        List<UserActivity> actions = new ArrayList<>();
         for (String type : fileTypes) {
             AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
             AssetHandler assetHandler = assetHandlerFty.createHandler(type);
             List<UserActivity> result = assetHandler.actionsFromAssets(ctx);
             if (result!=null && result.size()!=0) {
-                createPostActs.addAll(result);
+                actions.addAll(result);
             }
         }
-
-        return createPostActs;
+        return actions;
     }
 
 
     // (1) create posts
     public static List<UserActivity> createPostsFromDataInstances(List<UserActivity> userActs) {
+
+        // TODO - CREATE POSTS
         List<UserActivity> createPostActs = new ArrayList<>();
         for (UserActivity userAct : userActs) {
-            if (userAct.getAction().equals("create-post")) {
+            if (userAct.getAction().charAt(0) == 'C') {
                 createPostActs.add(userAct);
             }
         }
@@ -61,8 +65,17 @@ public abstract class AssetHandler {
             public void run() {
                 if (i <size) {
                     UserActivity act = data.get(i);
-                    if (act!=null){
-                        UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
+                    System.out.println(act.toString());
+                    if (act!=null) {
+                        if (act.getAction()=="CP"){
+                            UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
+                        } else {
+                            if (act.getAction()=="LP"){
+                                UserActivityDao.getInstance().likePost(act.getUId(), act.getPostId());
+                            } else if (act.getAction()=="DP"){
+                                UserActivityDao.getInstance().deletePost(act.getUId(), act.getPostId());
+                            }
+                        }
                     }
                 }
                 i++;
@@ -70,7 +83,6 @@ public abstract class AssetHandler {
         }, 0, 100000);
 
     }
-
 
 
     /** Load posts from data instances  */

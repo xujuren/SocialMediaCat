@@ -13,7 +13,7 @@ public interface IUserActivityDao {
     // TODO [@Kyle] see here for likePost
     public void likePost(String username, String postId);
 
-    public void deletePost(String postId);
+    public void deletePost(String uId, String postId);
 
     public List<Post> findAllPosts();       // change to get Posts
 

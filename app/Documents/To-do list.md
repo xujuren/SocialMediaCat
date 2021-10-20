@@ -17,19 +17,9 @@ _**URGENT + Fundamental**_
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **currentPostUI** | scroll up/down will also get directed into current Post<br /> (2) please should add all other info (content, postId, userId, ...) here? <br /> (3) Like UI: didn't show likeCount after +1 (only +once for >1 likes implemented) <br />  (4) delete UI: Suggestion: leave the current post after press delect, so that (a) they can't can press again ("Post deleted" shown again), and (b) avoid no update if user use default "last page" buttom to leave | **Kevin** |
-| **delete** | need modify | **Juren** (adding a section for viewing the User's own posts) |
+| **delete** | adding a section for viewing the User's own posts (need modify) | **Juren**  |
 | Data Structure | change everything into using RBTree ! | **Juren** |
-| **Search function** | to be completed (i.e. search > tok par > show result works in UI) | **Kyle** |
-| **Layout (Issue in many parts)** | try to use a different emulator size, things get messed up in many places | **Kevin** |
-
-**2nd Urgent, Minor**
-
-| Task | header | By |
-| ------ | ------ | ------ |
-| **data instances** | for delete & like ...... | **Cathy** |
-| **AppActivity** | design & change the whole thing (placed things into fragments if ok?) | **Kevin** |
-| **UI design** | * ProfileActivity: REMOVE "proPicUrl", replace into e.g. Location (*cuz not enough time implement profile picture), and change User class | **TBC** |
+| **Like** | Confirm the mechanism (infinite like/ like dislike) & make sure no bug (every click recorded and correct message) | **Kyle** |
 
 
 **Checkings(all parts)**
@@ -37,16 +27,22 @@ _**URGENT + Fundamental**_
 | Task | header | By |
 | ------ | ------ | ------ |
 | Check UI input's validation & warning messages, and bugs  |  | **TBC** |
+| **Layout (Issue in many parts)** | try to use a different emulator size, things get messed up in many places  <br /> design & change the whole thing (placed things into fragments if ok?) <br /> | **Kevin** |
 | **testing** | all | **TBC** |
 
-    
 
-** Not Urgent and Optional **
 
-* 1000 data instances > from real data source       **Cathy** (try)
-* Change to ask user input a LINK to photo instead of ID   
-* Screen 'tag' input after User Input, before Storing 
-* load Firebase
+** Not mandatory - improvements **
+
+| Task | header | By |
+| ------ | ------ | ------ |
+| **currentPostUI** | (1) scroll up/down will also get directed into current Post? <br /> (2) add other long info (content, postId, userId, ...) to Current Post instead of timeline? <br /> (3) delete UI bug (see above) | **Kevin** |
+| **ProfileActivity** | * import Photos, replace photoId (before Thurs) | **TBC** |
+| **Profile Linkage** | * show user Info in timeline/current post (e.g. name, caption) | **TBC** |
+| **Post Input** | * Screen 'tag' input after User Input, before Storing  | **TBC** |
+| **Local Firebase** | *load Firebase *Juren*  | **TBC** |
+
+
 
 
 
@@ -59,4 +55,6 @@ RECENTly done and pushed
     * Layout: logIn > main screen with Create Account button, remove forgetPassword activity, timeline (minor)
     * **ProfileActivity** now BUG here .... REMOVE if n/a by Thursday morning - solved
 * Like, +some UI views @Kyle
-    
+* 1000 data instances: >> facebook data (in our format) <br /> + delete & like - Cathy
+* Search function: search > tok par > show result works in UI - Kyle
+

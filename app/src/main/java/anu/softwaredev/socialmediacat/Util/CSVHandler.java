@@ -24,7 +24,9 @@ public class CSVHandler extends AssetHandler {
                 String[] tokens = line.split(",");
                 if (tokens.length==5 && tokens[0].charAt(0)!='/'){
                     userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4])));
-                } // else ignore (or OTHER actions, if any)
+                } else if (tokens.length==3 && tokens[0].charAt(0)!='/') {
+                    userActs.add(new UserActivity(tokens[0], tokens[1], tokens[2]));
+                }
             }
             bufferedReader.close();
 

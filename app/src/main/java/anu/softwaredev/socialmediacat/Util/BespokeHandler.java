@@ -24,14 +24,18 @@ public class BespokeHandler extends AssetHandler {
             while ((line = bufferedReader.readLine()) != null) {    // create-post(u11, cat1, p01, hi hi hi hi)
                 int startBr = line.indexOf('(');                    // action name
                 int endBr = line.indexOf(')');
-                if (startBr!=0 || endBr==-1) {continue;}
+                if (startBr != 0 || endBr == -1) {
+                    continue;
+                }
                 String action = line.substring(0, startBr);
-
-                String params = line.substring(startBr+1, endBr);
+                String params = line.substring(startBr + 1, endBr);
                 String[] tokens = params.split("; ");
 
-                userActs.add(new UserActivity(action, tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3])));
-
+                if (tokens.length==4) {
+                    userActs.add(new UserActivity(action, tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3])));
+                } else if (tokens.length==2) {
+                    userActs.add(new UserActivity(action, tokens[0], tokens[1]));
+                }
             }
             bufferedReader.close();
 
