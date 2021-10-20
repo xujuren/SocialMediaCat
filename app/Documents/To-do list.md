@@ -17,7 +17,6 @@ _**URGENT + Fundamental**_
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **currentPostUI** | scroll up/down will also get directed into current Post<br /> (2) add all other info (content, postId, userId, ...) here? <br /> (4) delete UI: Suggestion: leave the current post after press delect, so that (a) they can't can press again ("Post deleted" shown again), and (b) avoid no update if user use default "last page" buttom to leave | **Kevin** |
 | **delete** | adding a section for viewing the User's own posts (need modify) | **Juren**  |
 | Data Structure | change everything into using RBTree ! | **Juren** |
 | **Like** | Confirm the mechanism (infinite like/ like dislike) & make sure no bug (every click recorded and correct message) | **Kyle** |
@@ -33,19 +32,17 @@ _**URGENT + Fundamental**_
 
 
 
-**2nd Urgent, Minor**
+** Not mandatory - improvements **
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **UI design** | * ProfileActivity:*: import Photos, replace photoId (before Thurs) | **TBC** |
+| **currentPostUI** | (1) scroll up/down will also get directed into current Post? <br /> (2) add other long info (content, postId, userId, ...) to Current Post instead of timeline? <br /> (3) delete UI bug (see above) | **Kevin** |
+| **ProfileActivity** | * import Photos, replace photoId (before Thurs) | **TBC** |
+| **Profile Linkage** | * show user Info in timeline/current post (e.g. name, caption) | **TBC** |
+| **Post Input** | * Screen 'tag' input after User Input, before Storing  | **TBC** |
+| **Local Firebase** | *load Firebase *Juren*  | **TBC** |
 
 
-
-
-    
-** Not Urgent and Optional **
-* Screen 'tag' input after User Input, before Storing 
-* load Firebase *Juren* 
 
 
 
