@@ -4,10 +4,10 @@ package anu.softwaredev.socialmediacat.dao.UserActivity;
 public class UserActivity {
     private String action;      // name of action
     private String uId;         // user ID
-    private String tag;        // tag
+    private String tag;         // tag
     private String content;     // content of post/action
     private int photoId;        // ID of photo used of Post
-    private int start;
+    private String postId;      // postId involved
 
     public UserActivity(String action, String uId, String tag, String content, int photoId) {
         this.action = action;
@@ -23,10 +23,7 @@ public class UserActivity {
         this.tag = tag;
         this.content = content;
         this.photoId = photoId;
-        this.start = start;
     }
-
-
 
     // Constructor without PHOTO ID
     public UserActivity(String action, String uId, String tag, String content) {
@@ -36,12 +33,18 @@ public class UserActivity {
         this.content = content;
     }
 
+    // Constructor with 3 items
+    public UserActivity(String action, String uId, String postId) {
+        this.action = action;
+        this.uId = uId;
+        this.postId = postId;
+    }
+
     // Getters
     public String getAction() {return action;}
     public String getUId() {return uId;}
     public String getTag() {return tag;}
     public String getContent() {return content;}
     public int getPhotoId() {return photoId;}
-    public int getStart() {return start;}
-
+    public String getPostId() {return postId;}
 }
