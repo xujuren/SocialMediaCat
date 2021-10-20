@@ -88,6 +88,15 @@ public class Global_Data {
         return false;
     }
 
+    public boolean unlikePost(Post pt) {
+        Post post = search(pt.getTag(), pt.getPostId());
+        if (post != null) {
+            post.dislikePost();
+            return true;
+        }
+        return false;
+    }
+
     public void add_My_Posts(Post post) {
         myPosts.add(post);
     }
