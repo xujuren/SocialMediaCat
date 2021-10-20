@@ -40,7 +40,7 @@ public class CurrentPost extends AppCompatActivity {
         int photoId = intent.getIntExtra("photoId",0);
         int likeCount = intent.getIntExtra("likeCount",0);
         currentPost = new Post(uid, tag, postId, content, photoId, likeCount);
-        CharSequence likes = "Like: " + currentPost.getLikeCount();
+        CharSequence likes = "Total Like : " + currentPost.getLikeCount();
 
 
         ImageView image = (ImageView) findViewById(R.id.imageView);
@@ -105,7 +105,7 @@ public class CurrentPost extends AppCompatActivity {
                 boolean likeResult = Global_Data.getInstance().likePost(currentPost);
                 if (likeResult){
                     long likec = currentPost.getLikeCount()+1;
-                    CharSequence dolike = "Like: " + likec;
+                    CharSequence dolike = "Total Like: " + likec;
                     like.setText(dolike);
                     UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
                     Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();}
@@ -116,8 +116,8 @@ public class CurrentPost extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 boolean likeResult = Global_Data.getInstance().likePost(currentPost);
                 if (likeResult){
-                    long likec = currentPost.getLikeCount()-1;
-                    CharSequence dolike = "Like: " + likec;
+                    long likec = currentPost.getLikeCount();
+                    CharSequence dolike = "Total Like: " + likec;
                     like.setText(dolike);
                     UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
                     //showing simple Toast when unLiked
