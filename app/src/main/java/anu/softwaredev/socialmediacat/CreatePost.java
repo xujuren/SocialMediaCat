@@ -34,8 +34,8 @@ public class CreatePost extends AppCompatActivity {
     private EditText photoIDEdit;
     private LocationManager locManager;
     private LocationListener locListener;
-    public static final int ERROR_CODE = -1;
-    public static final int PHOTO_LIMIT_LOWER = 20;
+    public static final int PHOTO_ID_ERROR_CODE = -1;
+    public static final int PHOTO_LIMIT_LOWER = 0;
     public static final int PHOTO_LIMIT_UPPER = 100;
 
     @Override
@@ -104,17 +104,17 @@ public class CreatePost extends AppCompatActivity {
             }
 
             // check Photo ID
-            int photoId = ERROR_CODE;
+            int photoId = PHOTO_ID_ERROR_CODE;
             if (!TextUtils.isEmpty(photoIDInput)) {
                 try {
                     int photoIdInput = Integer.parseInt(photoIDInput);
                     if (photoIdInput>=PHOTO_LIMIT_LOWER && photoIdInput<=PHOTO_LIMIT_UPPER) {
                         photoId = photoIdInput;
                     } else {
-                        Toast.makeText(CreatePost.this, "Invalid ID! random Photo ID generated for you ...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreatePost.this, "Invalid Photo ID! Photo will not be included in your post.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception ex) {
-                    Toast.makeText(CreatePost.this, "Invalid ID! random Photo ID generated for you ...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePost.this, "Invalid Photo ID! Photo will not be included in your post.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -123,7 +123,7 @@ public class CreatePost extends AppCompatActivity {
             Toast.makeText(CreatePost.this, "Post Created!", Toast.LENGTH_SHORT).show();
 
 
-        } else {// UNEXPECTED Branch
+        } else { // UNEXPECTED Branch
             Toast.makeText(CreatePost.this, "An error occur. Sorry for the inconveniences", Toast.LENGTH_LONG).show();
         }
         finish();
