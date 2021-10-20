@@ -3,7 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
@@ -53,10 +53,11 @@ public class TimelineActivity extends AppCompatActivity {
             actionBar.hide();
         }
         // Set Up timeline view and data
+        //RecyclerView : A flexible view for providing a limited window into a large data set.
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), postList);
         rvTimeline.setAdapter(timelineAdapter);
-        rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));         // Grid layout timeline
+        rvTimeline.setLayoutManager(new LinearLayoutManager(this));
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
 
 

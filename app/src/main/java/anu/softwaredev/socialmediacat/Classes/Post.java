@@ -6,15 +6,14 @@ import java.util.Map;
 
 /** The model class that stores a Post's information in this App*/
 public class Post implements Comparable<Post>{
-    private String uId;              // [user ID] of author
+    private String uId;              // user ID the of author
     private String tag;              // a user-defined "tag" for the post (see report for details)
-    private String content;          // content of post, possibly with geographical coordinates of user
-    private int likeCount=0;         // no. of likes
-    private int photoId=-1;          // ID of the photo, representing a photo hosted on a website
     private String postId;           // the unique key for a post
-
-    // TODO delete if Not used (> postId)
-
+    private String content;          // content of post, possibly with geographical coordinates of user
+    private int likeCount=0;        // no. of likes
+    private int photoId=-1;         // ID of the photo, representing a photo hosted on a website
+    private final int PHOTO_ID_LOWER=0;
+    private final int PHOTO_ID_UPPER=100;
 
     /**
      *Constructor 2.1 (with PostId, but without Likes)
@@ -29,10 +28,9 @@ public class Post implements Comparable<Post>{
         this.tag = tag;
         this.postId = postId;
         this.content = content;
-        this.photoId = photoId;
+        this.photoId = verifyPhotoId(photoId);
         this.likeCount = 0;
     }
-
 
     /**
      * Constructor 2.2 (with PostID and like count)
@@ -48,40 +46,53 @@ public class Post implements Comparable<Post>{
         this.tag = tag;
         this.postId = postId;
         this.content = content;
-        this.photoId = photoId;
+        this.photoId = verifyPhotoId(photoId);
         this.likeCount = likeCount;
     }
 
     // Default constructor
     public Post() {}
 
+    // check photo ID (standardized using -1 if not valid)
+    public int verifyPhotoId(int photoId){
+        if (photoId>=PHOTO_ID_LOWER && photoId<=PHOTO_ID_UPPER){
+            return photoId;
+        } else {
+            return -1;
+        }
+    }
+
+
+
     /** Getters */
     public String getUId(){return uId;}
+    public String getPostId(){return postId;}           // Excluded?
     public String getTag(){return tag;}
     public String getContent(){return content;}
     public int getPhotoId(){return photoId;}
     public int getLikeCount(){return likeCount;}
+
+    /** Setters */
+    public void setPostId(String postId){postId = postId;}  // excluded?
+    public void setUId(String uId){uId = uId;}
+    public void setTag(String tag){tag = tag;}
+    public void setContent(String content){content = content;}
+    public void setPhotoId(int photoId){photoId =photoId;}
+    public void setLikeCount(int likeCount){likeCount = likeCount;}
+
     public void likePost() {
         likeCount += 1;
     }
 
-    /** Setters */
-    public void setUId(String uId){uId = uId;}
-    public void setTag(String tag){tag = tag;}
-    public void setContent(String content){content = content;}
-    public void setPhotoId(String photoId){photoId =photoId;}
-    public void setLikeCount(int likeCount){likeCount = likeCount;}
-
-    @Exclude
-    public String getPostId(){return postId;}
-
-
+    public void dislikePost() {
+        likeCount -= 1;
+    }
+    
 
     /**
      * Notes: the format is not following our CFG
      * @return a default formatted string, representing the post
      */
-    @Exclude
     @Override
     public String toString(){
         return uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + likeCount;

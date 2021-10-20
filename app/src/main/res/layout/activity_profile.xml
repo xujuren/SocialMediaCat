@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".ProfileActivity"
+    tools:ignore="MissingClass">
 
     <TextView
         android:id="@+id/tv_manage_profile_intro"
@@ -111,6 +112,24 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_input_caption" />
+
+    <!-- heart like button -->
+    <com.like.LikeButton
+        android:id="@+id/likeButtonHeart"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center"
+        app:anim_scale_factor="2"
+        app:circle_end_color="#12A518"
+        app:circle_start_color="#F1DD31"
+        app:dots_primary_color="#0E77CC"
+        app:dots_secondary_color="#FF1A4F"
+        app:icon_size="40dp"
+        app:icon_type="heart"
+        app:is_enabled="true"
+        app:liked="false"
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="475dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

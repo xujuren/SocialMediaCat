@@ -52,7 +52,6 @@ public class UserActivityDao implements IUserActivityDao {
         }
     }
 
-
     // Singleton
     private UserActivityDao() {this.deleteAll();};
     public static UserActivityDao getInstance(){
@@ -67,12 +66,6 @@ public class UserActivityDao implements IUserActivityDao {
     @Override
     public void createPost(String uId, String tag, String content, int photoId) {           // alt: only content (userName: below)
         try {
-
-            // check photo ID (generate randomly between 20, 100 inclusive if unavailable)
-            if (photoId==-1 || photoId<20 || photoId>100) {
-                photoId = (int) (Math.random() *((100-20)+1) + 20); 	    // (use for URL below)
-            }
-
             // Check invalid characters in tag (empty if invalid)
             if (tag.contains(",") || tag.contains(";")) {tag="";}
 
@@ -110,7 +103,6 @@ public class UserActivityDao implements IUserActivityDao {
     public void loadPost(List<Post> posts) {
 
         for (Post post : posts){
-
             // Update firebase DB
             Map<String, Object> postValues = post.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
@@ -134,6 +126,12 @@ public class UserActivityDao implements IUserActivityDao {
     public void likePost(String userId, String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
+        dbRef.child("Posts").child(postId).updateChildren(updates);
+    }
+
+    public void dislikePost(String userId, String postId) {
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("/likeCount", ServerValue.increment(-1));
         dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
@@ -219,9 +217,6 @@ public class UserActivityDao implements IUserActivityDao {
             e.printStackTrace();
         }
     }
-
-
-
 
 }
 
