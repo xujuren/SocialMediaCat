@@ -87,12 +87,10 @@ public class CurrentPost extends AppCompatActivity {
 //                int photoId = currentPost.getPhotoId();
 //                int stars = currentPost.getLikes()+1;
 
-                //TODO 需要给creat函数添加like字段
-//                UserActivityDao.getInstance().createPost(uId, tag, content, photoId, stars);
 
                 boolean likeResult = Global_Data.getInstance().likePost(currentPost);
                 if (likeResult){
-                    int likec = currentPost.getLikeCount()+1;
+                    long likec = currentPost.getLikeCount()+1;
                     CharSequence dolike = "Like: " + likec;
                     like.setText(dolike);
                     UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
