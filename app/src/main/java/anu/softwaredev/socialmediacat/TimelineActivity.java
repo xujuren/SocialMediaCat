@@ -46,8 +46,6 @@ public class TimelineActivity extends AppCompatActivity {
         else
             postList = Global_Data.getInstance().getMyPosts();
 
-
-
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
             actionBar.hide();
@@ -87,17 +85,32 @@ public class TimelineActivity extends AppCompatActivity {
                 if (childView != null) {
                     int position = rvTimeline.getChildLayoutPosition(childView);
                     Post ClickPost = timelineAdapter.getDataset().get(position);
-                    Intent intent = new Intent(TimelineActivity.this, CurrentPost.class);
-                    intent.putExtra("uId",ClickPost.getUId());
-                    intent.putExtra("tag",ClickPost.getTag());
-                    intent.putExtra("postId",ClickPost.getPostId());
-                    intent.putExtra("content",ClickPost.getContent());
-                    intent.putExtra("likeCount",ClickPost.getLikeCount());
-                    intent.putExtra("photoId",ClickPost.getPhotoId());
-                    //检查是mypost 还是 all post呼叫的currentpost
-                    intent.putExtra("MESSAGE", MESSAGE);
-                    startActivity(intent);
-                    return true;
+                    if(MESSAGE) {
+                        Intent intent = new Intent(TimelineActivity.this, CurrentPost.class);
+                        intent.putExtra("uId",ClickPost.getUId());
+                        intent.putExtra("tag",ClickPost.getTag());
+                        intent.putExtra("postId",ClickPost.getPostId());
+                        intent.putExtra("content",ClickPost.getContent());
+                        intent.putExtra("likeCount",ClickPost.getLikeCount());
+                        intent.putExtra("photoId",ClickPost.getPhotoId());
+                        //检查是mypost 还是 all post呼叫的currentpost
+                        intent.putExtra("MESSAGE", MESSAGE);
+                        startActivity(intent);
+                        return true;
+                    }
+                    else{
+                        Intent intent = new Intent(TimelineActivity.this, MyPost.class);
+                        intent.putExtra("uId",ClickPost.getUId());
+                        intent.putExtra("tag",ClickPost.getTag());
+                        intent.putExtra("postId",ClickPost.getPostId());
+                        intent.putExtra("content",ClickPost.getContent());
+                        intent.putExtra("likeCount",ClickPost.getLikeCount());
+                        intent.putExtra("photoId",ClickPost.getPhotoId());
+                        //检查是mypost 还是 all post呼叫的currentpost
+                        intent.putExtra("MESSAGE", MESSAGE);
+                        startActivity(intent);
+                        return true;
+                    }
                 }
                 return super.onSingleTapUp(e);
             }
