@@ -53,7 +53,7 @@ public class TimelineActivity extends AppCompatActivity {
         // Set Up timeline view and data
         //RecyclerView : A flexible view for providing a limited window into a large data set.
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
-        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), postList);
+        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), postList); // show list view (timeline)
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
