@@ -3,15 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_app.xml" value="0.1" />
         <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_create_post.xml" value="0.17916666666666667" />
         <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_my_post.xml" value="0.17916666666666667" />
         <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_post.xml" value="0.17916666666666667" />
-        <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_timeline.xml" value="0.22" />
         <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/activity_timeline_post.xml" value="0.1" />
-        <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/current_post_activity.xml" value="0.14666666666666667" />
+        <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/current_post_activity.xml" value="0.17916666666666667" />
         <entry key="..\:/comp6442-group-assignment/app/src/main/res/layout/main_fragment.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/activity_app.xml" value="0.23385416666666667" />
         <entry key="app/src/main/res/layout/activity_create_acc.xml" value="0.33611111111111114" />
@@ -26,6 +23,7 @@
         <entry key="app/src/main/res/layout/activity_timeline.xml" value="0.3398148148148148" />
         <entry key="app/src/main/res/layout/activity_timeline_post.xml" value="0.23385416666666667" />
         <entry key="app/src/main/res/layout/activity_timeline_post_New.xml" value="0.26145833333333335" />
+        <entry key="app/src/main/res/layout/current_post_activity.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/fragment_users.xml" value="0.27760416666666665" />
