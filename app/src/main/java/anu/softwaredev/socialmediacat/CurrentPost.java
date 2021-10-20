@@ -1,4 +1,7 @@
 package anu.softwaredev.socialmediacat;
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -6,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,18 +18,30 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 //like button library
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 public class CurrentPost extends AppCompatActivity {
-    Post currentPost;
+    private static Post currentPost;
+    private static TextView uIdTv;
+    private static TextView captionTv;
     private LikeButton likeButtonHeart;
+    private DatabaseReference dbRef;
+    private String userName;
+    private String caption;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +50,8 @@ public class CurrentPost extends AppCompatActivity {
         Intent intent = getIntent();
         final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
 
-
         String uid = intent.getStringExtra("uId");
+        userProfile(uid);
         String tag = intent.getStringExtra("tag");
         String postId = intent.getStringExtra("postId");
         String content = intent.getStringExtra("content");
@@ -57,10 +73,10 @@ public class CurrentPost extends AppCompatActivity {
         postID.setTypeface(Typeface.DEFAULT_BOLD);
 
         // user id show
-        TextView uId = (TextView) findViewById(R.id.userIdTextView);
-        uId.setText("@"+(CharSequence)currentPost.getUId());
-        uId.setTextSize(15f);
-        uId.setTypeface(Typeface.DEFAULT_BOLD);
+        uIdTv = (TextView) findViewById(R.id.userIdTextView);
+        uIdTv.setText("@"+(CharSequence)currentPost.getUId());
+        uIdTv.setTextSize(15f);
+        uIdTv.setTypeface(Typeface.DEFAULT_BOLD);
 
         TextView like = (TextView) findViewById(R.id.likeTextView);
         CharSequence likes = currentPost.getLikeCount() + " likes";
@@ -79,52 +95,32 @@ public class CurrentPost extends AppCompatActivity {
         contentv.setTextSize(16f);
         postID.setTypeface(Typeface.DEFAULT_BOLD);
 
-
-
-
 //        Button likeBt = (Button) findViewById(R.id.LikeButton);
 //        likeBt.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-////                String uId = user.getUid();
-////                String tag = currentPost.getTag();
-////                String content = currentPost.getContent();
-////                int photoId = currentPost.getPhotoId();
-////                int stars = currentPost.getLikes()+1;
-//
-//
 //                boolean likeResult = Global_Data.getInstance().likePost(currentPost);
 //                if (likeResult){
 //                    long likec = currentPost.getLikeCount()+1;
-//                    CharSequence dolike = "Like: " + likec;
-//                    like.setText(dolike);
+//                    like.setText("Like: " + likec);
 //                    UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
-//                    Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();
 //                }
 //            }
 //        });
 
-        likeButtonHeart = (LikeButton)findViewById(R.id.likeButtonHeart); //like button
-        //initializing the LikeButton objects
+        // initializing the LikeButton objects & Heart OnLikeListener
         likeButtonHeart = (LikeButton)findViewById(R.id.likeButtonHeart);
-        //like Button Heart OnLikeListener
         likeButtonHeart.setOnLikeListener( new OnLikeListener(  ) {
             @Override
             public void liked( LikeButton likeButton ) {
                 //sowing simple Toast when liked
 //                Toast.makeText( CurrentPost.this, " Liked Heart : )", Toast.LENGTH_SHORT ).show(  );
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                String uId = user.getUid();
-//                String tag = currentPost.getTag();
-//                String content = currentPost.getContent();
-//                int photoId = currentPost.getPhotoId();
-//                int stars = currentPost.getLikes()+1;
                 boolean likeResult = Global_Data.getInstance().likePost(currentPost);
                 if (likeResult){
-                    long likec = currentPost.getLikeCount()+1;
-                    CharSequence dolike = "Total Like: " + likec;
-                    like.setText(dolike);
+                    currentPost.likePost();
+                    CharSequence likesText = currentPost.getLikeCount() + " likes";
+                    like.setText(likesText);
                     UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
                     Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();}
             }
@@ -134,15 +130,14 @@ public class CurrentPost extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 boolean likeResult = Global_Data.getInstance().unlikePost(currentPost);
                 if (likeResult){
-                    CharSequence likes = currentPost.getLikeCount() + "likes";
-                    like.setText(likes);
+                    currentPost.dislikePost();
+                    CharSequence likesText = currentPost.getLikeCount() + " likes";
+                    like.setText(likesText);
                     UserActivityDao.getInstance().dislikePost(user.getUid(), currentPost.getPostId());
                     //showing simple Toast when unLiked
                     Toast.makeText( CurrentPost.this, " Post UnLiked  : )", Toast.LENGTH_SHORT ).show(  );}
             }
         } );
-
-
 
         Button backBt = (Button) findViewById(R.id.BackButton);
         backBt.setOnClickListener(new View.OnClickListener() {
@@ -158,4 +153,53 @@ public class CurrentPost extends AppCompatActivity {
             }
         });
     }
+
+
+    /**
+     * Match existing User Profile on Firebase
+     */
+    public void userProfile(String userId) {
+        dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("snapshot: "+snapshot.getKey() + ", value: " + snapshot.getValue());
+                // Try to match Firebase Records
+                if (snapshot.exists() && snapshot.hasChildren()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String k = ds.getKey();
+                        switch (k) {
+                            case "userName" :
+                                userName = (String) ds.getValue();
+                                if (userName!=null && userName.length()>0 && !userName.equals("null")){
+                                    uIdTv.setText("@"+userName);
+                                    System.out.println("uIdTv: " + userName);
+                                } else {
+                                    uIdTv.setText("@"+currentPost.getUId());
+                                }
+                                continue;
+                            case "caption":
+                                caption = (String) ds.getValue();
+                                if (caption.length()==0) continue;
+                                captionTv = (TextView) findViewById(R.id.captionTv);
+                                captionTv.setText(caption);
+                                continue;
+                            default:
+                                continue;
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Firebase Read Fail", error.toException());
+            }
+        };
+        dbRef.addValueEventListener(listener);
+
+    }
+
 }
+
