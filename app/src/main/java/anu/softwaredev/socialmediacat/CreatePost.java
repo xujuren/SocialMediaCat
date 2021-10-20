@@ -34,9 +34,11 @@ public class CreatePost extends AppCompatActivity {
     private EditText photoIDEdit;
     private LocationManager locManager;
     private LocationListener locListener;
-    public static final int PHOTO_ID_ERROR_CODE = -1;
-    public static final int PHOTO_LIMIT_LOWER = 0;
-    public static final int PHOTO_LIMIT_UPPER = 100;
+
+    private static final int PHOTO_ID_ERROR_CODE = -1;
+    private static final int PHOTO_LIMIT_LOWER = 0;
+    private static final int PHOTO_LIMIT_UPPER = 100;
+    private static String TAG_DEFAULT = "#random";
 
     @Override
     /**
@@ -73,10 +75,10 @@ public class CreatePost extends AppCompatActivity {
 
 
     /**
-     * Create Post - button
+     * onClick Method for the "Create Post" Button
      * @param v UI
      */
-    public void bt_confirm_CreatePost(View v) {
+    public void CreatePostConfirmBt(View v) {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String uId = user.getUid();
@@ -88,16 +90,11 @@ public class CreatePost extends AppCompatActivity {
 
             // Check invalid characters in tag
             if (tag.contains(",") || tag.contains(";") || TextUtils.isEmpty(tag)) {
-                tag="";
-                Toast.makeText(CreatePost.this, "Invalid input - your post is not tagged.", Toast.LENGTH_SHORT).show();
+                tag = TAG_DEFAULT;
+                Toast.makeText(CreatePost.this, "Invalid input - your post tagged " + tag + ": )", Toast.LENGTH_SHORT).show();
             }
 
-            // Check invalid characters in content
-            content = content.replaceAll("\"", "");       // TODO remove all " inputted by user
-            content = "\"" + content + "\"";
-
-
-            // add Location to Content (if permitted and available) //TODO known bug
+            // add Location to Content, if permitted and available (Note: related to a known bug as reported)
             String latLng = latlngText.getText().toString();
             if (latLng.charAt(0)=='['){
                 content = content + latLng;

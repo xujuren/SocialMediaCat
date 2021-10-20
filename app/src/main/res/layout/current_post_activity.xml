@@ -5,69 +5,112 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textColor="@color/white"
     tools:context=".CurrentPost"
     tools:ignore="MissingClass">
 
+    <TextView
+        android:id="@+id/captionTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:text="0123456789123456782234567893234567894234567895"
+        android:textColor="#6C6C6E"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="280dp"
-        android:layout_height="273dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/titleTextView"
+        android:layout_width="350dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postIdTextView"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/ContentTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
 
     <!-- heart like button -->
 
+
     <TextView
-        android:id="@+id/ContentTextView"
+        android:id="@+id/likeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="6dp"
         android:text="TextView"
+        android:textColor="#6C6C6E"
+        app:layout_constraintBottom_toBottomOf="@+id/likeButtonHeart"
+        app:layout_constraintEnd_toStartOf="@+id/likeButtonHeart" />
+
+    <TextView
+        android:id="@+id/tagTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#6C6C6E"
+        app:layout_constraintBottom_toBottomOf="@+id/likeTextView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="45dp"
+        android:text="TextView"
+        android:textColor="#6C6C6E"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PostIdtextView" />
+        app:layout_constraintStart_toStartOf="@+id/tagTextView"
+        app:layout_constraintTop_toBottomOf="@+id/tagTextView" />
+
+
+    <TextView
+        android:id="@+id/postIdTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#6C6C6E"
+        app:layout_constraintBottom_toBottomOf="@+id/userIdTextView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/userIdTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textColor="#009688"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/captionTv" />
+
 
     <Button
         android:id="@+id/BackButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
+        android:layout_height="43dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#525455"
+        android:text="Return"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/imageView"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/likeButtonHeart"
-        app:layout_constraintTop_toBottomOf="@id/ContentTextView"
-        app:layout_constraintVertical_bias="0.923" />
+        app:layout_constraintEnd_toEndOf="@+id/likeButtonHeart" />
+
 
     <com.like.LikeButton
         android:id="@+id/likeButtonHeart"
-        android:layout_width="54dp"
-        android:layout_height="52dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
-        android:layout_marginStart="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         app:anim_scale_factor="2"
         app:circle_end_color="#12A518"
         app:circle_start_color="#F1DD31"
@@ -76,25 +119,10 @@
         app:icon_size="40dp"
         app:icon_type="heart"
         app:is_enabled="true"
-        app:layout_constraintBottom_toBottomOf="@id/BackButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PostIdtextView"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:liked="false"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/PostIdtextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="60dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
-
     <!-- heart like button -->
 
 

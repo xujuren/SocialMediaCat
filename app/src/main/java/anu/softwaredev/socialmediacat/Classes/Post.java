@@ -62,8 +62,6 @@ public class Post implements Comparable<Post>{
         }
     }
 
-
-
     /** Getters */
     public String getUId(){return uId;}
     public String getPostId(){return postId;}           // Excluded?
@@ -73,12 +71,12 @@ public class Post implements Comparable<Post>{
     public int getLikeCount(){return likeCount;}
 
     /** Setters */
-    public void setPostId(String postId){postId = postId;}  // excluded?
-    public void setUId(String uId){uId = uId;}
-    public void setTag(String tag){tag = tag;}
-    public void setContent(String content){content = content;}
-    public void setPhotoId(int photoId){photoId =photoId;}
-    public void setLikeCount(int likeCount){likeCount = likeCount;}
+    public void setPostId(String postId){this.postId = postId;}  // excluded?
+    public void setUId(String uId){this.uId = uId;}
+    public void setTag(String tag){this.tag = tag;}
+    public void setContent(String content){this.content = content;}
+    public void setPhotoId(int photoId){this.photoId =photoId;}
+    public void setLikeCount(int likeCount){this.likeCount = likeCount;}
 
     public void likePost() {
         likeCount += 1;
