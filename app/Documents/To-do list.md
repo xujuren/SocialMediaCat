@@ -46,6 +46,7 @@ _**URGENT + Fundamental**_
 | **currentPostUI** | (1) scroll up/down will also get directed into current Post? <br /> (2) delete UI bug (see above) | **Kevin** |
 | **ProfileActivity** | * import Photos, replace photoId (before Thurs) | **TBC** |
 | **Profile Linkage** | * show user Info in timeline/current post (e.g. name, caption) | **Cathy** |
+| **Use Case** | * got an idea, try to get the full creativity mark LoL | **Cathy** |
 | **Post Input** | * Screen 'tag' input after User Input, before Storing  | **TBC** |
 | **Local Firebase** | *load Firebase *Juren*  | **TBC** |
 
