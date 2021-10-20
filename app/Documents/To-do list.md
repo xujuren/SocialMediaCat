@@ -18,6 +18,13 @@ _**URGENT + Fundamental**_
 | Task | header | By |
 | ------ | ------ | ------ |
 | **MEDIUM FEATURE** <br /> (or Hard/Very Hard also ok) | + partially invalid search | **Kevin** |
+- invalid partially search
+1. #correct;@not correct
+2. #wrong → crash ,should 
+3. #correct@correct
+4. #wrong;@correct 
+5. #wrong;@wrong
+Doing everything 
 
 
 **Bugs / incompleted new functions**
