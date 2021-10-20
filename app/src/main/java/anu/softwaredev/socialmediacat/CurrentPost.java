@@ -1,6 +1,9 @@
 package anu.softwaredev.socialmediacat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -75,19 +78,6 @@ public class CurrentPost extends AppCompatActivity {
         contentv.setText((CharSequence)currentPost.getContent());
         contentv.setTextSize(20f);
         postID.setTypeface(Typeface.DEFAULT);
-
-
-        // Now get a handle to any View contained
-        // within the main layout you are using
-        View someView = findViewById(R.id.randomViewInMainLayout);
-
-        // Find the root view
-        View root = someView.getRootView();
-
-        // Set the color
-        root.setBackgroundColor(getResources().getColor(android.R.color.red));
-
-
 
 
 
