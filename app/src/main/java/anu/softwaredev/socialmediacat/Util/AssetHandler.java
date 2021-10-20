@@ -1,11 +1,23 @@
 package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.Classes.User;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
@@ -15,11 +27,10 @@ public abstract class AssetHandler {
     public abstract List<UserActivity> actionsFromAssets(Context ctx);
     public abstract List<Post> postsFromAssets(Context ctx);
 
-    /** Create Posts template */
-    public static void createPosts(Context ctx) {
-        List<UserActivity> userActs = actionsFromDataInstances(ctx);                    // load action data
-        List<UserActivity> createPostActs = createPostsFromDataInstances(userActs);     // extract: createPost
-        createPosts(createPostActs);                                                    // create posts
+    /** perform actions template */
+    public static void performActions(Context ctx) {
+        List<UserActivity> userActs = actionsFromDataInstances(ctx);
+        streamOfData(userActs);
     }
 
     // load create post activities
@@ -41,10 +52,8 @@ public abstract class AssetHandler {
         return actions;
     }
 
-
     // (1) create posts
     public static List<UserActivity> createPostsFromDataInstances(List<UserActivity> userActs) {
-
         // TODO - CREATE POSTS
         List<UserActivity> createPostActs = new ArrayList<>();
         for (UserActivity userAct : userActs) {
@@ -55,8 +64,8 @@ public abstract class AssetHandler {
         return createPostActs;
     }
 
-    /* create posts from the postData */
-    public static void createPosts(List<UserActivity> data) {
+    /* A Stream of activities (with data instances) */
+    public static void streamOfData(List<UserActivity> data) {
         int size = data.size();
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
@@ -80,7 +89,7 @@ public abstract class AssetHandler {
                 }
                 i++;
             }
-        }, 0, 100000);
+        }, 0, 50000);
 
     }
 
@@ -102,7 +111,6 @@ public abstract class AssetHandler {
 
         UserActivityDao.getInstance().loadPost(posts);
     }
-
 
 
 }
