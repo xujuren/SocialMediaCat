@@ -65,19 +65,19 @@ public class CurrentPost extends AppCompatActivity {
         TextView like = (TextView) findViewById(R.id.likeTextView);
         CharSequence likes = currentPost.getLikeCount() + " likes";
         like.setText(likes);
-        like.setTextSize(18f);
-        like.setTypeface(Typeface.DEFAULT_BOLD);
+        like.setTextSize(15f);
+        like.setTypeface(Typeface.DEFAULT);
 
         // tag show (if any)
         TextView tagTv = (TextView) findViewById(R.id.tagTextView);
         tagTv.setText((CharSequence)currentPost.getTag());
-        tagTv.setTextSize(18f);
+        tagTv.setTextSize(15f);
         tagTv.setTypeface(Typeface.DEFAULT_BOLD);
 
         TextView contentv = (TextView) findViewById(R.id.contentTextView);
         contentv.setText((CharSequence)currentPost.getContent());
-        contentv.setTextSize(18f);
-        postID.setTypeface(Typeface.DEFAULT);
+        contentv.setTextSize(16f);
+        postID.setTypeface(Typeface.DEFAULT_BOLD);
 
 
 

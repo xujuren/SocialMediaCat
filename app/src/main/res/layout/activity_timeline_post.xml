@@ -26,12 +26,12 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_content"
-        app:layout_constraintEnd_toStartOf="@+id/tv_CategoryPostId"
+        app:layout_constraintEnd_toStartOf="@+id/tv_TagPostId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_post_image" />
 
     <TextView
-        android:id="@+id/tv_CategoryPostId"
+        android:id="@+id/tv_TagPostId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -59,7 +59,7 @@
         android:layout_marginEnd="10dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_CategoryPostId" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_TagPostId" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

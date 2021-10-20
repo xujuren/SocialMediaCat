@@ -85,7 +85,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             this.ivPostImage = (ImageView) itemView.findViewById(R.id.iv_post_image);
             this.tvPostUsername = (TextView) itemView.findViewById(R.id.tv_userName);
             this.tvPostContent = (TextView) itemView.findViewById(R.id.tv_content);
-            this.tvTagsAndPostId = (TextView) itemView.findViewById(R.id.tv_CategoryPostId);   // New
+            this.tvTagsAndPostId = (TextView) itemView.findViewById(R.id.tv_TagPostId);   // New
             this.tvLikes = (TextView) itemView.findViewById(R.id.tv_likes);
         }
 
