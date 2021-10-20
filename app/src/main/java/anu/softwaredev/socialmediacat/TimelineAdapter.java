@@ -1,7 +1,6 @@
 package anu.softwaredev.socialmediacat;
 
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -48,10 +47,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     @Override
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
         if (dataset != null) {
-            holder.getPostUsername().setText("@"+dataset.get(position).getUId());
-            holder.getPostContent().setText(dataset.get(position).getTag() + " " + dataset.get(position).getContent().substring(1, dataset.get(position).getContent().length()-1));
-            holder.getCategoryPostId().setText(dataset.get(position).getPostId());
-            holder.getLikes().setText(String.valueOf(dataset.get(position).getLikeCount()) + " likes");
+            holder.getPostUserId().setText("@"+dataset.get(position).getUId());
+            holder.getPostId().setText(dataset.get(position).getPostId());
+            holder.getTagContent().setText(dataset.get(position).getTag() + "\n" + dataset.get(position).getContent().replace("\"", ""));
+            holder.getTag().setText(String.valueOf(dataset.get(position).getLikeCount()) + " likes");
             long photoId = dataset.get(position).getPhotoId();
             // Load Image
             if (photoId>=PHOTO_ID_LOWER && photoId<=PHOTO_ID_UPPER){
@@ -92,10 +91,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
         // Getter method (for each obj)
         public ImageView getPostImage() {return ivPostImage;}
-        public TextView getPostUsername() {return tvPostUsername;}
-        public TextView getPostContent() {return tvPostContent;}
-        public TextView getCategoryPostId() {return tvTagsAndPostId;}
-        public TextView getLikes() {return tvLikes;}
+        public TextView getPostUserId() {return tvPostUsername;}
+        public TextView getTagContent() {return tvPostContent;}
+        public TextView getPostId() {return tvTagsAndPostId;}
+        public TextView getTag() {return tvLikes;}
     }
 
 }

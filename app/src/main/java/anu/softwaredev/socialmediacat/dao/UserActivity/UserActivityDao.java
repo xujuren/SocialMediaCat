@@ -73,6 +73,9 @@ public class UserActivityDao implements IUserActivityDao {
             String contentText = content.substring(1, content.length()-1);
             contentText.replaceAll("\"", "");
 
+            // TODO
+            System.out.println("contentText: " + contentText);
+
             // Update firebase DB
             String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
             Post newPost = new Post(uId, tag, postId, content, photoId);
