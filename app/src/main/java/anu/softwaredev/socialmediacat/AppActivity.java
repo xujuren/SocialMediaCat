@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -119,6 +120,7 @@ public class AppActivity extends AppCompatActivity {
      */
     public void toTimelineAct(View v){
         Intent i = new Intent(getApplicationContext(), TimelineActivity.class);        // ori: AppActivity.this
+        i.putExtra("MESSAGE", true);
         startActivity(i);
     }
 
@@ -141,5 +143,14 @@ public class AppActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * switch to myPost page
+     * @param v UI
+     */
+    public void toMyPost(View v) {
+        Intent i = new Intent(getApplicationContext(), TimelineActivity.class);
+        i.putExtra("MESSAGE", false);
+        startActivity(i);
+    }
 
 }

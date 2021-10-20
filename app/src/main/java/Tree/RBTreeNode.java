@@ -5,7 +5,7 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 public class RBTreeNode<T extends Comparable<T>> {
 
     /**color of node*/
-    boolean color;
+    Color color;
 
     /**search key*/
     T key;
@@ -30,7 +30,7 @@ public class RBTreeNode<T extends Comparable<T>> {
      * @param left
      * @param right
      */
-    public RBTreeNode(T key, boolean color, RBTreeNode<T> parent, RBTreeNode<T> left, RBTreeNode<T> right) {
+    public RBTreeNode(T key, Color color, RBTreeNode<T> parent, RBTreeNode<T> left, RBTreeNode<T> right) {
         this.key = key;
         this.color = color;
         this.parent = parent;
@@ -55,7 +55,7 @@ public class RBTreeNode<T extends Comparable<T>> {
      * @param right
      * @param post
      */
-    public RBTreeNode(T key, boolean color, RBTreeNode<T> parent, RBTreeNode<T> left, RBTreeNode<T> right, Post post ) {
+    public RBTreeNode(T key, Color color, RBTreeNode<T> parent, RBTreeNode<T> left, RBTreeNode<T> right, Post post ) {
         this.key = key;
         this.color = color;
         this.parent = parent;

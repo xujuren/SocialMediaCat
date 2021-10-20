@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +40,7 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
+    FirebaseAuth user = FirebaseAuth.getInstance();
     private static DatabaseReference dbRef;
     private static UserActivityDao instance;        // Singleton instance for UserActivityDao
     private static File file;                       // temporary file
@@ -85,6 +87,12 @@ public class UserActivityDao implements IUserActivityDao {
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + postId, postValues);
             dbRef.updateChildren(childUpdates);
+            // insert current post in to tree
+
+            Global_Data.getInstance().insert(newPost);
+            if (newPost.getUId().equals(user.getUid())){
+                Global_Data.getInstance().add_My_Posts(newPost);
+            }
 
             // write to file                  // post
             String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
@@ -164,7 +172,11 @@ public class UserActivityDao implements IUserActivityDao {
 //                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
                         Post post = new Post(items[1], "random", items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
                         postsLoaded.add(post);
+
                         Global_Data.getInstance().insert(post);
+                        if (post.getUId().equals(user.getUid())){
+                            Global_Data.getInstance().add_My_Posts(post);
+                        }
                     }
                 }
             }

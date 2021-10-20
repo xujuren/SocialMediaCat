@@ -26,6 +26,9 @@ public class CurrentPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_post_activity);
         Intent intent = getIntent();
+        final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
+
+
         String uid = intent.getStringExtra("uId");
         String tag = intent.getStringExtra("tag");
         String postId = intent.getStringExtra("postId");
@@ -81,18 +84,19 @@ public class CurrentPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth user = FirebaseAuth.getInstance();
-                Global_Data.getInstance().delete(currentPost);
-                UserActivityDao.getInstance().deletePost(currentPost.getPostId());
-                Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
+//                Global_Data.getInstance().delete(currentPost);
+//                UserActivityDao.getInstance().deletePost(currentPost.getPostId());
+//                Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
 
 //                finish();
-//                if (user.getUid().equals(currentPost.getUId())) {
-//                    Global_Data.getInstance().delete(currentPost);
-//                    Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
+                if (user.getUid().equals(currentPost.getUId())) {
+                    Global_Data.getInstance().delete(currentPost);
+                    Global_Data.getInstance().remove_My_Post(currentPost);
+                    Toast.makeText(CurrentPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
 //                    finish();
-//                }else {
-//                    Toast.makeText(CurrentPost.this, "You do not have permission to delete this", Toast.LENGTH_SHORT).show();
-//                }
+                }else {
+                    Toast.makeText(CurrentPost.this, "You do not have permission to delete this", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -101,6 +105,11 @@ public class CurrentPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent.setClass(CurrentPost.this,TimelineActivity.class);
+                if (MESSAGE)
+                    intent.putExtra("MESSAGE", true);
+                else
+                    intent.putExtra("MESSAGE", false);
+
                 startActivity(intent);
             }
         });

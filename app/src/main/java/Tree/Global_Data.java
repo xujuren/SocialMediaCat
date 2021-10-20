@@ -1,5 +1,6 @@
 package Tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,11 +8,14 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 
 public class Global_Data {
     RBTree<String> data;
+    List<Post> myPosts;
 
     public static Global_Data instance = null;
 
     private Global_Data(){
         data = new RBTree<>();
+//        myPosts = new LinkedList<>();
+        myPosts = new ArrayList<>();
     }
 
     public static Global_Data getInstance() {
@@ -84,4 +88,15 @@ public class Global_Data {
         return false;
     }
 
+    public void add_My_Posts(Post post) {
+        myPosts.add(post);
+    }
+
+    public List<Post> getMyPosts() {
+        return myPosts;
+    }
+
+    public void remove_My_Post(Post post) {
+        myPosts.remove(post);
+    }
 }

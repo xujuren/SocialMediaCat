@@ -28,49 +28,6 @@ public class TimelineActivity extends AppCompatActivity {
     RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
 
     /**
-     * integrated search , final version
-     * @param search : input string
-     * @return post list to show as result
-     */
-    public ArrayList<Post> searchAll(String search){
-        ArrayList<Post> postsToShow = new ArrayList<>();
-        String tagToSearch = "";
-        String postIDToSearch = "";
-        System.out.println(search);
-        // Tokenize, Parse
-        Tokenizer tokenizer = new Tokenizer(search);
-        Parser parser = new Parser(tokenizer);
-        if (parser.getTag()==null) {
-            System.out.println("no Tag");               //show purpose
-        } else {
-            System.out.println(parser.getTag().show());
-            tagToSearch = parser.getTag().show();
-        }
-        if (parser.getPostId()==null){
-            System.out.println("no postId");            //show purpose
-        } else {
-            System.out.println(parser.getPostId().show());
-            postIDToSearch = parser.getPostId().show();
-        }
-        if (tagToSearch.equals("") && !postIDToSearch.equals("")){
-            // only postid to search
-            postsToShow.add(Global_Data.getInstance().searchById(postIDToSearch)) ;
-        } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
-            //only tag to search
-            postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
-        } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
-            //empty, nothing to search
-            System.out.println("nothing , Toaster throws reminder");
-        } else {
-            postsToShow.add(Global_Data.instance.search(tagToSearch,postIDToSearch)) ;
-        }
-
-        return postsToShow;
-
-        //then we have a post list to show
-    }
-
-    /**
      * main method, put all logic inside
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
      */
@@ -79,13 +36,25 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        // 分辨是打开 my post还是 all posts
+        Intent intent = getIntent();
+        final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
+        List<Post> postList = new LinkedList<>();
+        if (MESSAGE)
+            postList = Global_Data.getInstance().toList();
+        else
+            postList = Global_Data.getInstance().getMyPosts();
+
+
+
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
             actionBar.hide();
         }
         // Set Up timeline view and data
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
-        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), Global_Data.getInstance().toList());
+        TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), postList);
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new GridLayoutManager(this, 2));         // Grid layout timeline
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
@@ -124,6 +93,8 @@ public class TimelineActivity extends AppCompatActivity {
                     intent.putExtra("content",ClickPost.getContent());
                     intent.putExtra("likeCount",ClickPost.getLikeCount());
                     intent.putExtra("photoId",ClickPost.getPhotoId());
+                    //检查是mypost 还是 all post呼叫的currentpost
+                    intent.putExtra("MESSAGE", MESSAGE);
                     startActivity(intent);
                     return true;
                 }
@@ -149,6 +120,7 @@ public class TimelineActivity extends AppCompatActivity {
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
             }
         });
+
     }
 
     /**
@@ -157,10 +129,10 @@ public class TimelineActivity extends AppCompatActivity {
      * @param database
      * @return
      */
-    public static RBTree<String> delete(Post post, RBTree<String> database) {
-        database.delete(post.getTag(), post);
-        return database;
-    }
+//    public static RBTree<String> delete(Post post, RBTree<String> database) {
+//        database.delete(post.getTag(), post);
+//        return database;
+//    }
 
     /**
      * Search by post id
@@ -202,11 +174,56 @@ public class TimelineActivity extends AppCompatActivity {
      * @param database
      * @return
      */
-    public static Post search(String tag, String id, RBTree<String> database) {
-        RBTreeNode<String> node = database.find(tag);
-        if (node == null)
-            return null;
-        return node.getPostsTree().findById(id).getKey();
+//    public static Post search(String tag, String id, RBTree<String> database) {
+//        RBTreeNode<String> node = database.find(tag);
+//        if (node == null)
+//            return null;
+//        return node.getPostsTree().findById(id).getKey();
+//    }
+
+
+
+    /**
+     * integrated search , final version
+     * @param search : input string
+     * @return post list to show as result
+     */
+    public ArrayList<Post> searchAll(String search){
+        ArrayList<Post> postsToShow = new ArrayList<>();
+        String tagToSearch = "";
+        String postIDToSearch = "";
+        System.out.println(search);
+        // Tokenize, Parse
+        Tokenizer tokenizer = new Tokenizer(search);
+        Parser parser = new Parser(tokenizer);
+        if (parser.getTag()==null) {
+            System.out.println("no Tag");               //show purpose
+        } else {
+            System.out.println(parser.getTag().show());
+            tagToSearch = parser.getTag().show();
+        }
+        if (parser.getPostId()==null){
+            System.out.println("no postId");            //show purpose
+        } else {
+            System.out.println(parser.getPostId().show());
+            postIDToSearch = parser.getPostId().show();
+        }
+        if (tagToSearch.equals("") && !postIDToSearch.equals("")){
+            // only postid to search
+            postsToShow.add(Global_Data.getInstance().searchById(postIDToSearch)) ;
+        } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
+            //only tag to search
+            postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
+        } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
+            //empty, nothing to search
+            System.out.println("nothing , Toaster throws reminder");
+        } else {
+            postsToShow.add(Global_Data.instance.search(tagToSearch,postIDToSearch)) ;
+        }
+
+        return postsToShow;
+
+        //then we have a post list to show
     }
 
 }

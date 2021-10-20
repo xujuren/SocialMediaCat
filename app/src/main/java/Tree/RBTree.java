@@ -10,7 +10,6 @@ public class RBTree<T extends Comparable<T>> {
     /**
      * root node
      */
-//    public RBTreeNode<T> root;
 
     public RBTreeNode<T> root;
 
@@ -22,21 +21,13 @@ public class RBTree<T extends Comparable<T>> {
     private static final boolean BLACK = true;
 
 
-//    public void insert(E key) {
-//        System.out.println("插入[" + key + "]:");
-//        RBTreeNode<E> node=new RBTreeNode<E>(key, BLACK,null,null,null);
-//        if (node != null)
-//            insert(node);
-//
-//    }
-
     /**
      * insert a new node into RB tree
      * @param key
      */
     public void insert(T key) {
         // System.out.println("Insert[" + key + "]:");
-        RBTreeNode<T> node=new RBTreeNode<T>(key, BLACK,null,null,null);
+        RBTreeNode<T> node=new RBTreeNode<T>(key, Color.BLACK,null,null,null);
         if (node != null)
             insert(node);
     }
@@ -47,25 +38,10 @@ public class RBTree<T extends Comparable<T>> {
      */
     public void insert(T key, Post post) {
         // System.out.println("Insert[" + key + "]:");
-        RBTreeNode<T> node=new RBTreeNode<T>(key, BLACK,null,null,null, post);
+        RBTreeNode<T> node=new RBTreeNode<T>(key, Color.BLACK,null,null,null, post);
         if (node != null)
             insert(node, post);
     }
-
-//    public void insert(E key, int postId) {
-//        System.out.println("插入[" + key + "]:");
-//        RBTreeNode<E> node=new RBTreeNode<E>(key, BLACK,null,null,null, postId);
-//
-//        if (node != null)
-//            insert(node, postId);
-//    }
-
-    /*
-     * 将结点插入到红黑树中
-     *
-     * 参数说明：
-     *     node 插入的结点
-     */
 
     /**
      * insert node into RB tree
@@ -103,7 +79,7 @@ public class RBTree<T extends Comparable<T>> {
         }
 
         // set node's to red
-        node.color = RED;
+        node.color = Color.RED;
 
         // fix the balance of RBtree
         fixBalance_insert(node);
@@ -147,52 +123,11 @@ public class RBTree<T extends Comparable<T>> {
 
         }
         // set node's to red
-        node.color = RED;
+        node.color = Color.RED;
 
         // fix the balance of RBtree
         fixBalance_insert(node);
     }
-
-//    private void insert(RBTreeNode<E> node, int postId) {
-//        int cmp;
-//        RBTreeNode<E> y = null;
-//        RBTreeNode<E> x = this.root;
-//
-//        // 1. 将红黑树当作一颗二叉查找树，将节点添加到二叉查找树中。
-//        while (x != null) {
-//            y = x;
-//            cmp = node.key.compareTo(x.key);
-//            if (cmp == 0){
-//                x.postsTree.insert(postId);
-//
-//                return;
-//            } else {
-//                if (cmp < 0)
-//                    x = x.left;
-//                else
-//                    x = x.right;
-//            }
-//
-//        }
-//
-//        node.parent = y;
-//        if (y!=null) {
-//            cmp = node.key.compareTo(y.key);
-//            if (cmp < 0)
-//                y.left = node;
-//            else
-//                y.right = node;
-//        } else {
-//            this.root = node;
-//
-//        }
-////        node.postsTree.insert(post);
-//        // 2. 设置节点的颜色为红色
-//        node.color = RED;
-//
-//        // 3. 将它重新修正为一颗二叉查找树
-//        insertFixUp(node);
-//    }
 
 
     /**
@@ -203,6 +138,7 @@ public class RBTree<T extends Comparable<T>> {
         RBTreeNode<T> parent, gparent;
 
         // if parent node is exist and its color is red
+//        parent = getParent(node);
         while (((parent = getParent(node))!=null) && isRed(parent)) {
             gparent = getParent(parent);
 
@@ -296,21 +232,6 @@ public class RBTree<T extends Comparable<T>> {
 
     }
 
-//    public void remove(E key, int postId) {
-//        RBTreeNode<E> node;
-//
-//        if ((node = search(root, key)) != null)
-//            if (node.postsTree.root == null)
-//                remove(node);
-//            else{
-//                node.postsTree.remove(postId);
-//                System.out.println(node.postsTree.root);
-//                if(node.postsTree.root == null)
-//                    remove(node);
-//            }
-//    }
-
-
 
 
     /**
@@ -319,7 +240,7 @@ public class RBTree<T extends Comparable<T>> {
      */
     private void delete(RBTreeNode<T> node) {
         RBTreeNode<T> child, parent;
-        boolean color;
+        Color color;
 
         // if both right and left child of deleted node are not null
         if ( (node.left!=null) && (node.right!=null) ) {
@@ -365,7 +286,7 @@ public class RBTree<T extends Comparable<T>> {
             replace.left = node.left;
             node.left.parent = replace;
 
-            if (color == BLACK)
+            if (color == Color.BLACK)
                 fixBalance_delete(child, parent);
 
             node = null;
@@ -396,7 +317,7 @@ public class RBTree<T extends Comparable<T>> {
             this.root = child;
         }
 
-        if (color == BLACK)
+        if (color == Color.BLACK)
             fixBalance_delete(child, parent);
         node = null;
     }
@@ -586,7 +507,9 @@ public class RBTree<T extends Comparable<T>> {
      * @return parent node of param node
      */
     private RBTreeNode<T> getParent(RBTreeNode<T> node) {
-        return node!=null ? node.parent : null;
+        if (node != null)
+            return node.parent;
+        return null;
     }
 
     /**
@@ -594,8 +517,11 @@ public class RBTree<T extends Comparable<T>> {
      * @param node
      * @return color of node
      */
-    private boolean getColor(RBTreeNode<T> node) {
-        return node!=null ? node.color : BLACK;
+    private Color getColor(RBTreeNode<T> node) {
+        if(node != null)
+            return node.color;
+        return Color.BLACK;
+
     }
 
     /**
@@ -604,7 +530,9 @@ public class RBTree<T extends Comparable<T>> {
      * @return true if red, false if black
      */
     private boolean isRed(RBTreeNode<T> node) {
-        return (node != null) && (node.color == RED);
+        if(node == null)
+            return false;
+        return node.color != Color.BLACK;
     }
 
     /**
@@ -613,7 +541,9 @@ public class RBTree<T extends Comparable<T>> {
      * @return true is black, false if red
      */
     private boolean isBlack(RBTreeNode<T> node) {
-        return !isRed(node);
+        if(node ==null)
+            return false;
+        return node.color != Color.RED;
     }
 
     /**
@@ -622,7 +552,7 @@ public class RBTree<T extends Comparable<T>> {
      */
     private void toBlack(RBTreeNode<T> node) {
         if (node!=null)
-            node.color = BLACK;
+            node.color = Color.BLACK;
     }
 
     /**
@@ -631,7 +561,7 @@ public class RBTree<T extends Comparable<T>> {
      */
     private void toRed(RBTreeNode<T> node) {
         if (node!=null)
-            node.color = RED;
+            node.color = Color.RED;
     }
 
     /**
@@ -649,7 +579,7 @@ public class RBTree<T extends Comparable<T>> {
      * @param node
      * @param color
      */
-    private void setColor(RBTreeNode<T> node, boolean color) {
+    private void setColor(RBTreeNode<T> node, Color color) {
         if (node!=null)
             node.color = color;
     }
@@ -726,4 +656,6 @@ public class RBTree<T extends Comparable<T>> {
         // set "y's parent" as x
         y.parent = x;
     }
+
+
 }

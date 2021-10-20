@@ -104,15 +104,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavMenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/to_Manage_Profile_bt2"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/my_posts" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavMenu"
@@ -126,6 +125,21 @@
         app:layout_constraintTop_toBottomOf="@+id/content"
         app:menu="@menu/menu_nav"
         tools:layout_editor_absoluteX="-1dp"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <Button
+        android:id="@+id/my_posts"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#07808F"
+        android:onClick="toMyPost"
+        android:text="MY POSTS"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_Manage_Profile_bt2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
