@@ -132,7 +132,7 @@ public class CurrentPost extends AppCompatActivity {
             @Override
             public void unLiked( LikeButton likeButton ) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                boolean likeResult = Global_Data.getInstance().likePost(currentPost);
+                boolean likeResult = Global_Data.getInstance().unlikePost(currentPost);
                 if (likeResult){
                     CharSequence likes = currentPost.getLikeCount() + "likes";
                     like.setText(likes);
