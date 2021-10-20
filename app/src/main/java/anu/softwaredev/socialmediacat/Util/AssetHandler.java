@@ -73,7 +73,7 @@ public abstract class AssetHandler {
                             if (act.getAction()=="LP"){
                                 UserActivityDao.getInstance().likePost(act.getUId(), act.getPostId());
                             } else if (act.getAction()=="DP"){
-                                UserActivityDao.getInstance().deletePost(act.getUId(), act.(());
+                                UserActivityDao.getInstance().deletePost(act.getUId(), act.getPostId());
                             }
                         }
                     }

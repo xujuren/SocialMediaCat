@@ -74,7 +74,7 @@ public class UserActivityDao implements IUserActivityDao {
             contentText.replaceAll("\"", "");
 
             // TODO
-            System.out.println("contentText: " + contentText);
+            System.out.println("Tag: " + tag);
 
             // Update firebase DB
             String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
@@ -86,11 +86,13 @@ public class UserActivityDao implements IUserActivityDao {
             // insert current post in to tree
 
             Global_Data.getInstance().insert(newPost);
+
+            // TODO - only add newly created, e.g. if user's post is in the local data instances (e.g. "u1")
             if (newPost.getUId().equals(user.getUid())){
                 Global_Data.getInstance().add_My_Posts(newPost);
             }
 
-            // write to file                  // post
+            // write to file
             String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
@@ -114,7 +116,7 @@ public class UserActivityDao implements IUserActivityDao {
 
             // write to file
             try {
-                String text = "store-post" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
+                String text = "load-post" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
                 }
@@ -132,6 +134,7 @@ public class UserActivityDao implements IUserActivityDao {
         dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
+
     public void dislikePost(String userId, String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(-1));
@@ -139,7 +142,7 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
     @Override
-    public void deletePost(String postId) {
+    public void deletePost(String userId, String postId) {
         dbRef.child("Posts").addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -169,9 +172,10 @@ public class UserActivityDao implements IUserActivityDao {
             if (lines != null) {
                 for (String line : lines) {
                     String[] items = line.split(";");
-                    if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "store-post".equals(items[0]) )) {  //
-//                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
-                        Post post = new Post(items[1], "random", items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
+                    if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "load-post".equals(items[0]) )) {
+
+                        // TODO changed it into tags, will give u "random" instances
+                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
                         postsLoaded.add(post);
 
                         Global_Data.getInstance().insert(post);
