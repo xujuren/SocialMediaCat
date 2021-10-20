@@ -4,6 +4,8 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 
 - If something cannot be fixed or don't want to fix it, can add to "list of known bugs" in report on Thu/Fri
 
+***Bugs ***
+delete post , doesnt work , post still in (mypost)
 
 _**URGENT + Fundamental**_
 | Task | header | By |

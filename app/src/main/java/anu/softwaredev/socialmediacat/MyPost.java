@@ -77,6 +77,10 @@ public class MyPost extends AppCompatActivity {
         like.setText(likes);
         like.setTextSize(32f);
         like.setTypeface(Typeface.DEFAULT_BOLD);
+        TextView postID = (TextView) findViewById(R.id.PostIdtextView2);
+        postID.setText((CharSequence)currentPost.getPostId());
+        postID.setTextSize(16f);
+        postID.setTypeface(Typeface.DEFAULT_BOLD);
 
         Button likeBt = (Button) findViewById(R.id.LikeButton2);
         likeBt.setOnClickListener(new View.OnClickListener() {
