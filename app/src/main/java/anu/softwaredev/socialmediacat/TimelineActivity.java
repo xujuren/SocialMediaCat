@@ -42,9 +42,9 @@ public class TimelineActivity extends AppCompatActivity {
         final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
         List<Post> postList = new LinkedList<>();
         if (MESSAGE)
-            postList = Global_Data.getInstance().toList();
+            postList.addAll(Global_Data.getInstance().toList());
         else
-            postList = Global_Data.getInstance().getMyPosts();
+            postList.addAll(Global_Data.getInstance().getMyPosts());
 
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
@@ -57,7 +57,6 @@ public class TimelineActivity extends AppCompatActivity {
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
-
 
         //TODO 添加search方法
         Button searchBt = (Button) findViewById(R.id.SearchButton);
@@ -73,7 +72,9 @@ public class TimelineActivity extends AppCompatActivity {
                     System.out.println(post);
                 }
                 // TODO - postsResult to display as result
-
+                postList.clear();
+                postList.addAll(postsResult);
+                timelineAdapter.notifyDataSetChanged();
             }
         });
 
