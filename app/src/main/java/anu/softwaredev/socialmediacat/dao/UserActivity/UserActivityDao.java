@@ -83,8 +83,8 @@ public class UserActivityDao implements IUserActivityDao {
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + postId, postValues);
             dbRef.updateChildren(childUpdates);
-            // insert current post in to tree
 
+            // insert current post in to tree
             Global_Data.getInstance().insert(newPost);
 
             // TODO - only add newly created, e.g. if user's post is in the local data instances (e.g. "u1")
@@ -92,7 +92,7 @@ public class UserActivityDao implements IUserActivityDao {
                 Global_Data.getInstance().add_My_Posts(newPost);
             }
 
-            // write to file
+            // write to file -
             String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);

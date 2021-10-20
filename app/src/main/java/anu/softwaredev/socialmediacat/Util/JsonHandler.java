@@ -14,13 +14,14 @@ import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 /** TBD: current JSON data instances only include posts*/
 public class JsonHandler extends AssetHandler {
 
+    // Not developed for the Assignment
     @Override
     public List<UserActivity> actionsFromAssets(Context ctx) {
-        // TODO - POSTS only (without spec "create") - @current .json's structure
         return null;
     }
 
-    @Override // TODO data
+    // TODO data
+    @Override
     public List<Post> postsFromAssets(Context ctx) {
         String jsonStr = getJsonFromAssets(ctx);
         Gson gson = new Gson();
