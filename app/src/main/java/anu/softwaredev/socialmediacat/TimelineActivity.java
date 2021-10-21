@@ -47,30 +47,8 @@ public class TimelineActivity extends AppCompatActivity {
         final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
         List<Post> postList = new LinkedList<>();
         if (MESSAGE) {
-            // TODO - postList.addAll(Global_Data.getInstance().toList());
-            // TODO - postList.addAll(UserActivityDao.getInstance().findAllPosts());
-            // postList = UserActivityDao.getInstance().findAllPosts();
-
-//            postList.clear();
-//            postList.addAll(UserActivityDao.getInstance().findAllPosts());
-
-
             postList.clear();
-            postList.addAll(Global_Data.getInstance().toList());
-
-
-            List<Post> postList1 = Global_Data.getInstance().toList();
-            System.out.println("all posts [1]:");
-            for (Post post : postList1) {
-                System.out.println("\t" + post);
-            }
-
-            List<Post> postList2 = UserActivityDao.getInstance().findAllPosts();
-            System.out.println("all posts [2]:");
-            for (Post post : postList2) {
-                System.out.println("\t" + post);
-            }
-
+            postList.addAll(Global_Data.getInstance().toList());        // alt: UserActivityDao.getInstance()
 
         } else {
             postList.addAll(Global_Data.getInstance().searchByUser(FirebaseAuth.getInstance().getUid()));

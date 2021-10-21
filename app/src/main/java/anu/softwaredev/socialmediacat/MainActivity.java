@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent();
                             intent.setClass(MainActivity.this, AppActivity.class);
                             AssetHandler.loadPostsfromDataInstances(getApplicationContext());
+                            AssetHandler.performActions(getApplicationContext());
                             startActivity(intent);
                             finish();
 
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, AppActivity.class);
                             AssetHandler.loadPostsfromDataInstances(getApplicationContext());
+                            AssetHandler.performActions(getApplicationContext());
                             startActivity(intent);
                             finish();
                         } else {

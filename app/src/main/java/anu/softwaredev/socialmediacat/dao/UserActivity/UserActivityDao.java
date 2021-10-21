@@ -72,11 +72,6 @@ public class UserActivityDao implements IUserActivityDao {
             childUpdates.put("/Posts/" + postId, postValues);
             dbRef.updateChildren(childUpdates);
 
-            // TODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
-            System.out.println("Created Post ===============");
-            System.out.println("\t" + newPost);
-            // TODO
-
             // Update Data Structure (insert current post into the RB-tree)
             Global_Data.getInstance().insert(newPost);
 
@@ -101,11 +96,19 @@ public class UserActivityDao implements IUserActivityDao {
     public void storePost(List<Post> posts) {
 
         for (Post post : posts){
+            if (post==null || post.getTag()==null) {break;}
+
             // Update firebase DB
             Map<String, Object> postValues = post.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + post.getPostId(), postValues);
             dbRef.updateChildren(childUpdates);
+
+            ///////////
+            System.out.println("DAO : INSERT");
+            System.out.println("Global_Data.getInstance(): " + Global_Data.getInstance());
+            System.out.println(".insert(post) - post: " + post);
+
 
             // Update Data Structure (insert current post into the RB-tree)
             Global_Data.getInstance().insert(post);
