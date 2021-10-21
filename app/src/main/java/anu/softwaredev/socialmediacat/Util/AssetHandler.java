@@ -48,41 +48,12 @@ public abstract class AssetHandler {
 
     /* A Stream of activities (with data instances) */
     public static void streamOfData(List<UserActivity> data) {
-//
-//        // M2
-//        Runnable runnableTask = () -> {
-//            try {
-//                TimeUnit.SECONDS.sleep(3);
-//                System.out.println("in Task - data.size(): " + data.size());
-//                if (data.size()>0) {
-//                    UserActivity act = data.get(0);
-//                    data.remove(0);
-//                    System.out.println(act.toString());
-//                    if (act!=null) {
-//                        if (act.getAction().equals("CP")){
-//                            UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
-//                        } else if (act.getAction().equals("LP")){
-//                            UserActivityDao.getInstance().likePost(act.getPostId());
-//                        } else if (act.getAction().equals("DP")){
-//                            UserActivityDao.getInstance().deletePost(act.getPostId());
-//                        }
-//                    }
-//                }
-//
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        };
-//        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-//        ScheduledFuture<?> resultFuture = executorService.scheduleAtFixedRate(runnableTask, 2, 10, TimeUnit.SECONDS);
-
 
         // M1 - scheduleAtFixedRate (public {synchronized} void run())
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
             private int i=0;
             private int size = data.size();
-
             @Override
             public synchronized void run() {
                 try {
@@ -91,8 +62,6 @@ public abstract class AssetHandler {
                     e.printStackTrace();
                  }
 
-                // TODO
-                System.out.println("run() - i: " + i);
                 if (i <size) {
                     UserActivity act = data.get(i);
                     System.out.println(act.toString());

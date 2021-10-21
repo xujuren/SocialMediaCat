@@ -1,6 +1,8 @@
 package anu.softwaredev.socialmediacat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +22,8 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
 public class MainActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;
+    private TextView welcomeText;
+    private TextView quoteTv;   // TODO private?
     private String acc;
     private String pw;
     private TextInputLayout accLayout;             // [TextView]: without .setErrorEnabled(True)
@@ -45,12 +49,16 @@ public class MainActivity extends AppCompatActivity {
      * Set up for basic view components
      */
     private void initView() {
-        accEdit = (EditText) findViewById(R.id.login_msg_acc_text);                      // prev: [tv_user_email]
-        pwEdit = (EditText) findViewById(R.id.login_msg_pw_text);                          // tv_user_pw
-        accLayout = (TextInputLayout) findViewById(R.id.login_msg_acc);         // above: [login_msg_acc]
-        pwLayout = (TextInputLayout) findViewById(R.id.login_msg_pw);               // login_msg_pw
+        welcomeText = (TextView) findViewById(R.id.tv_welcome);
+        accEdit = (EditText) findViewById(R.id.login_msg_acc_text);
+        pwEdit = (EditText) findViewById(R.id.login_msg_pw_text);
+        accLayout = (TextInputLayout) findViewById(R.id.login_msg_acc);
+        pwLayout = (TextInputLayout) findViewById(R.id.login_msg_pw);
         accLayout.setErrorEnabled(true);
         pwLayout.setErrorEnabled(true);
+
+        // TODO
+        AssetHandler.loadQuotes(getApplicationContext(), welcomeText);
 
         // onClick method for the Login Button
         loginBt = (Button) findViewById(R.id.login_button);
@@ -84,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);        // run ori thgs
         if (reqCode == 1 && resultCode == RESULT_OK) {             // for subj
-            TextView welcomeText = (TextView) findViewById(R.id.tv_welcome);
             welcomeText.setText("Welcome, " + data.getStringExtra("username"));
         }
     }
