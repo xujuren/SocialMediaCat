@@ -101,11 +101,15 @@ public class Parser {
                 System.out.println(parser.getTag().show());
                 tagToSearch = parser.getTag().show();
             }
-            if (parser.getPostId().equals(null)){
+            if (parser.getPostId()==null){
                 System.out.println("no postId");            //show purpose
             } else {
-                System.out.println(parser.getPostId().show());
-                postIDToSearch = parser.getPostId().show();
+                if (parser.getPostId()!=null){
+                    System.out.println(parser.getPostId().show());
+                    postIDToSearch = parser.getPostId().show();
+                }
+
+
             }
 
             if (parser.getPostId()==null){
@@ -126,10 +130,15 @@ public class Parser {
                 //empty, nothing to search
                 System.out.println("nothing , Toaster throws reminder");
             } else {
-                Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
-                if (result != null)
-                    postsToShow.add(result);
-//            postsToShow.add() ;
+                //search two
+                if (!tagToSearch.equals("") && (!postIDToSearch.equals(""))){
+                    // if have 2 postid and tag to search
+                    System.out.println("ppp:"+ postIDToSearch);
+                    Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+                    if (result != null)
+                        postsToShow.add(result);
+                }
+
             }
 
             System.out.println("number: " + postsToShow.size());

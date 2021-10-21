@@ -1,31 +1,23 @@
 package anu.softwaredev.socialmediacat.dao.UserActivity;
 import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,15 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import Tree.Global_Data;
-import anu.softwaredev.socialmediacat.AppActivity;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.Classes.User;
-import anu.softwaredev.socialmediacat.MainActivity;
-import anu.softwaredev.socialmediacat.ProfileActivity;
-import anu.softwaredev.socialmediacat.R;
-import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
@@ -89,7 +75,6 @@ public class UserActivityDao implements IUserActivityDao {
             // Update Data Structure (insert current post into the RB-tree)
             Global_Data.getInstance().insert(newPost);
 
-            // TODO - only add newly created, e.g. if user's post is in the local data instances (e.g. "u1")
             FirebaseAuth user = FirebaseAuth.getInstance();
 //            if (newPost.getUId().equals(user.getUid())){
 //                Global_Data.getInstance().add_My_Posts(newPost);
@@ -108,25 +93,33 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     /** Load Posts for display */
-    public void loadPost(List<Post> posts) {
-
-        // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-        if (true) {
-            return;
-        }
-        // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-
+    public void storePost(List<Post> posts) {
 
         for (Post post : posts){
+            if (post==null || post.getTag()==null) {break;}
+
             // Update firebase DB
             Map<String, Object> postValues = post.toMap();
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/Posts/" + post.getPostId(), postValues);
             dbRef.updateChildren(childUpdates);
 
+            ///////////
+            System.out.println("DAO : INSERT");
+            System.out.println("Global_Data.getInstance(): " + Global_Data.getInstance());
+            System.out.println(".insert(post) - post: " + post);
+
+
+            // Update Data Structure (insert current post into the RB-tree)
+            Global_Data.getInstance().insert(post);
+            FirebaseAuth user = FirebaseAuth.getInstance();
+            if (post.getUId().equals(user.getUid())){
+                Global_Data.getInstance().add_My_Posts(post);
+            }
+
             // write to file
             try {
-                String text = "LP" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
+                String text = "SP" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
                 }
@@ -137,8 +130,7 @@ public class UserActivityDao implements IUserActivityDao {
 
     }
 
-    // TODO Check: called from [CurrentPost] (click Like/unlikes - button)
-    // UserActivityDao.getInstance().likePost(currentPost.getPostId());
+
     @Override
     public void likePost(String postId) {
         // Update firebase DB
@@ -149,6 +141,7 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     public void unlikePost(String postId) {
+        // Update firebase DB
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(-1));
         dbRef.child("Posts").child(postId).updateChildren(updates);
@@ -156,6 +149,7 @@ public class UserActivityDao implements IUserActivityDao {
 
     @Override
     public void deletePost(String postId) {
+        // Update firebase DB
         dbRef.child("Posts").addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -185,14 +179,16 @@ public class UserActivityDao implements IUserActivityDao {
             if (lines != null) {
                 for (String line : lines) {
                     String[] items = line.split(";");
-                    if (items!=null && items.length==7 && ("CP".equals(items[0]) || "LP".equals(items[0]) )) {
+                    if (items!=null && items.length==7 && ("CP".equals(items[0]) || "SP".equals(items[0]) )) {
                         Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
-
                         postsLoaded.add(post);
 
                         // Insert all posts to the global Data Structure of Posts
-                        Global_Data.getInstance().insert(post);
+                        // TODO - try delete (10/21):
+                        //  Global_Data.getInstance().insert(post);
+                        // TODO
 
+                        // TODO
                         // New, for locally created posts of User
 //                        FirebaseAuth user = FirebaseAuth.getInstance();
 //                        if (post.getUId().equals(user.getUid())){
@@ -202,10 +198,7 @@ public class UserActivityDao implements IUserActivityDao {
                     }
                 }
             }
-            // allPosts TODO
-//            for (Post post : allPosts) {
-//                Global_Data.getInstance().insert(post.getTag(), post);
-//            }
+
 
         } catch (IOException e) { e.printStackTrace(); }
 
@@ -214,14 +207,9 @@ public class UserActivityDao implements IUserActivityDao {
          */
         System.out.println("============================================Check data========================================");
 //        Global_Data.getInstance().getData().find("random").getPostsTree().inorderPrint(Global_Data.getInstance().getData().find("random").getPostsTree().root);
+
         return postsLoaded;
     }
-
-//    public void testData(){
-//        for (int i = 0; i < 10; i++) {
-//            Post post = new Post("u" + i, "random", "u" + i, "u" + i, i, i);
-//        }
-//    }
 
 
     @Override
@@ -255,6 +243,7 @@ public class UserActivityDao implements IUserActivityDao {
                 if (snapshot.exists() && snapshot.hasChildren()) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         String k = ds.getKey();
+                        System.out.println("key: "+k);
                         switch (k) {
                             case "userName" :
                                 String userName = (String) ds.getValue();

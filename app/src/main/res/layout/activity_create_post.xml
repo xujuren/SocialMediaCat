@@ -23,10 +23,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/content_createpost"
-        android:layout_width="380dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:hint="Share your thoughts!"
         android:textColor="#490404"
@@ -38,7 +37,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/content_createpost_et"
             android:layout_width="380dp"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
@@ -123,7 +122,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:hint="Input the ID of your photo, if any (1 to 100)"
         android:textColor="#490404"
@@ -135,7 +133,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/photo_createpost_et"
             android:layout_width="380dp"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
@@ -152,9 +150,8 @@
         android:layout_width="250dp"
         android:layout_height="55dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="150dp"
         android:backgroundTint="#1591A6"
         android:onClick="CreatePostConfirmBt"
         android:text="Create Post !"
@@ -162,7 +159,6 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/photo_createpost" />

@@ -26,6 +26,7 @@ public class Post implements Comparable<Post>{
     public Post(String uId, String tag, String postId, String content, int photoId) {
         this.uId = uId;
         this.tag = tag;
+        if (tag==null) {tag="#random";}
         this.postId = postId;
         this.content = content.replace("\"", "").replace("\'", "");
         this.photoId = verifyPhotoId(photoId);
@@ -44,6 +45,7 @@ public class Post implements Comparable<Post>{
     public Post(String uId, String tag, String postId, String content, int photoId, int likeCount) {
         this.uId = uId;
         this.tag = tag;
+        if (tag==null) {tag="#random";}
         this.postId = postId;
         this.content = content.replace("\"", "").replace("\'", "");
         this.photoId = verifyPhotoId(photoId);

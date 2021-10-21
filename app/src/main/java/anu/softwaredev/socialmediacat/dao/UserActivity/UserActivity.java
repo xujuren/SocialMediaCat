@@ -47,4 +47,10 @@ public class UserActivity {
     public String getContent() {return content;}
     public int getPhotoId() {return photoId;}
     public String getPostId() {return postId;}
+
+    @Override
+    public String toString() {
+        return uId + "; "+ tag + "; "+ content + "; "+ photoId + "[" + postId +"]";
+    }
+
 }

@@ -2,6 +2,7 @@ package anu.softwaredev.socialmediacat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -65,6 +66,20 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             UserActivityDao.getInstance().updateProfile(getApplicationContext(), user, newName, newInterests, newCaption);
         }
+        Intent intent = new Intent();
+        intent.setClass(ProfileActivity.this,AppActivity.class);
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Thread.sleep(3000);//等待数据更新
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                startActivity(intent);
+            }
+        }.start();
     }
 
     /**

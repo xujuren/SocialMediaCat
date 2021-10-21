@@ -101,6 +101,9 @@ public class CurrentPost extends AppCompatActivity {
 
         // initializing the LikeButton objects & Heart OnLikeListener
         likeButtonHeart = (LikeButton)findViewById(R.id.likeButtonHeart);
+        if(TimelineActivity.hasLiked){
+            likeButtonHeart.setLiked(true);
+        }
         likeButtonHeart.setOnLikeListener( new OnLikeListener(  ) {
             @Override
             public void liked( LikeButton likeButton ) {
@@ -113,6 +116,7 @@ public class CurrentPost extends AppCompatActivity {
                     CharSequence likesText = currentPost.getLikeCount() + " likes";
                     like.setText(likesText);
                     UserActivityDao.getInstance().likePost(currentPost.getPostId());
+                    TimelineActivity.hasLiked = true;
                     Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();}
             }
 
@@ -126,6 +130,7 @@ public class CurrentPost extends AppCompatActivity {
                     like.setText(likesText);
                     UserActivityDao.getInstance().unlikePost(currentPost.getPostId());
                     //showing simple Toast when unLiked
+                    TimelineActivity.hasLiked = false;
                     Toast.makeText( CurrentPost.this, " Post unLiked  : )", Toast.LENGTH_SHORT ).show(  );}
             }
         } );

@@ -1,9 +1,7 @@
 package Tree;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import anu.softwaredev.socialmediacat.Classes.Post;
 
 public class Global_Data {
@@ -14,8 +12,7 @@ public class Global_Data {
 
     private Global_Data(){
         data = new RBTree<>();
-//        myPosts = new LinkedList<>();
-        myPosts = new ArrayList<>();
+        myPosts = new ArrayList<>();        //        myPosts = new LinkedList<>();
     }
 
     public static Global_Data getInstance() {
@@ -46,6 +43,7 @@ public class Global_Data {
         this.data = data;
     }
 
+    // TODO @Juren - change name here? getAllPost()?
     public List<Post> toList() {
         List<RBTreeNode<String>> allTags = data.findAll(data.root);
         List<Post> allPosts = new LinkedList<Post>();
@@ -86,6 +84,9 @@ public class Global_Data {
     }
 
     public Post search(String tag, String PostId) {
+        if (PostId==""){
+            return null;
+        }
         RBTreeNode<String> node = data.find(tag);
         if (node == null || node.getPostsTree() == null)
             return null;

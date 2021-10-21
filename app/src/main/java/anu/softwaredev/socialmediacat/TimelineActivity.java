@@ -26,11 +26,12 @@ import java.util.List;
 import Tree.RBTree;
 import Tree.RBTreeNode;
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
     RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
-
+    public static Boolean hasLiked = false;
     /**
      * main method, put all logic inside
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
@@ -45,11 +46,14 @@ public class TimelineActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
         List<Post> postList = new LinkedList<>();
-        if (MESSAGE)
-            postList.addAll(Global_Data.getInstance().toList());
-        else
+        if (MESSAGE) {
+            postList.clear();
+            postList.addAll(Global_Data.getInstance().toList());        // alt: UserActivityDao.getInstance()
+
+        } else {
             postList.addAll(Global_Data.getInstance().searchByUser(FirebaseAuth.getInstance().getUid()));
 //            postList.addAll(Global_Data.getInstance().getMyPosts());
+        }
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
@@ -62,6 +66,15 @@ public class TimelineActivity extends AppCompatActivity {
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
+
+        Button backtBt = (Button) findViewById(R.id.Backtimelinebutton);
+        backtBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.setClass(TimelineActivity.this,AppActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // TODO 添加search方法
         Button searchBt = (Button) findViewById(R.id.SearchButton);
@@ -216,12 +229,23 @@ public class TimelineActivity extends AppCompatActivity {
         // Tokenize, Parse
         Tokenizer tokenizer = new Tokenizer(search);
         Parser parser = new Parser(tokenizer);
+
         if (parser.getTag()==null) {
             System.out.println("no Tag");               //show purpose
         } else {
             System.out.println(parser.getTag().show());
             tagToSearch = parser.getTag().show();
         }
+        if (parser.getPostId()==null){
+            System.out.println("no postId");            //show purpose
+        } else {
+            if (parser.getPostId()!=null){
+                System.out.println(parser.getPostId().show());
+                postIDToSearch = parser.getPostId().show();
+            }
+
+        }
+
         if (parser.getPostId()==null){
             System.out.println("no postId");            //show purpose
         } else {
@@ -240,11 +264,51 @@ public class TimelineActivity extends AppCompatActivity {
             //empty, nothing to search
             System.out.println("nothing , Toaster throws reminder");
         } else {
-            Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
-            if (result != null)
-                postsToShow.add(result);
-//            postsToShow.add() ;
+            //search two
+            if (!tagToSearch.equals("") && (!postIDToSearch.equals(""))){
+                // if have 2 postid and tag to search
+                System.out.println("ppp:"+ postIDToSearch);
+                Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+                if (result != null)
+                    postsToShow.add(result);
+            }
+
         }
+
+        System.out.println("number: " + postsToShow.size());
+        for (Post post:postsToShow) {
+            System.out.println(post);
+        }
+
+
+//        if (parser.getTag()==null) {
+//            System.out.println("no Tag");               //show purpose
+//        } else {
+//            System.out.println(parser.getTag().show());
+//            tagToSearch = parser.getTag().show();
+//        }
+//        if (parser.getPostId()==null){
+//            System.out.println("no postId");            //show purpose
+//        } else {
+//            System.out.println(parser.getPostId().show());
+//            postIDToSearch = parser.getPostId().show();
+//        }
+//        if (tagToSearch.equals("") && !postIDToSearch.equals("")){
+//            // only postid to search
+//            Post result = Global_Data.instance.searchById(postIDToSearch);
+//            if (result != null)
+//                postsToShow.add(result);
+//        } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
+//            //only tag to search
+//            postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
+//        } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
+//            //empty, nothing to search
+//            System.out.println("nothing , Toaster throws reminder");
+//        } else {
+//            Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+//            if (result != null)
+//                postsToShow.add(result);
+//        }
 
         return postsToShow;
 
