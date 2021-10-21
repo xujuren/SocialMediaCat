@@ -1,28 +1,22 @@
 package anu.softwaredev.socialmediacat;
-//import static anu.softwaredev.socialmediacat.Util.AssetHandler.createAccfromDataInstances;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import anu.softwaredev.socialmediacat.Util.AssetHandler;
-import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
+
 
 public class MainActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;
@@ -36,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     /**
-     * main method, put all logic inside
+     * onCreate() for the Main page of the Application
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
      */
     @Override
@@ -150,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                             AssetHandler.loadPostsfromDataInstances(getApplicationContext());
                             startActivity(intent);
                             finish();
-
                         } else {
                             // error message
                             Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

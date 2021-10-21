@@ -2,6 +2,7 @@ package anu.softwaredev.socialmediacat.dao.UserActivity;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -32,8 +34,10 @@ import java.util.List;
 import java.util.Map;
 
 import Tree.Global_Data;
+import anu.softwaredev.socialmediacat.AppActivity;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.Classes.User;
+import anu.softwaredev.socialmediacat.MainActivity;
 import anu.softwaredev.socialmediacat.ProfileActivity;
 import anu.softwaredev.socialmediacat.R;
 import anu.softwaredev.socialmediacat.Util.AssetHandler;
@@ -41,6 +45,11 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
     FirebaseAuth user = FirebaseAuth.getInstance();
+
+    private static FirebaseAuth mAuth;
+    private String acc;
+    private String pw;
+
     private static DatabaseReference dbRef;
     private static UserActivityDao instance;        // Singleton instance for UserActivityDao
     private static File file;                       // temporary file
@@ -69,12 +78,11 @@ public class UserActivityDao implements IUserActivityDao {
             // Check invalid characters in tag (empty if invalid)
             if (tag.contains(",") || tag.contains(";")) {tag="";}
 
-            // Check invalid characters in content (remove inner "'s)
-            String contentText = content.substring(1, content.length()-1);
-            contentText.replaceAll("\"", "");
-
-            // TODO
-            System.out.println("Tag: " + tag);
+            // Check invalid characters in content (remove inner "'s), then double quote for format alignment
+            content = content.replaceAll("\"", "");
+            content = "\"" + content + "\"";
+            // TODO remove all " inputted by user
+            // ' (?)
 
             // Update firebase DB
             String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
@@ -84,7 +92,7 @@ public class UserActivityDao implements IUserActivityDao {
             childUpdates.put("/Posts/" + postId, postValues);
             dbRef.updateChildren(childUpdates);
 
-            // insert current post in to tree
+            // Update Data Structure (insert current post into the RB-tree)
             Global_Data.getInstance().insert(newPost);
 
             // TODO - only add newly created, e.g. if user's post is in the local data instances (e.g. "u1")
@@ -92,8 +100,8 @@ public class UserActivityDao implements IUserActivityDao {
                 Global_Data.getInstance().add_My_Posts(newPost);
             }
 
-            // write to file -
-            String text = "create-post" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
+            // Write to file
+            String text = "CP" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
             }
@@ -114,9 +122,10 @@ public class UserActivityDao implements IUserActivityDao {
             childUpdates.put("/Posts/" + post.getPostId(), postValues);
             dbRef.updateChildren(childUpdates);
 
+
             // write to file
             try {
-                String text = "load-post" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
+                String text = "LP" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
                 }
@@ -172,16 +181,19 @@ public class UserActivityDao implements IUserActivityDao {
             if (lines != null) {
                 for (String line : lines) {
                     String[] items = line.split(";");
-                    if (items!=null && items.length==7 && ("create-post".equals(items[0]) || "load-post".equals(items[0]) )) {
-
-                        // TODO changed it into tags, will give u "random" instances
+                    if (items!=null && items.length==7 && ("CP".equals(items[0]) || "LP".equals(items[0]) )) {
                         Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
+
                         postsLoaded.add(post);
 
+                        // Insert all posts to the global Data Structure of Posts
                         Global_Data.getInstance().insert(post);
+
+                        // New, locally created posts
                         if (post.getUId().equals(user.getUid())){
                             Global_Data.getInstance().add_My_Posts(post);
                         }
+
                     }
                 }
             }
