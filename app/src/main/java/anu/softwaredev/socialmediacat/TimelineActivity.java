@@ -51,8 +51,13 @@ public class TimelineActivity extends AppCompatActivity {
             // TODO - postList.addAll(UserActivityDao.getInstance().findAllPosts());
             // postList = UserActivityDao.getInstance().findAllPosts();
 
+//            postList.clear();
+//            postList.addAll(UserActivityDao.getInstance().findAllPosts());
+
+
             postList.clear();
-            postList.addAll(UserActivityDao.getInstance().findAllPosts());
+            postList.addAll(Global_Data.getInstance().toList());
+
 
             List<Post> postList1 = Global_Data.getInstance().toList();
             System.out.println("all posts [1]:");

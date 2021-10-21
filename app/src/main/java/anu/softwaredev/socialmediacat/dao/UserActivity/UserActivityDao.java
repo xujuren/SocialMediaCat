@@ -146,8 +146,7 @@ public class UserActivityDao implements IUserActivityDao {
 
     }
 
-    // TODO Check: called from [CurrentPost] (click Like/unlikes - button)
-    // UserActivityDao.getInstance().likePost(currentPost.getPostId());
+
     @Override
     public void likePost(String postId) {
         // Update firebase DB
@@ -158,6 +157,7 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     public void unlikePost(String postId) {
+        // Update firebase DB
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(-1));
         dbRef.child("Posts").child(postId).updateChildren(updates);
@@ -165,6 +165,7 @@ public class UserActivityDao implements IUserActivityDao {
 
     @Override
     public void deletePost(String postId) {
+        // Update firebase DB
         dbRef.child("Posts").addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
