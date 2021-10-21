@@ -125,9 +125,9 @@ public class Global_Data {
         myPosts.add(post);
     }
 
-    public List<Post> getMyPosts() {
-        return myPosts;
-    }
+//    public List<Post> getMyPosts() {
+//        return myPosts;
+//    }
 
     public void remove_My_Post(Post post) {
         myPosts.remove(post);

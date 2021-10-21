@@ -91,9 +91,9 @@ public class UserActivityDao implements IUserActivityDao {
 
             // TODO - only add newly created, e.g. if user's post is in the local data instances (e.g. "u1")
             FirebaseAuth user = FirebaseAuth.getInstance();
-            if (newPost.getUId().equals(user.getUid())){
-                Global_Data.getInstance().add_My_Posts(newPost);
-            }
+//            if (newPost.getUId().equals(user.getUid())){
+//                Global_Data.getInstance().add_My_Posts(newPost);
+//            }
 
             // Write to file
             String text = "CP" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
@@ -184,10 +184,10 @@ public class UserActivityDao implements IUserActivityDao {
                         Global_Data.getInstance().insert(post);
 
                         // New, for locally created posts of User
-                        FirebaseAuth user = FirebaseAuth.getInstance();
-                        if (post.getUId().equals(user.getUid())){
-                            Global_Data.getInstance().add_My_Posts(post);
-                        }
+//                        FirebaseAuth user = FirebaseAuth.getInstance();
+//                        if (post.getUId().equals(user.getUid())){
+//                            Global_Data.getInstance().add_My_Posts(post);
+//                        }
 
                     }
                 }
