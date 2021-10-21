@@ -86,10 +86,13 @@ public class UserActivityDao implements IUserActivityDao {
             childUpdates.put("/Posts/" + postId, postValues);
             dbRef.updateChildren(childUpdates);
 
+            // TODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
+            System.out.println("Created Post ===");
+            System.out.println(newPost);
+            // TODO
+
             // Update Data Structure (insert current post into the RB-tree)
             Global_Data.getInstance().insert(newPost);
-
-            // TODO - only add newly created, e.g. if user's post is in the local data instances (e.g. "u1")
             FirebaseAuth user = FirebaseAuth.getInstance();
             if (newPost.getUId().equals(user.getUid())){
                 Global_Data.getInstance().add_My_Posts(newPost);
@@ -108,14 +111,13 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     /** Load Posts for display */
-    public void loadPost(List<Post> posts) {
+    public void storePost(List<Post> posts) {
 
         // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
         if (true) {
             return;
         }
         // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-
 
         for (Post post : posts){
             // Update firebase DB
@@ -124,9 +126,16 @@ public class UserActivityDao implements IUserActivityDao {
             childUpdates.put("/Posts/" + post.getPostId(), postValues);
             dbRef.updateChildren(childUpdates);
 
+            // Update Data Structure (insert current post into the RB-tree)
+            Global_Data.getInstance().insert(post);
+            FirebaseAuth user = FirebaseAuth.getInstance();
+            if (post.getUId().equals(user.getUid())){
+                Global_Data.getInstance().add_My_Posts(post);
+            }
+
             // write to file
             try {
-                String text = "LP" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
+                String text = "SP" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
                 }
@@ -182,13 +191,18 @@ public class UserActivityDao implements IUserActivityDao {
             String fileContent = new String(bytes);
             String[] lines = fileContent.split("\n");
 
+
+            System.out.println("findAllPosts() = lines not null? " + lines!=null);
             if (lines != null) {
                 for (String line : lines) {
                     String[] items = line.split(";");
-                    if (items!=null && items.length==7 && ("CP".equals(items[0]) || "LP".equals(items[0]) )) {
+                    if (items!=null && items.length==7 && ("CP".equals(items[0]) || "SP".equals(items[0]) )) {
+
+                        System.out.println("True? " + ("CP".equals(items[0]) || "SP".equals(items[0]) ));
                         Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
 
                         postsLoaded.add(post);
+                        System.out.println("postsLoaded.add(post) -- " + post);
 
                         // Insert all posts to the global Data Structure of Posts
                         Global_Data.getInstance().insert(post);
@@ -198,14 +212,10 @@ public class UserActivityDao implements IUserActivityDao {
                         if (post.getUId().equals(user.getUid())){
                             Global_Data.getInstance().add_My_Posts(post);
                         }
-
                     }
                 }
             }
-            // allPosts TODO
-//            for (Post post : allPosts) {
-//                Global_Data.getInstance().insert(post.getTag(), post);
-//            }
+
 
         } catch (IOException e) { e.printStackTrace(); }
 
@@ -214,6 +224,7 @@ public class UserActivityDao implements IUserActivityDao {
          */
         System.out.println("============================================Check data========================================");
 //        Global_Data.getInstance().getData().find("random").getPostsTree().inorderPrint(Global_Data.getInstance().getData().find("random").getPostsTree().root);
+
         return postsLoaded;
     }
 

@@ -1,23 +1,12 @@
 package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
-import android.util.Log;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.Classes.User;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
@@ -38,13 +27,12 @@ public abstract class AssetHandler {
     // TODO - action("like-post"),uId,postId
     // TODO - action("del-post"),uId,postId
     public static List<UserActivity> actionsFromDataInstances(Context ctx) {
-        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt")); // "json", "dummy"
+        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt")); // "dummy" for testing
 
         List<UserActivity> actions = new ArrayList<>();
         for (String type : fileTypes) {
             AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
             AssetHandler assetHandler = assetHandlerFty.createHandler(type);
-
 
             List<UserActivity> result = assetHandler.actionsFromAssets(ctx);
             if (result!=null && result.size()!=0) {
@@ -66,12 +54,12 @@ public abstract class AssetHandler {
                     UserActivity act = data.get(i);
                     System.out.println(act.toString());
                     if (act!=null) {
-                        if (act.getAction()=="CP"){
+                        if (act.getAction().equals("CP")){
                             UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
                         } else {
-                            if (act.getAction()=="LP"){
+                            if (act.getAction().equals("LP")){
                                 UserActivityDao.getInstance().likePost(act.getPostId());
-                            } else if (act.getAction()=="DP"){
+                            } else if (act.getAction().equals("DP")){
                                 UserActivityDao.getInstance().deletePost(act.getPostId());
                             }
                         }
@@ -79,7 +67,7 @@ public abstract class AssetHandler {
                 }
                 i++;
             }
-        }, 0, 50000);
+        }, 0, 20000);
 
     }
 
@@ -88,7 +76,7 @@ public abstract class AssetHandler {
     public static void loadPostsfromDataInstances(Context ctx) {
 
         List<Post> posts = new ArrayList<>();
-        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt")); // "json", "dummy"
+        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt", "json")); // "dummy": testing
 
         for (String type : fileTypes) {
             AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
@@ -99,7 +87,7 @@ public abstract class AssetHandler {
             }
         }
 
-        UserActivityDao.getInstance().loadPost(posts);
+        UserActivityDao.getInstance().storePost(posts);
     }
 
 

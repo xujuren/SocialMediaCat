@@ -26,6 +26,7 @@ import java.util.List;
 import Tree.RBTree;
 import Tree.RBTreeNode;
 import anu.softwaredev.socialmediacat.Classes.Post;
+import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
@@ -45,11 +46,26 @@ public class TimelineActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
         List<Post> postList = new LinkedList<>();
-        if (MESSAGE)
-            postList.addAll(Global_Data.getInstance().toList());
-        else
+        if (MESSAGE) {
+            // TODO - postList.addAll(Global_Data.getInstance().toList());
+            postList.addAll(UserActivityDao.getInstance().findAllPosts());
+
+            List<Post> postList1 = Global_Data.getInstance().toList();
+            System.out.println("all posts [1]:");
+            for (Post post : postList1) {
+                System.out.println("\t" + post);
+            }
+
+            List<Post> postList2 = Global_Data.getInstance().toList();
+            System.out.println("all posts [2]:");
+            for (Post post : postList2) {
+                System.out.println("\t" + post);
+            }
+
+        } else {
             postList.addAll(Global_Data.getInstance().searchByUser(FirebaseAuth.getInstance().getUid()));
 //            postList.addAll(Global_Data.getInstance().getMyPosts());
+        }
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
