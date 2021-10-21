@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Manage your Profile"
+        android:text="Update Profile"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#0066A6"
-        android:textSize="30sp"
+        android:textColor="#1591A6"
+        android:textSize="42sp"
         android:textStyle="bold|italic"
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,10 +39,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/profile_input_displayName_text"
             android:layout_width="380dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
+            android:background="#FCF4A3"
             android:textColor="#450606"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,10 +66,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/profile_input_interests_text"
             android:layout_width="380dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            android:background="#FFFDD0"
             android:textColor="#450606"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,27 +93,32 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/profile_input_caption_text"
             android:layout_width="380dp"
-            android:layout_height="60dp"
+            android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            android:background="#0FFCF4A3"
             android:textColor="#450606"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/Confirm_Profile_Bt"
-        android:layout_width="0dp"
-        android:layout_height="60sp"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#0066A6"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#1591A6"
         android:onClick="ConfirmManageProfileBt"
         android:text="Confirm Updates"
+        android:textColor="#D9EAF8"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_input_caption" />
+
 
     <!-- heart like button -->
 
