@@ -1,5 +1,6 @@
 package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -137,6 +138,19 @@ public abstract class AssetHandler {
 
         UserActivityDao.getInstance().storePost(posts);
     }
+
+
+
+    /** Load quotes  */
+    public static void loadQuotes(Context ctx, TextView quoteTv) {
+        List<Post> posts = new ArrayList<>();
+        BespokeHandler handler = new BespokeHandler();
+        String quote = handler.quoteFromAssets(ctx);
+
+        // TODO TODO TODO TODO TODO TODOTODOTODOTODO
+        quoteTv.setText(quote);
+    }
+
 
 
 }
