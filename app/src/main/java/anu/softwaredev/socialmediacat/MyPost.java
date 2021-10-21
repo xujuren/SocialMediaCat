@@ -162,7 +162,7 @@ public class MyPost extends AppCompatActivity {
 //                finish();
                 if (user.getUid().equals(currentPost2.getUId())) {
                     Global_Data.getInstance().delete(currentPost2);
-                    Global_Data.getInstance().remove_My_Post(currentPost2);
+//                    Global_Data.getInstance().remove_My_Post(currentPost2);
                     Toast.makeText(MyPost.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
 //                    finish();
                 }else {

@@ -112,10 +112,10 @@ public class UserActivityDao implements IUserActivityDao {
 
             // Update Data Structure (insert current post into the RB-tree)
             Global_Data.getInstance().insert(post);
-            FirebaseAuth user = FirebaseAuth.getInstance();
-            if (post.getUId().equals(user.getUid())){
-                Global_Data.getInstance().add_My_Posts(post);
-            }
+//            FirebaseAuth user = FirebaseAuth.getInstance();
+//            if (post.getUId().equals(user.getUid())){
+//                Global_Data.getInstance().add_My_Posts(post);
+//            }
 
             // write to file
             try {
