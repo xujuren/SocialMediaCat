@@ -67,6 +67,15 @@ public class TimelineActivity extends AppCompatActivity {
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
 
+        Button backtBt = (Button) findViewById(R.id.Backtimelinebutton);
+        backtBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.setClass(TimelineActivity.this,AppActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // TODO 添加search方法
         Button searchBt = (Button) findViewById(R.id.SearchButton);
         EditText searchEdit = (EditText) findViewById(R.id.editTextTextPersonName);
