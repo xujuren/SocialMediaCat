@@ -1,13 +1,10 @@
 package anu.softwaredev.socialmediacat;
-import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,11 +19,6 @@ import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 //like button library
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
@@ -91,7 +83,7 @@ public class CurrentPost extends AppCompatActivity {
 
         // caption
         captionTv = (TextView) findViewById(R.id.captionTv);
-        UserActivityDao.getInstance().userProfile(uid, uIdTv, captionTv);
+        UserActivityDao.getInstance().findUserProfile(uid, uIdTv, captionTv);
 
 //        Button likeBt = (Button) findViewById(R.id.LikeButton);
 //        likeBt.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +111,7 @@ public class CurrentPost extends AppCompatActivity {
                     currentPost.likePost();
                     CharSequence likesText = currentPost.getLikeCount() + " likes";
                     like.setText(likesText);
-                    UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
+                    UserActivityDao.getInstance().likePost(currentPost.getPostId());
                     Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();}
             }
 
@@ -131,7 +123,7 @@ public class CurrentPost extends AppCompatActivity {
                     currentPost.dislikePost();
                     CharSequence likesText = currentPost.getLikeCount() + " likes";
                     like.setText(likesText);
-                    UserActivityDao.getInstance().unlikePost(user.getUid(), currentPost.getPostId());
+                    UserActivityDao.getInstance().unlikePost(currentPost.getPostId());
                     //showing simple Toast when unLiked
                     Toast.makeText( CurrentPost.this, " Post unLiked  : )", Toast.LENGTH_SHORT ).show(  );}
             }

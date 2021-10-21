@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profile_input_userName"
+        android:id="@+id/profile_userName_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_manage_profile_intro">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profile_input_displayName_text"
+            android:id="@+id/profile_input_userName"
             android:layout_width="380dp"
             android:layout_height="65dp"
             android:layout_marginStart="10dp"
@@ -52,7 +52,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profile_input_interests"
+        android:id="@+id/profile_interests_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -64,10 +64,10 @@
         android:maxLength="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_input_userName">
+        app:layout_constraintTop_toBottomOf="@+id/profile_userName_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profile_input_interests_text"
+            android:id="@+id/profile_input_interests"
             android:layout_width="380dp"
             android:layout_height="65dp"
             android:layout_marginStart="10dp"
@@ -81,7 +81,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profile_input_caption"
+        android:id="@+id/profile_caption_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -92,10 +92,10 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_input_interests">
+        app:layout_constraintTop_toBottomOf="@+id/profile_interests_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profile_input_caption_text"
+            android:id="@+id/profile_input_caption"
             android:layout_width="380dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
@@ -122,7 +122,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_input_caption" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_caption_layout" />
 
 
     <!-- heart like button -->

@@ -50,7 +50,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
         if (dataset != null) {
             holder.getPostUserId().setText("@"+dataset.get(position).getUId());
-            holder.getTagLike().setText(dataset.get(position).getTag() + "\t" + dataset.get(position).getLikeCount() + " likes");
+            holder.getTagLike().setText(dataset.get(position).getTag() + "  " + dataset.get(position).getLikeCount() + " likes");
             long photoId = dataset.get(position).getPhotoId();
             // Load Image
             if (photoId>=PHOTO_ID_LOWER && photoId<=PHOTO_ID_UPPER){
