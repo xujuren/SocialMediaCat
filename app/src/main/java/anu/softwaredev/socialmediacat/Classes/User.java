@@ -40,6 +40,10 @@ public class User {
     public void setCaption(String caption){this.caption=caption;}
     public void setInterests(String interests){this.interests=interests;}
 
+    @Override
+    public String toString() {
+        return uId + "; " + emailAddress + "; " + userName + "; " + caption + "; " + interests;
+    }
 
     /**
      * convert the current class into a hashmap(dictionary), be called in UserActivity class (createPost method )

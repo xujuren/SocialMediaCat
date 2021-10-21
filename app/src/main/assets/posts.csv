@@ -1,4 +1,4 @@
-//(String)UId,(String)tags,(String)postId,(String)content,(int)PhotoId,(int)Likes
+//uId,tag,postId,content,PhotoId,Likes
 u1,#random,LP1,"hi",21,8
 u1,#random,LP2,"there",18,10
 u500961541,@@mornings,-P10156356331896542,"showing how wrong tags look",-1,1

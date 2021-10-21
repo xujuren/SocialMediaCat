@@ -101,6 +101,13 @@ public class Parser {
                 System.out.println(parser.getTag().show());
                 tagToSearch = parser.getTag().show();
             }
+            if (parser.getPostId().equals(null)){
+                System.out.println("no postId");            //show purpose
+            } else {
+                System.out.println(parser.getPostId().show());
+                postIDToSearch = parser.getPostId().show();
+            }
+
             if (parser.getPostId()==null){
                 System.out.println("no postId");            //show purpose
             } else {
@@ -125,6 +132,25 @@ public class Parser {
 //            postsToShow.add() ;
             }
 
+            System.out.println("number: " + postsToShow.size());
+            for (Post post:postsToShow) {
+                System.out.println(post);
+            }
+
+        }
+    }
+
+    public Exp getInvalid(){
+        Tokenizer tok = tokenizer;
+        //handle if no valid token at all
+        if (tok.current()==null){
+            return null;
+        }
+        if (tok.current().getType() == Token.Type.TAG){
+            String current = tok.current().getToken();
+            return new TagExp(current);
+        } else {
+            return null;
         }
     }
 
