@@ -2,38 +2,37 @@
 Pls Add/update items and Bugs
 Add your **Name** to the items (except =your original tasks) to avoid crash     (and also remove/update status)
 
-- If something cannot be fixed or don't want to fix it, can add to "list of known bugs" in report on Thu/Fri
+- If something cannot be fixed or don't want to fix it, can add to "list of known bugs" in report on Fri <==== 
 
 ***Bugs ***
 * Search: Input "#" in timeline search bar > error, Quit program  Kev is working on this  
 * Search: Input "# entwines" (invalid) did not show error message Kev is working on this  
 * Search: Input "##" shows results if user inputted "#" (should not be tokenized?) when create post Kev is working on this  
+
+
 * At "Current Post": click "back button" (back to timeline) -> click android's back button (Current post again) Stuck
 * after searching something (blank input and click serach again), should show back the complete timeline?
-* **MyPosts UI**: click android's built in return button - Like/delete not updated
-* timeline Search Bar: height not enough to show text
-* can also delete the fragments text "Home"
+* **MyPosts UI**: click android's built in return button - Like/delete not updated (unfixed @Friday 1am, after Kev's update)
+* timeline Search Bar: height not enough to show text   (same as above, as shown in wechat photos)
+* can also delete the fragments text "Home" (same)
 *
 
 
 _**URGENT + Fundamental**_
-| Task | header | By |
-| ------ | ------ | ------ |
-| **MEDIUM FEATURE** <br /> (or Hard/Very Hard also ok) | + partially invalid search | **Kevin** |
-- invalid partially search
-1. #correct;@not correct
+
+**Partially invalid search (for information)**
+1. #correct;@not correct, 
 2. #wrong → crash ,should 
 3. #correct@correct
 4. #wrong;@correct 
 5. #wrong;@wrong
-Doing everything 
+
 
 
 ** URGENT: Bugs / incompleted new functions**
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **MyPostUI** | (Delete: Juren done) adding a section for viewing the User's own posts (**Juren** done)  | **[TBC]** |
 | **currentPostUI** | (1) scroll up/down will also get directed into current Post? | **Kevin** |
 | Like feature | confirm & align latest way it works | **Kyle** |
 | **AppActivity Layout** | .. | **[TBC]]** |
@@ -47,16 +46,32 @@ Doing everything
 
 
 
-** Not mandatory - improvements **
+** Not mandatory - improvements (N/A) **
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| Data Structure | change everything into using RBTree ! | **Juren** (done a lot) |
-| **Use Case** | * got an idea, try to get the full creativity mark LoL | **Cathy** ok will summarize on Fri |
+| **Use Case** | * ing | **Cathy** ok will summarize on Fri |
 | **Post Input** | * Screen 'tag' input after User Input, before Storing  | N/A |
 | **ProfileActivity** | * import Photos, replace photoId (before Thurs) | timesout |
 | **Local Firebase** |   | timesout |
 
+
+### Things to fix
+
+1. Search bar half 
+2. @empty : bug (tokenizer) Kev
+3. Search Add refresh button (every 5 seconds)
+4. Wiki fix (put everything inside)  
+5. Test Kev
+
+### Checklist to submit
+
+- GItlab (merge)
+- PPT
+- Report.md (use it as a template for your report);
+- Checklist.md (project inimum requirements);
+- statement-of-originality.yml (all members must be listed there);
+- MeetingTemplate.md (a template for your meeting minutes).
 
 
 
@@ -77,3 +92,7 @@ RECENTly done and pushed
 * **Profile Linkage**: show user Info in timeline/current post (e.g. name, caption) Cathy
 * CurrentPost layout big revision, timeline minor revision & ALL layout alignment  - Cathy
 * Fix minor alignment bugs - kyle
+* MyPostUI copy UI - kyle
+* **MEDIUM FEATURE**: partially invalid search - **Kevin** done 
+* **MyPostUI** , Delete - **Juren** 
+* Data Structure** **Juren** (major)
