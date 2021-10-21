@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,12 +46,6 @@ import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
 /** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
-    FirebaseAuth user = FirebaseAuth.getInstance();
-
-    private static FirebaseAuth mAuth;
-    private String acc;
-    private String pw;
-
     private static DatabaseReference dbRef;
     private static UserActivityDao instance;        // Singleton instance for UserActivityDao
     private static File file;                       // temporary file
@@ -82,8 +77,6 @@ public class UserActivityDao implements IUserActivityDao {
             // Check invalid characters in content (remove inner "'s), then double quote for format alignment
             content = content.replaceAll("\"", "");
             content = "\"" + content + "\"";
-            // TODO remove all " inputted by user
-            // ' (?)
 
             // Update firebase DB
             String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
@@ -97,6 +90,7 @@ public class UserActivityDao implements IUserActivityDao {
             Global_Data.getInstance().insert(newPost);
 
             // TODO - only add newly created, e.g. if user's post is in the local data instances (e.g. "u1")
+            FirebaseAuth user = FirebaseAuth.getInstance();
             if (newPost.getUId().equals(user.getUid())){
                 Global_Data.getInstance().add_My_Posts(newPost);
             }
@@ -123,7 +117,6 @@ public class UserActivityDao implements IUserActivityDao {
             childUpdates.put("/Posts/" + post.getPostId(), postValues);
             dbRef.updateChildren(childUpdates);
 
-
             // write to file
             try {
                 String text = "LP" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
@@ -138,21 +131,21 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
     @Override
-    public void likePost(String userId, String postId) {
+    public void likePost(String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
         dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
 
-    public void unlikePost(String userId, String postId) {
+    public void unlikePost(String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(-1));
         dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
     @Override
-    public void deletePost(String userId, String postId) {
+    public void deletePost(String postId) {
         dbRef.child("Posts").addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -190,7 +183,8 @@ public class UserActivityDao implements IUserActivityDao {
                         // Insert all posts to the global Data Structure of Posts
                         Global_Data.getInstance().insert(post);
 
-                        // New, locally created posts
+                        // New, for locally created posts of User
+                        FirebaseAuth user = FirebaseAuth.getInstance();
                         if (post.getUId().equals(user.getUid())){
                             Global_Data.getInstance().add_My_Posts(post);
                         }
@@ -198,7 +192,6 @@ public class UserActivityDao implements IUserActivityDao {
                     }
                 }
             }
-
             // allPosts TODO
 //            for (Post post : allPosts) {
 //                Global_Data.getInstance().insert(post.getTag(), post);
@@ -240,10 +233,10 @@ public class UserActivityDao implements IUserActivityDao {
 
 
     /**
-     * Find the Profiles of the Post's Author on Firebase,
+     * Find the Profile of provided userId on Firebase,
      * and display the corresponding information
      */
-    public void userProfile(String userId, TextView uIdTv, TextView captionTv) {
+    public void findUserProfile(String userId, TextView uIdTv, TextView captionTv) {
         dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         ValueEventListener listener = new ValueEventListener() {
             @Override
@@ -288,6 +281,80 @@ public class UserActivityDao implements IUserActivityDao {
 
     }
 
+    /**
+     * Find the profile of the provided user on Firebase,
+     * and display the corresponding information
+     */
+    public void findUserProfile(FirebaseUser user, TextInputLayout userNameLayout, TextInputLayout interestsLayout, TextInputLayout captionLayout) {
+        if (user != null) {
+            String userId = user.getUid();
+            ValueEventListener userListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Create record
+                    if (!snapshot.exists() || !snapshot.hasChildren()) {
+                        User newUser = new User(userId, user.getEmail());
+                        dbRef.child("Users").child(userId).setValue(newUser);
+                    }
+
+                    // Get and display fields
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String k = ds.getKey();
+                        switch (k) {
+                            case "userName" :
+                                String currentUserName = (String) ds.getValue();
+                                if (currentUserName.length()==0) continue;
+                                userNameLayout.setHint("Edit User Name [" + currentUserName + "]");
+                                continue;
+                            case "interests":
+                                String currentInterests = (String) ds.getValue();
+                                if (currentInterests.length()==0) continue;
+                                interestsLayout.setHint("Edit Interests [" + currentInterests + "]");
+                                continue;
+                            case "caption":
+                                String currentCaption = (String) ds.getValue();
+                                if (currentCaption.length()==0) continue;
+                                captionLayout.setHint("Edit Caption [" + currentCaption + "]");
+                                continue;
+                            default:
+                                continue;
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.w(TAG, "Firebase Read Fail", error.toException());
+                }
+            };
+            dbRef.child("Users").child(userId).addValueEventListener(userListener);
+        }
+    }
+
+    /**
+     * Update User Profile on Firebase
+     */
+    public void updateProfile(Context ctx, FirebaseUser user, String newName, String newInterests, String newCaption) {
+        // Update Profile
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(newName)
+                .build();
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ctx, "Your profile has been updated!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        // Update Data
+        String uId = user.getUid();
+        dbRef.child("Users").child(uId).child("userName").setValue(newName);
+        dbRef.child("Users").child(uId).child("caption").setValue(newCaption);
+        dbRef.child("Users").child(uId).child("interests").setValue(newInterests);
+    }
 
 }
 

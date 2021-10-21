@@ -9,11 +9,10 @@ public interface IUserActivityDao {
     /** 5 Methods */
 
     public void createPost(String uId, String tags, String content, int photoId);
-    
-    // TODO [@Kyle] see here for likePost
-    public void likePost(String username, String postId);
 
-    public void deletePost(String uId, String postId);
+    public void likePost(String postId);
+
+    public void deletePost(String postId);
 
     public List<Post> findAllPosts();       // change to get Posts
 

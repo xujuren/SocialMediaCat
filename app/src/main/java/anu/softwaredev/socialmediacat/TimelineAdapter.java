@@ -49,8 +49,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     @Override
     public void onBindViewHolder(@NonNull TimelineAdapter.TimelineViewHolder holder, int position) {
         if (dataset != null) {
-            holder.getPostUserId().setText("@"+dataset.get(position).getUId());
-            holder.getTagLike().setText(dataset.get(position).getTag() + "\t" + dataset.get(position).getLikeCount() + " likes");
+            // holder.getPostUserId().setText("@"+dataset.get(position).getUId());
+            holder.getTag().setText(dataset.get(position).getTag());
+            holder.getLike().setText(dataset.get(position).getLikeCount() + " likes");
             long photoId = dataset.get(position).getPhotoId();
             // Load Image
             if (photoId>=PHOTO_ID_LOWER && photoId<=PHOTO_ID_UPPER){
@@ -71,20 +72,20 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     /** Create TimelineViewHolder, add Fields and match by findViews */
     public class TimelineViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivPostImage;
-        private final TextView tvPostUsername;
-        private final TextView tvTagLike;
+        private final TextView tvTag;
+        private final TextView tvLike;
 
         public TimelineViewHolder(@NonNull View itemView) {
             super(itemView);
             this.ivPostImage = (ImageView) itemView.findViewById(R.id.iv_post_image);
-            this.tvPostUsername = (TextView) itemView.findViewById(R.id.tv_userName);
-            this.tvTagLike = (TextView) itemView.findViewById(R.id.tv_tagLike);
+            this.tvTag = (TextView) itemView.findViewById(R.id.tv_tag);
+            this.tvLike = (TextView) itemView.findViewById(R.id.tv_likes);
         }
 
         // Getter methods for the views
         public ImageView getPostImage() {return ivPostImage;}
-        public TextView getPostUserId() {return tvPostUsername;}
-        public TextView getTagLike() {return tvTagLike;}
+        public TextView getTag() {return tvTag;}
+        public TextView getLike() {return tvLike;}
 
     }
 
