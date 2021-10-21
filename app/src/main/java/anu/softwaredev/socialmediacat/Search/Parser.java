@@ -3,7 +3,11 @@ package anu.softwaredev.socialmediacat.Search;
 //import Task1_Factory.Task1.Token;
 //import Task1_Factory.Task1.Tokenizer;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import Tree.Global_Data;
+import anu.softwaredev.socialmediacat.Classes.Post;
 
 /**
  * Note: You will need to have completed task 1 to complete this task.
@@ -71,17 +75,54 @@ public class Parser {
 //            System.out.println(parser.getTag().show());
 //
 //            System.out.println(parser.getPostId().show());
-            if (parser.getTag()==null){
-                System.out.println("no Tag");
-            }else {
+
+
+//            if (parser.getTag()==null){
+//                System.out.println("no Tag");
+//            }else {
+//                System.out.println(parser.getTag().show());
+//            }
+//
+//            if (parser.getPostId()==null){
+//                System.out.println("no postId");
+//            }else {
+//                System.out.println(parser.getPostId().show());
+//
+//            }
+
+
+            ArrayList<Post> postsToShow = new ArrayList<>();
+
+            String tagToSearch = "";
+            String postIDToSearch = "";
+            if (parser.getTag()==null) {
+                System.out.println("no Tag");               //show purpose
+            } else {
                 System.out.println(parser.getTag().show());
+                tagToSearch = parser.getTag().show();
             }
-
             if (parser.getPostId()==null){
-                System.out.println("no postId");
-            }else {
+                System.out.println("no postId");            //show purpose
+            } else {
                 System.out.println(parser.getPostId().show());
-
+                postIDToSearch = parser.getPostId().show();
+            }
+            if (tagToSearch.equals("") && !postIDToSearch.equals("")){
+                // only postid to search
+                Post result = Global_Data.instance.searchById(postIDToSearch);
+                if (result != null)
+                    postsToShow.add(result);
+            } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
+                //only tag to search
+                postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
+            } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
+                //empty, nothing to search
+                System.out.println("nothing , Toaster throws reminder");
+            } else {
+                Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+                if (result != null)
+                    postsToShow.add(result);
+//            postsToShow.add() ;
             }
 
         }

@@ -77,19 +77,9 @@ public class Tokenizer {
         The rest will follow a similar format.
          */
         char firstChar = buffer.charAt(0);
-//        if (firstChar == '+')
-//            currentToken = new Token("+", Token.Type.ADD);
-//        if (firstChar == '-')
-//            currentToken = new Token("-", Token.Type.SUB);
 
-        /*
-         TODO: Implement multiplication and division tokenizing.
-         TODO: Implement left round bracket and right round bracket.
-         TODO: Implement integer literal tokenizing.
-         TODO: Throw an IllegalTokenException when a character which does not correlate to any token type is provided.
-         Hint: Character.isDigit() may be useful.
-         */
-        // ########## YOUR CODE STARTS HERE ##########
+
+
         //tag
         if (firstChar == '#'){
             StringBuilder stringBuilder =  new StringBuilder();
@@ -112,12 +102,19 @@ public class Tokenizer {
         }
 
         //post ID
+        boolean existInvalidToken = false;
         if (firstChar == '@'){
             StringBuilder stringBuilder =  new StringBuilder();
             int pos = 1 ;
             //current char (digit) , pointer
             char current = buffer.charAt(pos);
             while(current!=';'){
+                //invalid token
+                if (current=='@' || current == '#'){
+                    existInvalidToken = true;
+//                    break;
+                }
+
                 stringBuilder.append(current);
                 pos++;
                 // if else to handle the out of range bug
@@ -128,24 +125,20 @@ public class Tokenizer {
                     break;
                 }
             }
-            currentToken = new Token(stringBuilder.toString(), Token.Type.POSTID);
+            if (existInvalidToken){
+                currentToken = new Token(stringBuilder.toString(), Token.Type.INVALID);
+
+            } else {
+                currentToken = new Token(stringBuilder.toString(), Token.Type.POSTID);
+
+            }
 
         }
         if (firstChar == ';'){
             currentToken = new Token(";", Token.Type.AND);
         }
-//        if (firstChar == '*')
-//            currentToken = new Token("*", Token.Type.MUL);
-//        if (firstChar == '/')
-//            currentToken = new Token("/", Token.Type.DIV);
-//        if (firstChar == '(')
-//            currentToken = new Token("(", Token.Type.LBRA);
-//        if (firstChar == ')')
-//            currentToken = new Token(")", Token.Type.RBRA);
-//
 
 
-        // ########## YOUR CODE ENDS HERE ##########
         // Remove the extracted token from buffer
         if (currentToken==null){
 //            throw new Token.IllegalTokenException("no valid query string");
@@ -156,6 +149,9 @@ public class Tokenizer {
                 tokenLen++;
             }
             if(currentToken.getType().equals(Token.Type.POSTID)){
+                tokenLen++;
+            }
+            if(currentToken.getType().equals(Token.Type.INVALID)){
                 tokenLen++;
             }
             buffer = buffer.substring(tokenLen);
