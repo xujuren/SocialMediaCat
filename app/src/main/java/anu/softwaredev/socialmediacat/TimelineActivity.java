@@ -220,12 +220,23 @@ public class TimelineActivity extends AppCompatActivity {
         // Tokenize, Parse
         Tokenizer tokenizer = new Tokenizer(search);
         Parser parser = new Parser(tokenizer);
+
         if (parser.getTag()==null) {
             System.out.println("no Tag");               //show purpose
         } else {
             System.out.println(parser.getTag().show());
             tagToSearch = parser.getTag().show();
         }
+        if (parser.getPostId()==null){
+            System.out.println("no postId");            //show purpose
+        } else {
+            if (parser.getPostId()!=null){
+                System.out.println(parser.getPostId().show());
+                postIDToSearch = parser.getPostId().show();
+            }
+
+        }
+
         if (parser.getPostId()==null){
             System.out.println("no postId");            //show purpose
         } else {
@@ -244,11 +255,51 @@ public class TimelineActivity extends AppCompatActivity {
             //empty, nothing to search
             System.out.println("nothing , Toaster throws reminder");
         } else {
-            Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
-            if (result != null)
-                postsToShow.add(result);
-//            postsToShow.add() ;
+            //search two
+            if (!tagToSearch.equals("") && (!postIDToSearch.equals(""))){
+                // if have 2 postid and tag to search
+                System.out.println("ppp:"+ postIDToSearch);
+                Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+                if (result != null)
+                    postsToShow.add(result);
+            }
+
         }
+
+        System.out.println("number: " + postsToShow.size());
+        for (Post post:postsToShow) {
+            System.out.println(post);
+        }
+
+
+//        if (parser.getTag()==null) {
+//            System.out.println("no Tag");               //show purpose
+//        } else {
+//            System.out.println(parser.getTag().show());
+//            tagToSearch = parser.getTag().show();
+//        }
+//        if (parser.getPostId()==null){
+//            System.out.println("no postId");            //show purpose
+//        } else {
+//            System.out.println(parser.getPostId().show());
+//            postIDToSearch = parser.getPostId().show();
+//        }
+//        if (tagToSearch.equals("") && !postIDToSearch.equals("")){
+//            // only postid to search
+//            Post result = Global_Data.instance.searchById(postIDToSearch);
+//            if (result != null)
+//                postsToShow.add(result);
+//        } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
+//            //only tag to search
+//            postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
+//        } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
+//            //empty, nothing to search
+//            System.out.println("nothing , Toaster throws reminder");
+//        } else {
+//            Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+//            if (result != null)
+//                postsToShow.add(result);
+//        }
 
         return postsToShow;
 

@@ -87,6 +87,9 @@ public class Global_Data {
     }
 
     public Post search(String tag, String PostId) {
+        if (PostId==""){
+            return null;
+        }
         RBTreeNode<String> node = data.find(tag);
         if (node == null || node.getPostsTree() == null)
             return null;
