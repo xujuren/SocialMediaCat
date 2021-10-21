@@ -1,5 +1,5 @@
 //create-post(uId; tags; "content"; photoId)
-create-post(u1; #random; "[B_CP] hi"; 1)
+create-post(Hk1FREofreQZw5VrMMfreQZw5VrMMfPpTgw2ro1; #random; "[B_CP] hi"; 1)
 create-post(u1; #random; "[B_CP] there"; -1)
 create-post(u2; #test #test; "[B_CP] button"; 200)
 create-post(u2; test#; "[B_CP] one"; 5)

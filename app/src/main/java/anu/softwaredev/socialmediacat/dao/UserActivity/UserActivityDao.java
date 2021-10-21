@@ -130,8 +130,11 @@ public class UserActivityDao implements IUserActivityDao {
 
     }
 
+    // TODO Check: called from [CurrentPost] (click Like/unlikes - button)
+    // UserActivityDao.getInstance().likePost(currentPost.getPostId());
     @Override
     public void likePost(String postId) {
+        // Update firebase DB
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
         dbRef.child("Posts").child(postId).updateChildren(updates);
@@ -237,7 +240,6 @@ public class UserActivityDao implements IUserActivityDao {
      * and display the corresponding information
      */
     public void findUserProfile(String userId, TextView uIdTv, TextView captionTv) {
-        dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -277,8 +279,7 @@ public class UserActivityDao implements IUserActivityDao {
                 Log.w(TAG, "Firebase Read Fail", error.toException());
             }
         };
-        dbRef.addValueEventListener(listener);
-
+        dbRef.child("Users").child(userId).addValueEventListener(listener);
     }
 
     /**
