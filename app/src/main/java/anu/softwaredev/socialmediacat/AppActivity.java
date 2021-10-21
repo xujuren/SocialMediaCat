@@ -44,7 +44,6 @@ public class AppActivity extends AppCompatActivity {
             userName = user.getEmail();
         }
 
-
         // set welcome text
         TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
         welcomeText.setText("Welcome, " + userName);
@@ -86,6 +85,7 @@ public class AppActivity extends AppCompatActivity {
      */
     public void toManageProfile(View v){
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        this.finish();
         startActivity(i);
     }
 
