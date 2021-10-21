@@ -56,6 +56,23 @@ _**URGENT + Fundamental**_
 | **Local Firebase** |   | timesout |
 
 
+### Things to fix
+
+1. Search bar half 
+2. @empty : bug (tokenizer) Kev
+3. Search Add refresh button (every 5 seconds)
+4. Wiki fix (put everything inside)  
+5. Test Kev
+
+### Checklist to submit
+
+- GItlab (merge)
+- PPT
+- Report.md (use it as a template for your report);
+- Checklist.md (project inimum requirements);
+- statement-of-originality.yml (all members must be listed there);
+- MeetingTemplate.md (a template for your meeting minutes).
+
 
 
 ====================================================================================================
