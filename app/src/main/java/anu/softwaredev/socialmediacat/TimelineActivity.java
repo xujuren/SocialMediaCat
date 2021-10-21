@@ -31,7 +31,7 @@ import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
     RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
-
+    public static Boolean hasLiked = false;
     /**
      * main method, put all logic inside
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
@@ -66,6 +66,15 @@ public class TimelineActivity extends AppCompatActivity {
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
+
+        Button backtBt = (Button) findViewById(R.id.Backtimelinebutton);
+        backtBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.setClass(TimelineActivity.this,AppActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // TODO 添加search方法
         Button searchBt = (Button) findViewById(R.id.SearchButton);

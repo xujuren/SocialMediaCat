@@ -5,13 +5,15 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 - If something cannot be fixed or don't want to fix it, can add to "list of known bugs" in report on Thu/Fri
 
 ***Bugs ***
-* delete post , doesnt work , post still in (mypost)
-* (Oct 20, 8PM canberra time)
-* Search: Input "#" in timeline search bar > error, Quit program 
-* Search: Input "# entwines" (invalid) did not show error message 
-* Search: Input "##" shows results if user inputted "#" (should not be tokenized?) when create post
+* Search: Input "#" in timeline search bar > error, Quit program  Kev is working on this  
+* Search: Input "# entwines" (invalid) did not show error message Kev is working on this  
+* Search: Input "##" shows results if user inputted "#" (should not be tokenized?) when create post Kev is working on this  
 * At "Current Post": click "back button" (back to timeline) -> click android's back button (Current post again) Stuck
 * after searching something (blank input and click serach again), should show back the complete timeline?
+* **MyPosts UI**: click android's built in return button - Like/delete not updated
+* timeline Search Bar: height not enough to show text
+* can also delete the fragments text "Home"
+*
 
 
 _**URGENT + Fundamental**_
@@ -27,22 +29,21 @@ _**URGENT + Fundamental**_
 Doing everything 
 
 
-**Bugs / incompleted new functions**
+** URGENT: Bugs / incompleted new functions**
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **delete** | adding a section for viewing the User's own posts (need modify) | **Juren** |
-| Data Structure | change everything into using RBTree ! | **Juren** |
-| Like | confirm & align latest way it works | **Kyle** |
-
+| **MyPostUI** | (Delete: Juren done) adding a section for viewing the User's own posts (**Juren** done)  | **[TBC]** |
+| **currentPostUI** | (1) scroll up/down will also get directed into current Post? | **Kevin** |
+| Like feature | confirm & align latest way it works | **Kyle** |
+| **AppActivity Layout** | .. | **[TBC]]** |
 
 **Checkings(all parts)**
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| Check UI input's validation & warning messages, and bugs  |  | **TBC** |
-| **Layout (Issue in many parts)** | try to use a different emulator size, things get messed up in many places  <br /> design & change the whole thing (placed things into fragments if ok?) <br /> | **Kevin** |
-| **testing** | all | Unit tests - **Juren** |
+| **Layout (Issue in many parts)** | try to use a different emulator size, things get messed up in many places  <br /> design & change the whole thing (placed things into fragments if ok?) <br /> | **Kevin** busy, TBC |
+| **testing** | all | Unit tests with report - **Juren** (Tree), [TBC: Parser tokenizer]|
 
 
 
@@ -50,13 +51,11 @@ Doing everything
 
 | Task | header | By |
 | ------ | ------ | ------ |
-| **currentPostUI** | (1) scroll up/down will also get directed into current Post? <br /> (2) delete UI bug (see above) | **Kevin** |
-| **ProfileActivity** | * import Photos, replace photoId (before Thurs) | **TBC** |
-| **Profile Linkage** | * show user Info in timeline/current post (e.g. name, caption) | **Cathy** |
-| **Use Case** | * got an idea, try to get the full creativity mark LoL | **Cathy** |
-| **Post Input** | * Screen 'tag' input after User Input, before Storing  | **TBC** |
-| **Local Firebase** | *load Firebase *Juren*  | **TBC** |
-
+| Data Structure | change everything into using RBTree ! | **Juren** (done a lot) |
+| **Use Case** | * got an idea, try to get the full creativity mark LoL | **Cathy** ok will summarize on Fri |
+| **Post Input** | * Screen 'tag' input after User Input, before Storing  | N/A |
+| **ProfileActivity** | * import Photos, replace photoId (before Thurs) | timesout |
+| **Local Firebase** |   | timesout |
 
 
 
@@ -74,3 +73,7 @@ RECENTly done and pushed
 * Search function: search > tok par > show result works in UI - Kyle, and setting up with timeline/Current Post
 * Dislike implemented on firebase - *Cathy*
 * (2) add other long info (content, postId, userId, ...) to Current Post instead of timeline - *Cathy*
+* delete post , doesnt work , post still in (mypost) !! done Juren
+* **Profile Linkage**: show user Info in timeline/current post (e.g. name, caption) Cathy
+* CurrentPost layout big revision, timeline minor revision & ALL layout alignment  - Cathy
+* Fix minor alignment bugs - kyle

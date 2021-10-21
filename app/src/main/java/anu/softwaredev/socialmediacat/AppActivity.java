@@ -44,7 +44,6 @@ public class AppActivity extends AppCompatActivity {
             userName = user.getEmail();
         }
 
-
         // set welcome text
         TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
         welcomeText.setText("Welcome, " + userName);
@@ -56,46 +55,6 @@ public class AppActivity extends AppCompatActivity {
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content, frag1, "");
         ft1.commit();
-
-        // Bottom Navigation Bar
-        navView = findViewById(R.id.bottomNavMenu);
-        navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            /** TODO - Notes:
-             * Navigation Bar (created just to see whether this could be used in the layout design,
-             * can delete if not)
-             * @param item
-             * @return true if clicked valid button and set different title, false if didnt click
-             */
-             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {     //  handle item clicks
-                    case R.id.nav_home:         // [home] fragment transaction
-                        actionBar.setTitle("Home");    // change actionBar title
-                        HomeFragment frag1 = new HomeFragment();
-                        FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-                        ft1.replace(R.id.content, frag1, "");
-                        ft1.commit();
-                        return true;
-                    case R.id.nav_acc:          // [acc] fragment transaction
-                        actionBar.setTitle("Profile");    // change actionBar title
-                        ProfileFragment frag2 = new ProfileFragment();
-                        FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
-                        ft2.replace(R.id.content, frag2, "");
-                        ft2.commit();
-                        return true;
-                    case R.id.nav_users:        // [users] fragment transaction
-                        actionBar.setTitle("Users");    // change actionBar title
-                        ProfileFragment frag3 = new ProfileFragment();
-                        FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
-                        ft3.replace(R.id.content, frag3, "");
-                        ft3.commit();
-                        return true;
-                }
-                return false;
-            }
-        });
-
     }
 
     /**
@@ -126,6 +85,7 @@ public class AppActivity extends AppCompatActivity {
      */
     public void toManageProfile(View v){
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+        this.finish();
         startActivity(i);
     }
 
