@@ -115,7 +115,7 @@ public class Global_Data {
     public boolean unlikePost(Post pt) {
         Post post = search(pt.getTag(), pt.getPostId());
         if (post != null) {
-            post.dislikePost();
+            post.unlikePost();
             return true;
         }
         return false;

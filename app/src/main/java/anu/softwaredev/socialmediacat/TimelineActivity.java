@@ -94,7 +94,7 @@ public class TimelineActivity extends AppCompatActivity {
                 if (childView != null) {
                     int position = rvTimeline.getChildLayoutPosition(childView);
                     Post ClickPost = timelineAdapter.getDataset().get(position);
-                    if(MESSAGE) {
+                    if (MESSAGE) {
                         Intent intent = new Intent(TimelineActivity.this, CurrentPost.class);
                         intent.putExtra("uId",ClickPost.getUId());
                         intent.putExtra("tag",ClickPost.getTag());

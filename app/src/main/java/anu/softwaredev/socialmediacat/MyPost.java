@@ -101,7 +101,7 @@ public class MyPost extends AppCompatActivity {
                     int likec = currentPost.getLikeCount()+1;
                     CharSequence dolike = "Like: " + likec;
                     like.setText(dolike);
-                    UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
+                    UserActivityDao.getInstance().likePost(currentPost.getPostId());
                     Toast.makeText(MyPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();
                 }
             }

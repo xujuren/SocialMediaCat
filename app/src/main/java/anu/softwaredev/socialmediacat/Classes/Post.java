@@ -82,7 +82,7 @@ public class Post implements Comparable<Post>{
         likeCount += 1;
     }
 
-    public void dislikePost() {
+    public void unlikePost() {
         likeCount -= 1;
     }
     

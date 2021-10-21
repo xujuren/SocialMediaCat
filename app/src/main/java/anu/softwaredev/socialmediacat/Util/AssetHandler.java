@@ -70,9 +70,9 @@ public abstract class AssetHandler {
                             UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
                         } else {
                             if (act.getAction()=="LP"){
-                                UserActivityDao.getInstance().likePost(act.getUId(), act.getPostId());
+                                UserActivityDao.getInstance().likePost(act.getPostId());
                             } else if (act.getAction()=="DP"){
-                                UserActivityDao.getInstance().deletePost(act.getUId(), act.getPostId());
+                                UserActivityDao.getInstance().deletePost(act.getPostId());
                             }
                         }
                     }

@@ -120,7 +120,7 @@ public class CurrentPost extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 boolean likeResult = Global_Data.getInstance().unlikePost(currentPost);
                 if (likeResult){
-                    currentPost.dislikePost();
+                    currentPost.unlikePost();
                     CharSequence likesText = currentPost.getLikeCount() + " likes";
                     like.setText(likesText);
                     UserActivityDao.getInstance().unlikePost(currentPost.getPostId());
