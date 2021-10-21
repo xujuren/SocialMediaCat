@@ -7,8 +7,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import com.google.android.gms.common.api.GoogleApi;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

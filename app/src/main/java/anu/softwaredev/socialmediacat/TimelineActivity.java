@@ -48,6 +48,10 @@ public class TimelineActivity extends AppCompatActivity {
         List<Post> postList = new LinkedList<>();
         if (MESSAGE) {
             // TODO - postList.addAll(Global_Data.getInstance().toList());
+            // TODO - postList.addAll(UserActivityDao.getInstance().findAllPosts());
+            // postList = UserActivityDao.getInstance().findAllPosts();
+
+            postList.clear();
             postList.addAll(UserActivityDao.getInstance().findAllPosts());
 
             List<Post> postList1 = Global_Data.getInstance().toList();
@@ -56,11 +60,12 @@ public class TimelineActivity extends AppCompatActivity {
                 System.out.println("\t" + post);
             }
 
-            List<Post> postList2 = Global_Data.getInstance().toList();
+            List<Post> postList2 = UserActivityDao.getInstance().findAllPosts();
             System.out.println("all posts [2]:");
             for (Post post : postList2) {
                 System.out.println("\t" + post);
             }
+
 
         } else {
             postList.addAll(Global_Data.getInstance().searchByUser(FirebaseAuth.getInstance().getUid()));

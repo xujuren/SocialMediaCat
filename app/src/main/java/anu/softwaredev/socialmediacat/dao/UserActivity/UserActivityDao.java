@@ -191,27 +191,24 @@ public class UserActivityDao implements IUserActivityDao {
             String fileContent = new String(bytes);
             String[] lines = fileContent.split("\n");
 
-
-            System.out.println("findAllPosts() = lines not null? " + lines!=null);
             if (lines != null) {
                 for (String line : lines) {
                     String[] items = line.split(";");
                     if (items!=null && items.length==7 && ("CP".equals(items[0]) || "SP".equals(items[0]) )) {
-
-                        System.out.println("True? " + ("CP".equals(items[0]) || "SP".equals(items[0]) ));
                         Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
-
                         postsLoaded.add(post);
-                        System.out.println("postsLoaded.add(post) -- " + post);
 
                         // Insert all posts to the global Data Structure of Posts
-                        Global_Data.getInstance().insert(post);
+                        // TODO - try delete (10/21):
+                        //  Global_Data.getInstance().insert(post);
+                        // TODO
 
                         // New, for locally created posts of User
                         FirebaseAuth user = FirebaseAuth.getInstance();
                         if (post.getUId().equals(user.getUid())){
                             Global_Data.getInstance().add_My_Posts(post);
                         }
+
                     }
                 }
             }
@@ -227,12 +224,6 @@ public class UserActivityDao implements IUserActivityDao {
 
         return postsLoaded;
     }
-
-//    public void testData(){
-//        for (int i = 0; i < 10; i++) {
-//            Post post = new Post("u" + i, "random", "u" + i, "u" + i, i, i);
-//        }
-//    }
 
 
     @Override
@@ -266,6 +257,7 @@ public class UserActivityDao implements IUserActivityDao {
                 if (snapshot.exists() && snapshot.hasChildren()) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         String k = ds.getKey();
+                        System.out.println("key: "+k);
                         switch (k) {
                             case "userName" :
                                 String userName = (String) ds.getValue();

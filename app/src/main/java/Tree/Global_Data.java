@@ -46,6 +46,7 @@ public class Global_Data {
         this.data = data;
     }
 
+    // TODO @Juren - change name here? getAllPost()?
     public List<Post> toList() {
         List<RBTreeNode<String>> allTags = data.findAll(data.root);
         List<Post> allPosts = new LinkedList<Post>();
