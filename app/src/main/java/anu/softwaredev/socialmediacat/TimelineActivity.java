@@ -14,9 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
-
 import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Search.Parser;
 import anu.softwaredev.socialmediacat.Search.Tokenizer;
@@ -26,11 +24,10 @@ import java.util.List;
 import Tree.RBTree;
 import Tree.RBTreeNode;
 import anu.softwaredev.socialmediacat.Classes.Post;
-import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
-    RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
+    RBTree<String> database = new RBTree<>();
     public static Boolean hasLiked = false;
     /**
      * main method, put all logic inside

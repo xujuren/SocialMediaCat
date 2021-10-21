@@ -29,7 +29,7 @@ public abstract class AssetHandler {
         streamOfData(userActs);
     }
 
-    // load activities
+    /**load activities */
     public static List<UserActivity> actionsFromDataInstances(Context ctx) {
         List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt")); // "dummy" for testing
 
@@ -46,10 +46,8 @@ public abstract class AssetHandler {
         return actions;
     }
 
-    /* A Stream of activities (with data instances) */
+    /** A Stream of activities (with data instances) */
     public static void streamOfData(List<UserActivity> data) {
-
-        // M1 - scheduleAtFixedRate (public {synchronized} void run())
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
             private int i=0;
@@ -84,8 +82,6 @@ public abstract class AssetHandler {
     }
 
 
-
-
     /** Load posts from data instances  */
     public static void loadPostsfromDataInstances(Context ctx) {
         List<Post> posts = new ArrayList<>();
@@ -100,23 +96,15 @@ public abstract class AssetHandler {
             }
         }
 
-        System.out.println(" === loadPostsfromDataInstances === === ");
-        for (Post post : posts) {
-            System.out.println(post);
-        }
-
         UserActivityDao.getInstance().storePost(posts);
     }
 
 
 
-    /** Load quotes  */
+    /** Load quotes from asset and displayed on the main page */
     public static void loadQuotes(Context ctx, TextView quoteTv) {
-        List<Post> posts = new ArrayList<>();
         BespokeHandler handler = new BespokeHandler();
         String quote = handler.quoteFromAssets(ctx);
-
-        // TODO TODO TODO TODO TODO TODOTODOTODOTODO
         quoteTv.setText(quote);
     }
 

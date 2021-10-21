@@ -11,6 +11,7 @@ import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
+/** For reading and parsing of CSV Files */
 public class CSVHandler extends AssetHandler {
 
     @Override

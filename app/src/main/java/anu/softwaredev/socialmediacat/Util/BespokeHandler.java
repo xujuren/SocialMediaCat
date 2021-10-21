@@ -13,6 +13,7 @@ import java.util.Random;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
+/** For reading and parsing of Bespoken Files */
 public class BespokeHandler extends AssetHandler {
 
     @Override
@@ -22,8 +23,8 @@ public class BespokeHandler extends AssetHandler {
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(ctx.getAssets().open("userActions.txt"), StandardCharsets.UTF_8));
             String line;
-            while ((line = bufferedReader.readLine()) != null) {    // create-post(u11, cat1, p01, hi hi hi hi)
-                int startBr = line.indexOf('(');                    // action name
+            while ((line = bufferedReader.readLine()) != null) {
+                int startBr = line.indexOf('(');
                 int endBr = line.indexOf(')');
                 if (startBr != 0 || endBr == -1) {
                     continue;
