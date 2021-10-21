@@ -3,7 +3,11 @@ package anu.softwaredev.socialmediacat.Search;
 //import Task1_Factory.Task1.Token;
 //import Task1_Factory.Task1.Tokenizer;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import Tree.Global_Data;
+import anu.softwaredev.socialmediacat.Classes.Post;
 
 /**
  * Note: You will need to have completed task 1 to complete this task.
@@ -55,12 +59,6 @@ public class Parser {
         // Create a scanner to get the user's input.
         Scanner scanner = new Scanner(System.in);
 
-        /*
-         Continue to get the user's input until they exit.
-         To exit press: Control + D or providing the string 'q'
-         Example input you can try: ((1 + 2) * 5)/2
-         Note that evaluations will round down to negative infinity (because they are integers).
-         */
         System.out.println("Provide a mathematical string to be parsed:");
         while (scanner.hasNext()) {
             String input = scanner.nextLine();
@@ -77,22 +75,56 @@ public class Parser {
 //            System.out.println(parser.getTag().show());
 //
 //            System.out.println(parser.getPostId().show());
-            if (parser.getTag()==null){
-                System.out.println("no Tag");
-            }else {
+
+
+//            if (parser.getTag()==null){
+//                System.out.println("no Tag");
+//            }else {
+//                System.out.println(parser.getTag().show());
+//            }
+//
+//            if (parser.getPostId()==null){
+//                System.out.println("no postId");
+//            }else {
+//                System.out.println(parser.getPostId().show());
+//
+//            }
+
+
+            ArrayList<Post> postsToShow = new ArrayList<>();
+
+            String tagToSearch = "";
+            String postIDToSearch = "";
+            if (parser.getTag()==null) {
+                System.out.println("no Tag");               //show purpose
+            } else {
                 System.out.println(parser.getTag().show());
+                tagToSearch = parser.getTag().show();
             }
-
             if (parser.getPostId()==null){
-                System.out.println("no postId");
-            }else {
+                System.out.println("no postId");            //show purpose
+            } else {
                 System.out.println(parser.getPostId().show());
-
+                postIDToSearch = parser.getPostId().show();
+            }
+            if (tagToSearch.equals("") && !postIDToSearch.equals("")){
+                // only postid to search
+                Post result = Global_Data.instance.searchById(postIDToSearch);
+                if (result != null)
+                    postsToShow.add(result);
+            } else if (postIDToSearch.equals("") && !tagToSearch.equals("")){
+                //only tag to search
+                postsToShow.addAll(Global_Data.getInstance().searchByTag(tagToSearch)) ;
+            } else if (tagToSearch.equals("") && postIDToSearch.equals("")){
+                //empty, nothing to search
+                System.out.println("nothing , Toaster throws reminder");
+            } else {
+                Post result = Global_Data.instance.search(tagToSearch,postIDToSearch);
+                if (result != null)
+                    postsToShow.add(result);
+//            postsToShow.add() ;
             }
 
-//            Exp expression = parser.parseExp();
-//            System.out.println("Parsing: " + expression.show());
-//            System.out.println("Evaluation: " + expression.evaluate());
         }
     }
 
@@ -136,159 +168,5 @@ public class Parser {
 
 
 
-
-    /**
-     * Adheres to the grammar rule:
-     * <exp>    ::= <term> | <term> + <exp> | <term> - <exp>
-     *
-     * @return type: Exp.
-     */
-    public Exp parseExp() throws IllegalProductionException {
-        /*
-         TODO: Implement parse function for <exp>.
-         TODO: Throw an IllegalProductionException if provided with tokens not conforming to the grammar.
-         Hint 1: you know that the first item will always be a term (according to the grammar).
-         Hint 2: the possible grammar return '<term> + <exp>' correlates with the class (AddExp(term, exp)).
-         */
-        // ########## YOUR CODE STARTS HERE ##########
-        Tokenizer tok = tokenizer;
-//        Exp exp =
-
-//        Exp term = parseTerm();
-//
-//
-//        if(tok.hasNext()&&tok.current().getType()== Token.Type.ADD){
-//            tok.next();
-//            Exp exp = parseExp();
-//            return new AndExp(term,exp);
-//        }
-//        if(tok.hasNext() && tok.current().getType()== Token.Type.SUB){
-//            tok.next();
-//            Exp exp = parseExp();
-//            return new AndExp(term,exp);
-//        } else {
-//            if (illegal){
-//                throw new IllegalProductionException("aaa");
-//
-//            }
-//            return term;
-//        }
-
-
-        return null; // Change this return (if you want). It is simply a placeholder to prevent an error.
-        // ########## YOUR CODE ENDS HERE ##########
     }
 
-    /**
-     * Adheres to the grammar rule:
-     * <term>   ::=  <factor> | <factor> * <term> | <factor> / <term>
-     *
-     * @return type: Exp.
-     */
-    public Exp parseTerm() throws IllegalProductionException {
-        /*
-         TODO: Implement parse function for <term>.
-         TODO: Throw an IllegalProductionException if provided with tokens not conforming to the grammar.
-         Hint: you know that the first item will always be a factor (according to the grammar).
-         */
-        // ########## YOUR CODE STARTS HERE ##########
-        Tokenizer tok = tokenizer;
-
-        Exp factor = parseFactor();
-
-
-        if(tok.hasNext() && tok.current().getType()== Token.Type.MUL){
-            tok.next();
-            Exp term = parseTerm();
-            return new AndExp(factor,term);
-        }
-        if(tok.hasNext() && tok.current().getType()== Token.Type.DIV){
-            tok.next();
-            Exp term = parseTerm();
-            return new AndExp(factor,term);
-        } else {
-            if (illegal){
-                throw new IllegalProductionException("aaa");
-
-            }
-            return factor;
-        }
-
-
-//        return null; // Change this return (if you want). It is simply a placeholder to prevent an error.
-        // ########## YOUR CODE ENDS HERE ##########
-    }
-
-    /**
-     * Adheres to the grammar rule:
-     * <factor> ::= <unsigned integer> | ( <exp> )
-     *
-     * @return type: Exp.
-     */
-    public Exp parseFactor() throws IllegalProductionException{
-        /*
-         TODO: Implement parse function for <factor>.
-         TODO: Throw an IllegalProductionException if provided with tokens not conforming to the grammar.
-         Hint: you can use Integer.parseInt() to convert a string into an integer.
-         Fun fact: Integer.parseInt() is using a parser!
-         */
-        // ########## YOUR CODE STARTS HERE ##########
-        Tokenizer tok = tokenizer;
-        if (tok.current().getType() == Token.Type.LBRA){
-            tok.next();
-            Exp exp = parseExp();
-            tok.next();
-            return exp;
-        } else {
-            try {
-                Exp i = new TagExp((tok.current().getToken()));
-                tok.next();
-
-                return i;
-            } catch (NumberFormatException e){
-                System.out.println("catch the error");
-                illegal = true;
-                System.out.println(illegal);
-                throw new IllegalProductionException("yes");
-            }
-        }
-
-
-//        public Exp parseExp2() throws IllegalProductionException {
-//        /*
-//         TODO: Implement parse function for <exp>.
-//         TODO: Throw an IllegalProductionException if provided with tokens not conforming to the grammar.
-//         Hint 1: you know that the first item will always be a term (according to the grammar).
-//         Hint 2: the possible grammar return '<term> + <exp>' correlates with the class (AddExp(term, exp)).
-//         */
-//            // ########## YOUR CODE STARTS HERE ##########
-//            Tokenizer tok = tokenizer;
-//            if (illegal){
-//                throw new IllegalProductionException("aaa");
-//
-//            }
-//            Exp term = parseTerm();
-//
-//
-//            if(tok.hasNext()&&tok.current().getType()== Token.Type.ADD){
-//                tok.next();
-//                Exp exp = parseExp2();
-//                return new AddExp(term,exp);
-//            }
-//            if(tok.hasNext() && tok.current().getType()== Token.Type.SUB){
-//                tok.next();
-//                Exp exp = parseExp2();
-//                return new SubExp(term,exp);
-//            } else {
-//                if (illegal){
-//                    throw new IllegalProductionException("aaa");
-//
-//                }
-//                return term;
-//            }
-
-
-//        return null; // Change this return (if you want). It is simply a placeholder to prevent an error.
-        // ########## YOUR CODE ENDS HERE ##########
-    }
-}
