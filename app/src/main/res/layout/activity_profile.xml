@@ -29,9 +29,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:hint="Set your display name"
+        android:hint="Set your user name (displayed)"
         android:textColor="#490404"
         android:textSize="18sp"
+        android:maxLength="30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_manage_profile_intro">
@@ -44,6 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:background="#FCF4A3"
+            android:maxLength="30"
             android:textColor="#450606"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -59,6 +61,7 @@
         android:hint="Input your interests"
         android:textColor="#490404"
         android:textSize="18sp"
+        android:maxLength="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_input_userName">
@@ -71,6 +74,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:background="#FFFDD0"
+            android:maxLength="50"
             android:textColor="#450606"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -97,6 +101,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            android:maxLength="120"
             android:background="#0FFCF4A3"
             android:textColor="#450606"
             android:textSize="18sp" />
