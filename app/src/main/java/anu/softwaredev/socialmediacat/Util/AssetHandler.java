@@ -44,24 +44,14 @@ public abstract class AssetHandler {
         for (String type : fileTypes) {
             AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
             AssetHandler assetHandler = assetHandlerFty.createHandler(type);
+
+
             List<UserActivity> result = assetHandler.actionsFromAssets(ctx);
             if (result!=null && result.size()!=0) {
                 actions.addAll(result);
             }
         }
         return actions;
-    }
-
-    // (1) create posts
-    public static List<UserActivity> createPostsFromDataInstances(List<UserActivity> userActs) {
-        // TODO - CREATE POSTS
-        List<UserActivity> createPostActs = new ArrayList<>();
-        for (UserActivity userAct : userActs) {
-            if (userAct.getAction().charAt(0) == 'C') {
-                createPostActs.add(userAct);
-            }
-        }
-        return createPostActs;
     }
 
     /* A Stream of activities (with data instances) */

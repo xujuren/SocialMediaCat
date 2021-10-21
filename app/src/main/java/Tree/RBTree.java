@@ -421,7 +421,6 @@ public class RBTree<T extends Comparable<T>> {
         return find((RBTreeNode<Post>)root, key);
     }
 
-
     /**
      * find a key in RBtree
      * @param node
@@ -432,10 +431,10 @@ public class RBTree<T extends Comparable<T>> {
         if (node==null)
             return null;
 
-        int cmp = key.compareTo(node.key);
-        if (cmp < 0)
+        int compare = key.compareTo(node.key);
+        if (compare < 0)
             return find(node.left, key);
-        else if (cmp > 0)
+        else if (compare > 0)
             return find(node.right, key);
         else
             return node;
@@ -461,6 +460,7 @@ public class RBTree<T extends Comparable<T>> {
         else
             return node;
     }
+
 
 
 

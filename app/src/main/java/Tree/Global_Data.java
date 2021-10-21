@@ -51,6 +51,8 @@ public class Global_Data {
         List<Post> allPosts = new LinkedList<Post>();
         for (RBTreeNode<String> tagSet:allTags) {
             allPosts.addAll(tagSet.postsTree.treeToListInorder(tagSet.postsTree.root));
+//            if (tagSet.getPostsTree() != null)
+//                allPosts.addAll(tagSet.postsTree.treeToListInorder(tagSet.postsTree.root));
         }
         return allPosts;
     }
@@ -72,11 +74,33 @@ public class Global_Data {
         return node.postsTree.treeToListInorder(node.postsTree.root);
     }
 
+    public List<Post> searchByUser(String uid){
+        List<Post> allPost = new LinkedList<>();
+        List<RBTreeNode<String>> allTags = data.findAll(data.root);
+        for (RBTreeNode<String> node:allTags) {
+            allPost.addAll(node.postsTree.treeToListInorder(node.postsTree.root));
+        }
+        allPost.removeIf(post -> !post.getUId().equals(uid));
+
+        return allPost;
+    }
+
     public Post search(String tag, String PostId) {
         RBTreeNode<String> node = data.find(tag);
-        if (node == null)
+        if (node == null || node.getPostsTree() == null)
             return null;
-        return node.getPostsTree().findById(PostId).getKey();
+
+
+        RBTreeNode<Post> result = node.getPostsTree().findById(PostId);
+//        List<Post> returnList = new LinkedList<>();
+//        if (result == null)
+//            return returnList;
+//        else{
+//            returnList.add(result.getKey());
+//            return returnList;
+//        }
+        return result == null ? null : result.getKey();
+//        return node.getPostsTree().findById(PostId).getKey();
     }
 
     public boolean likePost(Post pt) {

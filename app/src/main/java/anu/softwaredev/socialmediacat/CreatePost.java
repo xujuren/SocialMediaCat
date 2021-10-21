@@ -34,7 +34,6 @@ public class CreatePost extends AppCompatActivity {
     private EditText photoIDEdit;
     private LocationManager locManager;
     private LocationListener locListener;
-
     private static final int PHOTO_ID_ERROR_CODE = -1;
     private static final int PHOTO_LIMIT_LOWER = 0;
     private static final int PHOTO_LIMIT_UPPER = 100;
@@ -91,7 +90,7 @@ public class CreatePost extends AppCompatActivity {
             // Check invalid characters in tag
             if (tag.contains(",") || tag.contains(";") || TextUtils.isEmpty(tag)) {
                 tag = TAG_DEFAULT;
-                Toast.makeText(CreatePost.this, "Invalid input - your post tagged " + tag + ": )", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreatePost.this, "Invalid input - your post is tagged as " + tag + " : )", Toast.LENGTH_SHORT).show();
             }
 
             // add Location to Content, if permitted and available (Note: related to a known bug as reported)
@@ -108,10 +107,10 @@ public class CreatePost extends AppCompatActivity {
                     if (photoIdInput>=PHOTO_LIMIT_LOWER && photoIdInput<=PHOTO_LIMIT_UPPER) {
                         photoId = photoIdInput;
                     } else {
-                        Toast.makeText(CreatePost.this, "Invalid Photo ID! Photo will not be included in your post.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreatePost.this, "Invalid Photo ID: Photo will not be included in your post.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception ex) {
-                    Toast.makeText(CreatePost.this, "Invalid Photo ID! Photo will not be included in your post.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePost.this, "Invalid Photo ID: Photo will not be included in your post.", Toast.LENGTH_SHORT).show();
                 }
             }
 

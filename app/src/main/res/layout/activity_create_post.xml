@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Create Post"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textColor="#1591A6"
+        android:textSize="42sp"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         android:hint="Share your thoughts!"
         android:textColor="#490404"
         android:textSize="18sp"
@@ -39,37 +42,44 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:maxLength="100"
+            android:background="#FCF4A3"
+            android:maxLength="250"
             android:textColor="#450606"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:typeface="sans" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tag_createpost"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:hint="Tag your post! (',' and ';' are not allowed!)"
         android:textColor="#490404"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_shareLoc"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/content_createpost">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tag_createpost_et"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:maxLength="15"
+            android:background="#FFFDD0"
+            android:maxLength="20"
             android:textColor="#450606"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:typeface="sans" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <TextView
         android:id="@+id/tv_shareLoc"
@@ -79,6 +89,7 @@
         android:layout_marginTop="20dp"
         android:text="Share Your Location?"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tag_createpost" />
 
@@ -88,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:text="(Not selected)"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/bt_shareLoc"
         app:layout_constraintEnd_toStartOf="@+id/bt_shareLoc" />
 
@@ -98,7 +109,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
+        android:backgroundTint="#FFFDD0"
         android:hint="Share location?"
+        android:textColor="#6E8381"
         android:textOff="Not Shared"
         android:textOn="Loc will be shared!"
         android:textSize="15sp"
@@ -107,12 +120,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/photo_createpost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:hint="Input the ID of your photo (20 to 100)"
+        android:hint="Input the ID of your photo, if any (1 to 100)"
         android:textColor="#490404"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,27 +135,33 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/photo_createpost_et"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
-            android:maxLength="50"
+            android:background="#23FFFFFF"
+            android:maxLength="8"
             android:textColor="#450606"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:typeface="sans" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
         android:id="@+id/Confirm_CreatePost_Bt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#2196F3"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#1591A6"
         android:onClick="CreatePostConfirmBt"
-        android:text="Create Post"
+        android:text="Create Post !"
+        android:textColor="#D9EAF8"
         android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/photo_createpost" />
 
