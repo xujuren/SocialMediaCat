@@ -14,10 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:gravity="bottom|left"
-        android:text="0123456789123456782234567893234567894234567895111"
         android:textColor="#6C6C6E"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postIdTextView"
+        app:layout_constraintTop_toBottomOf="@+id/userIdTextView"
         tools:srcCompat="@tools:sample/avatars" />
 
 
@@ -79,8 +78,8 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="#6C6C6E"
-        app:layout_constraintBottom_toBottomOf="@+id/userIdTextView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/captionTv"
+        tools:layout_editor_absoluteX="30dp" />
 
     <TextView
         android:id="@+id/userIdTextView"
@@ -91,7 +90,7 @@
         android:textColor="#1591A6"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/captionTv" />
+        app:layout_constraintTop_toBottomOf="@+id/postIdTextView" />
 
 
     <Button
