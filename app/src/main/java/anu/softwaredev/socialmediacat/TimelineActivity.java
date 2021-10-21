@@ -67,7 +67,8 @@ public class TimelineActivity extends AppCompatActivity {
                 String search = searchEdit.getText().toString();
                 System.out.println(search);
                 List<Post> postsResult = searchAll(search);
-                System.out.println("number: " + postsResult.size());
+
+                System.out.println("number: " + postsResult.size()); //test
                 for (Post post:postsResult) {
                     System.out.println(post);
                 }
@@ -232,6 +233,7 @@ public class TimelineActivity extends AppCompatActivity {
             //empty, nothing to search
             System.out.println("nothing , Toaster throws reminder");
         } else {
+            //there is a tag and post id
             postsToShow.add(Global_Data.instance.search(tagToSearch,postIDToSearch)) ;
         }
 
