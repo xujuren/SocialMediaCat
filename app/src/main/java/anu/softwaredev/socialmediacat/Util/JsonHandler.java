@@ -11,7 +11,8 @@ import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
-/** TBD: current JSON data instances only include posts*/
+/** For reading and parsing of JSON Files
+ * Notes: only include functionality for loading posts for JSON*/
 public class JsonHandler extends AssetHandler {
 
     // Not developed for the Assignment

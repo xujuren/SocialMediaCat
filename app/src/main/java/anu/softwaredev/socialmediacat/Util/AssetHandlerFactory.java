@@ -13,7 +13,7 @@ public class AssetHandlerFactory {
             case "json":
                 return new JsonHandler();
             case "dummy":
-                return new DummyHandler();        // quick tests
+                return new DummyHandler();        // for quick tests
         }
 
         return null;    // if unmatched

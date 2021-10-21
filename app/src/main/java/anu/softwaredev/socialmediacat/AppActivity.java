@@ -1,26 +1,21 @@
 package anu.softwaredev.socialmediacat;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 
+/** The main page of the app for logged-in Users */
 public class AppActivity extends AppCompatActivity {
-    private FirebaseUser user;              //stored in firebase
+    private FirebaseUser user;              // User on Firebase
     private String userName;                // user's displayName (if available) or e-mail address
-    private BottomNavigationView navView;   // bottom Nav bar
-    private ActionBar actionBar;
 
     /**
      * main method, put all logic inside
@@ -30,13 +25,9 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app); // set view according to UI layout
-//        UserActivityDao.getInstance().findAllPosts();
+        UserActivityDao.getInstance().findAllPosts();
 
-        // Action bar - TODO (design layout with fragments)
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("Profile");
-
-        // get userName, or userEmail if userName not available -TODO check
+        // get userName, or userEmail if userName not available
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (!TextUtils.isEmpty(user.getDisplayName())) {
             userName = user.getDisplayName();
@@ -47,14 +38,6 @@ public class AppActivity extends AppCompatActivity {
         // set welcome text
         TextView welcomeText = (TextView) findViewById(R.id.tv_welcome_appAct);
         welcomeText.setText("Welcome, " + userName);
-
-
-        // Default: Home Fragment Transaction
-        actionBar.setTitle("Home");
-        HomeFragment frag1 = new HomeFragment();
-        FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-        ft1.replace(R.id.content, frag1, "");
-        ft1.commit();
     }
 
     /**

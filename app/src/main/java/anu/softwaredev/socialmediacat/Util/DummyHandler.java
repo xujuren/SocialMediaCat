@@ -6,7 +6,7 @@ import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
-// for testing only
+/** For testing only*/
 public class DummyHandler extends AssetHandler {
     @Override
     public List<UserActivity> actionsFromAssets(Context ctx) {

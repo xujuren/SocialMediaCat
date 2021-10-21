@@ -1,4 +1,3 @@
-//uId,tag,postId,content,PhotoId,Likes
 [
   {
     "uId": "Hk1FREofreQZw5VrMMfPpTgw2ro1",
@@ -10,14 +9,18 @@
   },
   {
     "uId": "u321",
-    "category": "#sayHi",
+    "tag": "#sayHi",
     "postId": "LPJ3",
-    "content": "(J)hi hello"
+    "content": "(J)hi hello",
+    "photoId": 33,
+    "likes": "(J)hi hello hi"
   },
   {
     "uId": "u123",
-    "category": "withoutSymbol",
+    "tag": "withoutSymbol",
     "postId": "LPJ3",
-    "content": "(J)abcfd sfsfsd sdfdsfds"
+    "content": "(J)abcfd sfsfsd sdfdsfds",
+    "photoId": 44,
+    "likes": "(J)hi 123321;"
   }
 ]

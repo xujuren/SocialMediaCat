@@ -19,14 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import anu.softwaredev.socialmediacat.Util.AssetHandler;
 
-
 public class MainActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;
     private TextView welcomeText;
-    private TextView quoteTv;   // TODO private?
+    private TextView quoteTv;
     private String acc;
     private String pw;
-    private TextInputLayout accLayout;             // [TextView]: without .setErrorEnabled(True)
+    private TextInputLayout accLayout;
     private TextInputLayout pwLayout;
     private EditText accEdit;
     private EditText pwEdit;
@@ -108,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Try log in with user input
+    /** Attempt to log in with user input
+     * Authenticate via Firebase */
     public void logInAttempt(){
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(acc, pw)
@@ -134,30 +134,4 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
-
-
-    /**
-     * for Testing Only
-     */
-    public void logInTest(View v) {
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword("test@test.com", "testtest")
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, R.string.login_msg_success, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, AppActivity.class);
-                            AssetHandler.loadPostsfromDataInstances(getApplicationContext());
-                            AssetHandler.performActions(getApplicationContext());
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            // error message
-                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
 }

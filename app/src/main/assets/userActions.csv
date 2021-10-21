@@ -1,9 +1,9 @@
 //action("CP"),uId,tags,"content",photoId
 //action("LP"),uId,postId
 //action("DP"),uId,postId
-CP,Hk1FREofreQZw5VrMMfPpTgw2ro1,#random,"Tonight’s episode (Kenya) of the final season of Parts Unknown is the last one Bourdain recorded",53
+CP,Hk1FREofreQZw5VrMMfPpTgw2ro1,*.*,"Tonight’s episode (Kenya) of the final season of Parts Unknown is the last one Bourdain recorded",53
 CP,u515114728,random,"",28
-CP,u504586349,random,"We are continuing to grow around the world and we are looking for great engineers in London.",61
+CP,u504586349,##random,"We are continuing to grow around the world and we are looking for great engineers in London.",61
 LP,Hk1FREofreQZw5VrMMfPpTgw2ro1,-P399132191461
 LP,u753898251,-P399132191461
 LP,u207996,-P10107650351321796
@@ -11,9 +11,29 @@ LP,Hk1FREofreQZw5VrMMfPpTgw2ro1,-P10104962655794802
 LP,u4800348,-P10104962655794802
 LP,Hk1FREofreQZw5VrMMfPpTgw2ro1,-P10214392191174935
 LP,u736695146,-P10161591696970578
-CP,u27921,#shedlike,"My New Red Shoes is looking for a new Executive Director. This is a unique and exciting opportunity",-1
+CP,Hk1FREofreQZw5VrMMfPpTgw2ro1,#shedlike,"My New Red Shoes is looking for a new Executive Director. This is a unique and exciting opportunity",-1
 CP,u88276686377,@@gilds,"New York City knows how to keep a secret...here’s how to find the restaurant hidden behind a painti",-1
 CP,u736695146,##resynthesized,"",1
+LP,u214707,-P10164612321020578
+LP,u214707,-P10164612321020578
+LP,u207996,-P10165044818260147
+LP,u207996,-P10165044818260147
+CP,u500961541,# undrawn,"'Finally got around to watching ""Roma"" a film that starts out very slowly observing the quotidian de""",13
+DP,u214707,-P976084691292
+DP,u214707,-P976084691292
+CP,Hk1FREofreQZw5VrMMfPpTgw2ro1,#judaizers,"'""",23
+CP,u4,nan,"'Meet the new Portal Go and Portal+""",-1
+CP,Hk1FREofreQZw5VrMMfPpTgw2ro1,#long-spurred,"'Goin back in my neutral corner for awhile. Time for me to rethink.....""",21
+LP,u105819,-P526295642153
+LP,u105819,-P526295642153
+CP,u3501774,#spongioplasm,"""In honor of pi day I wrote about why pie charts aren't as bad as you think.\n\nINTERANA.COM\nIn Def""",-1
+CP,u116053975121482,#goshdarnit,"'New video is live friends!\n\nYOUTUBE.COM\nPerfectionism is destroying your productivity.""",44
+DP,u4800348,-P353718069450252'
+DP,u4800348,-P353718069450252'
+CP,Hk1FREofreQZw5VrMMfPpTgw2ro1,# foundationless,"",9
+LP,u210081,-P10102700199919513
+LP,u210081,-P10102700199919513
+CP,u753898251,#userbox,"",64
 LP,u1122730940,-P10165098265415019
 LP,u1122730940,-P10165098265415019
 LP,u207996,-P10214392191174935
@@ -141,62 +161,43 @@ LP,u207996,-P10151372676583358'
 CP,u207996,#streaked,"Adrian Ponce 新增了 3 張相片。\n2016年5月18日 17:28 ·\n更多選項",-1
 CP,u1070342128,#whirring,"",21
 LP,u500961541,-P10105705749928203
-LP,u500961541,-P10105705749928203
 LP,u500011461,-P933841656705753
-LP,u500011461,-P933841656705753
-LP,u503524200,-P976084691292
 LP,u503524200,-P976084691292
 CP,u207996,##Judea,"",-1
 CP,u207996,#girlhood #boxwood,"Excited to announce that we’ve opened the Parker Institute for Cancer Immunotherapy at University o",51
 LP,u207996,-P10150178737945259
-LP,u207996,-P10150178737945259
-LP,u504586349,-P10156349207266542
 LP,u504586349,-P10156349207266542
 CP,u100009406992193,#,"'celebrando el día del santito con la familia ♡""",-1
 CP,u207996,#noncivil,"'Yay! New iOS app is here!\n\nBox Refreshes Its iOS Apps Gives Users Who Download The New Code 50GB """,42
 LP,u3,-P10151676650226350
 LP,u3,-P10151676650226350
 LP,u736695146,-P10165044818260147
-LP,u736695146,-P10165044818260147
-LP,u629100018,-P353718069450252'
-LP,u629100018,-P353718069450252'
+LP,u629100018,-P353718069450252
 LP,u1,-P10150178737945259
-LP,u1,-P10150178737945259
-LP,u100044361850784,LP5
 LP,u100044361850784,LP5
 CP,u207996,#cutthroats,"",25
 CP,u48100295,#callops,"LDT Roberto e Monique! Parabens pelo sues casamento!",-1
-LP,u640872188,-P10105055128234292'
-LP,u640872188,-P10105055128234292'
+LP,u640872188,-P10105055128234292
+LP,u640872188,-P10105055128234292
 CP,u665475577,#velitation,"",97
 CP,u751543357,#truths#,"Who do you recommend for NBN looking for reliable service with high speeds for upload and download ",-1
 LP,u500011461,-P10102861785360993
-LP,u500011461,-P10102861785360993
 LP,u500961541,LP5
-LP,u500961541,LP5
-LP,u1122730940,-P10164612321020578'
-LP,u1122730940,-P10164612321020578'
-LP,u207996,-P10107710795361456
+LP,u1122730940,-P10164612321020578
 LP,u207996,-P10107710795361456
 CP,u503524200,#embold,"'When I was a kid I wanted to be an advertising copywriter like Angela on ""Who\'s the Boss?"" when I """,-1
 CP,u207996,#truths,"'""",-1
 CP,u1070342128,#batiked,"'""",-1
-LP,u665475577,-P10151372676583358'
-LP,u665475577,-P10151372676583358'
+LP,u665475577,-P10151372676583358
 LP,u100002397837398,-P10112225853842691
-LP,u100002397837398,-P10112225853842691
-LP,u3,-P10102700199919513'
-LP,u3,-P10102700199919513'
-LP,u207996,-P353718069450252'
-LP,u207996,-P353718069450252'
-CP,u629100018,#loofa,"'Reset the “Days Since Fresh Hell:” meter back to zero and am making some coffee. That #2020 life 🙄😑""",-1
-LP,u207996,-P399132191461
+LP,u3,-P10102700199919513
+LP,u207996,-P353718069450252
+CP,u629100018,#loofa,"Reset the “Days Since Fresh Hell:” meter back to zero and am making some coffee. That #2020 life 🙄😑",-1
 LP,u207996,-P399132191461
 CP,u207996,#noninflamed#,"",97
 LP,u4,-P10100150418821319
 LP,u4,-P10100150418821319
-LP,u1,-P10151372676583358'
-LP,u1,-P10151372676583358'
+LP,u1,-P10151372676583358
 LP,u4,-P10161591696970578
 LP,u4,-P10161591696970578
 LP,u1,-P10102861785360993
@@ -211,16 +212,16 @@ LP,u1122730940,-P10165044818260147
 LP,u1122730940,-P10165044818260147
 LP,u15749,-P154565154573485
 LP,u15749,-P154565154573485
-CP,u629100018,#backwaters,"We need to listen.\n\nSol Mamakwa MPP for Kiiwetinoong\n6月28日 08:24 ·\n\nThis is my message to Cana""",-1
+CP,u629100018,#backwaters,"We need to listen.Sol Mamakwa MPP for Kiiwetinoong6月28日 08:24 ·This is my message to Cana",-1
 CP,u6405122,# grunting,"Love trumps hate",56
 LP,u207996,-P10112225853842691
 LP,u207996,-P10112225853842691
 DP,u1224927730,-P526295642153
 DP,u1224927730,-P526295642153
 CP,u100002397837398,#whirring,"",-1
-CP,u220113,#wind-galled,"Hazel Shade 新增了 1 張相片。\n2008年1月4日 12:13 ·更多選項",49
+CP,u220113,#wind-galled,"Hazel Shade 新增了 1 張相片。2008年1月4日 12:13 ·更多選項",49
 CP,u1001896,##Maurice,"",34
-CP,u27921,#recorded,"Excited about the Facebook integration into iOS and Mac OS X\n\nTECHCRUNCH.COM\nTechCrunch | Apple """,-1
+CP,u27921,#recorded,"Excited about the Facebook integration into iOS and Mac OS XTECHCRUNCH.COM\nTechCrunch | Apple ",-1
 DP,u736695146,-P10165098265415019
 DP,u736695146,-P10165098265415019
 CP,u100009406992193,subvent,"april 29 2017",-1
@@ -233,31 +234,31 @@ DP,u207996,-P10107710795361456
 DP,u207996,-P10107710795361456
 LP,u4,-P399132191461
 LP,u4,-P399132191461
-CP,u1226643972,##,"'So I just watched Princess Bride again. The movie never ceases to entertain me :)""",-1
+CP,u1226643972,##,"So I just watched Princess Bride again. The movie never ceases to entertain me :)",-1
 LP,u1224927730,-P10102630202270363
 LP,u1224927730,-P10102630202270363
-CP,u207996,##Behrouz,"'""",95
-CP,u2505690,#penthouse,"'""",-1
-CP,u207996,#exposing,"'""",-1
-CP,u105819,##circocele,"'""",-1
-CP,u1471726074,#maltosazone #satirists,"'""",101
+CP,u207996,##Behrouz,"",95
+CP,u2505690,#penthouse,"",-1
+CP,u207996,#exposing,"",-1
+CP,u105819,##circocele,"",-1
+CP,u1471726074,#maltosazone #satirists,"",101
 LP,u736695146,-P526295642153
 LP,u736695146,-P526295642153
-CP,u753898251,#ya'll#,"'""",33
+CP,u753898251,#ya'll#,"",33
 LP,u37512888,-P10151676650226350
 LP,u37512888,-P10151676650226350
-CP,u207996,#devastatingly,"'""",7
+CP,u207996,#devastatingly,"",7
 LP,u10210869,-P10102861785360993
 LP,u10210869,-P10102861785360993
-CP,u500010222,@@jaiba,"'Tibor the great #puli""",40
+CP,u500010222,@@jaiba,"Tibor the great #puli",40
 LP,u207996,-P10100160203632432
 LP,u207996,-P10100160203632432
 LP,u500961541,-P10100160203632432
 LP,u500961541,-P10100160203632432
 LP,u503524200,-P10105705749928203
 LP,u503524200,-P10105705749928203
-CP,u27921,#paragneisses,"'""",-1
-CP,u629100018,#inbreeds,"'This is well done—very straightforward and helpful! Please share folks need to understand this stuf""",56
+CP,u27921,#paragneisses,"",-1
+CP,u629100018,#inbreeds,"This is well done—very straightforward and helpful! Please share folks need to understand this stuf",56
 LP,u15749,-P10161591696970578
 LP,u15749,-P10161591696970578
 DP,nil,-P10155730697509201
@@ -269,7 +270,7 @@ LP,u207996,-P10158706684871462
 LP,u207996,-P10113851570234011
 LP,u207996,-P10113851570234011
 CP,u1680643142,#grunting,"",-1
-CP,u37512888,#Fallopian,"This was 20 years ago!! Happy Birthday Faith Claggett!! I think we still look exactly the same 😂❤️😘""",89
+CP,u37512888,#Fallopian,"This was 20 years ago!! Happy Birthday Faith Claggett!! I think we still look exactly the same 😂❤️😘",89
 CP,u100009002097285,#subvent,"72% comigo\n\nJovens de Esquerda\n2020年5月30日 14:22 ·\n\n\u202a#Somos70porcento e tem 30% que ainda """,31
 LP,u1122730940,-P10102700199919513'
 LP,u1122730940,-P10102700199919513'
@@ -320,22 +321,22 @@ LP,u207996,-P933841656705753
 CP,u207996,#together,"WWW.SURFER.COM\nSURFER Magazine - Surf News Fantasy Surfer Photos Video and Forecasting",21
 LP,u4800348,-P10101498051509571
 LP,u4800348,-P10101498051509571
-CP,u500010222,#putrescible,"'Cannot stop watching a beautiful lens into humanity\n\nASTRONAUT.IO\nAstronaut""",-1
+CP,u500010222,#putrescible,"'Cannot stop watching a beautiful lens into humanity\n\nASTRONAUT.IOAstronaut""",-1
 DP,u640872188,-P10156349207266542
 DP,u640872188,-P10156349207266542
 DP,u1,-P10156356331896542'
 DP,u1,-P10156356331896542'
-CP,u1122730940,#slane,"'Still feeling the same.......I need a very long vacay from my so called life.....\n\nConstance Pryo""",7
+CP,u1122730940,#slane,"Still feeling the same.......I need a very long vacay from my so called life.....Constance Pryo",7
 CP,u515114728,#phalacrosis,"'So happy to be home. Dublin for the weekend ☘️""",32
 LP,u207996,-P10104962655794802
 LP,u207996,-P10104962655794802
-CP,u100044361850784,#impeditive,"'Superintendent Austin Beutner - Archive\n6月24日 01:24 ·\n\nHelping students learn the language of op""",44
+CP,u100044361850784,#impeditive,"Superintendent Austin Beutner - Archive\n6月24日 01:24 ·Helping students learn the language of op",44
 LP,u207996,-P10155730697509201
 LP,u207996,-P10155730697509201
-CP,u640872188,#ice-chair,"'""",-1
+CP,u640872188,#ice-chair,"",-1
 LP,u207996,-P10105705749928203
 LP,u207996,-P10105705749928203
-CP,u105819,#tzopilotl,"'""",18
+CP,u105819,#tzopilotl,"",18
 DP,u214707,-P10165098265415019
 DP,u214707,-P10165098265415019
 DP,u207996,-P10105705749928203
@@ -364,168 +365,111 @@ LP,u3,-P526295642153
 LP,u3,-P526295642153
 LP,u207996,-P10105705749928203
 LP,u207996,-P10105705749928203
-CP,u210081,#culpableness,"'This explanation of the Affordable Care Act is amazing. I have been following the news for months a""",39
-CP,u214707,#hain't,"""Took a stab at Irvin Lin's white chocolate peppermint cookies (https://www.eatthelove.com/white-cho""",12
+CP,u210081,#culpableness,"This explanation of the Affordable Care Act is amazing. I have been following the news for months a",39
+CP,u214707,#hain't,"""Took a stab at Irvin Lin's white chocolate peppermint cookies (https://www.eatthelove.com/white-cho",12
 LP,u214707,-P353718069450252'
 LP,u214707,-P353718069450252'
 LP,u665475577,-P10150178737945259
 LP,u665475577,-P10150178737945259
 LP,u500961541,-P933841656705753
 LP,u500961541,-P933841656705753
-CP,u207996,##,"'""",32
-CP,u207996,#half-hour #courted,"'""",11
-CP,u504586349,#violeter,"'Student.com\n2016年6月3日 07:20 · 英國倫敦 ·\n\nThis one part of studying abroad could change your brain (""",96
-CP,u1122730940,azimuthal,"""GM\nTO THE LITTLE BITCH AND HER MAMMY THAT HAD SO MUCH BULLSHIT TO SAY TO MY MOTHER. I'M COMING FOR""",-1
-CP,u37512888,#voiceovers,"'The kids will be happy to sleep in after coming home from school at 6pm today! The awesome teachers""",96
+CP,u207996,##,"",32
+CP,u207996,#half-hour #courted,"",11
+CP,u504586349,#violeter,"Student.com\n2016年6月3日 07:20 · 英國倫敦 ·\n\nThis one part of studying abroad could change your brain (",96
+CP,u1122730940,azimuthal,"GM\nTO THE LITTLE BITCH AND HER MAMMY THAT HAD SO MUCH BULLSHIT TO SAY TO MY MOTHER. I'M COMING FOR",-1
+CP,u37512888,#voiceovers,"The kids will be happy to sleep in after coming home from school at 6pm today! The awesome teachers",96
 LP,u1122730940,LP2
 LP,u1122730940,LP2
-CP,u207996,#sits,"'WWW.SURFER.COM\nSURFER Magazine - Surf News Fantasy Surfer Photos Video and Forecasting""",33
-CP,u9418141,#spoiled,"'""",-1
-CP,u1224927730,#Elmo,"'""",12
-LP,u500961541,LP2
+CP,u207996,#sits,"'WWW.SURFER.COM\nSURFER Magazine - Surf News Fantasy Surfer Photos Video and Forecasting",33
+CP,u9418141,#spoiled,"",-1
+CP,u1224927730,#Elmo,"",12
 LP,u500961541,LP2
 LP,u214707,-P526295642153
-LP,u214707,-P526295642153
-CP,u3500614,#dilational,"'""",87
-LP,u37512888,-P10104962655794802
+CP,u3500614,#dilational,"",87
 LP,u37512888,-P10104962655794802
 CP,u696093150,#apostrophised,"'Thanks for giving on this day my beautiful friends - love ❤️ Babe""",7
-LP,u214707,-P10164612321020578'
-LP,u214707,-P10164612321020578'
-LP,u207996,-P10165044818260147
-LP,u207996,-P10165044818260147
-CP,u500961541,# undrawn,"'Finally got around to watching ""Roma"" a film that starts out very slowly observing the quotidian de""",13
-DP,u214707,-P976084691292
-DP,u214707,-P976084691292
-CP,u1224927730,#judaizers,"'""",23
-CP,u4,nan,"'Meet the new Portal Go and Portal+""",-1
-CP,u1122730940,#long-spurred,"'Goin back in my neutral corner for awhile. Time for me to rethink.....""",21
-LP,u105819,-P526295642153
-LP,u105819,-P526295642153
-CP,u3501774,#spongioplasm,"""In honor of pi day I wrote about why pie charts aren't as bad as you think.\n\nINTERANA.COM\nIn Def""",-1
-CP,u116053975121482,#goshdarnit,"'New video is live friends!\n\nYOUTUBE.COM\nPerfectionism is destroying your productivity.""",44
-DP,u4800348,-P353718069450252'
-DP,u4800348,-P353718069450252'
-CP,u100009002097285,# foundationless,"",9
-LP,u210081,-P10102700199919513'
-LP,u210081,-P10102700199919513'
-CP,u753898251,#userbox,"",64
-LP,u207996,-P10113851570234011
 LP,u207996,-P10113851570234011
 LP,u210081,-P10156349207266542
-LP,u210081,-P10156349207266542
-LP,u1224927730,-P10156356331896542'
-LP,u1224927730,-P10156356331896542'
+LP,u1224927730,-P10156356331896542
 LP,u100044361850784,-P10102630202270363
-LP,u100044361850784,-P10102630202270363
-CP,u207996,#trafficators #multidrive,"'I am honored to receive the Friends of Cancer Research Cancer Leadership Award alongside Parker Ins""",79
+CP,u207996,#trafficators #multidrive,"I am honored to receive the Friends of Cancer Research Cancer Leadership Award alongside Parker Ins",79
 CP,u500010222,#gaugino,"",-1
 LP,u500011461,-P10102861785360993
 LP,u500011461,-P10102861785360993
 LP,u207996,-P10113851570234011
 LP,u207996,-P10113851570234011
-CP,u514451010,#unriddling #solvates,"his numbers were only off by 91% (11x)...\n\nBLOOMBERG.COM\nEric Holder Owes the American People an""",28
+CP,u514451010,#unriddling #solvates,"his numbers were only off by 91% (11x)...\n\nBLOOMBERG.COM\nEric Holder Owes the American People an",28
 CP,u654336149,#paleoecologist,"",-1
 CP,u213748,#adversion,"Can't sleep too excited for f8",-1
 CP,u629100018,@@ell,"So funny I needed this today. //ht Jacob Benjamin",-1
 CP,u1471726074,##,"",22
 CP,u207996,#,"",81
 LP,u503524200,-P399132191461
-LP,u503524200,-P399132191461
 LP,u665475577,-P10102630202270363
-LP,u665475577,-P10102630202270363
-CP,u504586349,#intrude,"'""",74
-CP,u207996,#kebap,"'Cool product on Christie Street. I used to keep my headphones in a case but it was annoying to take""",-1
+CP,u504586349,#intrude,"",74
+CP,u207996,#kebap,"Cool product on Christie Street. I used to keep my headphones in a case but it was annoying to take",-1
 LP,u4,-P10151372676583358'
 LP,u4,-P10151372676583358'
-CP,u167751856750687,#uneath,"'""",33
-CP,u207996,#explorer,"'""",-1
+CP,u167751856750687,#uneath,"",33
+CP,u207996,#explorer,"",-1
 LP,u207996,-P10107650351321796
-LP,u207996,-P10107650351321796
-LP,u736695146,-P10112225853842691
 LP,u736695146,-P10112225853842691
 LP,u10210869,LP2
 LP,u10210869,LP2
-LP,u629100018,-P10151452979297189
 LP,u629100018,-P10151452979297189
 CP,u207996,#convergency,"",27
 CP,u10081584315,#hyperlipidemic,"Ahh the 90s. A time where *friends* and teen bands ruled the scene. As we look back on our Most Pop""",-1
 LP,nil,-P10105705749928203
-LP,nil,-P10105705749928203
 CP,u640872188,#rosebushes #maxillofacial,"Don't forget where you come from. Don't die holdin onto your words""",92
-LP,u736695146,-P10104962655794802
 LP,u736695146,-P10104962655794802
 CP,u3500614,#cohort,"",81
 LP,u665475577,-P10102630202270363
-LP,u665475577,-P10102630202270363
 CP,u207996,#gyrophora,"",25
-LP,u4,-P10102700199919513'
-LP,u4,-P10102700199919513'
+LP,u4,-P10102700199919513
 CP,u3500614,#,"Husband’s iPad has a glitch wherein icons in Safari are randomly replaced by emojis. Hence this hot""",39
-LP,u15749,-P10107650351321796
 LP,u15749,-P10107650351321796
 CP,u39501269,#semiliquids,"HARPERCOLLINS.COM\nFeminism for the hot-girl era.",2
 CP,u207996,#overallocated,"",71
 CP,u1122730940,#lenitives,"If U call yourself my buddy friend or family; hit like say hi and copy this to your status. Watch. """,16
 LP,u1224927730,-P10105705749928203
-LP,u1224927730,-P10105705749928203
 CP,u207996,#squireling,"",98
 CP,u207996,##,"",36
 LP,u207996,-P10100150418821319
-LP,u207996,-P10100150418821319
 LP,u214707,-P933841656705753
-LP,u214707,-P933841656705753
-LP,u210081,-P10155386543218252
 LP,u210081,-P10155386543218252
 CP,u116200415,#liqueurs,"Thank you for supporting my brow journey! I appreciate it <3\n\nMicroblading Feathered Eyebrows by """,57
-LP,u100002397837398,-P10113851570234011
 LP,u100002397837398,-P10113851570234011
 CP,u214707,#nonpossession,"Yesterday I was interviewed by three students of Project Mahatma which is a mentoring platform esta""",62
 DP,u3,-P10105705749928203
 DP,u3,-P10105705749928203
 LP,u37512888,-P10113851570234011
-LP,u37512888,-P10113851570234011
 LP,u207996,-P10107650351321796
-LP,u207996,-P10107650351321796
-LP,u37512888,-P10101498051509571
 LP,u37512888,-P10101498051509571
 CP,u699566061,#arccos,"'""",35
 CP,u514451010,#vestry,"'THEONION.COM\nThanks For Being So Cool About Everything""",77
 CP,u214707,#overprocessing,"'October is Breast Cancer Awareness Month and Marco is selling Marcomania t-shirts between now and N""",53
 LP,u753898251,-P933841656705753
-LP,u753898251,-P933841656705753
-LP,u207996,-P10100160203632432
 LP,u207996,-P10100160203632432
 LP,u3,-P399132191461
-LP,u3,-P399132191461
-LP,u665475577,-P10165044818260147
 LP,u665475577,-P10165044818260147
 CP,u39501269,##,"I got to watch this Dave Chappelle special before they remove it!",-1
 CP,u500011461,#impeditive#,"Golden hour over the California hillside.",12
 LP,u207996,-P10150178737945259
-LP,u207996,-P10150178737945259
 LP,u503524200,nil
-LP,u503524200,nil
-LP,u1,-P10155730697509201
 LP,u1,-P10155730697509201
 CP,u500961541,#yottameter #wood-star,"",18
 CP,u214707,nan,"Is anyone else still in bed surfing Facebook while wondering what scary new color the sky will be t",-1
-LP,u10210869,-P10156356331896542'
-LP,u10210869,-P10156356331896542'
+LP,u10210869,-P10156356331896542
 CP,u505162988,@@sits,"Happy birthday!",65
 CP,u1933166,#goshdarnit#,"resilience\nwhat makes you stronger?\n\nthese trees have been standing here for over a millennium\n",-1
 LP,u500961541,-P10107650351321796
-LP,u500961541,-P10107650351321796
 CP,u640872188,#unweariably,"Softest eyelids in the game\nMatt Reilly",-1
-LP,u500961541,-P10105055128234292'
-LP,u500961541,-P10105055128234292'
+LP,u500961541,-P10105055128234292
 CP,u1311261,#indissolvable,"",60
 CP,u514451010,#exposing,"COMMUNITY.INFOBLOX.COM\nComing Soon: An IPv6-Only Facebook | Infoblox Community",-1
 CP,u100002397837398,#ultrapowerful,"Mi casa en la noche""",96
 LP,u210081,-P10214347210010434
-LP,u210081,-P10214347210010434
-CP,u736695146,#undrawn,"'I’m a poet and didn’t even know it!\n\nHolly VonDemfange 和 Liz VonDemfange 及 Craig VonDemfange 在一起\",93
-DP,u37512888,-P10155730697509201
+CP,u736695146,#undrawn,"I’m a poet and didn’t even know it!\n\nHolly VonDemfange 和 Liz VonDemfange 及 Craig VonDemfange 在一起\",93
 DP,u37512888,-P10155730697509201
 CP,u220113,#electorship,"sdfjslkdfjslfjlskdjf",-1
 CP,u37512888,#smirting,"Picture day. 📣",30
@@ -535,10 +479,10 @@ CP,u504586349,dendrons,"THEVERGE.COM\nNo Instagram can't sell your photos: what 
 CP,u696093150,#nanoclusters,"",-1
 DP,u1122730940,-P10105705749928203
 DP,u1122730940,-P10105705749928203
-CP,u500020500,#parliamentary,"""85% of people are shopping online right now but we've also heard that a significant percentage of b""",-1
-CP,u214707,#somatologic,"'Can anyone in San Francisco recommend a gardener who can lay down sod in a small backyard?""",34
-CP,u27921,#dilational,"'http://venturebeat.com/2014/10/24/deezer-buys-stitcher-radio/\nCongrats to Noah Shanok and the Stit""",82
-CP,u1001896,#cous,"'Viewer Discretion Advised\n\nThe Aftermath:\nhttp://www.facebook.com/photo.php?pid=34125497&id=1001""",18
+CP,u500020500,#parliamentary,"85% of people are shopping online right now but we've also heard that a significant percentage of b",-1
+CP,u214707,#somatologic,"Can anyone in San Francisco recommend a gardener who can lay down sod in a small backyard?",34
+CP,u27921,#dilational,"http://venturebeat.com/2014/10/24/deezer-buys-stitcher-radio/\nCongrats to Noah Shanok and the Stit",82
+CP,u1001896,#cous,"'Viewer Discretion Advised\n\nThe Aftermath:\nhttp://www.facebook.com/photo.php?pid=34125497&id=1001",18
 LP,u207996,LP2
 LP,u207996,LP2
 LP,u207996,-P10155730697509201
@@ -572,180 +516,121 @@ LP,u4,nil
 LP,u4,nil
 CP,u675265258,#bishie,"",31
 DP,u207996,-P10155386543218252
-DP,u207996,-P10155386543218252
 LP,u1122730940,-P10155386543218252
-LP,u1122730940,-P10155386543218252
-LP,u207996,-P353718069450252'
-LP,u207996,-P353718069450252'
-LP,u503524200,-P10113851570234011
+LP,u207996,-P353718069450252
 LP,u503524200,-P10113851570234011
 CP,u116200415,#knock-about,"'Why Kangen? It is approved in Japan as a MEDICAL device - it takes 12 years to get approved! #1 Wat""",-1
 LP,u207996,-P10150178737945259
-LP,u207996,-P10150178737945259
 CP,u207996,#unmerciful,"'PARKERICI.ORG\nFrom leukemia to cancer-free: how CAR-T immunotherapy saved Emily Whitehead | Parker""",-1
-LP,u100002397837398,-P10151372676583358'
-LP,u100002397837398,-P10151372676583358'
-LP,u207996,-P10102700199919513'
-LP,u207996,-P10102700199919513'
+LP,u100002397837398,-P10151372676583358
+LP,u207996,-P10102700199919513
 CP,u116200415,#Proust,"'Soooo cute!\n\nYOUTUBE.COM\nSurvivor: Second Chances (Kids Edition)""",34
 CP,u100009406992193,#transfigurative,"'""",99
-LP,u1122730940,-P10156356331896542'
-LP,u1122730940,-P10156356331896542'
-LP,u500011461,-P10151452979297189
+LP,u1122730940,-P10156356331896542
 LP,u500011461,-P10151452979297189
 LP,u500961541,-P10155730697509201
-LP,u500961541,-P10155730697509201
-LP,u207996,-P10155730697509201
 LP,u207996,-P10155730697509201
 LP,u100002397837398,LP6
-LP,u100002397837398,LP6
-LP,u207996,-P10105055128234292'
-LP,u207996,-P10105055128234292'
-DP,u207996,-P933841656705753
+LP,u207996,-P10105055128234292
 DP,u207996,-P933841656705753
 CP,u10210869,#lyricism,"",-1
 CP,u88276686377,#waggish,"The international express has arrived it’s time to jump on board and travel with us to Queens New Y",-1
 LP,u10210869,-P10105705749928203
-LP,u10210869,-P10105705749928203
 CP,u220113,#bestowable,"fasd",27
-LP,u207996,-P10105705749928203
 LP,u207996,-P10105705749928203
 CP,u2505690,##,"Amazing lunch opportunity for a great charity! Lunch with the former head of the FBI and CIA\n\nCHA",40
 CP,u4,#,"128GB version of Quest 2 is available today and is our new standard model at the same $299 price as",-1
 CP,u696093150,#kebap,"",-1
-LP,u3,-P10109003676407203
 LP,u3,-P10109003676407203
 CP,u37512888,@@methamidophos,"❤️❤️",12
 CP,u654336149,#septicaemia,"very cool\n\nDOCSTOC.COM\nThe Facebook Death Star Moves Across The Universe",16
 CP,u207996,#Jud.,"Honored to have worked with Tim Scott and Cory Booker on the Investing in Opportunity Act a rare bi",81
 CP,u699566061,#unvoyageable,"",-1
 LP,u210081,-P10102861785360993
-LP,u210081,-P10102861785360993
-LP,u500961541,-P10164612321020578'
-LP,u500961541,-P10164612321020578'
+LP,u500961541,-P10164612321020578
 CP,u116200415,#heathenry#,"""Kangen Water for the win! ❤️\n\nThuy D. Dao and I will be doing a fun water demo tomorrow. If you w""",-1
 CP,u207996,#alcaldeship,"'""",69
-LP,u3,-P526295642153
 LP,u3,-P526295642153
 CP,u4,#fancied,"""It's been a busy day but I want to congratulate the scientists at the Biohub on all the progress yo""",99
 CP,u27921,#vestry,"'Nathan Hubbard Kip Levin and the Ticketmaster team are making it easier for fans to discover live e""",-1
 LP,u207996,-P10151452979297189
-LP,u207996,-P10151452979297189
 CP,u1226643972,#Somerville,"'""",-1
 LP,u629100018,-P10165044818260147
-LP,u629100018,-P10165044818260147
-LP,u207996,-P10107650351321796
 LP,u207996,-P10107650351321796
 CP,u699566061,#lyricism,"'""",-1
 CP,u1587592311,instructed,"'""",-1
 CP,u500020500,#squabash,"'So proud of the Growth team at Instagram for bringing more people into the community so we can be c""",-1
-LP,u105819,-P10214392191174935
 LP,u105819,-P10214392191174935
 CP,u1220199124,##,"'Oconee Fall Line Technical College 更新了他們的近況。\n2015年4月2日 17:46 ·\n\nIt\'s National Welding Month and""",-1
 CP,u1311261,#gouernment,"'""",80
 CP,u39501269,#pyrogen,"""Why they pull his coat tail like that lol! Somebody said they had the spirit of Sandman Sims! 😂\n\n""",15
 CP,u207996,#factoid,"'Adrian Ponce 新增了 3 張相片。\n2016年5月23日 23:55 ·\n更多選項""",13
 DP,u640872188,-P10113851570234011
-DP,u640872188,-P10113851570234011
 CP,u696093150,#dilatate,"'""",40
-DP,u15749,-P10102700199919513'
-DP,u15749,-P10102700199919513'
+DP,u15749,-P10102700199919513
 CP,u100009002097285,#formfeed,"'Neneo Almeida\u200eVenda - Rápido - Caruaru\n2020年9月5日 00:06 · Facebook for Android ·""",-1
 LP,u1,-P10100150418821319
-LP,u1,-P10100150418821319
-DP,u500011461,-P10112225853842691
 DP,u500011461,-P10112225853842691
 CP,u9418141,#squireling,"'Fantastic trip to Israel with Israeli Olympic Bobsled & Skeleton Federation. Really looking forward""",38
 CP,u3500614,diarized,"'Facebook showed me this ad for a really long (?) bedskirt and I clicked to try to understand the pi""",-1
 LP,u207996,-P10101498051509571
-LP,u207996,-P10101498051509571
 CP,u48100295,#HTTP,"'Shut down Pacific Gas and Electric Company already. This is what happens when legacy companies drif""",99
 CP,u514451010,#streaked,"'stocking up.""",74
 LP,u10210869,-P526295642153
-LP,u10210869,-P526295642153
 LP,u1122730940,-P10165044818260147
-LP,u1122730940,-P10165044818260147
-LP,u3,-P10226248816146555
 LP,u3,-P10226248816146555
 CP,u696093150,#yottameter,"'""",2
 CP,u207996,#Nebr.,"'""",-1
 LP,u4800348,-P933841656705753
-LP,u4800348,-P933841656705753
 LP,u4,-P154565154573485
-LP,u4,-P154565154573485
-LP,u640872188,-P10113851570234011
 LP,u640872188,-P10113851570234011
 CP,u751543357,@@smirting,"'Thanks all for the beautiful bday wishes it was a sensational day""",67
 LP,u4800348,-P10102861785360993
-LP,u4800348,-P10102861785360993
-LP,u15749,-P10151372676583358'
-LP,u15749,-P10151372676583358'
-LP,u1,-P10102861785360993
+LP,u15749,-P10151372676583358
 LP,u1,-P10102861785360993
 CP,u207996,#userbox,"'""",44
 CP,u207996,#unmerging,"'""",80
 CP,u48100295,#unvote,"'Welp that was a complete waste of time and my tax dollars let’s try as a state to fix more pressing""",-1
 LP,u500011461,-P399132191461
-LP,u500011461,-P399132191461
-CP,u100002397837398,#Proust,"'""",14
-CP,u207996,#resynthesized,"'""",56
-LP,u10210869,-P10100160203632432
+CP,u100002397837398,#Proust,"",14
+CP,u207996,#resynthesized,"",56
 LP,u10210869,-P10100160203632432
 CP,u48100295,#insufficiency,"'My little bug""",10
 LP,u500961541,-P10158706684871462
-LP,u500961541,-P10158706684871462
 CP,u110817,# mangos,"'I\'m devastated but I\'m not going to dwell on the negatives. There are always more people to help """,26
-LP,u500011461,-P10105055128234292'
-LP,u500011461,-P10105055128234292'
+LP,u500011461,-P10105055128234292
 CP,u100044361850784,nan,"'Watch the latest Masters of Scale podcast featuring me and Barack Obama today!\n\nMasters of Scale\""",3
 CP,u207996,#wambly,"'""",56
 CP,u207996,solvates,"'""",-1
 CP,u105819,#regoliths,"""Hey friends in UX I wrote up some practical tips for using writing in the design process. Hope they""",53
 LP,u503524200,-P10165044818260147
-LP,u503524200,-P10165044818260147
 CP,u207996,#shroud,"'""",-1
 CP,u213748,#spoiled,"'""",65
 LP,u500961541,-P10107710795361456
-LP,u500961541,-P10107710795361456
-LP,u1122730940,LP5
 LP,u1122730940,LP5
 CP,u1471726074,#noninflamed,"'""",34
 LP,u207996,-P10214392191174935
-LP,u207996,-P10214392191174935
 CP,u751543357,##methamidophos,"'A tribute to u buddy Mattias Milos""",-1
 DP,u214707,-P10161591696970578
-DP,u214707,-P10161591696970578
 CP,u207996,@@nonmammal,"'""",-1
-LP,u207996,-P353718069450252'
-LP,u207996,-P353718069450252'
+LP,u207996,-P353718069450252
 CP,u207996,#undrawn,"'""",96
-LP,u37512888,-P10151676650226350
 LP,u37512888,-P10151676650226350
 CP,u623152,#violeter,"'""",50
 CP,u100009406992193,#dinitrogen,"'El que me izo brujería en mi""",-1
 DP,u736695146,-P10226248816146555
-DP,u736695146,-P10226248816146555
 CP,u207996,#manslaughters #commonition,"'""",30
 LP,u640872188,-P10214392191174935
-LP,u640872188,-P10214392191174935
-LP,u207996,-P10151372676583358'
-LP,u207996,-P10151372676583358'
-CP,u640872188,#gilds,"'""",-1
-LP,u207996,-P10109003676407203
+LP,u207996,-P10151372676583358
+CP,u640872188,#gilds,"",-1
 LP,u207996,-P10109003676407203
 CP,u207996,transcytosis,"'""",65
 LP,u1122730940,-P10165098265415019
-LP,u1122730940,-P10165098265415019
 CP,u629100018,nan,"'These are fantastic. //ht Michelle Berryman\n\nTany Eme Ge\u200eHistoria del ARTE\n2020年6月28日 14:50""",-1
 LP,u3,-P10158706684871462
-LP,u3,-P10158706684871462
-LP,nil,-P10156356331896542'
-LP,nil,-P10156356331896542'
-LP,u500011461,-P10161591696970578
+LP,nil,-P10156356331896542
 LP,u500011461,-P10161591696970578
 DP,u10210869,-P10113851570234011
-DP,u10210869,-P10113851570234011
-LP,u207996,LP5
 LP,u207996,LP5
 CP,u500961541,##,"'John W Cashman\n2018年9月21日 19:51 ·\n\nSOMETHING TO PONDER......""",21
 LP,u207996,-P10105055128234292'
@@ -753,177 +638,109 @@ LP,u207996,-P10105055128234292'
 CP,u736695146,#Satanist,"'Discovered in the kitchen this morning. If you know you know.""",-1
 CP,u500025064,#Tejano,"'Jason Haase 新增了 1 張相片 — 與 Jeremy Lewis\n2010年9月20日 13:34 ·\n更多選項\n\nNo 70s Prom Suit No Problem. Ye""",31
 LP,u1224927730,-P10226248816146555
-LP,u1224927730,-P10226248816146555
-CP,u100044361850784,#,"'""",-1
-LP,u500961541,-P10226248816146555
+CP,u100044361850784,#,"",-1
 LP,u500961541,-P10226248816146555
 LP,u207996,-P10156349207266542
-LP,u207996,-P10156349207266542
-LP,u503524200,-P10113851570234011
 LP,u503524200,-P10113851570234011
 LP,u500961541,-P10107710795361456
-LP,u500961541,-P10107710795361456
-CP,u207996,#unsphered,"'""",-1
-CP,u654336149,#Nebr.,"'""",39
-CP,u48100295,brownest,"'#shutterbug""",34
-CP,u207996,#brownest,"'""she was older than her chronological age [of 14 years]"".\n\nFormer Senior High teacher gets 30 day""",26
+CP,u207996,#unsphered,"",-1
+CP,u654336149,#Nebr.,"",39
+CP,u48100295,brownest,"#shutterbug",34
+CP,u207996,#brownest,"she was older than her chronological age [of 14 years]"".\n\nFormer Senior High teacher gets 30 day",26
 LP,u214707,-P353718069450252'
 LP,u214707,-P353718069450252'
 CP,u210081,#goshdarnit,"'VENTUREBEAT.COM\nDelete wants to help you get rid of your junk in a sustainable\xa0way""",18
 LP,u3,-P10102630202270363
-LP,u3,-P10102630202270363
-LP,u37512888,-P10100150418821319
 LP,u37512888,-P10100150418821319
 LP,u500011461,-P526295642153
-LP,u500011461,-P526295642153
-LP,u207996,-P10150178737945259
 LP,u207996,-P10150178737945259
 CP,u37512888,#smirting,"'😍""",-1
 LP,u665475577,-P526295642153
-LP,u665475577,-P526295642153
 CP,u514451010,#Schützenfest,"'still the best.""",-1
 CP,u88276686377,#unlinking,"'✌️🔜♻️🍻\n#PalaceArtois\n\nPalace Skateboards\n\nhttps://www.stellaartois.com/palaceartois""",73
-LP,u207996,-P10156356331896542'
-LP,u207996,-P10156356331896542'
-LP,u37512888,-P10150178737945259
+LP,u207996,-P10156356331896542
 LP,u37512888,-P10150178737945259
 CP,u500025064,#otary,"'Softball team needs improvement but we hustle.""",-1
 CP,u10210869,#sneezewood,"'Best partner in crime…. Tends to show me up in the nighttime book reading department but I don’t mi""",2
 LP,u4800348,-P10155730697509201
-LP,u4800348,-P10155730697509201
 CP,u4,##,"'End-to-end encrypted backups for WhatsApp starting to roll out today. Proud of the team for continu""",-1
 CP,u9418141,nan,"'""",22
 DP,u10210869,-P10155386543218252
-DP,u10210869,-P10155386543218252
 LP,u105819,-P10104962655794802
-LP,u105819,-P10104962655794802
-LP,u100044361850784,-P10100150418821319
 LP,u100044361850784,-P10100150418821319
 CP,u4800348,#colloped,"'""",-1
 LP,u207996,nil
-LP,u207996,nil
-DP,u37512888,-P10102700199919513'
-DP,u37512888,-P10102700199919513'
+DP,u37512888,-P10102700199919513
 CP,u100044361850784,##cous,"'Black Eyed Peas\n5月24日 18:10 ·\n\nThank you so much to See Us Unite for having us on Friday to perf""",91
 CP,u10081584315,##,"'Our motto this Halloween szn: creep calm and cupcake on!\nhttps://www.bettycrocker.com/recipes/spid""",22
 LP,u207996,-P10107650351321796
-LP,u207996,-P10107650351321796
 CP,u1122730940,#endoproteinase,"'About last night with my sisters""",33
 LP,u207996,-P10105705749928203
-LP,u207996,-P10105705749928203
-LP,u207996,-P10156349207266542
 LP,u207996,-P10156349207266542
 CP,u207996,#woald,"'""",61
 CP,u699566061,#tea-clipper,"'""",34
 CP,u4800348,##,"'""",55
 LP,u207996,-P10107650351321796
-LP,u207996,-P10107650351321796
 LP,u1,-P933841656705753
-LP,u1,-P933841656705753
-LP,u1,-P10102700199919513'
-LP,u1,-P10102700199919513'
-LP,u736695146,-P933841656705753
+LP,u1,-P10102700199919513
 LP,u736695146,-P933841656705753
 DP,u210081,-P399132191461
-DP,u210081,-P399132191461
-LP,u207996,-P10105055128234292'
-LP,u207996,-P10105055128234292'
+LP,u207996,-P10105055128234292
 LP,u500011461,-P10109003676407203
-LP,u500011461,-P10109003676407203
-LP,nil,-P10156356331896542'
-LP,nil,-P10156356331896542'
-LP,u4,-P399132191461
+LP,nil,-P10156356331896542
 LP,u4,-P399132191461
 LP,nil,-P10100150418821319
-LP,nil,-P10100150418821319
-LP,u207996,-P10155386543218252
 LP,u207996,-P10155386543218252
 LP,u100002397837398,-P10100150418821319
-LP,u100002397837398,-P10100150418821319
-LP,u640872188,-P10112225853842691
 LP,u640872188,-P10112225853842691
 LP,u4800348,-P154565154573485
-LP,u4800348,-P154565154573485
-CP,u100009002097285,#hooding,"""Andresa Christina Oliveira\n2020年4月9日 23:06 · Facebook for Android ·\n\nOntem no meu plantão vi 2 f""",13
-CP,u1001896,#co-exist #bunyon,"'""",19
-CP,u27921,wantless,"'Congrats to Noah Shanok and the rest of the Stitcher team!\n\nTECHCRUNCH.COM\nTechCrunch | New Ente""",50
-CP,u207996,# Nebr.,"'""",-1
-LP,u503524200,-P353718069450252'
-LP,u503524200,-P353718069450252'
-LP,u207996,-P10109003676407203
+CP,u100009002097285,#hooding,"Andresa Christina Oliveira\n2020年4月9日 23:06 · Facebook for Android ·\n\nOntem no meu plantão vi 2 f",13
+CP,u1001896,#co-exist #bunyon,"",19
+CP,u27921,wantless,"Congrats to Noah Shanok and the rest of the Stitcher team!\n\nTECHCRUNCH.COM\nTechCrunch | New Ente",50
+CP,u207996,# Nebr.,"",-1
+LP,u503524200,-P353718069450252
 LP,u207996,-P10109003676407203
 CP,u37512888,##,"'I know the feeling buddy I know the feeling 😴😴😴""",86
 LP,u503524200,-P10151676650226350
-LP,u503524200,-P10151676650226350
 CP,u37512888,#nonglutinous,"'I love this picture so much!!""",-1
-LP,u207996,-P10107710795361456
 LP,u207996,-P10107710795361456
 CP,u116053975121482,woald,"'From maintaining perspective to climbing the ranks these pieces of career advice will help you get """,-1
 LP,u15749,LP6
-LP,u15749,LP6
-LP,u500961541,-P10100150418821319
 LP,u500961541,-P10100150418821319
 CP,u207996,#wood-star,"'Great talk with Clifton Leaf at #FortuneHealth about the Parker Institute for Cancer Immunotherapy """,-1
 LP,u207996,LP2
-LP,u207996,LP2
-DP,u37512888,-P10161591696970578
 DP,u37512888,-P10161591696970578
 LP,u207996,-P976084691292
-LP,u207996,-P976084691292
-LP,u100002397837398,-P10164612321020578'
-LP,u100002397837398,-P10164612321020578'
+LP,u100002397837398,-P10164612321020578
 CP,u9418141,#oleanders,"'What a fun week training in rainy and snowy Altenberg - my first time to learn this track. I haven’""",-1
 LP,u500011461,LP2
-LP,u500011461,LP2
 LP,u665475577,nil
-LP,u665475577,nil
-LP,u100002397837398,-P10107710795361456
 LP,u100002397837398,-P10107710795361456
 CP,u48100295,#resynthesized,"'Love un-following obnoxious people and then curiously watching after the button press to see if the""",23
 LP,u503524200,-P10105705749928203
-LP,u503524200,-P10105705749928203
-DP,u37512888,-P10107650351321796
 DP,u37512888,-P10107650351321796
 LP,u4800348,-P10161591696970578
-LP,u4800348,-P10161591696970578
-LP,u3,-P10100150418821319
 LP,u3,-P10100150418821319
 LP,u500961541,nil
-LP,u500961541,nil
 LP,u15749,LP5
-LP,u15749,LP5
-LP,u207996,-P10100150418821319
 LP,u207996,-P10100150418821319
 CP,u9418141,#autocracy,"'If any skeleton athletes or coaches are in town for thanksgiving on Thursday night and would like t""",11
 LP,u105819,-P154565154573485
-LP,u105819,-P154565154573485
 DP,u207996,-P10107650351321796
-DP,u207996,-P10107650351321796
-LP,u500961541,-P10150178737945259
 LP,u500961541,-P10150178737945259
 CP,u504586349,#embold,"'Interesting visualization of Facebook activity\n\nFacebook Data Science\n2012年6月4日 09:59 ·""",89
-DP,u500961541,-P10161591696970578
-DP,u500961541,-P10161591696970578
-LP,u504586349,-P10156356331896542'
-LP,u504586349,-P10156356331896542'
+DP,u500961541,-P10161591696970578'
+LP,u504586349,-P10156356331896542
 CP,u500010222,#Panglossian,"'So proud of Amanda and the Instagram team! Go check out Instagram > Search > Halloween Videos to se""",74
 LP,u207996,-P10107710795361456
-LP,u207996,-P10107710795361456
-LP,u500011461,LP5
 LP,u500011461,LP5
 CP,u503524200,#sits,"'Fondue with a view. Even more gorgeous here than I pictured!""",75
 LP,u214707,-P10151372676583358'
-LP,u214707,-P10151372676583358'
 LP,u207996,-P10151676650226350
-LP,u207996,-P10151676650226350
-LP,u1122730940,-P10150178737945259
 LP,u1122730940,-P10150178737945259
 CP,u199102723,##cytocompatible,"'SF 1/2 Marathon with Bobby!""",-1
-LP,u37512888,-P10151372676583358'
-LP,u37512888,-P10151372676583358'
-DP,u207996,-P10101498051509571
-DP,u207996,-P10101498051509571
-LP,u207996,-P10105705749928203
+LP,u37512888,-P10151372676583358
+DP,u207996,-P101014980515095713
 LP,u207996,-P10105705749928203
 LP,u753898251,LP2
 LP,u753898251,LP2
@@ -931,13 +748,9 @@ LP,u3,-P154565154573485
 LP,u3,-P154565154573485
 CP,u9418141,#CAG,"'Lovely words from my federation president David Greaves.\n\nתודה רבה\n\nDavid Greaves 和 Joel Seligs""",-1
 LP,u500961541,-P10158706684871462
-LP,u500961541,-P10158706684871462
-LP,u665475577,-P10100160203632432
 LP,u665475577,-P10100160203632432
 CP,u207996,#Proust,"'""",70
 LP,u207996,-P154565154573485
-LP,u207996,-P154565154573485
-LP,u207996,-P10151676650226350
 LP,u207996,-P10151676650226350
 CP,u4,#oxfords,"""😎 Looking forward to sharing what we've been working on with Ray-Ban. Tune in here tomorrow at 9am """,58
 LP,u640872188,LP5
