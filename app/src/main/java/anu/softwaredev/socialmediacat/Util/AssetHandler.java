@@ -1,5 +1,6 @@
 package anu.softwaredev.socialmediacat.Util;
 import android.content.Context;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public abstract class AssetHandler {
     /** perform actions template */
     public static void performActions(Context ctx) {
         // loadPostsfromDataInstances(ctx);
-        List<UserActivity> userActs = actionsFromDataInstances(ctx);
-        streamOfData(userActs);
+        List<UserActivity> userActDataToStream = actionsFromDataInstances(ctx);
+        streamOfData(userActDataToStream); // TODO remove param?
     }
 
     /**load activities */
@@ -46,38 +47,36 @@ public abstract class AssetHandler {
         return actions;
     }
 
+
     /** A Stream of activities (with data instances) */
     public static void streamOfData(List<UserActivity> data) {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
-            private int i=0;
-            private int size = data.size();
+            @SuppressWarnings("SynchronizeOnNonFinalField")
             @Override
             public synchronized void run() {
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                 }
-
-                if (i <size) {
-                    UserActivity act = data.get(i);
-                    System.out.println(act.toString());
-                    if (act!=null) {
-                        if (act.getAction().equals("CP")){
-                            UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
-                        } else if (act.getAction().equals("LP")){
-                            UserActivityDao.getInstance().likePost(act.getPostId());
-                        } else if (act.getAction().equals("DP")){
-                            UserActivityDao.getInstance().deletePost(act.getPostId());
+                synchronized (data) {
+                    try {
+                        UserActivity act = data.get(0);
+                        data.remove(0);
+                        if (act!=null) {
+                            if (act.getAction().equals("CP")) {
+                                UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
+                            } else if (act.getAction().equals("LP")) {
+                                UserActivityDao.getInstance().likePost(act.getPostId());
+                            } else if (act.getAction().equals("DP")) {
+                                UserActivityDao.getInstance().deletePost(act.getPostId());
+                            }
                         }
+                    } catch (Exception e){
+                        Thread.currentThread().interrupt();
+                        Log.e("Error", e.toString());
                     }
                 }
-                i++;
+
             }
 
-
-        }, 1000, 20000);
+        }, 1000, 5000);
 
     }
 

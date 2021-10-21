@@ -73,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void run() {
                 super.run();
                 try {
-                    Thread.sleep(3000);//等待数据更新
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
