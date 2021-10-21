@@ -5,7 +5,7 @@ Add your **Name** to the items (except =your original tasks) to avoid crash     
 - If something cannot be fixed or don't want to fix it, can add to "list of known bugs" in report on Thu/Fri
 
 ***Bugs ***
-* delete post , doesnt work , post still in (mypost)
+* delete post , doesnt work , post still in (mypost) !! done 
 * (Oct 20, 8PM canberra time)
 * Search: Input "#" in timeline search bar > error, Quit program  Kev is working on this  
 * Search: Input "# entwines" (invalid) did not show error message Kev is working on this  
