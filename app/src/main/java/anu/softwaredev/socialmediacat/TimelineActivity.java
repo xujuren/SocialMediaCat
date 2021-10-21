@@ -31,7 +31,7 @@ import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivityDao;
 /** For the display of Posts in a timeline */
 public class TimelineActivity extends AppCompatActivity {
     RBTree<String> database = new RBTree<>(); // test purpose , need to have a real tree structure to store all posts
-
+    public static Boolean hasLiked = false;
     /**
      * main method, put all logic inside
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
