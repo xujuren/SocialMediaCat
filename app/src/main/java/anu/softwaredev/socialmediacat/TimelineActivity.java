@@ -51,19 +51,19 @@ public class TimelineActivity extends AppCompatActivity {
             postList.addAll(Global_Data.getInstance().searchByUser(FirebaseAuth.getInstance().getUid()));
 //            postList.addAll(Global_Data.getInstance().getMyPosts());
 
-        ActionBar actionBar=getSupportActionBar();
-        if(actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null) {
             actionBar.hide();
         }
-        // Set Up timeline view and data
-        //RecyclerView : A flexible view for providing a limited window into a large data set.
+
+        // Set Up timeline and data using RecyclerView
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
         TimelineAdapter timelineAdapter = new TimelineAdapter(getApplicationContext(), postList); // show list view (timeline)
         rvTimeline.setAdapter(timelineAdapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(this));
         RBTreeNode<String> node = Global_Data.getInstance().getData().find("random");
 
-        //TODO 添加search方法
+        // TODO 添加search方法
         Button searchBt = (Button) findViewById(R.id.SearchButton);
         EditText searchEdit = (EditText) findViewById(R.id.editTextTextPersonName);
         searchBt.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +106,7 @@ public class TimelineActivity extends AppCompatActivity {
                         intent.putExtra("MESSAGE", MESSAGE);
                         startActivity(intent);
                         return true;
-                    }
-                    else{
+                    } else {
                         Intent intent = new Intent(TimelineActivity.this, MyPost.class);
                         intent.putExtra("uId",ClickPost.getUId());
                         intent.putExtra("tag",ClickPost.getTag());
@@ -173,7 +172,6 @@ public class TimelineActivity extends AppCompatActivity {
         return null;
     }
 
-    //Search by tag
 
     /**
      * Search by tag

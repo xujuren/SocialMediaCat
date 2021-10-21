@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -144,7 +145,7 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
 
-    public void dislikePost(String userId, String postId) {
+    public void unlikePost(String userId, String postId) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(-1));
         dbRef.child("Posts").child(postId).updateChildren(updates);
@@ -236,6 +237,57 @@ public class UserActivityDao implements IUserActivityDao {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Find the Profiles of the Post's Author on Firebase,
+     * and display the corresponding information
+     */
+    public void userProfile(String userId, TextView uIdTv, TextView captionTv) {
+        dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("snapshot: "+snapshot.getKey() + ", value: " + snapshot.getValue());
+                // Try to match Firebase Records
+                if (snapshot.exists() && snapshot.hasChildren()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String k = ds.getKey();
+                        switch (k) {
+                            case "userName" :
+                                String userName = (String) ds.getValue();
+                                if (userName!=null && userName.length()>0 && !userName.equals("null")){
+                                    uIdTv.setText("@"+userName);
+                                    System.out.println("uIdTv: " + userName);
+                                } else {
+                                    uIdTv.setText("@"+userId);
+                                }
+                                continue;
+                            case "caption":
+                                String caption = (String) ds.getValue();
+                                if (caption!=null && caption.length()>0 && !caption.equals("null")){
+                                    captionTv.setText(caption);
+                                } else {
+                                    captionTv.setText("");
+                                }
+                                continue;
+                            default:
+                                continue;
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Firebase Read Fail", error.toException());
+            }
+        };
+        dbRef.addValueEventListener(listener);
+
+    }
+
 
 }
 

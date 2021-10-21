@@ -42,11 +42,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/createAcc_input_text"
             android:layout_width="350dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
-            android:background="#11FFFFFF"
+            android:background="#FCF4A3"
             android:textColor="#450606"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -75,7 +75,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
-            android:background="#11FFFFFF"
+            android:background="#FFFDD0"
             android:inputType="textPassword"
             android:textColor="#450606"
             android:textSize="16sp" />
