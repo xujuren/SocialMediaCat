@@ -110,6 +110,13 @@ public class UserActivityDao implements IUserActivityDao {
     /** Load Posts for display */
     public void loadPost(List<Post> posts) {
 
+        // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+        if (true) {
+            return;
+        }
+        // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
+
         for (Post post : posts){
             // Update firebase DB
             Map<String, Object> postValues = post.toMap();
