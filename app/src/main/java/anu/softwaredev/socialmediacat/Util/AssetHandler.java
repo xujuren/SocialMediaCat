@@ -27,10 +27,10 @@ public abstract class AssetHandler {
     public static void performActions(Context ctx) {
         // loadPostsfromDataInstances(ctx);
         List<UserActivity> userActDataToStream = actionsFromDataInstances(ctx);
-        streamOfData(userActDataToStream); // TODO remove param?
+        streamOfData(userActDataToStream);
     }
 
-    /** load activities */
+    /** (1) get a list of actions from CSV and TXT files in assets */
     public static List<UserActivity> actionsFromDataInstances(Context ctx) {
         List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt"));
 
@@ -48,7 +48,7 @@ public abstract class AssetHandler {
     }
 
 
-    /** A Stream of activities (with data instances) */
+    /** (2) Start a stream of activities from the data instances */
     public static void streamOfData(List<UserActivity> data) {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
@@ -100,7 +100,7 @@ public abstract class AssetHandler {
 
 
 
-    /** Load quotes from asset and displayed on the main page */
+    /** Load quotes from assets and displayed on the main page */
     public static void loadQuotes(Context ctx, TextView quoteTv) {
         BespokeHandler handler = new BespokeHandler();
         String quote = handler.quoteFromAssets(ctx);
