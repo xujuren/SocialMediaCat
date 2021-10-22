@@ -5,6 +5,7 @@
 declaration: >-
   I declare that everything I have submitted in this assignment is entirely our
   own work, with the following exceptions:
+    RBTree.java and RBTreeNode.java referenced Red-Black Tree part of <<Introduction to Algorithms>> and add my own methods to fit our application  requirements.  
 
 
 # for each member, write your name and uid here
