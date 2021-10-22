@@ -4,12 +4,32 @@
 ## Team Members and Roles
 
 | UID | Name | Role |
-| :--- | :----: | ---: |
-| **u7323583** | Cathy Cheung | Android, Data Model, Firebase |
+| **u7323583** | Cathy Cheung | Developer |
+| **u7274552** | Kevin        | Developer |
+| **u7324787** | Kyle         | Developer |
+| **u7149851** | Ragnarok     | Developer |
 
+## Conflict Resolution Protocol
+As a four-member team, we need to jointly develop a medium-sized Android application, and conflict resolution has become a very critical problem. Therefore, we formulated a set of conflict resolution protocols at the early stage of project development to solve various conflicts that may occur during the development process.
+
+First, determine the types of conflict -- relational, task-based, and process-based. (Classification from Professor Neal at Stanford)
+
+| Conflict Types | Definition |
+| Relational conflict | Conflict caused by differences between people, including personality differences, antagonism, and personal antipathy. | 
+| Task-based conflict | Conflicts caused by differences in team members' perceptions of team tasks.        | 
+| Flow type conflict  | Including differences of opinion on the way things are done and the allocation of resources.        | 
+
+Solution:
+Task-based conflict is the least harmful to the team, and in most cases can even have a positive impact on the final outcome of the project. Different perspectives and solutions are encouraged and discussed in frequently scheduled team meetings to determine the best solution, which helps us to adopt more efficient means to achieve the project objectives.
+
+Process conflicts are very likely to occur, and the team will take different perspectives and opinions into consideration, leading the parties to reach consensus and abide by it. We hope to adopt a compromise solution. The team will gather the viewpoints and opinions of various parties in the meeting and come up with a conflict resolution solution accepted and committed by most people, which may require the compromise of some team members.
+
+Relational conflict is the most unacceptable type of conflict, and teams should do their best to prevent the first two from becoming relational conflict. We ensure effective communication among team members through various channels, and enhance trust and cooperation among team members in regular team meetings to effectively avoid possible relationship conflicts and ensure that team efficiency can be maintained at a high level.
+
+Kevin acts as the lead and is responsible for the overall coordination of conflict issues between team members.
 
 ## Design/Introduction
-(additional info for Use Case & Design)
+The Android application developed by our team is an Insta-like social application, through which users can publish their own posts (including pictures), view and like others' posts, and also search all posts according to specific conditions to get the posts they are interested in. All user data is reasonably stored in a remote database, which means that once users have registered, they can log in and view posts from anywhere in the world.
 
 **Canberra** - The name of our App, "Canberra" means "meeting place" in the Indigenous language Ngunnawal.
 The App is intended to be a simple, user-friendly platform for people to share photos and words.
@@ -18,10 +38,39 @@ The App is intended to be a simple, user-friendly platform for people to share p
 * Source: extracted via an API (https://quote-garden.herokuapp.com/api/v3/quotes/random)
 * Purpose: share ideas to users, encouraging them to do the same.
 
+**Example**：
+The initial page of the program is the login page, the user needs to enter the correct account and password to log in their account.
+If the user does not already have an account, click the Create Account button to create one.
+The email address provided for registration must be in the correct format. The password entered twice must be the same and the length of the password must be at least six characters. Otherwise, an error message will be displayed and the registration fails.
+Correct registration will be provided with a successful information and return to the login page.
+If a user enters an incorrect account or password, the user cannot log in and an error message is returned.
+When the user enters the correct account and password, the login screen will be displayed and the login is successful.
+The Log Out button provides the logout function. The current user will be logged out and allowed to Log in to other accounts.
+TIMELINE will show the existing posts. Search and return functions are provided.
+Users can search by criteria, and some incorrect input has already been processed.
+The search results are displayed on the current page.
+Users can also click on posts to display their details and like them.
+The same user is forbidden to perform "like" operation for many times (the user can only select Unlike when he/she enters the "like" state again).
+Clicking back returns you to the main screen.
+MANAGE PROFILE allows you to modify personal information.
+After the nickname is changed, the welcome sign on the main screen is automatically changed.
+CREAT POST provides the ability to create new posts. Includes GPS information and photo selection.
+MY POST shows the posts belonging to the current user, and you can see the posts we just created.
+Users can click on a specific post to like or delete it.
+This is the complete usage process of our social application, and I hope you will be satisfied with our work.
+
 ## Application Design and Decisions
 
 ### Data Model
-To simulate real-life user data and interaction on a social media platform, Facebook post have been used to model the `Post` and `UserActivity` objects in the Application.
+**Red-Black Tree**
+*Objective：*In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
+
+*Locations:* RBTree.java, RBTreeNode.java, Color.java in Tree folder.
+
+*Reasons:*When we decide our data structure, we firstly compared tree and list and we choose tree instead of list because the tree usually has better performance and more efficient in search and deletion which matches the requirement of our application (a social application requires user can search from all posts or delete their own posts). 
+
+Then we compared self-balance tree and ordinary tree. And we choose self-balance tree instead of ordinary tree because a self-balance tree and its average search, insertion and deletion time is better than ordinary tree. 
+Finally, in the self-balance tree, we choose the Red-black tree instead of the AVL tree. Because we consider AVL to be a strong self-balance tree and it requires the height difference between the two sides of the tree should be less than one which will require more rotations when doing self-balancing. When we need to insert or delete frequently, the resources used to maintain self-balancing are likely to exceed the time we save due to self-balancing. Therefore, under the trade-off, we finally chose the red-black tree as our data structure.
 
 #### 1) Data Instances - Sources
 Thousands of Facebook posts have been scraped using the python package `facebook_scraper`.
@@ -61,8 +110,11 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 
 ### Design Patterns**
 
-A wide variety of design patterns have been used (1) in the code structure and also
-(2) via implementation of available packages and methods. In particular, the following design patterns have been implemented:
+*Singleton pattern: *We use the singleton pattern to ensure that all actions by the current user are performed by the same user object. Business logic dictates that each application process should allow only one user to log in, so we set up singletons to ensure that multiple users do not appear in the same process. In code logic, the singleton ensures that all operations have access to "user" resources, that is, all user operations are performed by the current user.
+
+*Strategy pattern: *When users use the search function, they may present different search information, for example, they may present both label and category, or they may present only label. In order to facilitate the user's operation, we implement a variety of search algorithms, and then extract all methods into a search method. This original search class stores all search algorithms and selects different strategies according to the given information type. In this way, we only provide a search method that can handle all parameter types, which greatly facilitates the operation of users.
+
+*DAO pattern: *We use the DAO pattern to separate the data access API from the high-level business logic, which isolates the data access code from the business logic code, allowing the business logic code to call DAO methods directly, eliminating the need for direct interaction with the data table, reducing the coupling. We created two data entity classes, User and Post, and all function functions will directly interact with these two types of objects, which also means that the changes of the database will not directly affect the business logic code, which is also convenient for our development to a large extent.
 
 #### Template method and factory method: used together to handle data of different formats
 * the abstract class `AssetHandler` defines the requirements in reading and parsing of files.
