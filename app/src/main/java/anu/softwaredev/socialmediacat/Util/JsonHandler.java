@@ -11,17 +11,13 @@ import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.dao.UserActivity.UserActivity;
 
-/** For reading and parsing of JSON Files
- * Notes: only include functionality for loading posts for JSON*/
+/**
+ * Handles reading and parsing tasks for JSON Files
+ * Notes: only include functionality for loading posts for JSON
+ * */
 public class JsonHandler extends AssetHandler {
 
-    // Not developed for the Assignment
-    @Override
-    public List<UserActivity> actionsFromAssets(Context ctx) {
-        return null;
-    }
-
-    // TODO data
+    /** Get a list of Posts from the JSON Asset file */
     @Override
     public List<Post> postsFromAssets(Context ctx) {
         String jsonStr = getJsonFromAssets(ctx);
@@ -32,7 +28,7 @@ public class JsonHandler extends AssetHandler {
     }
 
 
-    // get JSON String
+    // Helper function: get the raw JSON data as JSON Strings
     public static String getJsonFromAssets(Context ctx){
         String jsonStr = null;
         try {
@@ -51,6 +47,15 @@ public class JsonHandler extends AssetHandler {
             return jsonStr;
         }
     }
+
+
+    // Note: Functionality not developed for the Assignment
+    @Override
+    public List<UserActivity> actionsFromAssets(Context ctx) {
+        return null;
+    }
+
+
 
 
 }

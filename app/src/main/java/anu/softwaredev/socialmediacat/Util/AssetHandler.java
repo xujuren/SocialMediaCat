@@ -30,9 +30,9 @@ public abstract class AssetHandler {
         streamOfData(userActDataToStream); // TODO remove param?
     }
 
-    /**load activities */
+    /** load activities */
     public static List<UserActivity> actionsFromDataInstances(Context ctx) {
-        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt")); // "dummy" for testing
+        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt"));
 
         List<UserActivity> actions = new ArrayList<>();
         for (String type : fileTypes) {
@@ -76,7 +76,7 @@ public abstract class AssetHandler {
 
             }
 
-        }, 1000, 5000);
+        }, 1000, 10000);
 
     }
 
@@ -84,7 +84,7 @@ public abstract class AssetHandler {
     /** Load posts from data instances  */
     public static void loadPostsfromDataInstances(Context ctx) {
         List<Post> posts = new ArrayList<>();
-        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt", "json")); // "dummy": testing
+        List<String> fileTypes = new ArrayList<>(Arrays.asList("csv", "txt", "json"));
 
         for (String type : fileTypes) {
             AssetHandlerFactory assetHandlerFty = new AssetHandlerFactory();
