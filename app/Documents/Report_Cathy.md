@@ -1,5 +1,16 @@
 # ezclap - Report [Cathy]
 
+## Table of Contents
+
+1. [Team Members and Roles](#team-members-and-roles)
+2. [Conflict Resolution Protocol](#conflict-resolution-protocol)
+2. [Application Description](#application-description)
+3. [Application UML](#application-uml)
+3. [Application Design and Decisions](#application-design-and-decisions)
+4. [Summary of Known Errors and Bugs](#summary-of-known-errors-and-bugs)
+5. [Testing Summary](#testing-summary)
+6. [Implemented Features](#implemented-features)
+7. [Team Meetings](#team-meetings)
 
 ## Team Members and Roles
 
@@ -30,7 +41,9 @@ Relational conflict is the most unacceptable type of conflict, and teams should 
 
 Kevin acts as the lead and is responsible for the overall coordination of conflict issues between team members.
 
-## Design/Introduction
+
+## Application Description          
+
 The Android application developed by our team is an Insta-like social application, through which users can publish their own posts (including pictures), view and like others' posts, and also search all posts according to specific conditions to get the posts they are interested in. All user data is reasonably stored in a remote database, which means that once users have registered, they can log in and view posts from anywhere in the world.
 
 **Canberra** - The name of our App, "Canberra" means "meeting place" in the Indigenous language Ngunnawal.
@@ -101,6 +114,7 @@ For extensibility and flexibility, Posts could be loaded from different files fo
   2 fields (userId, postId) for 'likes', and 2 fields (userId, postId) for 'delete post'
     - this non-nested structure is the best for firebase integration.
 
+
 ### Data Persistence: All the data and updates from local instances and users were also persisted using Firebase.
 **Advantages:**
 * Security: delegates much of the security concerns to the specialized platform, especially passwords and Personally Identifiable Information.
@@ -111,48 +125,44 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 * Due to limited time where proper integration and testing is not possible, real-time synchronization has not been implemented with the new features.
 * A real-life use case shall involve both read and write of data via Firebase, in replacement of the local data instances.
 
-# Search: Tokenizer and Parser
+
+## Search: Tokenizer and Parser
 
 ### Query Grammar
 
 A valid query consists of at least one attribute. Different attributes could be connected with ";".
 
-Example:
-
-#comp2400;@postID1
+Example: *#comp2400;@postID1*
 
 Query Attributes:
-
 1. #tagname (e.g. #comp2400) , this attribute is to find all posts with #comp2400 as their tag
 2. @postID( e.g. @LP1), the postID is a unique identifier to each post, which means different post has its corresponding different unique post ID. When this attribute is put into the search query, there should be only one Post as search result
 
-## Implementation
 
-### Object Token
+### Implementation
+
+#### Object Token
 
 An object Token is constructed by a string and its enum type. The string represents the content of the token(not included the # or @ ). The enum Type includes TAG, AND, POSTID
 
-### Search Tokenizer
+#### Search Tokenizer
 
 The searchTokenizer is used to tokenize a query string (#comp2400;@postID1) when processing the query.
 
-- method next() extracts a Token of current position and points to the next one  if method hasNext(). returns true.
-- method current() returns current token
+ * method next() extracts a Token of current position and points to the next one  if method hasNext(). returns true.
+* method current() returns current token
 
-### Abstract Exp class
+#### Abstract Exp class
 
 Create an abstract Exp class to store all query terms, PostIDExp, TagExp and AndExp to extends from the abstract class 
 
 Exp includes a Token type and a string 
 
-- getToken()
-- getValue() return the string
+* getToken()
+* getValue() return the string
 
-example : query :
-
- #comp2400;@postID1
-
-output: TagExp(Token.Type.TAG,"comp2400") AndExp(Token.Type.AND,";") PostIDExp(Token.Type.POSTID,"postID1") 
+* example : query : *#comp2400;@postID1*
+  * output: TagExp(Token.Type.TAG,"comp2400") AndExp(Token.Type.AND,";") PostIDExp(Token.Type.POSTID,"postID1") 
 
 ### Parser class
 
@@ -202,6 +212,18 @@ output: TagExp(Token.Type.TAG,"comp2400") AndExp(Token.Type.AND,";") PostIDExp(T
 
 
 
+
+## Testing Summary                   [TODO]     *[What features have you tested? What is your testing coverage?]*
+*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
+*Here is an example:*
+*Number of test cases: ...*
+*Code coverage: ...*
+*Types of tests created: ...*
+
+
+
+
+
 ## Implemented Features
 
 **Part I: Basic App**
@@ -236,3 +258,10 @@ output: TagExp(Token.Type.TAG,"comp2400") AndExp(Token.Type.AND,";") PostIDExp(T
   - Invalid/Ignored Inputs: new line characters (\n) and double-quotation marks within post content will be removed.
 
 
+
+
+
+## Team Meetings
+- *[Team Meeting 1](./Meeting1_Minutes.md)*      // TODO
+- *[Team Meeting 2](./Meeting2_Minutes.md)*
+- *[Team Meeting 3](./Meeting3_Minutes.md)*
