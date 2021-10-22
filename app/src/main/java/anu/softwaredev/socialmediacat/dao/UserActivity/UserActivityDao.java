@@ -68,20 +68,22 @@ public class UserActivityDao implements IUserActivityDao {
 
     /** Incrementing the likeCount of a Post */
     @Override
-    public void likePost(String postId) {
+    public void likePost(Post post, String Uid) {
         // Update firebase DB
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(1));
-        dbRef.child("Posts").child(postId).updateChildren(updates);
+        dbRef.child("Posts").child(post.getPostId()).updateChildren(updates);
+//        Global_Data.getInstance().likePost(post , Uid);
     }
 
     /** Decrementing the likeCount of a Post */
     @Override
-    public void unlikePost(String postId) {
+    public void unlikePost(Post post, String Uid) {
         // Update firebase DB
         Map<String, Object> updates = new HashMap<>();
         updates.put("/likeCount", ServerValue.increment(-1));
-        dbRef.child("Posts").child(postId).updateChildren(updates);
+        dbRef.child("Posts").child(post.getPostId()).updateChildren(updates);
+//        Global_Data.getInstance().unlikePost(post , Uid);
     }
 
     /** Delete a Post */

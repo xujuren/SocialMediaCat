@@ -1,5 +1,8 @@
 package anu.softwaredev.socialmediacat.dao.UserActivity;
 
+import Tree.Global_Data;
+import anu.softwaredev.socialmediacat.Classes.Post;
+
 /** User Activity */
 public class UserActivity {
     private String action;      // name of action
@@ -47,6 +50,10 @@ public class UserActivity {
     public String getContent() {return content;}
     public int getPhotoId() {return photoId;}
     public String getPostId() {return postId;}
+    // Do not sure if this will cause a bug or exception
+    public Post getPost() {
+        return Global_Data.getInstance().search(this.tag, this.postId);
+    }
 
     @Override
     public String toString() {

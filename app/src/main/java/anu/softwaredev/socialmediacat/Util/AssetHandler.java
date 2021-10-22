@@ -3,6 +3,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +65,8 @@ public abstract class AssetHandler {
                             if (act.getAction().equals("CP")) {
                                 UserActivityDao.getInstance().createPost(act.getUId(), act.getTag(), act.getContent(), act.getPhotoId());
                             } else if (act.getAction().equals("LP")) {
-                                UserActivityDao.getInstance().likePost(act.getPostId());
+//                                UserActivityDao.getInstance().likePost(act.getPostId());
+                                UserActivityDao.getInstance().likePost(act.getPost(), FirebaseAuth.getInstance().getUid());
                             } else if (act.getAction().equals("DP")) {
                                 UserActivityDao.getInstance().deletePost(act.getPostId());
                             }
