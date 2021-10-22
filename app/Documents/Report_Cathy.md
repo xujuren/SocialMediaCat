@@ -4,6 +4,7 @@
 ## Team Members and Roles
 
 | UID | Name | Role |
+| :--- | :----: | ---: |
 | **u7323583** | Cathy Cheung | Developer |
 | **u7274552** | Kevin        | Developer |
 | **u7324787** | Kyle         | Developer |
@@ -15,6 +16,7 @@ As a four-member team, we need to jointly develop a medium-sized Android applica
 First, determine the types of conflict -- relational, task-based, and process-based. (Classification from Professor Neal at Stanford)
 
 | Conflict Types | Definition |
+| :--- | :----: |
 | Relational conflict | Conflict caused by differences between people, including personality differences, antagonism, and personal antipathy. | 
 | Task-based conflict | Conflicts caused by differences in team members' perceptions of team tasks.        | 
 | Flow type conflict  | Including differences of opinion on the way things are done and the allocation of resources.        | 
