@@ -18,7 +18,7 @@
 | UID | Name | Role |
 | :--- | :----: | ---: |
 | **u7323583** | Cathy Cheung | Developer (Authentication with Firebase，login/logout, timeline, all UI)|
-| **u7274552** | Kevin Wang | Developer(Tokenizer and Parser itegrated with Search, part of UI fixing) |
+| **u7274552** | Kevin(Junhao) Wang | Developer(Tokenizer and Parser itegrated with Search, part of UI fixing) |
 | **u7324787** | Xiangyu Song | Developer (Post, Like feature, wrapping up everthing and hard-stuck problem solver)|
 | **u7149851** | Juren Xu | Developer(Data Structure:RB tree to store and search for posts) |
 
