@@ -65,11 +65,14 @@ This is the complete usage process of our social application, and I hope you wil
 
 ### Data Model
 **Red-Black Tree** <br>
-*Objective：*In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
+**Objective：**<br>
+In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
 
-**Locations:** RBTree.java, RBTreeNode.java, Color.java in Tree folder.
+**Locations:** <br>
+RBTree.java, RBTreeNode.java, Color.java in Tree folder.
 
-**Reasons:**When we decide our data structure, we firstly compared tree and list and we choose tree instead of list because the tree usually has better performance and more efficient in search and deletion which matches the requirement of our application (a social application requires user can search from all posts or delete their own posts). 
+**Reasons:** <br>
+When we decide our data structure, we firstly compared tree and list and we choose tree instead of list because the tree usually has better performance and more efficient in search and deletion which matches the requirement of our application (a social application requires user can search from all posts or delete their own posts). 
 
 Then we compared self-balance tree and ordinary tree. And we choose self-balance tree instead of ordinary tree because a self-balance tree and its average search, insertion and deletion time is better than ordinary tree. 
 Finally, in the self-balance tree, we choose the Red-black tree instead of the AVL tree. Because we consider AVL to be a strong self-balance tree and it requires the height difference between the two sides of the tree should be less than one which will require more rotations when doing self-balancing. When we need to insert or delete frequently, the resources used to maintain self-balancing are likely to exceed the time we save due to self-balancing. Therefore, under the trade-off, we finally chose the red-black tree as our data structure.
@@ -112,35 +115,14 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 
 ### Design Patterns**
 
-#Singleton pattern: 
+#Singleton pattern: <br>
 We use the singleton pattern to ensure that all actions by the current user are performed by the same user object. Business logic dictates that each application process should allow only one user to log in, so we set up singletons to ensure that multiple users do not appear in the same process. In code logic, the singleton ensures that all operations have access to "user" resources, that is, all user operations are performed by the current user.
 
-#Strategy pattern: 
+#Strategy pattern: <br>
 When users use the search function, they may present different search information, for example, they may present both label and category, or they may present only label. In order to facilitate the user's operation, we implement a variety of search algorithms, and then extract all methods into a search method. This original search class stores all search algorithms and selects different strategies according to the given information type. In this way, we only provide a search method that can handle all parameter types, which greatly facilitates the operation of users.
 
-#DAO pattern: 
+#DAO pattern: <br>
 We use the DAO pattern to separate the data access API from the high-level business logic, which isolates the data access code from the business logic code, allowing the business logic code to call DAO methods directly, eliminating the need for direct interaction with the data table, reducing the coupling. We created two data entity classes, User and Post, and all function functions will directly interact with these two types of objects, which also means that the changes of the database will not directly affect the business logic code, which is also convenient for our development to a large extent.
-
-#### Template method and factory method: used together to handle data of different formats
-* the abstract class `AssetHandler` defines the requirements in reading and parsing of files.
-* the implementation of some of the tasks (e.g. `actionsFromDataInstances()`) were delegated to its subclasses, each corresponds to a file format.
-* The creation of the subclasses was performed by `AssetHandlerFactory`.
-
-**Advantages**:
-* 'pluggable' for multiple sources/formats of data instances
-* helped encapsulating the implementation of the standard workflow.
-
-#### Data Access Object (DAO) Pattern:
-* Most of the data access and persistence process in relation to UserActivity are defined by `IUserActivityDao` and realised in `UserActivityDao`.
-
-**Advantages**
-* helped decoupling the domain/business logic (i.e. users' activities) with data access with Firebase.
-* not to expose data storage details on the interface.
-* more flexible composition of objects.
-* Clearer overall structure of codes.
-
-
-
 
 ## Implemented Features
 
