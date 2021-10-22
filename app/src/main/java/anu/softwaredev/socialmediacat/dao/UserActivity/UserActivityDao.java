@@ -30,17 +30,21 @@ import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
 import anu.softwaredev.socialmediacat.Classes.User;
 
-/**
- * Data Access Object for UserActivity
- * Realise the data access and persistence processes via Firebase,
- * and also partly with the local Data Structure (RB Tree of Posts)
- */
+/** Dao for UserActivity */
 public class UserActivityDao implements IUserActivityDao {
     private static DatabaseReference dbRef;
     private static UserActivityDao instance;        // Singleton instance for UserActivityDao
-    private UserActivityDao() {
-        //this.deleteAll();
+    private static File file;                       // temporary file
+    static {
+        try {
+            file = File.createTempFile("user-action", ".csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    // Singleton
+    private UserActivityDao() {this.deleteAll();};
     public static UserActivityDao getInstance(){
         if (instance == null) {
             instance = new UserActivityDao();
@@ -49,35 +53,46 @@ public class UserActivityDao implements IUserActivityDao {
         return instance;
     }
 
-    /** Create Posts in response to user's action */
+
     @Override
     public void createPost(String uId, String tag, String content, int photoId) {           // alt: only content (userName: below)
-        // Check invalid characters in tag (empty if invalid)
-        if (tag.contains(",") || tag.contains(";")) {tag="";}
+        try {
+            // Check invalid characters in tag (empty if invalid)
+            if (tag.contains(",") || tag.contains(";")) {tag="";}
 
-        // Check invalid characters in content (remove inner "'s), then double quote for format alignment
-        content = content.replaceAll("\"", "");
-        content = "\"" + content + "\"";
+            // Check invalid characters in content (remove inner "'s), then double quote for format alignment
+            content = content.replaceAll("\"", "");
+            content = "\"" + content + "\"";
 
-        // Update firebase DB
-        String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
-        Post newPost = new Post(uId, tag, postId, content, photoId);
-        Map<String, Object> postValues = newPost.toMap();
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Posts/" + postId, postValues);
-        dbRef.updateChildren(childUpdates);
+            // Update firebase DB
+            String postId = dbRef.child("Posts").push().getKey();             // unique Key for Posts
+            Post newPost = new Post(uId, tag, postId, content, photoId);
+            Map<String, Object> postValues = newPost.toMap();
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/Posts/" + postId, postValues);
+            dbRef.updateChildren(childUpdates);
 
-        // Update Data Structure (insert current post into the RB-tree)
-        Global_Data.getInstance().insert(newPost);
+            // Update Data Structure (insert current post into the RB-tree)
+            Global_Data.getInstance().insert(newPost);
 
-        FirebaseAuth user = FirebaseAuth.getInstance();
-        if (newPost.getUId().equals(user.getUid())){
-            Global_Data.getInstance().add_My_Posts(newPost);
-        }
+            FirebaseAuth user = FirebaseAuth.getInstance();
+            if (newPost.getUId().equals(user.getUid())){
+                Global_Data.getInstance().add_My_Posts(newPost);
+            }
+
+            // Write to file
+            String text = "CP" + ";" + uId + ";" + tag + ";" + postId + ";" + content + ";" + photoId + ";" + "0" + "\n";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
+            }
+            System.out.println("Post created saved in " + file.getAbsolutePath());
+
+        } catch (IOException e) { e.printStackTrace(); }
 
     }
 
-    /** Store the loaded Posts */
+
+    /** Load Posts for display */
     public void storePost(List<Post> posts) {
 
         for (Post post : posts){
@@ -89,17 +104,33 @@ public class UserActivityDao implements IUserActivityDao {
             childUpdates.put("/Posts/" + post.getPostId(), postValues);
             dbRef.updateChildren(childUpdates);
 
+            ///////////
+            System.out.println("DAO : INSERT");
+            System.out.println("Global_Data.getInstance(): " + Global_Data.getInstance());
+            System.out.println(".insert(post) - post: " + post);
+
+
             // Update Data Structure (insert current post into the RB-tree)
             Global_Data.getInstance().insert(post);
             FirebaseAuth user = FirebaseAuth.getInstance();
             if (post.getUId().equals(user.getUid())){
                 Global_Data.getInstance().add_My_Posts(post);
             }
+
+            // write to file
+            try {
+                String text = "SP" + ";" + post.getUId() + ";" + post.getTag() + ";" + post.getPostId() + ";" + post.getContent() + ";" + post.getPhotoId() + ";" + post.getLikeCount() + "\n";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Files.write(file.toPath(), text.getBytes(), StandardOpenOption.APPEND);
+                }
+                System.out.println("Post loaded to " + file.getAbsolutePath());
+
+            } catch (IOException e) { e.printStackTrace(); }
         }
+
     }
 
 
-    /** Like Post (in response to user's action) */
     @Override
     public void likePost(String postId) {
         // Update firebase DB
@@ -108,8 +139,7 @@ public class UserActivityDao implements IUserActivityDao {
         dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
-    /** Like Post (in response to user's action) */
-    @Override
+
     public void unlikePost(String postId) {
         // Update firebase DB
         Map<String, Object> updates = new HashMap<>();
@@ -117,10 +147,8 @@ public class UserActivityDao implements IUserActivityDao {
         dbRef.child("Posts").child(postId).updateChildren(updates);
     }
 
-    /** Like Post (in response to user's action) */
     @Override
     public void deletePost(String postId) {
-
         // Update firebase DB
         dbRef.child("Posts").addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
@@ -139,10 +167,73 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
 
-    /**
-     * Find the Profile of provided userId on Firebase.
-     */
+    // @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
+    public List<Post> findAllPosts() {
+        List<Post> postsLoaded = new ArrayList<>();
+        try {
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            String fileContent = new String(bytes);
+            String[] lines = fileContent.split("\n");
+
+            if (lines != null) {
+                for (String line : lines) {
+                    String[] items = line.split(";");
+                    if (items!=null && items.length==7 && ("CP".equals(items[0]) || "SP".equals(items[0]) )) {
+                        Post post = new Post(items[1], items[2], items[3], items[4], Integer.parseInt(items[5]), Integer.parseInt(items[6]));
+                        postsLoaded.add(post);
+
+                        // Insert all posts to the global Data Structure of Posts
+                        // TODO - try delete (10/21):
+                        //  Global_Data.getInstance().insert(post);
+                        // TODO
+
+                        // TODO
+                        // New, for locally created posts of User
+//                        FirebaseAuth user = FirebaseAuth.getInstance();
+//                        if (post.getUId().equals(user.getUid())){
+//                            Global_Data.getInstance().add_My_Posts(post);
+//                        }
+
+                    }
+                }
+            }
+
+
+        } catch (IOException e) { e.printStackTrace(); }
+
+        /** TODO
+         * For test, need to delete
+         */
+        System.out.println("============================================Check data========================================");
+//        Global_Data.getInstance().getData().find("random").getPostsTree().inorderPrint(Global_Data.getInstance().getData().find("random").getPostsTree().root);
+
+        return postsLoaded;
+    }
+
+
+    @Override
+    public String getFilePath() {
+        return file.getAbsolutePath();
+    }
+
+    @Override
+    public void deleteAll() {
+        try {
+            if (file.exists()){
+                file.delete();
+            }
+            file = File.createTempFile("user-action", ".csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Find the Profile of provided userId on Firebase,
+     * and display the corresponding information
+     */
     public void findUserProfile(String userId, TextView uIdTv, TextView captionTv) {
         ValueEventListener listener = new ValueEventListener() {
             @Override
@@ -188,9 +279,9 @@ public class UserActivityDao implements IUserActivityDao {
     }
 
     /**
-     * Find the profile of the provided user on Firebase.
+     * Find the profile of the provided user on Firebase,
+     * and display the corresponding information
      */
-    @Override
     public void findUserProfile(FirebaseUser user, TextInputLayout userNameLayout, TextInputLayout interestsLayout, TextInputLayout captionLayout) {
         if (user != null) {
             String userId = user.getUid();
@@ -237,11 +328,9 @@ public class UserActivityDao implements IUserActivityDao {
         }
     }
 
-
     /**
      * Update User Profile on Firebase
      */
-    @Override
     public void updateProfile(Context ctx, FirebaseUser user, String newName, String newInterests, String newCaption) {
         // Update Profile
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()

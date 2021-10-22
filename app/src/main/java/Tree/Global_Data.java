@@ -6,13 +6,13 @@ import anu.softwaredev.socialmediacat.Classes.Post;
 
 public class Global_Data {
     RBTree<String> data;
-    List<Post> myPosts;
+//    List<Post> myPosts;
 
     public static Global_Data instance = null;
 
     private Global_Data(){
         data = new RBTree<>();
-        myPosts = new ArrayList<>();        //        myPosts = new LinkedList<>();
+//        myPosts = new ArrayList<>();        //        myPosts = new LinkedList<>();
     }
 
     public static Global_Data getInstance() {
@@ -122,15 +122,15 @@ public class Global_Data {
         return false;
     }
 
-    public void add_My_Posts(Post post) {
-        myPosts.add(post);
-    }
+//    public void add_My_Posts(Post post) {
+//        myPosts.add(post);
+//    }
 
-    public List<Post> getMyPosts() {
-        return myPosts;
-    }
+//    public List<Post> getMyPosts() {
+//        return myPosts;
+//    }
 
-    public void remove_My_Post(Post post) {
-        myPosts.remove(post);
-    }
+//    public void remove_My_Post(Post post) {
+//        myPosts.remove(post);
+//    }
 }
