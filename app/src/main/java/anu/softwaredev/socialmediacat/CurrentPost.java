@@ -59,14 +59,14 @@ public class CurrentPost extends AppCompatActivity {
         // post id show
         TextView postID = (TextView) findViewById(R.id.postIdTextView);
 //        postID.setText((CharSequence)currentPost.getPostId());
-        postID.setText((CharSequence)curPost.getPostId());
+        postID.setText("Post ID: " + (CharSequence)curPost.getPostId());
         postID.setTextSize(15f);
         postID.setTypeface(Typeface.DEFAULT_BOLD);
 
         // user id show
         uIdTv = (TextView) findViewById(R.id.userIdTextView);
 //        uIdTv.setText("@"+(CharSequence)currentPost.getUId());
-        uIdTv.setText("@"+(CharSequence)curPost.getUId());
+        uIdTv.setText("User ID: " + (CharSequence)curPost.getUId());
         uIdTv.setTextSize(15f);
         uIdTv.setTypeface(Typeface.DEFAULT_BOLD);
 
@@ -81,7 +81,7 @@ public class CurrentPost extends AppCompatActivity {
         // tag show (if any)
         TextView tagTv = (TextView) findViewById(R.id.tagTextView);
 //        tagTv.setText((CharSequence)currentPost.getTag());
-        tagTv.setText((CharSequence)curPost.getTag());
+        tagTv.setText("#" + (CharSequence)curPost.getTag());
         tagTv.setTextSize(15f);
         tagTv.setTypeface(Typeface.DEFAULT_BOLD);
 
@@ -95,19 +95,6 @@ public class CurrentPost extends AppCompatActivity {
         // caption
         captionTv = (TextView) findViewById(R.id.captionTv);
         UserActivityDao.getInstance().findUserProfileUid(curPost.getUId(), uIdTv, captionTv);
-
-//        Button likeBt = (Button) findViewById(R.id.LikeButton);
-//        likeBt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean likeResult = Global_Data.getInstance().likePost(currentPost);
-//                if (likeResult){
-//                    long likec = currentPost.getLikeCount()+1;
-//                    like.setText("Like: " + likec);
-//                    UserActivityDao.getInstance().likePost(user.getUid(), currentPost.getPostId());
-//                }
-//            }
-//        });
 
         // initializing the LikeButton objects & Heart OnLikeListener
         likeButtonHeart = (LikeButton)findViewById(R.id.likeButtonHeart);

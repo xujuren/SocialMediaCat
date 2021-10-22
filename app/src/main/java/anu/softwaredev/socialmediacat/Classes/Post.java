@@ -20,7 +20,6 @@ public class Post implements Comparable<Post>, Serializable {
     private int photoId=-1;         // ID of the photo, representing a photo hosted on a website
     private final int PHOTO_ID_LOWER=0;
     private final int PHOTO_ID_UPPER=100;
-//    private Set<String> likedBy;
     private Set<String> likedBy;
 
     /**
