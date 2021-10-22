@@ -54,17 +54,16 @@ public class MyPost extends AppCompatActivity {
 
         // post id show
         TextView postID = (TextView) findViewById(R.id.postIdTextView2);
-        postID.setText((CharSequence) curPost.getPostId());
+        postID.setText("Post ID" + (CharSequence) curPost.getPostId());
         postID.setTextSize(15f);
         postID.setTypeface(Typeface.DEFAULT_BOLD);
 
         // user id show
         uIdTv2 = (TextView) findViewById(R.id.userIdTextView2);
-        uIdTv2.setText("@"+(CharSequence) curPost.getUId());
+        uIdTv2.setText("User ID: " + (CharSequence) curPost.getUId());
         uIdTv2.setTextSize(15f);
         uIdTv2.setTypeface(Typeface.DEFAULT_BOLD);
 
-        // like show
         TextView like = (TextView) findViewById(R.id.likeTextView2);
         CharSequence likes = curPost.getLikeCount() + " likes";
         like.setText(likes);
@@ -73,7 +72,7 @@ public class MyPost extends AppCompatActivity {
 
         // tag show (if any)
         TextView tagTv = (TextView) findViewById(R.id.tagTextView2);
-        tagTv.setText((CharSequence) curPost.getTag());
+        tagTv.setText("#" + (CharSequence) curPost.getTag());
         tagTv.setTextSize(15f);
         tagTv.setTypeface(Typeface.DEFAULT_BOLD);
 
