@@ -17,10 +17,10 @@
 
 | UID | Name | Role |
 | :--- | :----: | ---: |
-| **u7323583** | Cathy Cheung | Developer |
-| **u7274552** | Kevin Wang | Developer |
-| **u7324787** | Xiangyu Song | Developer |
-| **u7149851** | Juren Xu | Developer |
+| **u7323583** | Cathy Cheung | Developer (Authentication with Firebase，login/logout, timeline, all UI)|
+| **u7274552** | Kevin(Junhao) Wang | Developer(Tokenizer and Parser itegrated with Search, part of UI fixing) |
+| **u7324787** | Xiangyu Song | Developer (Post, Like feature, wrapping up everthing and hard-stuck problem solver)|
+| **u7149851** | Juren Xu | Developer(Data Structure:RB tree to store and search for posts) |
 
 
 ### Conflict Resolution Protocol
@@ -108,7 +108,8 @@ For extensibility and flexibility, Posts could be loaded from different files fo
     
 ### Data Persistence
 All the data and updates from local instances and users were also persisted using Firebase.
-**Advantages:**
+
+**Advantages:** </br>
 * Security: delegates much of the security concerns to the specialized platform, especially passwords and Personally Identifiable Information.
 * efficiency and synchronization: the Realtime Database offers the possibility of synchronization, which is important in social media apps.
 * compatibility: compatible with Android studio and Gradle.
@@ -121,11 +122,16 @@ All the data and updates from local instances and users were also persisted usin
 #### Red-Black Tree
  * **Objective：** In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
 
+![Outer_Layer_Troo_Tag_troo](/uploads/b314349e814c8654f55ca1166c57b1a5/Outer_Layer_Troo_Tag_troo.png)
+![image](/uploads/cfab89e79980939307bebe6729ba6a6f/image.png)
+
+
  * **Locations:** RBTree.java, RBTreeNode.java, Color.java in Tree folder.
 
  * **Reasons:** When we decide our data structure, we firstly compared tree and list and we choose tree instead of list because the tree usually has better performance and more efficient in search and deletion which matches the requirement of our application (a social application requires user can search from all posts or delete their own posts).
     * Then we compared self-balance tree and ordinary tree. And we choose self-balance tree instead of ordinary tree because a self-balance tree and its average search, insertion and deletion time is better than ordinary tree.
     * Finally, in the self-balance tree, we choose the Red-black tree instead of the AVL tree. Because we consider AVL to be a strong self-balance tree and it requires the height difference between the two sides of the tree should be less than one which will require more rotations when doing self-balancing. When we need to insert or delete frequently, the resources used to maintain self-balancing are likely to exceed the time we save due to self-balancing. Therefore, under the trade-off, we finally chose the red-black tree as our data structure.
+
 
 
 ## Tokenizer, Parser and Search
@@ -175,26 +181,40 @@ Query Attributes:
     1. If yes, return a PostIDExp as output
     2. If no, return null
 
+### Partially invalid query handling (medium feature)
+
+- Situation 1 :  e.g. (#comp2400;@#) The first part(tag) is valid, but the second part(postID) is invalid as @ should be followed with only numbers or characters, not #
+    
+     For this situation. Our search query could still process the first part (#comp2400) and show the search result.
+    
+- Situation 2 :  e.g. (#comp2400;#comp2100) The first part(tag) is valid, but the second part(tag) is invalid as there should be only one tag as search query input according to our grammar rules.
+    
+    For this situation Our search query could still process the first part (#comp2400) and show the search result.
+    
+- Situation 3: e.g. (@postID1;@postID2) The first part(postID) is valid, but the second part(postID) is invalid as there should be only one postID as search query input according to our grammar rules.
+    
+    For this situation Our search query could still process the first part (#comp2400) and show the search result.
 
 ### Design Patterns**
 
-#### 1) Template method & 2) factory method: used together to handle data of different formats
+#### 1) Template method and 2) factory method
+used together to handle data of different formats
 * the abstract class `AssetHandler` defines the requirements in reading and parsing of files.
 * the implementation of some of the tasks (e.g. `actionsFromDataInstances()`) were delegated to its subclasses, each corresponds to a file format.
 * The creation of the subclasses was performed by `AssetHandlerFactory`.
 
-**Advantages**:
-* 'pluggable' for multiple sources/formats of data instances
-* helped encapsulating the implementation of the standard workflow.
+* **Advantages**:
+    * 'pluggable' for multiple sources/formats of data instances
+    * helped encapsulating the implementation of the standard workflow.
 
 #### 3) Data Access Object (DAO) Pattern:
 * Most of the data access and persistence process in relation to UserActivity are defined by `IUserActivityDao` and realised in `UserActivityDao`.
 
-**Advantages**
-* helped decoupling the domain/business logic (i.e. users' activities) with data access with Firebase.
-* not to expose data storage details on the interface.
-* more flexible composition of objects.
-* Clearer overall structure of codes.
+* **Advantages**:
+    * helped decoupling the domain/business logic (i.e. users' activities) with data access with Firebase. 
+    * not to expose data storage details on the interface.
+    * more flexible composition of objects.
+    * Clearer overall structure of codes.
 
 #### 4) Singleton pattern
 * We used the singleton pattern to ensure that all actions by the current user are performed by the same user object.
@@ -204,42 +224,61 @@ Query Attributes:
 
 
 
-## Testing Summary                   [TODO]     *[What features have you tested? What is your testing coverage?]*
-*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
-*Here is an example:*
-*Number of test cases: ...*
-*Code coverage: ...*
-*Types of tests created: ...*
+## Testing Summary                   
+*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*I test my Red-black tree through four main test function, which are “inertTest()”, “deleteTest()”, “toListTest()”, “testSeconLayer()”.
+The insertTest() will cover the functionalities of insertion, and self-balance after insertion.
+The deleteTest() will cover the functionalities of deletion, and self-balance after deletion.
+The toListTest() will cover the functionalities of covert all content from all two layers of Red-black trees into a list with an ascending order.
+The testSeconLayer() will test whether our whether layer tree works properly.
+
+
+I test my Global_Data.java with 5 main tests functions
+insertTest(), cover the functionalities of insert data into our global data
+deleteTest(), cover the functionalities of delete data into our global data
+testSearch(), cover the functionalities of search post by using searching key “tag”, “post id” or “tag + post id” from our global data
+testLike(), cover the functionalities of like a post 
+testSearchByUser() cover the functionalities of search post by using searching key “user id” from our global data
+
+
+The above two test class has covered 87% of method and 70% lines from Tree folder (contains RBTree.java, RBTreeNode.java, Color.java, Global_Data.java)
+
+![image](/uploads/d09cef213710b0b23fc400406d88a4a7/image.png)
 
 
 
 
 
-## Implemented Features
+## Implemented Features         [TODO]
 
 **Part I: Basic App**
-1. User must be able to login (not necessarily sign up): we used Firebase Authentication to handle create account, login and logout. 
-2. User must be able to load (from files or Firebase) and view posts (e.g. on a timeline activity): posts are loaded/created using local data instances (as described in *Data Instances* section), and viewable via the timeline.
-3. Feed app with a data file with at least 1,000 valid data instances (as described in *Data Instances* section)
+| No. | Task | Description |
+| ------ | ------ | ------ |
+| 1 | User must be able to login (not necessarily sign up) | we used Firebase Authentication to handle create account, login and logout |
+| 2 | User must be able to load (from files or Firebase) and view posts (e.g. on a timeline activity) | <ul><li>Location: shown in a timeline after user clicks the `to Timeline` or `My posts` button, and also as a single post after clicking a post in the timeline.</li><li>posts are loaded/created using local data instances (as described in *Data Instances* section), and viewable via the timeline.</li></ul>|
+| 3 | Feed app with a data file with at least 1,000 valid data instances | Please find description in the [`Data Instances` section] |
 
 **Firebase Integration**
-1. Use Firebase to implement user Authentication/Authorisation. (easy): (as in Part I: Basic App, Item 1)
-2. Use Firebase to persist all data used in your app. (medium): 
+| No. | Task | Description |
+| ------ | ------ | ------ |
+| 1 | Use Firebase to implement user Authentication/Authorisation. (easy) | Please find description in `Part I: Basic App, Item 1` |
+| 2 | Use Firebase to persist all data used in your app. (medium) | Please find description in the [`Data Persistence` section]. |
 
 **Greater Data Usage, Handling and Sophistication**
-1. Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy)
-3. Use GPS information. (easy)
+| No. | Task | Description |
+| ------ | ------ | ------ |
+| 1 | Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy) | Please find description in the [`Data model` section] |
+| 3 |  Use GPS information. (easy) | <ul><li>Location: `AssetHandlerFactory`.</li> <li>Description: the user can opt to share his/her current GPS location by a button. If permission to read location is not available, the same will be reequested.</li> <li>After that, the location will be read and shown on screen, and added at to the content of the post when the user click "Create Post". </li></ul>|
+
 
 
 ## Summary of Known Errors and Bugs
 
 1. *Bug 1:*
-- CreatePost: If the user clicks "Create Post" too fast after clicking "share location"
-  (from 'Not shared' to 'Shared'), the GPS may not be available with the Post.
+ * CreatePost: If the user clicks "Create Post" too fast after clicking "share location" (from 'Not shared' to 'Shared'), the GPS may not be available with the Post.
 
 2. *Bug 2:*
-    - The linkage between pages messes up when the User click the default Android return buttons instead of the added "RETURN" button in 'Current Post'.
-    -
+ * The linkage between pages messes up when the User click the default Android return buttons instead of the added "RETURN" button in 'Current Post'.
+
 
 *Assumptions*
 - The local data instances represents valid inputs.
@@ -253,6 +292,6 @@ Query Attributes:
 
 
 ## Team Meetings
-- *[Team Meeting 1](./Meeting1_Minutes.md)*      // TODO
+- *[Team Meeting 1](./Meeting1_Minutes.md)*     
 - *[Team Meeting 2](./Meeting2_Minutes.md)*
 - *[Team Meeting 3](./Meeting3_Minutes.md)*
