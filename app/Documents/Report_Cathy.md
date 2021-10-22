@@ -41,24 +41,24 @@ The App is intended to be a simple, user-friendly platform for people to share p
 * Purpose: share ideas to users, encouraging them to do the same.
 
 **Example**：
-The initial page of the program is the login page, the user needs to enter the correct account and password to log in their account.
-If the user does not already have an account, click the Create Account button to create one.
-The email address provided for registration must be in the correct format. The password entered twice must be the same and the length of the password must be at least six characters. Otherwise, an error message will be displayed and the registration fails.
-Correct registration will be provided with a successful information and return to the login page.
-If a user enters an incorrect account or password, the user cannot log in and an error message is returned.
-When the user enters the correct account and password, the login screen will be displayed and the login is successful.
-The Log Out button provides the logout function. The current user will be logged out and allowed to Log in to other accounts.
-TIMELINE will show the existing posts. Search and return functions are provided.
-Users can search by criteria, and some incorrect input has already been processed.
-The search results are displayed on the current page.
-Users can also click on posts to display their details and like them.
-The same user is forbidden to perform "like" operation for many times (the user can only select Unlike when he/she enters the "like" state again).
-Clicking back returns you to the main screen.
-MANAGE PROFILE allows you to modify personal information.
-After the nickname is changed, the welcome sign on the main screen is automatically changed.
-CREAT POST provides the ability to create new posts. Includes GPS information and photo selection.
-MY POST shows the posts belonging to the current user, and you can see the posts we just created.
-Users can click on a specific post to like or delete it.
+The initial page of the program is the login page, the user needs to enter the correct account and password to log in their account.<br>
+If the user does not already have an account, click the Create Account button to create one.<br>
+The email address provided for registration must be in the correct format. The password entered twice must be the same and the length of the password must be at least six characters. Otherwise, an error message will be displayed and the registration fails.<br>
+Correct registration will be provided with a successful information and return to the login page.<br>
+If a user enters an incorrect account or password, the user cannot log in and an error message is returned.<br>
+When the user enters the correct account and password, the login screen will be displayed and the login is successful.<br>
+The Log Out button provides the logout function. The current user will be logged out and allowed to Log in to other accounts.<br>
+TIMELINE will show the existing posts. Search and return functions are provided.<br>
+Users can search by criteria, and some incorrect input has already been processed.<br>
+The search results are displayed on the current page.<br>
+Users can also click on posts to display their details and like them.<br>
+The same user is forbidden to perform "like" operation for many times (the user can only select Unlike when he/she enters the "like" state again).<br>
+Clicking back returns you to the main screen.<br>
+MANAGE PROFILE allows you to modify personal information.<br>
+After the nickname is changed, the welcome sign on the main screen is automatically changed.<br>
+CREAT POST provides the ability to create new posts. Includes GPS information and photo selection.<br>
+MY POST shows the posts belonging to the current user, and you can see the posts we just created.<br>
+Users can click on a specific post to like or delete it.<br>
 This is the complete usage process of our social application, and I hope you will be satisfied with our work.
 
 ## Application Design and Decisions
