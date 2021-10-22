@@ -1,5 +1,4 @@
 # ezclap - Report
-[Cathy: I will update here for my parts, to be integrated.]
 
 The following is a report template to help your team successfully provide all the details necessary for your report in a structured and organised manner. Please give a straightforward and concise report that best demonstrates your project. Note that a good report will give a better impression of your project to the reviewers.
 
