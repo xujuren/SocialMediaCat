@@ -6,9 +6,9 @@
 | UID | Name | Role |
 | :--- | :----: | ---: |
 | **u7323583** | Cathy Cheung | Developer |
-| **u7274552** | Kevin        | Developer |
-| **u7324787** | Kyle         | Developer |
-| **u7149851** | Ragnarok     | Developer |
+| **u7274552** | Kevin Wang | Developer |
+| **u7324787** | Kyle Song | Developer |
+| **u7149851** | Juren Xu | Developer |
 
 ## Conflict Resolution Protocol
 As a four-member team, we need to jointly develop a medium-sized Android application, and conflict resolution has become a very critical problem. Therefore, we formulated a set of conflict resolution protocols at the early stage of project development to solve various conflicts that may occur during the development process.
