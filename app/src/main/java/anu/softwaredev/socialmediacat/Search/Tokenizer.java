@@ -81,7 +81,11 @@ public class Tokenizer {
 
 
         //tag
-        if (firstChar == '#'){
+        if (firstChar == '#' && (buffer.length()!=1)){
+//            if (buffer.length()==1){
+//                System.out.println("bug detected");
+////                return null;
+//            }
             StringBuilder stringBuilder =  new StringBuilder();
             int pos = 1 ;
             //current char (digit) , pointer
@@ -103,7 +107,7 @@ public class Tokenizer {
 
         //post ID
         boolean existInvalidToken = false;
-        if (firstChar == '@'){
+        if (firstChar == '@'&& (buffer.length()!=1)){
             StringBuilder stringBuilder =  new StringBuilder();
             int pos = 1 ;
             //current char (digit) , pointer
