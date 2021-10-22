@@ -176,6 +176,19 @@ Query Attributes:
     1. If yes, return a PostIDExp as output
     2. If no, return null
 
+### Partially invalid query handling (medium feature)
+
+- Situation 1 :  e.g. (#comp2400;@#) The first part(tag) is valid, but the second part(postID) is invalid as @ should be followed with only numbers or characters, not #
+    
+     For this situation. Our search query could still process the first part (#comp2400) and show the search result.
+    
+- Situation 2 :  e.g. (#comp2400;#comp2100) The first part(tag) is valid, but the second part(tag) is invalid as there should be only one tag as search query input according to our grammar rules.
+    
+    For this situation Our search query could still process the first part (#comp2400) and show the search result.
+    
+- Situation 3: e.g. (@postID1;@postID2) The first part(postID) is valid, but the second part(postID) is invalid as there should be only one postID as search query input according to our grammar rules.
+    
+    For this situation Our search query could still process the first part (#comp2400) and show the search result.
 
 ### Design Patterns**
 
