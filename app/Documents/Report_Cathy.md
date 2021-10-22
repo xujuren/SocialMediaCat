@@ -108,7 +108,8 @@ For extensibility and flexibility, Posts could be loaded from different files fo
     
 ### Data Persistence
 All the data and updates from local instances and users were also persisted using Firebase.
-**Advantages:**
+
+**Advantages:** </br>
 * Security: delegates much of the security concerns to the specialized platform, especially passwords and Personally Identifiable Information.
 * efficiency and synchronization: the Realtime Database offers the possibility of synchronization, which is important in social media apps.
 * compatibility: compatible with Android studio and Gradle.
@@ -178,23 +179,24 @@ Query Attributes:
 
 ### Design Patterns**
 
-#### 1) Template method & 2) factory method: used together to handle data of different formats
+#### 1) Template method and 2) factory method
+used together to handle data of different formats
 * the abstract class `AssetHandler` defines the requirements in reading and parsing of files.
 * the implementation of some of the tasks (e.g. `actionsFromDataInstances()`) were delegated to its subclasses, each corresponds to a file format.
 * The creation of the subclasses was performed by `AssetHandlerFactory`.
 
-**Advantages**:
-* 'pluggable' for multiple sources/formats of data instances
-* helped encapsulating the implementation of the standard workflow.
+* **Advantages**:
+    * 'pluggable' for multiple sources/formats of data instances
+    * helped encapsulating the implementation of the standard workflow.
 
 #### 3) Data Access Object (DAO) Pattern:
 * Most of the data access and persistence process in relation to UserActivity are defined by `IUserActivityDao` and realised in `UserActivityDao`.
 
-**Advantages**
-* helped decoupling the domain/business logic (i.e. users' activities) with data access with Firebase.
-* not to expose data storage details on the interface.
-* more flexible composition of objects.
-* Clearer overall structure of codes.
+* **Advantages**:
+    * helped decoupling the domain/business logic (i.e. users' activities) with data access with Firebase. 
+    * not to expose data storage details on the interface.
+    * more flexible composition of objects.
+    * Clearer overall structure of codes.
 
 #### 4) Singleton pattern
 * We used the singleton pattern to ensure that all actions by the current user are performed by the same user object.
@@ -215,31 +217,39 @@ Query Attributes:
 
 
 
-## Implemented Features
+## Implemented Features         [TODO]
 
 **Part I: Basic App**
-1. User must be able to login (not necessarily sign up): we used Firebase Authentication to handle create account, login and logout. 
-2. User must be able to load (from files or Firebase) and view posts (e.g. on a timeline activity): posts are loaded/created using local data instances (as described in *Data Instances* section), and viewable via the timeline.
-3. Feed app with a data file with at least 1,000 valid data instances (as described in *Data Instances* section)
+1. User must be able to login (not necessarily sign up):
+ * we used Firebase Authentication to handle create account, login and logout. 
+2. User must be able to load (from files or Firebase) and view posts (e.g. on a timeline activity): 
+* Location: shown in a timeline after user clicks the `to Timeline` or `My posts` button, and also as a single post after clicking a post in the timeline.
+* posts are loaded/created using local data instances (as described in *Data Instances* section), and viewable via the timeline.
+3. Feed app with a data file with at least 1,000 valid data instances
+* Please find description in the [`Data Instances` section].
 
 **Firebase Integration**
 1. Use Firebase to implement user Authentication/Authorisation. (easy): (as in Part I: Basic App, Item 1)
-2. Use Firebase to persist all data used in your app. (medium): 
+2. Use Firebase to persist all data used in your app. (medium)
+* Please find description in the [`Data Persistence` section].
 
 **Greater Data Usage, Handling and Sophistication**
 1. Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy)
-3. Use GPS information. (easy)
+ * Please find description in the [`Data model` section].
+3. Use GPS information. (easy):
+ * Location: `AssetHandlerFactory`.
+ * Description: the user can opt to share his/her current GPS location by a button. If permission to read location is not available, the same will be reequested.
+   After that, the location will be read and shown on screen, and added at to the content of the post when the user click "Create Post".
 
 
 ## Summary of Known Errors and Bugs
 
 1. *Bug 1:*
-- CreatePost: If the user clicks "Create Post" too fast after clicking "share location"
-  (from 'Not shared' to 'Shared'), the GPS may not be available with the Post.
+ * CreatePost: If the user clicks "Create Post" too fast after clicking "share location" (from 'Not shared' to 'Shared'), the GPS may not be available with the Post.
 
 2. *Bug 2:*
-    - The linkage between pages messes up when the User click the default Android return buttons instead of the added "RETURN" button in 'Current Post'.
-    -
+ * The linkage between pages messes up when the User click the default Android return buttons instead of the added "RETURN" button in 'Current Post'.
+
 
 *Assumptions*
 - The local data instances represents valid inputs.
