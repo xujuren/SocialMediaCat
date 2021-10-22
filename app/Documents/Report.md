@@ -122,7 +122,7 @@ All the data and updates from local instances and users were also persisted usin
 #### Red-Black Tree
  * **Objective：** In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
 
-https://gitlab.cecs.anu.edu.au/u7324787/comp6442-group-assignment/uploads/d002e4bcc6a334ea56fb5a3dd50a6f1e/Outer_Layer_Troo_Tag_troo.png
+![Outer_Layer_Troo_Tag_troo](/uploads/b314349e814c8654f55ca1166c57b1a5/Outer_Layer_Troo_Tag_troo.png)
 
 
  * **Locations:** RBTree.java, RBTreeNode.java, Color.java in Tree folder.
