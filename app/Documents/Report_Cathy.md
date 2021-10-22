@@ -40,7 +40,7 @@ The App is intended to be a simple, user-friendly platform for people to share p
 * Source: extracted via an API (https://quote-garden.herokuapp.com/api/v3/quotes/random)
 * Purpose: share ideas to users, encouraging them to do the same.
 
-**Example**：
+**Example**：<br>
 The initial page of the program is the login page, the user needs to enter the correct account and password to log in their account.<br>
 If the user does not already have an account, click the Create Account button to create one.<br>
 The email address provided for registration must be in the correct format. The password entered twice must be the same and the length of the password must be at least six characters. Otherwise, an error message will be displayed and the registration fails.<br>
