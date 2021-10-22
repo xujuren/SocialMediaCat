@@ -115,13 +115,13 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 
 ### Design Patterns**
 
-#Singleton pattern: <br>
+**Singleton pattern:** <br>
 We use the singleton pattern to ensure that all actions by the current user are performed by the same user object. Business logic dictates that each application process should allow only one user to log in, so we set up singletons to ensure that multiple users do not appear in the same process. In code logic, the singleton ensures that all operations have access to "user" resources, that is, all user operations are performed by the current user.
 
-#Strategy pattern: <br>
+**Strategy pattern:** <br>
 When users use the search function, they may present different search information, for example, they may present both label and category, or they may present only label. In order to facilitate the user's operation, we implement a variety of search algorithms, and then extract all methods into a search method. This original search class stores all search algorithms and selects different strategies according to the given information type. In this way, we only provide a search method that can handle all parameter types, which greatly facilitates the operation of users.
 
-#DAO pattern: <br>
+**DAO pattern: **<br>
 We use the DAO pattern to separate the data access API from the high-level business logic, which isolates the data access code from the business logic code, allowing the business logic code to call DAO methods directly, eliminating the need for direct interaction with the data table, reducing the coupling. We created two data entity classes, User and Post, and all function functions will directly interact with these two types of objects, which also means that the changes of the database will not directly affect the business logic code, which is also convenient for our development to a large extent.
 
 ## Implemented Features
