@@ -81,9 +81,82 @@ public abstract class AssetHandler {
 - AssetHandlerFactory - factory method 
   - Template method pattern    public static void createPosts(Context ctx) {
 
-**Grammars**                           >> Kevin
+# Search: Tokenizer and Parser
 
-**Tokenizer and Parsers**              >> Juren
+### Query Grammar
+
+A valid query consists of at least one attribute. Different attributes could be connected with ";".
+
+Example:
+
+#comp2400;@postID1
+
+Query Attributes:
+
+1. #tagname (e.g. #comp2400) , this attribute is to find all posts with #comp2400 as their tag
+2. @postID( e.g. @LP1), the postID is a unique identifier to each post, which means different post has its corresponding different unique post ID. When this attribute is put into the search query, there should be only one Post as search result
+
+## Implementation
+
+### Object Token
+
+An object Token is constructed by a string and its enum type. The string represents the content of the token(not included the # or @ ). The enum Type includes TAG, AND, POSTID
+
+### Search Tokenizer
+
+The searchTokenizer is used to tokenize a query string (#comp2400;@postID1) when processing the query.
+
+- method next() extracts a Token of current position and points to the next one  if method hasNext(). returns true.
+- method current() returns current token
+
+### Abstract Exp class
+
+Create an abstract Exp class to store all query terms, PostIDExp, TagExp and AndExp to extends from the abstract class 
+
+Exp includes a Token type and a string 
+
+- getToken()
+- getValue() return the string
+
+example : query :
+
+ #comp2400;@postID1
+
+output: TagExp(Token.Type.TAG,"comp2400") AndExp(Token.Type.AND,";") PostIDExp(Token.Type.POSTID,"postID1") 
+
+### Parser class
+
+- Exp getTag()  method (Exp is the return type)
+1. step: use the tokenizer 
+2. Since Tag is our first attribute in the grammar, we check if the current token's type is TAG. If yes, we return a TagExp as output
+3. If no, we return null
+
+- Exp getPostID() method (Exp is the return type)
+1. step: use the tokenizer 
+2. Situation 1: PostID is our third Token in the grammar if there is a Tag Token as first attribute, And Token as second attribute.  
+    - We use tokenizer.next() for 2 times to move to the third position and check if the current token's type is PostID.
+    1. If yes, return a PostIDExp as output
+    2. If no, return null
+    
+    Situation 2: PostID is our first and only attribute in the grammar.
+    
+    - We check if the first position of token's type is PostID
+    1. If yes, return a PostIDExp as output
+    2. If no, return null
+
+### Partially invalid query handling (medium feature)
+
+- Situation 1 :  e.g. (#comp2400;@#) The first part(tag) is valid, but the second part(postID) is invalid as @ should be followed with only numbers or characters, not #
+    
+     For this situation. Our search query could still process the first part (#comp2400) and show the search result.
+    
+- Situation 2 :  e.g. (#comp2400;#comp2100) The first part(tag) is valid, but the second part(tag) is invalid as there should be only one tag as search query input according to our grammar rules.
+    
+    For this situation Our search query could still process the first part (#comp2400) and show the search result.
+    
+- Situation 3: e.g. (@postID1;@postID2) The first part(postID) is valid, but the second part(postID) is invalid as there should be only one postID as search query input according to our grammar rules.
+    
+    For this situation Our search query could still process the first part (#comp2400) and show the search result.
 
 **Surpise Item**                       >> N/A
 *[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
