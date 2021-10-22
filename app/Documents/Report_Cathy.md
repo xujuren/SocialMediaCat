@@ -7,7 +7,7 @@
 | :--- | :----: | ---: |
 | **u7323583** | Cathy Cheung | Developer |
 | **u7274552** | Kevin Wang | Developer |
-| **u7324787** | Kyle Song | Developer |
+| **u7324787** | Xiangyu Song | Developer |
 | **u7149851** | Juren Xu | Developer |
 
 ## Conflict Resolution Protocol
