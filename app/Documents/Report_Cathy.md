@@ -220,6 +220,7 @@ used together to handle data of different formats
 ## Implemented Features         [TODO]
 
 **Part I: Basic App**
+| No. | Task | Description |
 | ------ | ------ | ------ |
 1. User must be able to login (not necessarily sign up):
     * we used Firebase Authentication to handle create account, login and logout. 
@@ -230,11 +231,13 @@ used together to handle data of different formats
 * Please find description in the [`Data Instances` section].
 
 **Firebase Integration**
+| No. | Task | Description |
 | ------ | ------ | ------ |
 | 1 | Use Firebase to implement user Authentication/Authorisation. (easy) | (as in Part I: Basic App, Item 1) |
 | 2 | Use Firebase to persist all data used in your app. (medium) | Please find description in the [`Data Persistence` section]. |
 
 **Greater Data Usage, Handling and Sophistication**
+| No. | Task | Description |
 | ------ | ------ | ------ |
 | 1 | Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy) | Please find description in the [`Data model` section] |
 | 3 |  Use GPS information. (easy) | Please find description in the [`Data Persistence` section]. </br> * Location: `AssetHandlerFactory`. </br>  * Description: the user can opt to share his/her current GPS location by a button. If permission to read location is not available, the same will be reequested.
