@@ -90,7 +90,7 @@ public class TimelineActivity extends AppCompatActivity {
                 for (Post post:postsResult) {
                     System.out.println(post);
                 }
-                if(postsResult.size()==0){
+                if(postsResult.size()==0&&search.equals("")){
                     postList.addAll(Global_Data.getInstance().toList());
                     timelineAdapter.notifyDataSetChanged();
                 }
