@@ -177,10 +177,7 @@ output: TagExp(Token.Type.TAG,"comp2400") AndExp(Token.Type.AND,";") PostIDExp(T
 
 ### Design Patterns**
 
-**Singleton pattern:** <br>
-We use the singleton pattern to ensure that all actions by the current user are performed by the same user object. Business logic dictates that each application process should allow only one user to log in, so we set up singletons to ensure that multiple users do not appear in the same process. In code logic, the singleton ensures that all operations have access to "user" resources, that is, all user operations are performed by the current user.
-
-#### Template method and factory method: used together to handle data of different formats
+#### 1) Template method & 2) factory method: used together to handle data of different formats
 * the abstract class `AssetHandler` defines the requirements in reading and parsing of files.
 * the implementation of some of the tasks (e.g. `actionsFromDataInstances()`) were delegated to its subclasses, each corresponds to a file format.
 * The creation of the subclasses was performed by `AssetHandlerFactory`.
@@ -189,7 +186,7 @@ We use the singleton pattern to ensure that all actions by the current user are 
 * 'pluggable' for multiple sources/formats of data instances
 * helped encapsulating the implementation of the standard workflow.
 
-#### Data Access Object (DAO) Pattern:
+#### 3) Data Access Object (DAO) Pattern:
 * Most of the data access and persistence process in relation to UserActivity are defined by `IUserActivityDao` and realised in `UserActivityDao`.
 
 **Advantages**
@@ -197,6 +194,13 @@ We use the singleton pattern to ensure that all actions by the current user are 
 * not to expose data storage details on the interface.
 * more flexible composition of objects.
 * Clearer overall structure of codes.
+
+#### 4) Singleton pattern
+* We used the singleton pattern to ensure that all actions by the current user are performed by the same user object.
+* Business logic dictates that each application process should allow only one user to log in, so we set up singletons to ensure that multiple users do not appear in the same process. In code logic, the singleton ensures that all operations have access to "user" resources.
+* that is, all user operations are performed by the current user.
+
+
 
 ## Implemented Features
 
