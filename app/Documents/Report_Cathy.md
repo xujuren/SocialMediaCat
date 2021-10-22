@@ -21,7 +21,7 @@ First, determine the types of conflict -- relational, task-based, and process-ba
 | Task-based conflict | Conflicts caused by differences in team members' perceptions of team tasks.        | 
 | Flow type conflict  | Including differences of opinion on the way things are done and the allocation of resources.        | 
 
-#Solution:
+**# Solution:**
 Task-based conflict is the least harmful to the team, and in most cases can even have a positive impact on the final outcome of the project. Different perspectives and solutions are encouraged and discussed in frequently scheduled team meetings to determine the best solution, which helps us to adopt more efficient means to achieve the project objectives.
 
 Process conflicts are very likely to occur, and the team will take different perspectives and opinions into consideration, leading the parties to reach consensus and abide by it. We hope to adopt a compromise solution. The team will gather the viewpoints and opinions of various parties in the meeting and come up with a conflict resolution solution accepted and committed by most people, which may require the compromise of some team members.
