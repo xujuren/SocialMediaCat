@@ -31,7 +31,7 @@ The following is a report template to help your team successfully provide all th
 
 | UID | Name | Role |
 | :--- | :----: | ---: |
-| [uid] | [name] | [role] |
+| [u7274552] | [(Kevin)Junhao Wang] | [Tokenizer and Parser, integrated with search function] |
 
 ## Conflict Resolution Protocol        >> saw on Kyle's
  
