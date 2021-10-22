@@ -24,8 +24,7 @@ public class AppActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app); // set view according to UI layout
-//        UserActivityDao.getInstance().findAllPosts();
+        setContentView(R.layout.activity_app);
 
         // get userName, or userEmail if userName not available
         user = FirebaseAuth.getInstance().getCurrentUser();

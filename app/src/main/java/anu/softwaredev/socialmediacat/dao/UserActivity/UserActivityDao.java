@@ -25,7 +25,7 @@ import anu.softwaredev.socialmediacat.Classes.User;
 
 /**
  * Data Access Object for UserActivity
- * Realises the Data access and persistence processes with Firebase
+ * Implements the Data access and persistence processes with Firebase
  */
 public class UserActivityDao implements IUserActivityDao {
     private static DatabaseReference dbRef;
@@ -222,7 +222,6 @@ public class UserActivityDao implements IUserActivityDao {
 
     /** Update User Profile */
     public void updateProfile(Context ctx, FirebaseUser user, String newName, String newInterests, String newCaption) {
-        // Update Profile
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(newName)
                 .build();
@@ -236,7 +235,6 @@ public class UserActivityDao implements IUserActivityDao {
                     }
                 });
 
-        // Update Data
         String uId = user.getUid();
         dbRef.child("Users").child(uId).child("userName").setValue(newName);
         dbRef.child("Users").child(uId).child("caption").setValue(newCaption);

@@ -1,10 +1,11 @@
-//uId,tag,postId,content,PhotoId,Likes
+//uId,tag,postId,"content",PhotoId,Likes
 u1,!random,LP1,"hi",21,8
-Hk1FREofreQZw5VrMMfPpTgw2ro1,@@mornings,-P10156356331896542,"showing how wrong tags look",-1,-1
-u504586349,#hi,-P10151769961556350',"Interesting perspective on the Berlin startup scene.TECHCRUNCH.COMWill The Real Berlin Please",-1,8
+Hk1FREofreQZw5VrMMfPpTgw2ro1,@@mornings,-P10156356331896542,"showing how wrong tags look",-1,0
+u504586349,#hi,-P10151769961556350,"Interesting perspective on the Berlin startup scene.TECHCRUNCH.COMWill The Real Berlin Please",-1,8
 u100044361850784,#bura-hara,-P353718069450252,"For me it's a pay it forward. Because when I was in the projects somebody came up with the school",-1,339
-u207996,#  f  eas  tf  u  lly,-P10151372676583358,"go get em!!!Vote For Me!! To win a scholarship to BHB 2013Susie Paterno""",55,0
+u207996,#  f  eas  tf  u  lly,-P10151372676583358,"go get em!!!Vote For Me!! To win a scholarship to BHB 2013Susie Paterno""",55,3
 Hk1FREofreQZw5VrMMfPpTgw2ro1,,-P10164612321020578,"",29,3
+Hk1FREofreQZw5VrMMfPpTgw2ro1,#justKiddingILoveEm,-P1013565618168,"assignments make people dumb....",20,250
 u207996,##Rees,-P10105055128234292,"",37,23
 u210081,#boilery,-P10102700199919513',"We all want a tortilla chip that can support the weight of guacamole.I will never ask for anythi",-1,24
 u3,h#hi,LP5,"is ",16,9

@@ -5,7 +5,7 @@
     "postId": "LPJ1",
     "content": "(J)hi hi hi",
     "photoId": 20,
-    "likes": "(J)hi hi hi"
+    "likes": 3
   },
   {
     "uId": "u321",
@@ -13,7 +13,7 @@
     "postId": "LPJ3",
     "content": "(J)hi hello",
     "photoId": 33,
-    "likes": "(J)hi hello hi"
+    "likes": 5
   },
   {
     "uId": "u123",
@@ -21,6 +21,6 @@
     "postId": "LPJ3",
     "content": "(J)abcfd sfsfsd sdfdsfds",
     "photoId": 44,
-    "likes": "(J)hi 123321;"
+    "likes": 2
   }
 ]

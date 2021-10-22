@@ -189,7 +189,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="100dp"
-        android:backgroundTint="#064A53"
+        android:backgroundTint="#1591A6"
         android:onClick="signUpOnClick"
         android:text="Confirm"
         android:textColor="#E8F7FA"
