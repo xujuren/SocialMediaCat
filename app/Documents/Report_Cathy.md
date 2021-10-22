@@ -227,13 +227,13 @@ Exp includes a Token type and a string
 ## Implemented Features
 
 **Part I: Basic App**
-1. User must be able to login (not necessarily sign up)
-2. User must be able to load (from files or Firebase) and view posts (e.g. on a timeline activity)
-3. Feed app with a data file with at least 1,000 valid data instances
+1. User must be able to login (not necessarily sign up): we used Firebase Authentication to handle create account, login and logout. 
+2. User must be able to load (from files or Firebase) and view posts (e.g. on a timeline activity): posts are loaded/created using local data instances (as described in *Data Instances* section), and viewable via the timeline.
+3. Feed app with a data file with at least 1,000 valid data instances (as described in *Data Instances* section)
 
 **Firebase Integration**
-1. Use Firebase to implement user Authentication/Authorisation. (easy)
-2. Use Firebase to persist all data used in your app. (medium)
+1. Use Firebase to implement user Authentication/Authorisation. (easy): (as in Part I: Basic App, Item 1)
+2. Use Firebase to persist all data used in your app. (medium): 
 
 **Greater Data Usage, Handling and Sophistication**
 1. Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy)
