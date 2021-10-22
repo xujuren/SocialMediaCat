@@ -39,11 +39,11 @@ public class CreatePost extends AppCompatActivity {
     private static final int PHOTO_LIMIT_UPPER = 100;
     private static String TAG_DEFAULT = "#random";
 
-    @Override
     /**
      * main method, put all logic inside
      * @param savedInstanceState android unique class (Cloneable, Parcelable)saved state
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);

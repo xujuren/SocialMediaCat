@@ -84,7 +84,7 @@ public class CurrentPost extends AppCompatActivity {
 
         // caption
         captionTv = (TextView) findViewById(R.id.captionTv);
-        UserActivityDao.getInstance().findUserProfile(uid, uIdTv, captionTv);
+        UserActivityDao.getInstance().findUserProfileUid(uid, uIdTv, captionTv);
 
 //        Button likeBt = (Button) findViewById(R.id.LikeButton);
 //        likeBt.setOnClickListener(new View.OnClickListener() {

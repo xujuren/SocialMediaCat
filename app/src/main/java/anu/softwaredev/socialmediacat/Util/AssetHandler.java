@@ -95,7 +95,7 @@ public abstract class AssetHandler {
             }
         }
 
-        UserActivityDao.getInstance().storePost(posts);
+        UserActivityDao.getInstance().loadPosts(posts);
     }
 
 

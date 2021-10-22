@@ -6,8 +6,11 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import Tree.Global_Data;
 import anu.softwaredev.socialmediacat.Classes.Post;
 
 /**
@@ -23,7 +26,9 @@ public interface IUserActivityDao {
 
     void deletePost(String postId);
 
-    void findUserProfile(String userId, TextView uIdTv, TextView captionTv);
+    void loadPosts(List<Post> posts);
+
+    void findUserProfileUid(String userId, TextView uIdTv, TextView captionTv);
 
     void findUserProfile(FirebaseUser user, TextInputLayout userNameLayout, TextInputLayout interestsLayout, TextInputLayout captionLayout);
 
