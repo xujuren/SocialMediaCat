@@ -257,17 +257,29 @@ The above two test class has covered 87% of method and 70% lines from Tree folde
 | 2 | User must be able to load (from files or Firebase) and view posts (e.g. on a timeline activity) | <ul><li>Location: shown in a timeline after user clicks the `to Timeline` or `My posts` button, and also as a single post after clicking a post in the timeline.</li><li>posts are loaded/created using local data instances (as described in *Data Instances* section), and viewable via the timeline.</li></ul>|
 | 3 | Feed app with a data file with at least 1,000 valid data instances | Please find description in the [`Data Instances` section] |
 
+**Improved Search**
+| No. | Task | Description |
+| ------ | ------ | ------ |
+| 1 | Search functionality can handle partially valid and invalid search queries. (medium) | The Search Query could handle partially valid and invalid queries 
+- Situation 1 :  e.g. (#comp2400;@#) The first part(tag) is valid, but the second part(postID) is invalid as @ should be followed with only numbers or characters, not #
+    
+- Situation 2 :  e.g. (#comp2400;#comp2100) The first part(tag) is valid, but the second part(tag) is invalid as there should be only one tag as search query input according to our grammar rules.
+
+- Situation 3: e.g. (@postID1;@postID2) The first part(postID) is valid, but the second part(postID) is invalid as there should be only one postID as search query input according to our grammar rules.
+     |
+
+
 **Firebase Integration**
 | No. | Task | Description |
 | ------ | ------ | ------ |
-| 1 | Use Firebase to implement user Authentication/Authorisation. (easy) | Please find description in `Part I: Basic App, Item 1` |
-| 2 | Use Firebase to persist all data used in your app. (medium) | Please find description in the [`Data Persistence` section]. |
+| 2 | Use Firebase to implement user Authentication/Authorisation. (easy) | Please find description in `Part I: Basic App, Item 1` |
+| 3 | Use Firebase to persist all data used in your app. (medium) | Please find description in the [`Data Persistence` section]. |
 
 **Greater Data Usage, Handling and Sophistication**
 | No. | Task | Description |
 | ------ | ------ | ------ |
-| 1 | Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy) | Please find description in the [`Data model` section] |
-| 3 |  Use GPS information. (easy) | <ul><li>Location: `AssetHandlerFactory`.</li> <li>Description: the user can opt to share his/her current GPS location by a button. If permission to read location is not available, the same will be reequested.</li> <li>After that, the location will be read and shown on screen, and added at to the content of the post when the user click "Create Post". </li></ul>|
+| 4 | Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy) | Please find description in the [`Data model` section] |
+| 5 |  Use GPS information. (easy) | <ul><li>Location: `AssetHandlerFactory`.</li> <li>Description: the user can opt to share his/her current GPS location by a button. If permission to read location is not available, the same will be reequested.</li> <li>After that, the location will be read and shown on screen, and added at to the content of the post when the user click "Create Post". </li></ul>|
 
 
 
