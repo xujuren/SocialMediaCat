@@ -111,6 +111,68 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 * Due to limited time where proper integration and testing is not possible, real-time synchronization has not been implemented with the new features.
 * A real-life use case shall involve both read and write of data via Firebase, in replacement of the local data instances.
 
+# Search: Tokenizer and Parser
+
+### Query Grammar
+
+A valid query consists of at least one attribute. Different attributes could be connected with ";".
+
+Example:
+
+#comp2400;@postID1
+
+Query Attributes:
+
+1. #tagname (e.g. #comp2400) , this attribute is to find all posts with #comp2400 as their tag
+2. @postID( e.g. @LP1), the postID is a unique identifier to each post, which means different post has its corresponding different unique post ID. When this attribute is put into the search query, there should be only one Post as search result
+
+## Implementation
+
+### Object Token
+
+An object Token is constructed by a string and its enum type. The string represents the content of the token(not included the # or @ ). The enum Type includes TAG, AND, POSTID
+
+### Search Tokenizer
+
+The searchTokenizer is used to tokenize a query string (#comp2400;@postID1) when processing the query.
+
+- method next() extracts a Token of current position and points to the next one  if method hasNext(). returns true.
+- method current() returns current token
+
+### Abstract Exp class
+
+Create an abstract Exp class to store all query terms, PostIDExp, TagExp and AndExp to extends from the abstract class 
+
+Exp includes a Token type and a string 
+
+- getToken()
+- getValue() return the string
+
+example : query :
+
+ #comp2400;@postID1
+
+output: TagExp(Token.Type.TAG,"comp2400") AndExp(Token.Type.AND,";") PostIDExp(Token.Type.POSTID,"postID1") 
+
+### Parser class
+
+- Exp getTag()  method (Exp is the return type)
+1. step: use the tokenizer 
+2. Since Tag is our first attribute in the grammar, we check if the current token's type is TAG. If yes, we return a TagExp as output
+3. If no, we return null
+
+- Exp getPostID() method (Exp is the return type)
+1. step: use the tokenizer 
+2. Situation 1: PostID is our third Token in the grammar if there is a Tag Token as first attribute, And Token as second attribute.  
+    - We use tokenizer.next() for 2 times to move to the third position and check if the current token's type is PostID.
+    1. If yes, return a PostIDExp as output
+    2. If no, return null
+    
+    Situation 2: PostID is our first and only attribute in the grammar.
+    
+    - We check if the first position of token's type is PostID
+    1. If yes, return a PostIDExp as output
+    2. If no, return null
 
 
 ### Design Patterns**
@@ -121,7 +183,7 @@ We use the singleton pattern to ensure that all actions by the current user are 
 **Strategy pattern:** <br>
 When users use the search function, they may present different search information, for example, they may present both label and category, or they may present only label. In order to facilitate the user's operation, we implement a variety of search algorithms, and then extract all methods into a search method. This original search class stores all search algorithms and selects different strategies according to the given information type. In this way, we only provide a search method that can handle all parameter types, which greatly facilitates the operation of users.
 
-**DAO pattern: ** <br>
+**DAO pattern:** <br>
 We use the DAO pattern to separate the data access API from the high-level business logic, which isolates the data access code from the business logic code, allowing the business logic code to call DAO methods directly, eliminating the need for direct interaction with the data table, reducing the coupling. We created two data entity classes, User and Post, and all function functions will directly interact with these two types of objects, which also means that the changes of the database will not directly affect the business logic code, which is also convenient for our development to a large extent.
 
 ## Implemented Features
