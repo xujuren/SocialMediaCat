@@ -280,6 +280,17 @@ The above two test class has covered 87% of method and 70% lines from Tree folde
 | ------ | ------ | ------ |
 | 4 | Read data instances from multiple local files in different formats (JSON, CSV, and Bespoken). (easy) | Please find description in the [`Data model` section] |
 | 5 |  Use GPS information. (easy) | <ul><li>Location: `AssetHandlerFactory`.</li> <li>Description: the user can opt to share his/her current GPS location by a button. If permission to read location is not available, the same will be reequested.</li> <li>After that, the location will be read and shown on screen, and added at to the content of the post when the user click "Create Post". </li></ul>|
+| 7 | Deletion method of either a Red-Black Tree and or AVL tree data structure. The
+deletion of nodes must serve a purpose within your application (e.g. deleting posts).
+(hard) | User could delete any post made by the user himself. The deleted post will be recorderd in both Firebase and local RB tree(data structure). Next time the user checks for his own posts, the deleted one will not be there |
+
+**User Interactivity**
+| No. | Task | Description |
+| ------ | ------ | ------ |
+| 7 | The ability to micro-interact with 'posts' (e.g. like, report, etc.) [stored in-memory].
+(easy) | Seach user could like any post they want, the "like" info is stored both in firebase and local machine, which means next time the user logs in the number of likes to each post will be correctly shown. |
+
+
 
 
 
