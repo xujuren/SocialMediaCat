@@ -224,12 +224,25 @@ used together to handle data of different formats
 
 
 
-## Testing Summary                   [TODO]     *[What features have you tested? What is your testing coverage?]*
-*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
-*Here is an example:*
-*Number of test cases: ...*
-*Code coverage: ...*
-*Types of tests created: ...*
+## Testing Summary                   
+*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*I test my Red-black tree through four main test function, which are “inertTest()”, “deleteTest()”, “toListTest()”, “testSeconLayer()”.
+The insertTest() will cover the functionalities of insertion, and self-balance after insertion.
+The deleteTest() will cover the functionalities of deletion, and self-balance after deletion.
+The toListTest() will cover the functionalities of covert all content from all two layers of Red-black trees into a list with an ascending order.
+The testSeconLayer() will test whether our whether layer tree works properly.
+
+
+I test my Global_Data.java with 5 main tests functions
+insertTest(), cover the functionalities of insert data into our global data
+deleteTest(), cover the functionalities of delete data into our global data
+testSearch(), cover the functionalities of search post by using searching key “tag”, “post id” or “tag + post id” from our global data
+testLike(), cover the functionalities of like a post 
+testSearchByUser() cover the functionalities of search post by using searching key “user id” from our global data
+
+
+The above two test class has covered 87% of method and 70% lines from Tree folder (contains RBTree.java, RBTreeNode.java, Color.java, Global_Data.java)
+
+![image](/uploads/d09cef213710b0b23fc400406d88a4a7/image.png)
 
 
 
