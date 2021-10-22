@@ -6,27 +6,15 @@ declaration: >-
   I declare that everything I have submitted in this assignment is entirely our
   own work, with the following exceptions:
 
-# add as many "url+licence+comment" entries as necessary ( remove it altogether if you haven't used any external code)
-code:
-  - comment:
-    url:
-    licence:
-
-# add as many "url+licence+comment" entries as necessary (remove it altogether if you haven't used any external assets)
-assets:
-  - comment: "_Bliss_ by Charles O'Rear"    # NOTE: "Bliss" is just here as an example, you should remove it
-    url: https://en.wikipedia.org/wiki/Bliss_(image)
-    licence: fair use
-
 
 # for each member, write your name and uid here
 # remove any empty "name+uid" entries
 members:
   - name: Cathy Cheung
     uid: u7323583
-  - name:
-    uid:
-  - name:
-    uid:
-  - name:
-    uid:
+  - name: Xiangyu Song
+    uid: u7324787
+  - name: Juren Xu
+    uid: u7149851
+  - name: Junhao Wang
+    uid: u7274552
