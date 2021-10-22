@@ -90,10 +90,15 @@ public class TimelineActivity extends AppCompatActivity {
                 for (Post post:postsResult) {
                     System.out.println(post);
                 }
-                // TODO - postsResult to display as result
-                postList.clear();
-                postList.addAll(postsResult);
-                timelineAdapter.notifyDataSetChanged();
+                if(postsResult.size()==0){
+                    postList.addAll(Global_Data.getInstance().toList());
+                    timelineAdapter.notifyDataSetChanged();
+                }
+                else {
+                    postList.clear();
+                    postList.addAll(postsResult);
+                    timelineAdapter.notifyDataSetChanged();
+                }
                 if (postsResult.size() == 0)
                     Toast.makeText(getApplicationContext(), "No result", Toast.LENGTH_SHORT).show();
             }

@@ -44,14 +44,11 @@ public class Global_Data {
         this.data = data;
     }
 
-    // TODO @Juren - change name here? getAllPost()?
     public List<Post> toList() {
         List<RBTreeNode<String>> allTags = data.findAll(data.root);
         List<Post> allPosts = new LinkedList<Post>();
         for (RBTreeNode<String> tagSet:allTags) {
             allPosts.addAll(tagSet.postsTree.treeToListInorder(tagSet.postsTree.root));
-//            if (tagSet.getPostsTree() != null)
-//                allPosts.addAll(tagSet.postsTree.treeToListInorder(tagSet.postsTree.root));
         }
         return allPosts;
     }
