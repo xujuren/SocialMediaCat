@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,6 +57,8 @@ public class TimelineActivity extends AppCompatActivity {
         if (actionBar!=null) {
             actionBar.hide();
         }
+
+        System.out.println(postList.size());
 
         // Set Up timeline and data using RecyclerView
         RecyclerView rvTimeline = (RecyclerView) findViewById(R.id.rv_timeline);
@@ -106,24 +109,32 @@ public class TimelineActivity extends AppCompatActivity {
                     Post ClickPost = timelineAdapter.getDataset().get(position);
                     if (MESSAGE) {
                         Intent intent = new Intent(TimelineActivity.this, CurrentPost.class);
+                        intent.putExtra("POST", ClickPost);
+
                         intent.putExtra("uId",ClickPost.getUId());
                         intent.putExtra("tag",ClickPost.getTag());
                         intent.putExtra("postId",ClickPost.getPostId());
                         intent.putExtra("content",ClickPost.getContent());
                         intent.putExtra("likeCount",ClickPost.getLikeCount());
                         intent.putExtra("photoId",ClickPost.getPhotoId());
+//                        intent.putExtra("likedBy", ClickPost.getLikedBy());
                         //检查是mypost 还是 all post呼叫的currentpost
                         intent.putExtra("MESSAGE", MESSAGE);
                         startActivity(intent);
                         return true;
                     } else {
                         Intent intent = new Intent(TimelineActivity.this, MyPost.class);
+
+                        intent.putExtra("POST", ClickPost);
+
                         intent.putExtra("uId",ClickPost.getUId());
                         intent.putExtra("tag",ClickPost.getTag());
                         intent.putExtra("postId",ClickPost.getPostId());
                         intent.putExtra("content",ClickPost.getContent());
                         intent.putExtra("likeCount",ClickPost.getLikeCount());
                         intent.putExtra("photoId",ClickPost.getPhotoId());
+//                        intent.putExtra("likedBy", ClickPost.getLikedBy());
+//                        intent.putExtra("likedBy", ClickPost.getLikedBy());
                         //检查是mypost 还是 all post呼叫的currentpost
                         intent.putExtra("MESSAGE", MESSAGE);
                         startActivity(intent);

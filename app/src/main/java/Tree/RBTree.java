@@ -14,11 +14,11 @@ public class RBTree<T extends Comparable<T>> {
     public RBTreeNode<T> root;
 
 
-    /**
-     * red color is false and black is true
-     */
-    private static final boolean RED = false;
-    private static final boolean BLACK = true;
+//    /**
+//     * red color is false and black is true
+//     */
+//    private static final boolean RED = false;
+//    private static final boolean BLACK = true;
 
 
     /**

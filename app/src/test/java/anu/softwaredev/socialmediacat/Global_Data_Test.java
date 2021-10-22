@@ -68,10 +68,10 @@ public class Global_Data_Test {
     @Test
     public void testLike() {
         Post post = new Post( "uId_" + 1, "tag_" + 1, "postId_" + 1, "content_" + 1, 1);
-        Global_Data.getInstance().likePost(post);
+        Global_Data.getInstance().likePost(post, "unknown");
         assertEquals(1, Global_Data.getInstance().searchById(post.getPostId()).getLikeCount());
 
-        Global_Data.getInstance().unlikePost(post);
+        Global_Data.getInstance().unlikePost(post, "unknown");
         assertEquals(0, Global_Data.getInstance().searchById(post.getPostId()).getLikeCount());
     }
 

@@ -1,5 +1,6 @@
 package Tree;
-import java.util.ArrayList;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.LinkedList;
 import java.util.List;
 import anu.softwaredev.socialmediacat.Classes.Post;
@@ -93,44 +94,27 @@ public class Global_Data {
 
 
         RBTreeNode<Post> result = node.getPostsTree().findById(PostId);
-//        List<Post> returnList = new LinkedList<>();
-//        if (result == null)
-//            return returnList;
-//        else{
-//            returnList.add(result.getKey());
-//            return returnList;
-//        }
+
         return result == null ? null : result.getKey();
 //        return node.getPostsTree().findById(PostId).getKey();
     }
 
-    public boolean likePost(Post pt) {
+    public boolean likePost(Post pt, String Uid) {
         Post post = search(pt.getTag(), pt.getPostId());
         if (post != null) {
-            post.likePost();
+            post.likePost(Uid);
             return true;
         }
         return false;
     }
 
-    public boolean unlikePost(Post pt) {
+    public boolean unlikePost(Post pt, String Uid) {
         Post post = search(pt.getTag(), pt.getPostId());
         if (post != null) {
-            post.unlikePost();
+            post.unlikePost(Uid);
             return true;
         }
         return false;
     }
 
-//    public void add_My_Posts(Post post) {
-//        myPosts.add(post);
-//    }
-
-//    public List<Post> getMyPosts() {
-//        return myPosts;
-//    }
-
-//    public void remove_My_Post(Post post) {
-//        myPosts.remove(post);
-//    }
 }

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,7 +23,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 public class CurrentPost extends AppCompatActivity {
-    private static Post currentPost;
+    private static Post curPost;
     private static TextView uIdTv;
     private static TextView captionTv;
     private LikeButton likeButtonHeart;
@@ -36,16 +35,22 @@ public class CurrentPost extends AppCompatActivity {
         Intent intent = getIntent();
         final Boolean MESSAGE = intent.getExtras().getBoolean("MESSAGE");
 
-        String uid = intent.getStringExtra("uId");
-        String tag = intent.getStringExtra("tag");
-        String postId = intent.getStringExtra("postId");
-        String content = intent.getStringExtra("content");
-        int photoId = intent.getIntExtra("photoId",0);
-        int likeCount = intent.getIntExtra("likeCount",0);
-        currentPost = new Post(uid, tag, postId, content, photoId, likeCount);
+        Post curPost = (Post) getIntent().getExtras().getSerializable("POST");
+//        curPost.addLikedBy(FirebaseAuth.getInstance().getUid());
+//
+//        String uid = intent.getStringExtra("uId");
+//        String tag = intent.getStringExtra("tag");
+//        String postId = intent.getStringExtra("postId");
+//        String content = intent.getStringExtra("content");
+//        int photoId = intent.getIntExtra("photoId",0);
+//        int likeCount = intent.getIntExtra("likeCount",0);
+//        curPost = new Post(uid, tag, postId, content, photoId, likeCount);
+//        String postId = curPost.getPostId();
+//        String Uid = curPost.getUId();
+
 
         ImageView image = (ImageView) findViewById(R.id.imageView);
-        Glide.with(getApplicationContext()).load("https://picsum.photos/id/" + photoId + "/400/300").apply(new RequestOptions())
+        Glide.with(getApplicationContext()).load("https://picsum.photos/id/" + curPost.getPhotoId() + "/400/300").apply(new RequestOptions())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(image);
@@ -53,38 +58,43 @@ public class CurrentPost extends AppCompatActivity {
 
         // post id show
         TextView postID = (TextView) findViewById(R.id.postIdTextView);
-        postID.setText((CharSequence)currentPost.getPostId());
+//        postID.setText((CharSequence)currentPost.getPostId());
+        postID.setText((CharSequence)curPost.getPostId());
         postID.setTextSize(15f);
         postID.setTypeface(Typeface.DEFAULT_BOLD);
 
         // user id show
         uIdTv = (TextView) findViewById(R.id.userIdTextView);
-        uIdTv.setText("@"+(CharSequence)currentPost.getUId());
+//        uIdTv.setText("@"+(CharSequence)currentPost.getUId());
+        uIdTv.setText("@"+(CharSequence)curPost.getUId());
         uIdTv.setTextSize(15f);
         uIdTv.setTypeface(Typeface.DEFAULT_BOLD);
 
         // like show
         TextView like = (TextView) findViewById(R.id.likeTextView);
-        CharSequence likes = currentPost.getLikeCount() + " likes";
+//        CharSequence likes = currentPost.getLikeCount() + " likes";
+        CharSequence likes = curPost.getLikeCount() + " likes";
         like.setText(likes);
         like.setTextSize(15f);
         like.setTypeface(Typeface.DEFAULT);
 
         // tag show (if any)
         TextView tagTv = (TextView) findViewById(R.id.tagTextView);
-        tagTv.setText((CharSequence)currentPost.getTag());
+//        tagTv.setText((CharSequence)currentPost.getTag());
+        tagTv.setText((CharSequence)curPost.getTag());
         tagTv.setTextSize(15f);
         tagTv.setTypeface(Typeface.DEFAULT_BOLD);
 
         // post content
         TextView contentv = (TextView) findViewById(R.id.contentTextView);
-        contentv.setText((CharSequence)currentPost.getContent());
+//        contentv.setText((CharSequence)currentPost.getContent());
+        contentv.setText((CharSequence)curPost.getContent());
         contentv.setTextSize(16f);
         postID.setTypeface(Typeface.DEFAULT_BOLD);
 
         // caption
         captionTv = (TextView) findViewById(R.id.captionTv);
-        UserActivityDao.getInstance().findUserProfileUid(uid, uIdTv, captionTv);
+        UserActivityDao.getInstance().findUserProfileUid(curPost.getUId(), uIdTv, captionTv);
 
 //        Button likeBt = (Button) findViewById(R.id.LikeButton);
 //        likeBt.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +111,8 @@ public class CurrentPost extends AppCompatActivity {
 
         // initializing the LikeButton objects & Heart OnLikeListener
         likeButtonHeart = (LikeButton)findViewById(R.id.likeButtonHeart);
-        if(TimelineActivity.hasLiked){
+
+        if(curPost.getLikedBy().contains(FirebaseAuth.getInstance().getUid())){
             likeButtonHeart.setLiked(true);
         }
         likeButtonHeart.setOnLikeListener( new OnLikeListener(  ) {
@@ -110,12 +121,15 @@ public class CurrentPost extends AppCompatActivity {
                 //sowing simple Toast when liked
 //                Toast.makeText( CurrentPost.this, " Liked Heart : )", Toast.LENGTH_SHORT ).show(  );
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                boolean likeResult = Global_Data.getInstance().likePost(currentPost);
+                boolean likeResult = Global_Data.getInstance().likePost(curPost, FirebaseAuth.getInstance().getUid());
                 if (likeResult){
-                    currentPost.likePost();
-                    CharSequence likesText = currentPost.getLikeCount() + " likes";
+//                    currentPost.likePost(FirebaseAuth.getInstance().getUid());
+//                    CharSequence likesText = currentPost.getLikeCount() + " likes";
+                    curPost.likePost(FirebaseAuth.getInstance().getUid());
+                    CharSequence likesText = curPost.getLikeCount() + " likes";
                     like.setText(likesText);
-                    UserActivityDao.getInstance().likePost(currentPost.getPostId());
+//                    UserActivityDao.getInstance().likePost(currentPost.getPostId());
+                    UserActivityDao.getInstance().likePost(curPost, FirebaseAuth.getInstance().getUid());
                     TimelineActivity.hasLiked = true;
                     Toast.makeText(CurrentPost.this, "Post Liked!", Toast.LENGTH_SHORT).show();}
             }
@@ -123,12 +137,18 @@ public class CurrentPost extends AppCompatActivity {
             @Override
             public void unLiked( LikeButton likeButton ) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                boolean likeResult = Global_Data.getInstance().unlikePost(currentPost);
+                boolean likeResult = Global_Data.getInstance().unlikePost(curPost, FirebaseAuth.getInstance().getUid());
+//                boolean likeResult = curPost.getLikedBy().contains(FirebaseAuth.getInstance().getUid());
+                System.out.println(user.getUid() + " " + curPost.getLikedBy().contains(user.getUid()));
                 if (likeResult){
-                    currentPost.unlikePost();
-                    CharSequence likesText = currentPost.getLikeCount() + " likes";
+//                    currentPost.unlikePost(FirebaseAuth.getInstance().getUid());
+//                    CharSequence likesText = currentPost.getLikeCount() + " likes";
+                    curPost.unlikePost(FirebaseAuth.getInstance().getUid());
+                    CharSequence likesText = curPost.getLikeCount() + " likes";
+
                     like.setText(likesText);
-                    UserActivityDao.getInstance().unlikePost(currentPost.getPostId());
+//                    UserActivityDao.getInstance().unlikePost(currentPost.getPostId());
+                    UserActivityDao.getInstance().unlikePost(curPost, FirebaseAuth.getInstance().getUid());
                     //showing simple Toast when unLiked
                     TimelineActivity.hasLiked = false;
                     Toast.makeText( CurrentPost.this, " Post unLiked  : )", Toast.LENGTH_SHORT ).show(  );}
