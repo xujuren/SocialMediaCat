@@ -21,7 +21,7 @@
 | **u7324787** | Xiangyu Song | Developer |
 | **u7149851** | Juren Xu | Developer |
 
-## Conflict Resolution Protocol
+### Conflict Resolution Protocol
 As a four-member team, we need to jointly develop a medium-sized Android application, and conflict resolution has become a very critical problem. Therefore, we formulated a set of conflict resolution protocols at the early stage of project development to solve various conflicts that may occur during the development process.
 
 First, determine the types of conflict -- relational, task-based, and process-based. (Classification from Professor Neal at Stanford)
@@ -77,18 +77,6 @@ This is the complete usage process of our social application, and I hope you wil
 ## Application Design and Decisions
 
 ### Data Model
-**Red-Black Tree** <br>
-**Objective：**<br>
-In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
-
-**Locations:** <br>
-RBTree.java, RBTreeNode.java, Color.java in Tree folder.
-
-**Reasons:** <br>
-When we decide our data structure, we firstly compared tree and list and we choose tree instead of list because the tree usually has better performance and more efficient in search and deletion which matches the requirement of our application (a social application requires user can search from all posts or delete their own posts). 
-
-Then we compared self-balance tree and ordinary tree. And we choose self-balance tree instead of ordinary tree because a self-balance tree and its average search, insertion and deletion time is better than ordinary tree. 
-Finally, in the self-balance tree, we choose the Red-black tree instead of the AVL tree. Because we consider AVL to be a strong self-balance tree and it requires the height difference between the two sides of the tree should be less than one which will require more rotations when doing self-balancing. When we need to insert or delete frequently, the resources used to maintain self-balancing are likely to exceed the time we save due to self-balancing. Therefore, under the trade-off, we finally chose the red-black tree as our data structure.
 
 #### 1) Data Instances - Sources
 Thousands of Facebook posts have been scraped using the python package `facebook_scraper`.
@@ -113,8 +101,7 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 * data in the userActions files include 5 fields (action, userId, tags, content and photoId) for 'create post',
   2 fields (userId, postId) for 'likes', and 2 fields (userId, postId) for 'delete post'
     - this non-nested structure is the best for firebase integration.
-
-
+    
 ### Data Persistence: All the data and updates from local instances and users were also persisted using Firebase.
 **Advantages:**
 * Security: delegates much of the security concerns to the specialized platform, especially passwords and Personally Identifiable Information.
@@ -125,8 +112,22 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 * Due to limited time where proper integration and testing is not possible, real-time synchronization has not been implemented with the new features.
 * A real-life use case shall involve both read and write of data via Firebase, in replacement of the local data instances.
 
+### Data Structure
+#### Red-Black Tree
+**Objective：**
+In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
 
-## Search: Tokenizer and Parser
+**Locations:**
+RBTree.java, RBTreeNode.java, Color.java in Tree folder.
+
+**Reasons:**
+When we decide our data structure, we firstly compared tree and list and we choose tree instead of list because the tree usually has better performance and more efficient in search and deletion which matches the requirement of our application (a social application requires user can search from all posts or delete their own posts).
+
+Then we compared self-balance tree and ordinary tree. And we choose self-balance tree instead of ordinary tree because a self-balance tree and its average search, insertion and deletion time is better than ordinary tree.
+Finally, in the self-balance tree, we choose the Red-black tree instead of the AVL tree. Because we consider AVL to be a strong self-balance tree and it requires the height difference between the two sides of the tree should be less than one which will require more rotations when doing self-balancing. When we need to insert or delete frequently, the resources used to maintain self-balancing are likely to exceed the time we save due to self-balancing. Therefore, under the trade-off, we finally chose the red-black tree as our data structure.
+
+
+## Tokenizer, Parser and Search
 
 ### Query Grammar
 
@@ -150,14 +151,13 @@ An object Token is constructed by a string and its enum type. The string represe
 The searchTokenizer is used to tokenize a query string (#comp2400;@postID1) when processing the query.
 
  * method next() extracts a Token of current position and points to the next one  if method hasNext(). returns true.
-* method current() returns current token
+ * method current() returns current token
 
 #### Abstract Exp class
 
 Create an abstract Exp class to store all query terms, PostIDExp, TagExp and AndExp to extends from the abstract class 
 
-Exp includes a Token type and a string 
-
+Exp includes a Token type and a string
 * getToken()
 * getValue() return the string
 
