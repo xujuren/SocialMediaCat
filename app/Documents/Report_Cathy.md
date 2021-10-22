@@ -21,7 +21,7 @@ First, determine the types of conflict -- relational, task-based, and process-ba
 | Task-based conflict | Conflicts caused by differences in team members' perceptions of team tasks.        | 
 | Flow type conflict  | Including differences of opinion on the way things are done and the allocation of resources.        | 
 
-Solution:
+#Solution:
 Task-based conflict is the least harmful to the team, and in most cases can even have a positive impact on the final outcome of the project. Different perspectives and solutions are encouraged and discussed in frequently scheduled team meetings to determine the best solution, which helps us to adopt more efficient means to achieve the project objectives.
 
 Process conflicts are very likely to occur, and the team will take different perspectives and opinions into consideration, leading the parties to reach consensus and abide by it. We hope to adopt a compromise solution. The team will gather the viewpoints and opinions of various parties in the meeting and come up with a conflict resolution solution accepted and committed by most people, which may require the compromise of some team members.
@@ -64,7 +64,7 @@ This is the complete usage process of our social application, and I hope you wil
 ## Application Design and Decisions
 
 ### Data Model
-**Red-Black Tree**
+#Red-Black Tree <br>
 *Objective：*In our application, we used two layers of Red-Black tree to store our all Posts instance. As the diagram 1 shown below, there is one tree for each tag, and the tag itself is also store as a tree structure (Tree in another tree). For example, in the diagram 1 below shows that there are three posts: post_1, post_2 and post_3. They are all characteristic by Tag_5 and they are all stored in the tree which under the node Tag_5. Please note that if none of a post is characteristic by a tag, then the corresponding tag node will be deleted from outer layer tree (Tag Tree). For example, we can see from the diagram 1 below, there isn’t a post characteristic by Tag_1, Tag_2, Tag_3, Tag_4. Therefore, all these nodes will be deleted from outer layer tree and the original tree will be maintained as tree in diagram 2.
 
 *Locations:* RBTree.java, RBTreeNode.java, Color.java in Tree folder.
@@ -112,11 +112,14 @@ For extensibility and flexibility, Posts could be loaded from different files fo
 
 ### Design Patterns**
 
-*Singleton pattern: *We use the singleton pattern to ensure that all actions by the current user are performed by the same user object. Business logic dictates that each application process should allow only one user to log in, so we set up singletons to ensure that multiple users do not appear in the same process. In code logic, the singleton ensures that all operations have access to "user" resources, that is, all user operations are performed by the current user.
+#Singleton pattern: 
+We use the singleton pattern to ensure that all actions by the current user are performed by the same user object. Business logic dictates that each application process should allow only one user to log in, so we set up singletons to ensure that multiple users do not appear in the same process. In code logic, the singleton ensures that all operations have access to "user" resources, that is, all user operations are performed by the current user.
 
-*Strategy pattern: *When users use the search function, they may present different search information, for example, they may present both label and category, or they may present only label. In order to facilitate the user's operation, we implement a variety of search algorithms, and then extract all methods into a search method. This original search class stores all search algorithms and selects different strategies according to the given information type. In this way, we only provide a search method that can handle all parameter types, which greatly facilitates the operation of users.
+#Strategy pattern: 
+When users use the search function, they may present different search information, for example, they may present both label and category, or they may present only label. In order to facilitate the user's operation, we implement a variety of search algorithms, and then extract all methods into a search method. This original search class stores all search algorithms and selects different strategies according to the given information type. In this way, we only provide a search method that can handle all parameter types, which greatly facilitates the operation of users.
 
-*DAO pattern: *We use the DAO pattern to separate the data access API from the high-level business logic, which isolates the data access code from the business logic code, allowing the business logic code to call DAO methods directly, eliminating the need for direct interaction with the data table, reducing the coupling. We created two data entity classes, User and Post, and all function functions will directly interact with these two types of objects, which also means that the changes of the database will not directly affect the business logic code, which is also convenient for our development to a large extent.
+#DAO pattern: 
+We use the DAO pattern to separate the data access API from the high-level business logic, which isolates the data access code from the business logic code, allowing the business logic code to call DAO methods directly, eliminating the need for direct interaction with the data table, reducing the coupling. We created two data entity classes, User and Post, and all function functions will directly interact with these two types of objects, which also means that the changes of the database will not directly affect the business logic code, which is also convenient for our development to a large extent.
 
 #### Template method and factory method: used together to handle data of different formats
 * the abstract class `AssetHandler` defines the requirements in reading and parsing of files.
